@@ -1,0 +1,59 @@
+#
+# generated on 2020/04/09 03:29:14
+#
+# --table-start--
+dataClass=com.bihanitech.shikshyaprasasak.model.SchoolInfo
+tableName=schoolinfo
+# --table-fields-start--
+# --field-start--
+fieldName=schoolid
+id=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=logo
+# --field-end--
+# --field-start--
+fieldName=address
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem
+tableName=contactsitem
+# --table-fields-start--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=contacts
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem
+tableName=noticeitem
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=title
+# --field-end--
+# --field-start--
+fieldName=detail
+# --field-end--
+# --field-start--
+fieldName=pDate
+# --field-end--
+# --field-start--
+fieldName=eDate
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

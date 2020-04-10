@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/shik_bg"
+    tools:context="com.bihanitech.shikshyaprasasak.ui.usermanagement.registrationActivity.RegistrationActivity">
+
+
+    <TextView
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_height="wrap_content"
+        android:text="Enter your registered phone number"
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#222"
+        android:id="@+id/tvLabel1"
+        />
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Country"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/tvLabel1"
+        app:layout_constraintStart_toStartOf="@id/tvLabel1"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:paddingLeft="8dp"
+        android:id="@+id/mbsCountry"
+        android:layout_marginTop="24dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="+977"
+        app:layout_constraintTop_toBottomOf="@+id/mbsCountry"
+        app:layout_constraintStart_toStartOf="@+id/mbsCountry"
+        android:textSize="14sp"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textColorHint="#bfbfbf"
+        android:id="@+id/tvCountryCode"
+        />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:id="@+id/vBar"
+        android:background="#666666"
+
+        app:layout_constraintStart_toEndOf="@+id/tvCountryCode"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/mbsCountry"
+        app:layout_constraintBottom_toTopOf="@+id/hBar"/>
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:id="@+id/hBar"
+
+        android:layout_marginTop="4dp"
+        android:background="#666666"
+        app:layout_constraintStart_toStartOf="@+id/tvCountryCode"
+        app:layout_constraintEnd_toEndOf="@+id/mbsCountry"
+        app:layout_constraintTop_toBottomOf="@+id/tvCountryCode"/>
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/tvPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Number"
+        app:layout_constraintEnd_toEndOf="@+id/mbsCountry"
+        android:textColorHint="#acacac"
+        android:textSize="14sp"
+        android:background="#00000000"
+        android:inputType="phone"
+        android:backgroundTint="#ffffff"
+        app:layout_constraintStart_toEndOf="@+id/vBar"
+        android:layout_marginStart="8dp"
+        android:padding="4dp"
+        app:layout_constraintTop_toTopOf="@id/tvCountryCode"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCountryCode"
+        />
+
+    <Button
+        android:layout_width="0dp"
+
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="@drawable/custom_rect_button"
+        android:text="Sign In"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/hBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent=".4"
+        android:minHeight="0dp"
+        android:enabled="false"
+        android:layout_marginTop="64dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:id="@+id/btSignin"/>
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        app:layout_constraintStart_toStartOf="@id/tvLabel2"
+        app:layout_constraintEnd_toEndOf="@id/tvLabel2"
+        app:layout_constraintBottom_toTopOf="@id/tvLabel2"
+        android:layout_marginBottom="12dp"
+        android:background="@color/cc_yellow"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Make sure that your phone number is registered in school and you can receive SMS to this number so that we can send you code."
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/btSignin"
+        android:id="@+id/tvLabel2"
+        android:layout_marginTop="64dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_rect_button"
+        android:text="Visitor"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:minHeight="0dp"
+        android:clickable="true"
+        android:visibility="gone"
+        android:layout_marginTop="64dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textSize="13sp"
+        android:textAllCaps="false"
+        android:id="@+id/btVisitor"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/subject_recycler_view"
+    android:layout_width="130sp"
+    android:layout_height="130sp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        android:id="@+id/cvCircleDefault"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+          <TextView
+              app:layout_constraintBottom_toTopOf="@id/tvSection"
+              android:id="@+id/tvClass"
+              android:layout_marginStart="8dp"
+              app:layout_constraintStart_toStartOf="parent"
+              android:singleLine="true"
+              android:textStyle="bold"
+              android:textSize="26sp"
+              android:textColor="@color/colorAccent"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Play Group"></TextView>
+
+            <TextView
+                app:layout_constraintBottom_toTopOf="@id/tvSubject"
+                android:id="@+id/tvSection"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(marigolds)"></TextView>
+
+            <TextView
+                android:textColor="#888787"
+                android:layout_marginBottom="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/tvSubject"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:singleLine="true"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Social Studies"></TextView>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

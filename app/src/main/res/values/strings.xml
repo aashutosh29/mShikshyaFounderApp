@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Shikshya prasasak</string>
+    <string name="version">Powered by COSMOS (V 1.1.3 beta)</string>
+
+    <!-- For navigation menu -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <!-- Navigation drawer menu label -->
+    <string name="nav_notice">Notice</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_homework">Homework</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_complain">Complain</string>
+    <string name="nav_contacts">Contacts</string>
+
+
+    <string name="Baisakh">Baisakh</string>
+    <string name="Jestha">Jestha</string>
+    <string name="Ashar">Ashar</string>
+    <string name="Shrawan">Shrawan</string>
+    <string name="Bhadra">Bhadra</string>
+    <string name="Ashoj">Ashoj</string>
+    <string name="Kartik">Kartik</string>
+    <string name="Mangsir">Mangsir</string>
+    <string name="Poush">Poush</string>
+    <string name="Magh">Magh</string>
+    <string name="Falgun">Falgun</string>
+    <string name="Chaitra">Chaitra</string>
+    <string name="name__">Roll No</string>
+
+</resources>

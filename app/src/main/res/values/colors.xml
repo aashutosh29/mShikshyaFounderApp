@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#18386D</color>
+    <color name="colorPrimaryDark">#0D2041</color>
+    <color name="colorAccent">#18386D</color>
+    <color name="colorAccentNew">#F5B700</color>
+    <color name="error" >#ff0000</color>
+    <color name="etNormal">#7c7c7c</color>
+
+    <color name="colorPrimaryShadeMild">#294679</color>
+
+
+    <color name="match1">#02182b</color>
+    <color name="match3">#7fb800</color>
+    <color name="match2">#ffb400</color>
+    <color name="match4">#550527</color>
+    <color name="shik_bg">#FCFEFF</color>
+    <color name="dark_shik_bg">#F8FDFF</color>
+
+
+    <color name="grayLight">#fcfcfc</color>
+    <color name="grayMild">#CAC8C8</color>
+    <color name="starBlue">#089eb3</color>
+    <color name="endBlue">#09c4dd</color>
+
+    <color name="light_grey_text">#474747</color>
+    <color name="mid_grey_text">#2E2E2E</color>
+    <color name="dark_text_color">#0F0F0F</color>
+
+
+    <color name="cc_golden">#f9a602</color>
+    <color name="cc_yellow">#ffbc00</color>
+    <color name="cc_red">#ff7474</color>
+    <color name="cc_blue">#3665ff</color>
+    <color name="cc_purple">#7968f9</color>
+    <color name="cc_light_blue">#0aafe2</color>
+    <color name="cc_green">#11da3c</color>
+    <color name="dark_green">#118F18</color>
+    <color name="dark_red">#EB1810</color>
+    <color name="white">#FFFFFF</color>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="172dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:background="@color/colorPrimary"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shankar Shrestha"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="48dp"
+        android:layout_marginStart="24dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/tvName"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step By Step Boarding School"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="2dp"
+        android:ems="12"
+        android:layout_marginStart="24dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        android:id="@+id/tvSchool"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class VII"
+        android:visibility="gone"
+        android:id="@+id/tvClass"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSchool"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="24dp"
+        android:textSize="13sp"
+        />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_drop_down_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvName"
+        android:background="@drawable/custom_ripple"
+        android:padding="16dp"
+        android:visibility="gone"
+        android:layout_marginEnd="24dp"
+        android:id="@+id/ibDrop"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <item
+        android:drawable="@drawable/splash_gradient">
+
+    </item>
+
+    <item
+        android:gravity="center"
+        >
+
+        <bitmap android:src="@drawable/logo"
+            android:gravity="center"
+            />
+
+    </item>
+
+    <item>
+        <bitmap android:src="@drawable/bottom_new"/>
+    </item>
+
+
+</layer-list>

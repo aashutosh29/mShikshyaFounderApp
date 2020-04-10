@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_notice"
+        android:title="Notice" />
+
+    <item
+        android:id="@+id/nav_account"
+        android:title="Account" />
+
+  <item
+        android:id="@+id/nav_attendance"
+        android:title="Attendance" />
+
+  <item
+        android:id="@+id/nav_homework"
+        android:title="Homework" />
+
+
+    <item
+        android:id="@+id/nav_calendar"
+        android:title="Calendar" />
+
+
+    <item
+        android:id="@+id/nav_contact"
+        android:title="Contacts" />
+
+
+  <item
+        android:id="@+id/nav_marks_entry"
+        android:title="Marks Entry" />
+
+
+    <item
+        android:id="@+id/nav_sync_subject"
+        android:title="Sync Subjects"/>
+
+    <item
+        android:id="@+id/nav_sync_students"
+        android:title="Sync Students"/>
+
+
+</menu>

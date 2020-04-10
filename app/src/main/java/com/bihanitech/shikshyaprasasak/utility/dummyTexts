@@ -1,0 +1,245 @@
+-----------------------------------com.example.Example.java-----------------------------------
+
+package com.example;
+
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Example {
+
+@SerializedName("routine")
+@Expose
+private Routine routine;
+@SerializedName("result")
+@Expose
+private List<Result> result = null;
+
+public Routine getRoutine() {
+return routine;
+}
+
+public void setRoutine(Routine routine) {
+this.routine = routine;
+}
+
+public List<Result> getResult() {
+return result;
+}
+
+public void setResult(List<Result> result) {
+this.result = result;
+}
+
+}
+-----------------------------------com.example.Mark.java-----------------------------------
+
+package com.example;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Mark {
+
+@SerializedName("subject")
+@Expose
+private String subject;
+@SerializedName("grade")
+@Expose
+private String grade;
+@SerializedName("marks")
+@Expose
+private String marks;
+
+public String getSubject() {
+return subject;
+}
+
+public void setSubject(String subject) {
+this.subject = subject;
+}
+
+public String getGrade() {
+return grade;
+}
+
+public void setGrade(String grade) {
+this.grade = grade;
+}
+
+public String getMarks() {
+return marks;
+}
+
+public void setMarks(String marks) {
+this.marks = marks;
+}
+
+}
+-----------------------------------com.example.Result.java-----------------------------------
+
+package com.example;
+
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Result {
+
+@SerializedName("terminal")
+@Expose
+private String terminal;
+@SerializedName("year")
+@Expose
+private String year;
+@SerializedName("type")
+@Expose
+private String type;
+@SerializedName("marks")
+@Expose
+private List<Mark> marks = null;
+@SerializedName("Remarks")
+@Expose
+private String remarks;
+@SerializedName("AverageGrade")
+@Expose
+private String averageGrade;
+@SerializedName("Percentage")
+@Expose
+private String percentage;
+
+public String getTerminal() {
+return terminal;
+}
+
+public void setTerminal(String terminal) {
+this.terminal = terminal;
+}
+
+public String getYear() {
+return year;
+}
+
+public void setYear(String year) {
+this.year = year;
+}
+
+public String getType() {
+return type;
+}
+
+public void setType(String type) {
+this.type = type;
+}
+
+public List<Mark> getMarks() {
+return marks;
+}
+
+public void setMarks(List<Mark> marks) {
+this.marks = marks;
+}
+
+public String getRemarks() {
+return remarks;
+}
+
+public void setRemarks(String remarks) {
+this.remarks = remarks;
+}
+
+public String getAverageGrade() {
+return averageGrade;
+}
+
+public void setAverageGrade(String averageGrade) {
+this.averageGrade = averageGrade;
+}
+
+public String getPercentage() {
+return percentage;
+}
+
+public void setPercentage(String percentage) {
+this.percentage = percentage;
+}
+
+}
+-----------------------------------com.example.Routine.java-----------------------------------
+
+package com.example;
+
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Routine {
+
+@SerializedName("terminal")
+@Expose
+private String terminal;
+@SerializedName("Year")
+@Expose
+private String year;
+@SerializedName("subjects")
+@Expose
+private List<Subject> subjects = null;
+
+public String getTerminal() {
+return terminal;
+}
+
+public void setTerminal(String terminal) {
+this.terminal = terminal;
+}
+
+public String getYear() {
+return year;
+}
+
+public void setYear(String year) {
+this.year = year;
+}
+
+public List<Subject> getSubjects() {
+return subjects;
+}
+
+public void setSubjects(List<Subject> subjects) {
+this.subjects = subjects;
+}
+
+}
+-----------------------------------com.example.Subject.java-----------------------------------
+
+package com.example;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Subject {
+
+@SerializedName("subject")
+@Expose
+private String subject;
+@SerializedName("date")
+@Expose
+private String date;
+
+public String getSubject() {
+return subject;
+}
+
+public void setSubject(String subject) {
+this.subject = subject;
+}
+
+public String getDate() {
+return date;
+}
+
+public void setDate(String date) {
+this.date = date;
+}
+
+}

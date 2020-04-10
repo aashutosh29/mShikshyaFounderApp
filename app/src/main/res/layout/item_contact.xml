@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvContacts"
+    android:paddingTop="6dp"
+    android:background="@color/shik_bg"
+
+    android:paddingBottom="6dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step by step school"
+        android:textSize="13sp"
+        android:layout_marginStart="12dp"
+        android:textColor="#3b3b3b"
+        android:ems="12"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="9845924109 , 9845936"
+        android:textSize="13sp"
+        android:textAlignment="textEnd"
+        android:ems="7"
+        android:layout_marginEnd="12dp"
+        android:textColor="#3b3b3b"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/tvContact"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

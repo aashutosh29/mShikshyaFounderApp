@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/shik_bg"
+    tools:context="com.bihanitech.shikshyaprasasak.ui.usermanagement.verifyOtpActivity.VerifyOtpActivity">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Enter the 6-digit code you received via SMS."
+        android:textSize="18sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#222"
+        android:id="@+id/tvLabel1"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/tvOtp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Code"
+        app:layout_constraintWidth_percent=".4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColorHint="#868686"
+        android:textSize="24sp"
+        android:maxLength="6"
+        android:textStyle="bold"
+        android:background="#00000000"
+        android:inputType="number"
+        android:backgroundTint="#ffffff"
+        android:padding="6dp"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/tvLabel1"
+        android:layout_marginTop="36dp"
+        />
+    <View
+        android:id="@+id/vBottom"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/tvOtp"
+        app:layout_constraintStart_toStartOf="@id/tvOtp"
+        app:layout_constraintEnd_toEndOf="@id/tvOtp"
+        />
+
+    <TextView
+        android:id="@+id/tvLabel2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="The code was sent to 984******* it may take few minutes."
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/vBottom"
+        android:layout_marginTop="24dp"
+        />
+
+    <TextView
+        android:id="@+id/tvWrongLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wrong number?"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#2b2b2b"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel2"
+        android:layout_marginTop="8dp"
+        />
+
+    <Button
+        android:layout_width="0dp"
+
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_rect_button_yellow"
+        app:layout_constraintWidth_percent=".4"
+        android:text="Edit Number"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/tvWrongLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:minHeight="0dp"
+        android:clickable="true"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="8dp"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:id="@+id/btEdit"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvResend"
+        android:text="Didn't receive SMS"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/btResend"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_rect_button"
+        android:text="Resend SMS"
+        app:layout_constraintWidth_percent=".4"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:minHeight="0dp"
+        android:enabled="false"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:id="@+id/btResend"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="02:00"
+        android:id="@+id/tvTime"
+        app:layout_constraintTop_toBottomOf="@id/btResend"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        android:textSize="16sp"
+        android:textColor="#2b2b2b"
+        android:textStyle="bold"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

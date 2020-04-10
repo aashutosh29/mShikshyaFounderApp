@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/shik_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:cardCornerRadius="4dp"
+            app:cardBackgroundColor="@color/colorPrimaryShadeMild"
+            android:id="@+id/clMarksEntry"
+            app:cardElevation="4dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Class : n/a"
+                    app:layout_constraintTop_toTopOf="@id/tvSubjectName"
+                    app:layout_constraintStart_toEndOf="@id/vDivider"
+                    android:textSize="16sp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintBottom_toTopOf="@id/tvSection"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/tvClassName"/>
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Section : n/a"
+                    app:layout_constraintStart_toStartOf="@id/tvClassName"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:visibility="visible"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="12dp"
+                    android:textColor="@color/white"
+                    android:id="@+id/tvSection"/>
+
+                <View
+                    android:layout_width="1.5dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias=".65"
+                    android:background="#CBE0F0"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/vDivider"
+                    />
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="n/a"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="18sp"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintEnd_toStartOf="@id/vDivider"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/tvSubjectName"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Exam Terminal"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@id/tvSubjectName"
+                    app:layout_constraintEnd_toEndOf="@id/tvSubjectName"
+                    app:layout_constraintTop_toBottomOf="@id/tvSubjectName"
+                    android:layout_marginTop="8dp"
+                    android:maxLines="1"
+                    android:id="@+id/tvTerminal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="8dp"
+                    />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
