@@ -15,6 +15,15 @@ public class CDayItem {
 
     }
 
+
+    /**
+     * this javaDoc comments looks better in dark version of android studio
+     *
+     * @param englishDate
+     * @param nepDate
+     * @param day
+     * @param currentDate
+     */
     public CDayItem(int englishDate, int nepDate, int day, int currentDate) {
         this.englishDate = englishDate;
         this.nepDate = nepDate;
@@ -22,10 +31,18 @@ public class CDayItem {
         this.currentDate = currentDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCurrentDate() {
         return currentDate;
     }
 
+    /**
+     *
+     * @param currentDate
+     */
     public void setCurrentDate(int currentDate) {
         this.currentDate = currentDate;
     }

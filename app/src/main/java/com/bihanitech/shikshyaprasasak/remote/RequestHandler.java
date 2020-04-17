@@ -48,5 +48,4 @@ public class RequestHandler {
 
         void onConnectionException(Exception e);
     }
-
 }
