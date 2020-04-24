@@ -1,16 +1,18 @@
-package com.bihanitech.shikshyaprasasak.ui.homeActivity.analytics;
+package com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
 import android.util.Log;
-import android.view.WindowManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ScrollView;
 
-import androidx.cardview.widget.CardView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.broooapps.graphview.CurveGraphConfig;
@@ -20,7 +22,9 @@ import com.broooapps.graphview.models.PointMap;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -36,69 +40,75 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class analyticsActivity extends Activity implements OnChartValueSelectedListener {
+import butterknife.ButterKnife;
+
+public class AnalyticsFragment extends Fragment implements OnChartValueSelectedListener {
 
     public static final int[] FOUNDER_COLORS = {
-            Color.rgb(21, 101, 192), Color.rgb(198, 40, 40),
+            Color.rgb(8, 154, 214), Color.rgb(160, 17, 28),
     };
+    public static final int[] FOUNDER_COLOR = {
+            Color.rgb(8, 154, 214)};
     protected final String[] parties = new String[]{
             "ABS", "PRST", "Party C"
     };
     protected Typeface tfRegular;
     protected Typeface tfLight;
-
-
+    List<String> xAxisValues = new ArrayList<>(Arrays.asList("Nur", "Kg", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
     private BarChart chart;
 
     private PieChart circularChart;
 
     private CurveGraphView curveGraphView;
-    private CardView cvIncomeVSDueBalance;
+
+    public AnalyticsFragment() {
+
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_analytics);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_analytics, container, false);
+        ButterKnife.bind(this, view);
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
+        //setContentView(R.layout.fragment_analytics);
 
-        ScrollView sView = findViewById(R.id.svMain);
+        ScrollView sView = view.findViewById(R.id.svMain);
         // Hide the Scollbar
         sView.setVerticalScrollBarEnabled(false);
         sView.setHorizontalScrollBarEnabled(false);
 
-        tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
-        tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
+        tfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
+        tfLight = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
 
 
         //Initializing Bar graph
+        chart = view.findViewById(R.id.chart1);
         setAllStuffsBarGraph();
         //Initializing circular chart
-        circularChart = findViewById(R.id.chCircular2);
+        circularChart = view.findViewById(R.id.chCircular2);
         setAllStuffsPieChart();
-        circularChart = findViewById(R.id.chCircular1);
+        circularChart = view.findViewById(R.id.chCircular1);
         setAllStuffsPieChart();
         //Initializing Curve graph
+        curveGraphView = view.findViewById(R.id.cgv);
         setAllStuffCurveGraph();
-       /* cvIncomeVSDueBalance.findViewById(R.id.cvIncomeVSDueBalance);
-        cvIncomeVSDueBalance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });*/
+        return view;
     }
 
 
     private void setAllStuffsBarGraph() {
 
-        chart = findViewById(R.id.chart1);
+
+        chart.getLegend().setEnabled(false);
 
         chart.getDescription().setEnabled(false);
         // if more than 60 entries are displayed in the chart, no values will be
         // drawn
-        chart.setMaxVisibleValueCount(10);
+        chart.setMaxVisibleValueCount(12);
 
         // scaling can now only be done on x- and y-axis separately
         chart.setPinchZoom(false);
@@ -108,36 +118,63 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
         xAxis.setDrawGridLines(false);
 
         chart.getAxisLeft().setDrawGridLines(false);
 
+
         //data for graph
         ArrayList<BarEntry> values = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
+       /* for (int i = 0; i < 12; i++) {
             float val = 8f;
-            values.add(new BarEntry(i, val));
-        }
+
+        }*/
+        values.add(new BarEntry(0, 65));
+        values.add(new BarEntry(1, 60));
+        values.add(new BarEntry(2, 55));
+        values.add(new BarEntry(3, 65));
+        values.add(new BarEntry(4, 55));
+        values.add(new BarEntry(5, 50));
+        values.add(new BarEntry(6, 50));
+        values.add(new BarEntry(7, 55));
+        values.add(new BarEntry(8, 60));
+        values.add(new BarEntry(9, 65));
+        values.add(new BarEntry(10, 60));
+
 
         BarDataSet set1;
 
 
         set1 = new BarDataSet(values, "Data Set");
-        set1.setColors(FOUNDER_COLORS
+        set1.setColors(FOUNDER_COLOR
         );
-        set1.setDrawValues(false);
+        set1.setDrawValues(true);
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1);
+        chart.getXAxis().setValueFormatter(new com.github.mikephil.charting.formatter.IndexAxisValueFormatter(xAxisValues));
 
         BarData data = new BarData(dataSets);
         chart.setData(data);
+        data.setDrawValues(false);
+        chart.getAxisRight().setEnabled(false);
+
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setTypeface(tfRegular);
+        leftAxis.setTextColor(ColorTemplate.getHoloBlue());
+        //leftAxis.setDrawGridLines(true);
+        leftAxis.setGranularityEnabled(true);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setAxisMaximum(90f);
+        leftAxis.setYOffset(-9f);
+        leftAxis.setTextColor(Color.rgb(5, 5, 5));
 
 
         // add a nice and smooth animation
-        chart.animateY(1500);
+        chart.animateY(1300);
 
-        chart.getLegend().setEnabled(false);
 
     }
 
@@ -145,8 +182,20 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
 
         //circularChart = findViewById(R.id.chCircular2);
         circularChart.setUsePercentValues(false);
-        circularChart.getDescription().setEnabled(false);
-        circularChart.setExtraOffsets(5, 10, 5, 5);
+        circularChart.getDescription().setEnabled(true);
+
+
+        Description description = new Description();
+        description.setText("Student");
+        description.setPosition(350, 700);
+        description.setTextSize(16f);
+        description.setTextColor(Color.parseColor("#036C99"));
+        circularChart.setDescription(description);
+
+
+        circularChart.getLegend().setEnabled(false);
+        circularChart.setExtraOffsets(1, -10, 1, -10);
+
 
         circularChart.setDragDecelerationFrictionCoef(0.95f);
 
@@ -154,13 +203,14 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
         circularChart.setCenterText(generateCenterSpannableText());
 
         circularChart.setDrawHoleEnabled(true);
-        circularChart.setHoleColor(Color.WHITE);
+        circularChart.setHoleColor(Color.parseColor("#F2F0F7"));
 
-        circularChart.setTransparentCircleColor(Color.WHITE);
+        circularChart.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
         circularChart.setTransparentCircleAlpha(110);
 
-        circularChart.setHoleRadius(70f);
-        circularChart.setTransparentCircleRadius(61f);
+        circularChart.setHoleRadius(72f);
+        circularChart.setTransparentCircleRadius(72f);
+
 
         circularChart.setDrawCenterText(true);
 
@@ -168,6 +218,7 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
         // enable rotation of the chart by touch
         circularChart.setRotationEnabled(true);
         circularChart.setHighlightPerTapEnabled(true);
+        //    circularChart.setExtraOffsets(-2,-12,-2,-12);
 
         // chart.setUnit(" €");
         // chart.setDrawUnitsInChart(true);
@@ -176,12 +227,15 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
         circularChart.setOnChartValueSelectedListener(this);
 
         circularChart.animateY(1400, Easing.EaseInOutQuad);
-        // chart.spin(2000, 0, 360);
 
-       /*
-       //forIndex
-       Legend l = circularChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+
+        //forIndex
+
+
+
+                /*
+                 Legend l = circularChart.getLegend();
+                 setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
         l.setDrawInside(false);
@@ -189,18 +243,19 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
         l.setYEntrySpace(0f);
         l.setYOffset(0f);*/
 
+
         // entry label styling
         circularChart.setEntryLabelColor(Color.WHITE);
         //  circularChart.setEntryLabelTypeface(tfRegular);
-        circularChart.setEntryLabelTextSize(12f);
+        circularChart.setEntryLabelTextSize(0f);
         setData(10, 5);
     }
 
     private void setAllStuffCurveGraph() {
-        curveGraphView = findViewById(R.id.cgv);
+
 
         curveGraphView.configure(
-                new CurveGraphConfig.Builder(this)
+                new CurveGraphConfig.Builder(getContext())
                         .setAxisColor(R.color.FounderBlue)                                            // Set number of values to be displayed in X ax
                         .setGuidelineCount(0)                                                   // Set number of background guidelines to be shown.
                         .setGuidelineColor(R.color.Red)                                       // Set color of the visible guidelines.
@@ -225,7 +280,7 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
         pointMap.addPoint(11, 100);
 
 
-        final GraphData gd = GraphData.builder(this)
+        final GraphData gd = GraphData.builder(getContext())
                 .setPointMap(pointMap)
                 .setGraphStroke(R.color.FounderRed)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
@@ -250,7 +305,7 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
         pm1.addPoint(11, 350);
 
 
-        final GraphData gd1 = GraphData.builder(this)
+        final GraphData gd1 = GraphData.builder(getContext())
                 .setPointMap(pm1)
                 .setGraphStroke(R.color.FounderGreen)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
@@ -275,7 +330,7 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
         pm2.addPoint(11, 550);
 
 
-        final GraphData gd2 = GraphData.builder(this)
+        final GraphData gd2 = GraphData.builder(getContext())
                 .setPointMap(pm2)
                 .setGraphStroke(R.color.FounderBlue)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
@@ -312,11 +367,13 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
 
         PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
 
+
         dataSet.setDrawIcons(false);
 
         dataSet.setSliceSpace(3f);
         dataSet.setIconsOffset(new MPPointF(0, 40));
         dataSet.setSelectionShift(5f);
+        dataSet.setDrawValues(false);
 
         // add a lot of colors
 
@@ -356,8 +413,9 @@ public class analyticsActivity extends Activity implements OnChartValueSelectedL
     }
 
     private SpannableString generateCenterSpannableText() {
+        String absentNum = "16";
 
-        SpannableString s = new SpannableString("FounderUI");
+        SpannableString s = new SpannableString("16 \n Absent \n 576 \n Total");
         return s;
     }
 

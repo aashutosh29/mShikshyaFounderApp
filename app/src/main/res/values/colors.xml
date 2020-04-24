@@ -38,4 +38,5 @@
     <color name="dark_green">#118F18</color>
     <color name="dark_red">#EB1810</color>
     <color name="white">#FFFFFF</color>
+    <color name="IconDefault">#7B7B7B</color>
 </resources>
