@@ -321,7 +321,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
                 //   invalidateStudentInfo(studentInfoList.get(0));
 
-            }else if(menuItem.getItemId() == 102){
+            } else if (menuItem.getItemId() == 102) {
                 //    invalidateStudentInfo(2);
             }
 

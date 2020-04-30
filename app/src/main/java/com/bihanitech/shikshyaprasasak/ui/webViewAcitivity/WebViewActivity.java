@@ -77,11 +77,11 @@ public class WebViewActivity extends AppCompatActivity {
         /**
          * Enabling zoom-in controls
          * */
-        /*
+
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setDisplayZoomControls(true);
-        */
+
 
         // Loading local html file into web view
         // webView.loadUrl("file:///android_asset/sample.html");

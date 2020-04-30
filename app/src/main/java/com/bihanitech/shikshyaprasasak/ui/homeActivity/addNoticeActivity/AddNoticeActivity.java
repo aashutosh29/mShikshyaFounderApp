@@ -44,8 +44,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         String[] items = new String[]{"Notice", "News", "Notice to teacher", "Notice to class section"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spCatagory.setAdapter(adapter);
-
-
         edittext = findViewById(R.id.etPushishDate);
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 

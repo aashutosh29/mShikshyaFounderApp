@@ -312,7 +312,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.broooapps.graphview.CurveGraphView
+                    <com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphView
                         android:id="@+id/cgv"
                         android:layout_width="0dp"
                         android:layout_height="200dp"

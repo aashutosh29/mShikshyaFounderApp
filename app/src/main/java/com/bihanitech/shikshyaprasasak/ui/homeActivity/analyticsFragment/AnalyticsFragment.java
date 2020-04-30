@@ -15,10 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bihanitech.shikshyaprasasak.R;
-import com.broooapps.graphview.CurveGraphConfig;
-import com.broooapps.graphview.CurveGraphView;
-import com.broooapps.graphview.models.GraphData;
-import com.broooapps.graphview.models.PointMap;
+import com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphConfig;
+import com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphView;
+import com.bihanitech.shikshyaprasasak.curveGraph.models.GraphData;
+import com.bihanitech.shikshyaprasasak.curveGraph.models.PointMap;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;

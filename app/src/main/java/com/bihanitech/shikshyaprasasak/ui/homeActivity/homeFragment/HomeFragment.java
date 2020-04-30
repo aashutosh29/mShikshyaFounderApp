@@ -40,8 +40,6 @@ public class HomeFragment extends Fragment {
 
     private static final Integer[] IMAGES = {R.drawable.ic_add_corona, R.drawable.two, R.drawable.three, R.drawable.four};
     private static final String[] NAMES = {"Notice1", "Notice 2", "Notice 3", "Notice 4"};
-    private static ViewPager mPager;
-    //private static ViewPager vpNotice;
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
     private static int currentNoticePage = 0;
@@ -52,6 +50,16 @@ public class HomeFragment extends Fragment {
 
     @BindView(R.id.vpNotice)
     ClickableViewPager vpNotice;
+
+
+    @BindView(R.id.cpIndicator)
+    CirclePageIndicator indicator;
+
+
+    @BindView(R.id.cpNotice)
+    CirclePageIndicator cpNotice;
+
+
     @Nullable
     @BindView(R.id.tvMainTitle)
     TextView tvTitle1;
@@ -70,13 +78,13 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.btMore)
     TextView btMore;
 
+
     @BindView(R.id.clNoNotice)
     ConstraintLayout clNoNotice;
 
     SharedPrefsHelper sharedPrefsHelper;
     String orgNotice1 = "", orgNotice2 = "";
-    CirclePageIndicator indicator;
-    CirclePageIndicator cpNotice;
+
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     private ArrayList<String> StringArray = new ArrayList<String>();
 
@@ -91,14 +99,6 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
         //setUpNoticeList();
-        indicator = view.findViewById(R.id.cpIndicator);
-        cpNotice = view.findViewById(R.id.cpNotice);
-
-        mPager = view.findViewById(R.id.vpAdvertise);
-        //vpNotice= (ViewPager) view.findViewById(R.id.vpNotice);
-
-
-        // ClickableViewPager viewPager = (ClickableViewPager) view.findViewById(R.id.vpAdvertise);
         vpAdvertise.setOnItemClickListener(new ClickableViewPager.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -143,17 +143,17 @@ public class HomeFragment extends Fragment {
 
 
         vpNotice.setAdapter(new SlidingNoticeAdapter(getContext(), StringArray));
-        mPager.setAdapter(new SlidingImageAdapter(getContext(), ImagesArray));
+        vpAdvertise.setAdapter(new SlidingImageAdapter(getContext(), ImagesArray));
 
 
-        indicator.setViewPager(mPager);
+        indicator.setViewPager(vpAdvertise);
         cpNotice.setViewPager(vpNotice);
 
         final float density = getResources().getDisplayMetrics().density;
 
-//Set circle indicator radius
-        indicator.setRadius(5 * density);
-        cpNotice.setRadius(4 * density);
+        //Set circle indicator radius
+        indicator.setRadius(3 * density);
+        cpNotice.setRadius(3 * density);
 
         NUM_PAGES = IMAGES.length;
         NUM_NOTICE_PAGE = NAMES.length;
@@ -166,7 +166,7 @@ public class HomeFragment extends Fragment {
                 if (currentPage == NUM_PAGES) {
                     currentPage = 0;
                 }
-                mPager.setCurrentItem(currentPage++, true);
+                vpAdvertise.setCurrentItem(currentPage++, true);
                 if (currentNoticePage == NUM_NOTICE_PAGE) {
                     currentNoticePage = 0;
                 }
