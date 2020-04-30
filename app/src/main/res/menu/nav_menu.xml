@@ -5,12 +5,12 @@
         android:title="Notice" />
 
     <item
-        android:id="@+id/nav_account"
-        android:title="Account" />
+        android:id="@+id/nav_upload_notice"
+        android:title="Uplodad Notice" />
 
   <item
-        android:id="@+id/nav_attendance"
-        android:title="Attendance" />
+      android:id="@+id/nav_web_view"
+      android:title="WebView" />
 
   <item
         android:id="@+id/nav_homework"

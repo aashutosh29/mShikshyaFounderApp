@@ -17,13 +17,16 @@
         <ImageView
             android:id="@+id/ivTwoline"
             android:layout_width="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingEnd="40dp"
+            android:paddingBottom="20dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_three_line"
             app:layout_constraintBottom_toBottomOf="@id/tvToolbarTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvToolbarTitle" />
         <TextView
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Shikshya Executive"

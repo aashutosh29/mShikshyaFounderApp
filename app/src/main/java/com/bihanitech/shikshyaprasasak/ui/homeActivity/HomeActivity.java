@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -28,9 +31,13 @@ import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.ProgressDFragment;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.UpdateDF;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.academicsFragment.AcademicsFragment;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.AnalyticsFragment;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.contactActivity.ContactActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.moreFragment.MoreFragment;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.NoticeActivity;
+import com.bihanitech.shikshyaprasasak.ui.webViewAcitivity.WebViewActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -44,8 +51,10 @@ import java.util.List;
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity implements HomeView {
+
 
     private static final String TAG = HomeActivity.class.getSimpleName();
     @BindView(R.id.toolbar)
@@ -54,11 +63,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     BottomNavigationView btNavMain;
 
 
-   /* @BindView(R.id.nvView)
-    NavigationView nvDrawer;*/
+    @BindView(R.id.nvView)
+    NavigationView nvDrawer;
 
-   /* @BindView(R.id.drawer_layout)
-    DrawerLayout mDrawer;*/
+    @BindView(R.id.ivTwoline)
+    ImageView ivTwoline;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawer;
+
+    @BindView(R.id.ivProfile)
+    ImageView ivProfile;
 
     TextView tvName;
 
@@ -139,20 +154,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         FragmentManager manager = getSupportFragmentManager();
         btNavMain.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
         manager.beginTransaction().add(R.id.flContent, new HomeFragment()).commit();
+        setOriginalMenuView();
 
+        setupDrawerContent(nvDrawer);
         btNavMain.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-/*
-                Fragment fragment = null;
-                Class fragmentHome = null;
-                Class fragmentAnalytics = null;
-                Class fragmentAcademics = null;
-                fragmentAnalytics = AnalyticsFragment.class;
-                fragmentHome = HomeFragment.class;
-                fragmentAcademics = AcademicsFragment.class;*/
                 FragmentManager manager = getSupportFragmentManager();
 
                 switch (item.getItemId()) {
@@ -183,26 +191,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             }
         });
 
-       /* // drawerToggle = setupDrawerToggle();
-        mDrawer.addDrawerListener(drawerToggle);
-        setupDrawerContent(nvDrawer);
-        View header = nvDrawer.getHeaderView(0);
-        tvName = header.findViewById(R.id.tvName);
-        tvSchool = header.findViewById(R.id.tvSchool);
-        tvName.setText(sharedPrefsHelper.getValue(Constant.TEACHER_NAME, ""));
-        tvSchool.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""));
-        if (getIntent() != null) {
-            if (getIntent().getStringExtra(Constant.NOTIFICATION_ACTION) != null) {
-                Log.v(TAG, getIntent().getStringExtra(Constant.NOTIFICATION_ACTION));
-            } else {
-                Log.v(TAG, "I have no intent");
+
+        ivTwoline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawer.openDrawer(nvDrawer);
             }
-        } else {
-            Log.v(TAG, "I have noting");
-        }*/
-        //  checkForStudentOrAppUpdate();
+        });
+
 
     }
+
 
     private void checkForStudentOrAppUpdate() {
         if (!sharedPrefsHelper.getValue(Constant.APPLICATION_UPTO_DATE, true)) {
@@ -215,12 +214,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     }
 
 
-//    @Override
-//    public void openPlayStore() {
-//        openAppRating(this);
-//        sharedPrefsHelper.saveValue(Constant.APPLICATION_UPTO_DATE,true);
-//    }
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -231,19 +224,19 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         }
     }
 
-   /* private void setOriginalMenuView() {
+    private void setOriginalMenuView() {
         // ibSwitch.setImageDrawable(ibDown);
         iSwitch = 0;
         nvDrawer.getMenu().clear();
         nvDrawer.inflateMenu(R.menu.nav_menu);
-    }*/
+    }
 
 
     private void setupDrawerContent(NavigationView navigationView) {
 
         Fragment fragment = null;
         Class fragmentClass = null;
-        fragmentClass = AnalyticsFragment.class;
+        fragmentClass = HomeFragment.class;
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -272,7 +265,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                        // selectDrawerItem(menuItem);
+                        selectDrawerItem(menuItem);
 
                         return true;
 
@@ -282,17 +275,18 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     }
 
- /*   public void selectDrawerItem(MenuItem menuItem) {
+    public void selectDrawerItem(MenuItem menuItem) {
 
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        if (menuItem.getItemId() == R.id.nav_account) {
+        if (menuItem.getItemId() == R.id.nav_upload_notice) {
             menuItem.setChecked(false);
-
+            startActivity(new Intent(this, AddNoticeActivity.class));
         } else if (menuItem.getItemId() == R.id.nav_notice) {
             menuItem.setChecked(false);
             startActivity(new Intent(this, NoticeActivity.class));
-        } else if (menuItem.getItemId() == R.id.nav_attendance) {
+        } else if (menuItem.getItemId() == R.id.nav_web_view) {
             menuItem.setChecked(false);
+            startActivity(new Intent(this, WebViewActivity.class));
         } else if (menuItem.getItemId() == R.id.nav_calendar) {
             menuItem.setChecked(false);
         } else if (menuItem.getItemId() == R.id.nav_homework) {
@@ -323,13 +317,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 //                    invalidateStudentInfo(studentInfo);
 //                }
 //            }
-          *//*  if(menuItem.getItemId() == (100+studentInfoList.get(0).getStId())){
+            if (menuItem.getItemId() == (100 + studentInfoList.get(0).getStId())) {
 
-                invalidateStudentInfo(studentInfoList.get(0));
+                //   invalidateStudentInfo(studentInfoList.get(0));
 
             }else if(menuItem.getItemId() == 102){
-                invalidateStudentInfo(2);
-            }*//*
+                //    invalidateStudentInfo(2);
+            }
 
             Fragment fragment = null;
             Class fragmentClass = null;
@@ -358,13 +352,21 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         }
         // Close the navigation drawer
         mDrawer.closeDrawers();
-    }*/
+    }
+
+    @OnClick(R.id.ivProfile)
+    void ivProfileClicked() {
+        Context mContex = HomeActivity.this;
+        Intent mIntent = new Intent(mContex, AddNoticeActivity.class);
+        startActivity(mIntent);
+        finish();
+    }
 
 
     private void invalidateStudentInfo() {
         tvName.setText(sharedPrefsHelper.getValue(Constant.TEACHER_NAME, ""));
         tvSchool.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""));
-        //  setOriginalMenuView();
+        setOriginalMenuView();
     }
 
     @Override
@@ -407,38 +409,5 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         checkForStudentOrAppUpdate();
     }
 
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
-import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.textEditorFragment.TextEditorFragment;
 import com.ebolo.krichtexteditor.fragments.KRichEditorFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -35,7 +34,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notice);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        addNoticePresenter = new AddNoticePresenter(this, new MetaDatabaseRepo(getHelper()));
+        //   addNoticePresenter = new AddNoticePresenter(this, new MetaDatabaseRepo(getHelper()));
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().add(R.id.flTextEditor, new TextEditorFragment()).commit();
 

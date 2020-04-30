@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -68,6 +69,7 @@ public class NetworkErrorDFragment extends DialogFragment {
         }
         return frag;
     }
+
 
     @Nullable
     @Override

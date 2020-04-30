@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingTop="20dp"
-    android:background="@color/colorPrimary"
+    android:background="@color/FounderBlue"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Shankar Shrestha"
+        android:text="Aashutosh Rimal"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +25,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Step By Step Boarding School"
+        android:text="Little flower Scholl"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="2dp"
