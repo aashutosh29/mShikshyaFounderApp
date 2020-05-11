@@ -29,12 +29,12 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvSchoolDetails"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="0dp"
                 android:layout_margin="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.09"
+                app:layout_constraintHeight_percent="0.12"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -108,7 +108,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvNotice"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
 
@@ -117,7 +117,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toTopOf="@id/clAdvertise"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.30"
+                app:layout_constraintHeight_percent="0.27"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cvSchoolDetails"
 

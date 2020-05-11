@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clCalendar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/FounderBg"
+    tools:context=".ui.homeActivity.calendarActivity.CalendarActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBgFounder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/FounderBlue"
+        app:layout_constraintEnd_toEndOf="@id/rvCalendar"
+        app:layout_constraintHeight_percent="0.47"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/layout_rounded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <ImageView
+            android:id="@+id/btLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_chevron_left_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleNepali"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/jestha_2075"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleEnglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/may_jun_n2018"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/titleNepali"
+            app:layout_constraintStart_toStartOf="@id/titleNepali"
+            app:layout_constraintTop_toBottomOf="@id/titleNepali" />
+
+        <ImageView
+            android:id="@+id/btRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/titleDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@id/cvTitle"
+        app:layout_constraintStart_toStartOf="@id/cvTitle"
+        app:layout_constraintTop_toBottomOf="@id/cvTitle">
+
+        <TextView
+            android:id="@+id/titleSun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/sun"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/titleMon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mon"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@id/titleTue"
+            app:layout_constraintStart_toEndOf="@id/titleSun" />
+
+        <TextView
+            android:id="@+id/titleTue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tue"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@id/titleWed"
+            app:layout_constraintStart_toEndOf="@id/titleMon" />
+
+        <TextView
+            android:id="@+id/titleWed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wed"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/titleThu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thu"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@id/titleFri"
+            app:layout_constraintStart_toEndOf="@id/titleWed" />
+
+        <TextView
+            android:id="@+id/titleFri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fri"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@id/titleSat"
+            app:layout_constraintStart_toEndOf="@id/titleThu" />
+
+        <TextView
+            android:id="@+id/titleSat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/sat"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCalendar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@color/FounderBlue"
+        app:layout_constraintEnd_toEndOf="@id/titleDay"
+        app:layout_constraintStart_toStartOf="@id/titleDay"
+        app:layout_constraintTop_toBottomOf="@id/titleDay" />
+
+
+    <View
+        android:id="@+id/vBar"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="#5c5c5c"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/cvTitle"
+        app:layout_constraintStart_toStartOf="@id/cvTitle"
+        app:layout_constraintTop_toBottomOf="@id/rvCalendar" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="Baisakh"
+        android:textColor="#8F8E8E"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tvDateNum"
+        app:layout_constraintStart_toEndOf="@id/tvDateNum"
+        app:layout_constraintTop_toTopOf="@id/tvDateNum" />
+
+    <TextView
+        android:id="@+id/tvDateNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="17"
+        android:textColor="@color/FounderBlue"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clBgFounder" />
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabSliding"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/FounderBlue"
+        app:layout_constraintBottom_toTopOf="@id/viewpager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvDateNum"
+        app:layout_constraintWidth_percent="0.4"
+        app:tabMode="fixed" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cvTitle"
+        app:layout_constraintStart_toStartOf="@id/cvTitle"
+        app:layout_constraintTop_toBottomOf="@id/tabSliding" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

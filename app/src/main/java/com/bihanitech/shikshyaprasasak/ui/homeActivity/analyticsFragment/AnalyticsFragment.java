@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bihanitech.shikshyaprasasak.R;
@@ -43,9 +46,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 public class AnalyticsFragment extends Fragment implements OnChartValueSelectedListener {
+
+    /* @BindView(R.id.toolbar)
+     Toolbar toolbar;*/
+    Toolbar toolbar;
+    TextView tvToolbarTitle;
+    /*@BindView(R.id.tvToolbarTitle)
+    TextView tvToolbarTitle;*/
 
     public static final int[] FOUNDER_COLORS = {
             Color.rgb(8, 154, 214), Color.rgb(160, 17, 28),
@@ -71,10 +79,15 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analytics, container, false);
-        ButterKnife.bind(this, view);
+        /* ButterKnife.bind(this, view);*/
+
         /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         //setContentView(R.layout.fragment_analytics);
+        toolbar = getActivity().findViewById(R.id.toolbar);
+        tvToolbarTitle = getActivity().findViewById(R.id.tvToolbarTitle);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        tvToolbarTitle.setText("Analytics");
 
         ScrollView sView = view.findViewById(R.id.svMain);
         // Hide the Scollbar

@@ -3,6 +3,10 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.contactActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -27,8 +31,20 @@ public class ContactActivity extends AppCompatActivity implements ContactView{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.ivmenu)
+    ImageView ivMenu;
+
+    @BindView(R.id.ivProfile)
+    ImageView ivProfile;
+
     @BindView(R.id.rvContacts)
     RecyclerView rvContacts;
+
+    @BindView(R.id.ivTwoline)
+    ImageView ivTwoline;
+
+    @BindView(R.id.tvToolbarTitle)
+    TextView tvToolbarTitle;
 
     ContactPresenter contactPresenter;
 
@@ -42,6 +58,10 @@ public class ContactActivity extends AppCompatActivity implements ContactView{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ivMenu.setVisibility(View.GONE);
+        ivProfile.setVisibility(View.GONE);
+        ivTwoline.setVisibility(View.GONE);
+        tvToolbarTitle.setText("Contact");
 
         contactPresenter = new ContactPresenter(this,new MetaDatabaseRepo(getHelper()));
 //      dummy ho talako

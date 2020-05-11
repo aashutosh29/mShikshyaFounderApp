@@ -52,6 +52,16 @@
              </intent-filter>-->
         </activity>
         <activity
+            android:name=".ui.homeActivity.calendarActivity.CalendarActivity"
+            android:theme="@style/NoActionBarAppTheme">
+            <!--  <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>-->
+
+        </activity>
+        <activity
             android:name=".ui.webViewAcitivity.WebViewActivity"
             android:theme="@style/NoActionBarAppTheme">
             <!-- <intent-filter>

@@ -43,4 +43,24 @@
     <string name="Chaitra">Chaitra</string>
     <string name="name__">Roll No</string>
 
+    <!--Calender text -->
+    <string name="loading_calender_info">Loading Calendar Information</string>
+    <string name="holidays">HOLIDAYS</string>
+    <string name="events">EVENTS</string>
+    <string name="jestha_2075">Jestha 2075</string>
+    <string name="may_jun_n2018">May/Jun  2018</string>
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="wed">Wed</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="update">Update</string>
+
+    <string name="_2075_jestha_26">2075, Jestha 26</string>
+
+
 </resources>

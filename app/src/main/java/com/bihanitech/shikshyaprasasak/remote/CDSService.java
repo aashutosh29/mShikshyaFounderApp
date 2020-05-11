@@ -2,6 +2,7 @@ package com.bihanitech.shikshyaprasasak.remote;
 
 
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
+import com.bihanitech.shikshyaprasasak.model.responseModel.HolidayEventResponse;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -30,5 +31,7 @@ public interface CDSService {
     Call<ResponseBody> getAuthenticated(@Query("teacherMobile") String aTrue, @Query("schoolid") String schoolId,
                                         @Query("parent_numb") String phoneNumber);
 
+    @GET("holidayEvents")
+    Call<HolidayEventResponse> fetchHolidayEventList(@Header("Authorization") String authToken);
 
 }

@@ -33,6 +33,7 @@ import com.bihanitech.shikshyaprasasak.ui.dialogFragment.UpdateDF;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.academicsFragment.AcademicsFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.AnalyticsFragment;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.calendarActivity.CalendarActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.contactActivity.ContactActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.moreFragment.MoreFragment;
@@ -289,6 +290,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             startActivity(new Intent(this, WebViewActivity.class));
         } else if (menuItem.getItemId() == R.id.nav_calendar) {
             menuItem.setChecked(false);
+            Intent i = new Intent(this, CalendarActivity.class);
+            startActivity(i);
         } else if (menuItem.getItemId() == R.id.nav_homework) {
             menuItem.setChecked(false);
 

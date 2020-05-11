@@ -10,7 +10,9 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +22,25 @@ import androidx.fragment.app.FragmentManager;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class WebViewActivity extends AppCompatActivity {
+
+    @BindView(R.id.ivmenu)
+    ImageView ivMenu;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.ivProfile)
+    ImageView ivProfile;
+
+    @BindView(R.id.ivTwoline)
+    ImageView ivTwoline;
+
+    @BindView(R.id.tvToolbarTitle)
+    TextView tvToolbarTitle;
 
     String postUrl;
     private WebView webView;
@@ -33,9 +53,13 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ivMenu.setVisibility(View.GONE);
+        ivProfile.setVisibility(View.GONE);
+        ivTwoline.setVisibility(View.GONE);
+        tvToolbarTitle.setText("WebView");
 
         webView = findViewById(R.id.webView);
         progressBar = findViewById(R.id.progressBar);

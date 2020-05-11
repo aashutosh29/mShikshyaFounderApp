@@ -2,6 +2,8 @@ package com.bihanitech.shikshyaprasasak.database;
 
 
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
+import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
+import com.bihanitech.shikshyaprasasak.model.eventHolidays.Holiday;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
@@ -17,7 +19,11 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
     private static final Class<?>[] classes = new Class[]{
             SchoolInfo.class,
             ContactsItem.class,
-            NoticeItem.class
+            NoticeItem.class,
+            Event.class,
+            Holiday.class
+
+
     };
 
     public static void main(String[] args) throws Exception {

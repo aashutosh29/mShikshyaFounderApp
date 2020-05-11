@@ -7,13 +7,11 @@
     android:background="@android:color/white"
     android:fitsSystemWindows="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <!-- The ActionBar displayed at the top -->
+    <include
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_collapseMode="pin"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="wrap_content" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

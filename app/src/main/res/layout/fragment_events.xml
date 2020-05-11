@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/white">
+
+
+    <!--  <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:id="@+id/cvTitle"
+          app:layout_constraintTop_toTopOf="parent"
+          android:layout_marginStart="0dp"
+          android:layout_marginEnd="0dp"
+          android:layout_marginTop="4dp"
+
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          android:background="@drawable/layout_rounded">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/title"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:layout_marginStart="12dp"
+              android:textColor="@android:color/white"
+              app:layout_constraintStart_toStartOf="parent"
+              android:id="@+id/titleName"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+                  android:text="@string/date"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:layout_marginEnd="24dp"
+              android:textColor="@android:color/white"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:id="@+id/titleYear"
+              />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvEvents"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

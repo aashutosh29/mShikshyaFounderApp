@@ -3,9 +3,10 @@ package com.bihanitech.shikshyaprasasak.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
+import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
+import com.bihanitech.shikshyaprasasak.model.eventHolidays.Holiday;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -25,12 +26,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    //the DAO object we use to access the SHADE_COLOR table
 
     private RuntimeExceptionDao<SchoolInfo, Integer> schoolInfoDao = null;
     private RuntimeExceptionDao<ContactsItem, Integer> contactsItemsDao = null;
     private RuntimeExceptionDao<NoticeItem, Integer> noticeItemDao = null;
-
+    private RuntimeExceptionDao<Event, Integer> eventsDao = null;
+    private RuntimeExceptionDao<Holiday, Integer> holidaysDao = null;
 
 
     public DatabaseHelper(Context context) {
@@ -44,7 +45,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, SchoolInfo.class);
             TableUtils.createTable(connectionSource, ContactsItem.class);
             TableUtils.createTable(connectionSource, NoticeItem.class);
-
+            TableUtils.createTable(connectionSource, Event.class);
 
 
         } catch (SQLException e) {
@@ -55,14 +56,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-       try {
-        TableUtils.dropTable(connectionSource, SchoolInfo.class, false);
-        TableUtils.dropTable(connectionSource, ContactsItem.class, false);
-        TableUtils.dropTable(connectionSource, NoticeItem.class, false);
-        onCreate(database, connectionSource);
-    }catch (SQLException e){
-           e.printStackTrace();
-       }
+        try {
+            TableUtils.dropTable(connectionSource, SchoolInfo.class, false);
+            TableUtils.dropTable(connectionSource, ContactsItem.class, false);
+            TableUtils.dropTable(connectionSource, NoticeItem.class, false);
+            TableUtils.dropTable(connectionSource, Event.class, false);
+            TableUtils.dropTable(connectionSource, Holiday.class, false);
+            onCreate(database, connectionSource);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public RuntimeExceptionDao<SchoolInfo, Integer> getSchoolInfoDao() {
@@ -88,5 +91,22 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
         return noticeItemDao;
 
+    }
+
+    public RuntimeExceptionDao<Event, Integer> getEventsDao() {
+        if (eventsDao == null) {
+            eventsDao = getRuntimeExceptionDao(Event.class);
+        }
+
+        return eventsDao;
+
+    }
+
+    public RuntimeExceptionDao<Holiday, Integer> getHolidaysDao() {
+        if (holidaysDao == null) {
+            holidaysDao = getRuntimeExceptionDao(Holiday.class);
+        }
+
+        return holidaysDao;
     }
 }
