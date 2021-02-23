@@ -76,14 +76,19 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
     @BindView(R.id.tvDate)
     TextView tvDate;
 
+    private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            calendarPresenter.downloadEventsHolidays(sharedPrefsHelper.getValue(Constant.TOKEN, ""), 1, true);
+        }
+    };
+
     @BindView(R.id.titleEnglish)
     TextView titleEnglish;
 
     @BindView(R.id.tvToolbarTitle)
     TextView tvToolbarTitle;
 
-    @BindView(R.id.ivTwoline)
-    ImageView ivTwoline;
 
 
     @BindView(R.id.btLeft)
@@ -94,9 +99,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
 
     @BindView(R.id.ivmenu)
     ImageView ivMenu;
-
-    @BindView(R.id.ivProfile)
-    ImageView ivProfile;
 
 
     FragmentManager fm;
@@ -114,12 +116,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
     ConstraintLayout clCalendar;
 
     Context context;
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            calendarPresenter.downloadEventsHolidays(sharedPrefsHelper.getValue(Constant.TOKEN, ""), 1, true);
-        }
-    };
+    @BindView(R.id.tvDateNum)
+    TextView tvDateNum;
 
 
    /* @OnClick(R.id.ivMenu)
@@ -143,8 +141,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         ivMenu.setVisibility(View.GONE);
-        ivProfile.setVisibility(View.GONE);
-        ivTwoline.setVisibility(View.GONE);
         tvToolbarTitle.setText("Calendar");
 
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
@@ -251,7 +247,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
 
     private void setUpCalendar() {
         todayNepDate.setMonth(todayNepDate.getMonth() + 1);
-        tvDate.setText(todayNepDate.getYear() + ", " + getResources().getString(DateConverter.getNepaliMonthString(todayNepDate.getMonth() - 1)) + " " + todayNepDate.getDay());
+        tvDate.setText(getResources().getString(DateConverter.getNepaliMonthString(todayNepDate.getMonth() - 1)));
+        tvDateNum.setText("" + todayNepDate.getDay());
         titleNepali.setText(Calendar.getNepaliMonth(todayNepDate.getMonth()) + " " + todayNepDate.getYear());
         titleEnglish.setText(Calendar.getEngMonthForNepMonth(todayNepDate.getMonth(), todayNepDate.getYear()).replace("\n", ""));
         int today = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_MONTH);
@@ -360,8 +357,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
         eventHolidaysAdapter = new EventHolidaysAdapter(getSupportFragmentManager(), CalendarActivity.this, upcomingMonth.getYear(), upcomingMonth.getMonth());
         viewPager.setAdapter(eventHolidaysAdapter);
         tabSliding.setupWithViewPager(viewPager);
-        tabSliding.getTabAt(0).setText(getString(R.string.holidays));
-        tabSliding.getTabAt(1).setText(getString(R.string.events));
+        tabSliding.getTabAt(0).setText("Holidays");
+        tabSliding.getTabAt(1).setText("Events");
     }
 
     private DatabaseHelper getHelper() {

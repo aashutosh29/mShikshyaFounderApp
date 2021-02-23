@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/FounderBlue"
+        android:fitsSystemWindows="true"
+        android:maxHeight="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_icon_angle_left_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Student Profile"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- <ImageView
+                 android:id="@+id/ivHome"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginEnd="8dp"
+                 android:padding="8dp"
+                 android:src="@drawable/ic_home_white_24dp"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintTop_toTopOf="parent" />-->
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/svMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbarNew">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f4f4f4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivProfileImage"
+                    android:layout_width="@dimen/_62sdp"
+                    android:layout_height="@dimen/_62sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:src="@drawable/img_profile_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvProfileName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:alpha="0.87"
+                    android:maxLines="2"
+                    android:text="Dilipa Poudel"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivProfileImage"
+                    app:layout_constraintTop_toTopOf="@id/ivProfileImage" />
+
+                <TextView
+                    android:id="@+id/tvStudentClass"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:alpha="0.60"
+                    android:maxLines="2"
+                    android:text="Class 4 (B)"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivProfileImage"
+                    app:layout_constraintTop_toBottomOf="@id/tvProfileName" />
+
+                <TextView
+                    android:id="@+id/tvStudentLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:alpha="0.60"
+                    android:maxLines="2"
+                    android:text="Bharatpur 4, Chitwan"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/ivProfileImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivProfileImage" />
+
+                <TextView
+                    android:id="@+id/tvFatherNameTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:alpha="0.60"
+                    android:text="Father Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@id/ivProfileImage"
+                    app:layout_constraintTop_toBottomOf="@id/ivProfileImage" />
+
+                <TextView
+                    android:id="@+id/tvFatherName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="Deepak Kumar Poudel"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tvFatherNameTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvFatherNameTitle"
+                    app:layout_constraintWidth_percent="0.4" />
+
+                <TextView
+                    android:id="@+id/tvGuardianNameTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:alpha="0.60"
+                    android:text="Guardian Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@id/ivProfileImage"
+                    app:layout_constraintTop_toBottomOf="@id/tvFatherName" />
+
+                <TextView
+                    android:id="@+id/tvGuardianName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="n-a"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/ivProfileImage"
+                    app:layout_constraintTop_toBottomOf="@id/tvGuardianNameTitle"
+                    app:layout_constraintWidth_percent="0.4" />
+
+                <TextView
+                    android:id="@+id/tvMotherNameTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.60"
+                    android:text="Mother Name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvFatherNameTitle"
+                    app:layout_constraintTop_toTopOf="@id/tvFatherNameTitle" />
+
+                <TextView
+                    android:id="@+id/tvMotherName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="Lila Devi Poudel"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tvMotherNameTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvMotherNameTitle"
+                    app:layout_constraintWidth_percent="0.4" />
+
+                <TextView
+                    android:id="@+id/tvContactNumberTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.60"
+                    android:text="Contact Number"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                   app:layout_constraintStart_toStartOf="@id/tvMotherNameTitle"
+                    app:layout_constraintTop_toTopOf="@id/tvGuardianNameTitle" />
+
+                <TextView
+                    android:id="@+id/tvContactNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:paddingBottom="@dimen/_12sdp"
+                    android:text="9860858520"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tvContactNumberTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvContactNumberTitle"
+                    app:layout_constraintWidth_percent="0.4" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="#f4f4f4"
+                app:layout_constraintTop_toBottomOf="@id/clProfile">
+
+                <TextView
+                    android:id="@+id/tvExamResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="Exam Results"
+                    android:textColor="@color/FounderBlue"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clFirstTerm"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:background="@drawable/bg_edit_text_white"
+                    app:layout_constraintTop_toBottomOf="@id/tvExamResult">
+
+                    <TextView
+                        android:id="@+id/tvResultTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:alpha="0.87"
+                        android:paddingVertical="@dimen/_8sdp"
+                        android:text="1st Term Result (2077)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/ivDownUPArrow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivDownUPArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:padding="@dimen/_8sdp"
+                        android:src="@drawable/ic_down_arrow"
+                        app:layout_constraintBottom_toBottomOf="@id/tvResultTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvResultTitle" />
+
+                    <include
+                        android:id="@+id/layoutSubject"
+                        layout="@layout/layout_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvResultTitle" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clSecondTerm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:background="@drawable/bg_edit_text_white"
+                    app:layout_constraintTop_toBottomOf="@id/clFirstTerm">
+
+                    <TextView
+                        android:id="@+id/tvResultTitleSecond"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:alpha="0.87"
+                        android:paddingVertical="@dimen/_8sdp"
+                        android:text="2nd Term Result (2077)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/ivDownUpArrowSecond"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivDownUpArrowSecond"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:padding="@dimen/_8sdp"
+                        android:src="@drawable/ic_down_arrow"
+                        app:layout_constraintBottom_toBottomOf="@id/tvResultTitleSecond"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvResultTitleSecond" />
+
+                    <include
+                        android:id="@+id/layoutSubjectSecond"
+                        layout="@layout/layout_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvResultTitleSecond" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clThirdTerm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:background="@drawable/bg_edit_text_white"
+                    app:layout_constraintTop_toBottomOf="@id/clSecondTerm">
+
+                    <TextView
+                        android:id="@+id/tvResultTitleThird"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_8sdp"
+                        android:alpha="0.87"
+                        android:paddingVertical="@dimen/_8sdp"
+                        android:text="3rd Term Result (2078)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/ivDownUPArrowThird"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivDownUPArrowThird"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_8sdp"
+
+                        android:padding="@dimen/_8sdp"
+                        android:src="@drawable/ic_down_arrow"
+                        app:layout_constraintBottom_toBottomOf="@id/tvResultTitleThird"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvResultTitleThird" />
+
+                    <include
+                        android:id="@+id/layoutSubjectThird"
+                        layout="@layout/layout_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvResultTitleThird" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:text="Account"
+                    android:textColor="@color/FounderBlue"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clThirdTerm" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    app:layout_constraintTop_toBottomOf="@id/tvAccount" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

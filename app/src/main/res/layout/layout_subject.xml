@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/vBorder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:background="#99000000"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvGradeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:alpha="0.60"
+        android:text="Grade"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="@id/vBorder"
+        app:layout_constraintTop_toBottomOf="@id/vBorder" />
+
+    <TextView
+        android:id="@+id/tvGrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:text="B+"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvGradeTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvGradeTitle" />
+
+
+    <TextView
+        android:id="@+id/tvRemarksTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:alpha="0.60"
+        android:text="Remarks"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="@id/vBorder"
+        app:layout_constraintTop_toBottomOf="@id/tvGrade" />
+
+    <TextView
+        android:id="@+id/tvRemarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:text="Very Good"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvGradeTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvRemarksTitle" />
+
+
+    <TextView
+        android:id="@+id/tvGPATitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:alpha="0.60"
+        android:text="GPA"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="@id/vBorder"
+        app:layout_constraintStart_toEndOf="@id/tvGrade"
+        app:layout_constraintTop_toBottomOf="@id/vBorder" />
+
+    <TextView
+        android:id="@+id/tvGPA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:text="2.97"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvGPATitle"
+        app:layout_constraintTop_toBottomOf="@id/tvGPATitle" />
+
+
+    <TextView
+        android:id="@+id/tvResultSheet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:alpha="0.60"
+        android:text="Result Sheet"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="@id/vBorder"
+        app:layout_constraintTop_toBottomOf="@id/tvRemarks" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSubjects"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="@id/vBorder"
+        app:layout_constraintStart_toStartOf="@id/vBorder"
+        app:layout_constraintTop_toBottomOf="@id/tvResultSheet" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clParentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f4f4f4"
+    android:paddingBottom="@dimen/_8sdp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cvNotice1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+
+        >
+
+        <ImageView
+            android:id="@+id/ivNoticeBg"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_noticebg"
+            app:layout_constraintEnd_toStartOf="@id/tvNameOfStudent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.05" />
+
+        <TextView
+            android:id="@+id/tvClassAndSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="class 4 (B)"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tvNameOfStudent"
+            app:layout_constraintTop_toBottomOf="@id/tvNameOfStudent" />
+
+        <TextView
+            android:id="@+id/tvNameOfStudent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:maxLines="2"
+            android:text="Dilip Poudel"
+            android:textColor="#3c3c3c"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/ivProfileImageSearch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tvAddressOfSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:maxLines="2"
+            android:text="Bharatpur 4, Chitwan"
+            android:textColor="#6c6c6c"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toStartOf="@+id/ivProfileImageSearch"
+            app:layout_constraintStart_toStartOf="@id/tvNameOfStudent"
+            app:layout_constraintTop_toBottomOf="@id/tvClassAndSection" />
+
+        <ImageView
+            android:id="@+id/ivProfileImageSearch"
+            android:layout_width="@dimen/_62sdp"
+            android:layout_height="@dimen/_62sdp"
+            android:src="@drawable/img_profile_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

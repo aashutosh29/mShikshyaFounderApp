@@ -7,13 +7,6 @@
     android:background="@color/dark_shik_bg"
     tools:context="com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/ic_founder_bg"
-        app:layout_constraintHeight_percent="0.38"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,15 +19,21 @@
             android:layout_height="match_parent"
             android:visibility="visible">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_founder_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvSchoolDetails"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.12"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -108,16 +107,15 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvNotice"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
 
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toTopOf="@id/clAdvertise"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.27"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cvSchoolDetails"
 
@@ -127,6 +125,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/FounderBg"
 
                     >
 
@@ -189,17 +188,18 @@
                         android:visibility="visible"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="0dp"
-                        app:layout_constraintHeight_percent="0.7"
+                        app:layout_constraintHeight_percent="0.67"
                         app:layout_constraintTop_toBottomOf="@id/tvNotices">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content">
 
                             <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
                                 android:id="@+id/vpNotice"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <com.viewpagerindicator.CirclePageIndicator
                                 android:id="@+id/cpNotice"
@@ -224,11 +224,11 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cvNoticeTwo"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_62sdp"
                         android:layout_margin="8dp"
                         android:background="@drawable/custom_ripple"
                         android:clickable="true"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:cardCornerRadius="8dp"
                         app:cardElevation="0dp"
 
@@ -294,20 +294,20 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clAdvertise"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_add_corona"
+                android:layout_height="@dimen/_180sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginVertical="@dimen/_12sdp"
+                android:background="@drawable/bg_edit_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvNotice"
-                app:layout_constraintWidth_percent="0.91">
+                app:layout_constraintTop_toBottomOf="@id/cvNotice">
 
                 <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
                     android:id="@+id/vpAdvertise"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp" />
+
+                    android:layout_marginBottom="@dimen/_12sdp" />
 
                 <com.viewpagerindicator.CirclePageIndicator
                     android:id="@+id/cpIndicator"
@@ -328,8 +328,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvUpComingEvent"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
@@ -337,9 +337,6 @@
                 app:cardBackgroundColor="@color/FounderBg"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.35"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clAdvertise"
 
                 >
@@ -347,7 +344,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="visible"
+
 
                     >
 

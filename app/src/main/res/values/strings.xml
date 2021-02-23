@@ -61,6 +61,11 @@
     <string name="update">Update</string>
 
     <string name="_2075_jestha_26">2075, Jestha 26</string>
+    <string name="class_wise_income_vs_due_balance">Class wise Income vs Due Balance</string>
+    <string name="total_charged">Total Charged</string>
+    <string name="total_paid">Total Paid</string>
+    <string name="total_due">Total Due</string>
+    <string name="notice_created_on_this_section_will_be_sent_to_parents_teachers_or_both_as_per_category_selected_below">Notice created on this section will be sent to parents,teachers or both as per category selected below.</string>
 
 
 </resources>

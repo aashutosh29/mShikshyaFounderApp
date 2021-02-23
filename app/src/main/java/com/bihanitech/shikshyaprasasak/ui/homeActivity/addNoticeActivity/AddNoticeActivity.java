@@ -1,20 +1,24 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
-import com.bihanitech.shikshyaprasasak.ui.homeActivity.textEditorFragment.TextEditorFragment;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity;
 import com.ebolo.krichtexteditor.fragments.KRichEditorFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
@@ -22,21 +26,31 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AddNoticeActivity extends AppCompatActivity implements AddNoticeView {
     final Calendar myCalendar = Calendar.getInstance();
     AddNoticePresenter addNoticePresenter;
     DatabaseHelper databaseHelper;
     EditText edittext;
+    @BindView(R.id.ivBack)
+    ImageView ivBack;
+
+    @BindView(R.id.ivHome)
+    ImageView ivHome;
     private KRichEditorFragment editorFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_notice);
+        ButterKnife.bind(this);
+        initToolbar();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         //   addNoticePresenter = new AddNoticePresenter(this, new MetaDatabaseRepo(getHelper()));
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().add(R.id.flTextEditor, new TextEditorFragment()).commit();
+        //FragmentManager manager = getSupportFragmentManager();
+        //manager.beginTransaction().add(R.id.flTextEditor, new TextEditorFragment()).commit();
 
 
         Spinner spCatagory = findViewById(R.id.spCatagory);
@@ -44,7 +58,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         String[] items = new String[]{"Notice", "News", "Notice to teacher", "Notice to class section"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spCatagory.setAdapter(adapter);
-        edittext = findViewById(R.id.etPushishDate);
+        edittext = findViewById(R.id.etExpire);
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -71,6 +85,24 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
 
     }
 
+    private void initToolbar() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        ivHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddNoticeActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -93,5 +125,14 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             OpenHelperManager.releaseHelper();
         }
         databaseHelper = null;
+    }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+
     }
 }

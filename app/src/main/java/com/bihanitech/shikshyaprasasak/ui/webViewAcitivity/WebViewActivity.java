@@ -33,11 +33,7 @@ public class WebViewActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.ivProfile)
-    ImageView ivProfile;
 
-    @BindView(R.id.ivTwoline)
-    ImageView ivTwoline;
 
     @BindView(R.id.tvToolbarTitle)
     TextView tvToolbarTitle;
@@ -47,7 +43,7 @@ public class WebViewActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private float m_downX;
     //  private ImageView imgHeader;
-    private long backPressedTime = 0;
+    private final long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +53,6 @@ public class WebViewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ivMenu.setVisibility(View.GONE);
-        ivProfile.setVisibility(View.GONE);
-        ivTwoline.setVisibility(View.GONE);
         tvToolbarTitle.setText("WebView");
 
         webView = findViewById(R.id.webView);

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -29,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,7 +40,7 @@ import butterknife.OnClick;
 
 public class HomeFragment extends Fragment {
 
-    private static final Integer[] IMAGES = {R.drawable.ic_add_corona, R.drawable.two, R.drawable.three, R.drawable.four};
+    private static final Integer[] IMAGES = {R.drawable.img_slider, R.drawable.img_slider_two, R.drawable.img_slider_one, R.drawable.img_slider};
     private static final String[] NAMES = {"Notice1", "Notice 2", "Notice 3", "Notice 4"};
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
@@ -81,12 +83,14 @@ public class HomeFragment extends Fragment {
 
     @BindView(R.id.clNoNotice)
     ConstraintLayout clNoNotice;
+    private final ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
+    private final ArrayList<String> StringArray = new ArrayList<String>();
+
 
     SharedPrefsHelper sharedPrefsHelper;
     String orgNotice1 = "", orgNotice2 = "";
-
-    private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
-    private ArrayList<String> StringArray = new ArrayList<String>();
+    Toolbar toolbarNew;
+    TextView tvToolbarTitle;
 
     public HomeFragment() {
 
@@ -98,6 +102,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
+        initToolbar();
+
+
         //setUpNoticeList();
         vpAdvertise.setOnItemClickListener(new ClickableViewPager.OnItemClickListener() {
             @Override
@@ -131,6 +138,14 @@ public class HomeFragment extends Fragment {
 
         init();
         return view;
+    }
+
+    private void initToolbar() {
+        toolbarNew = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbarNew);
+        toolbarNew.setVisibility(View.VISIBLE);
+        tvToolbarTitle = Objects.requireNonNull(getActivity().findViewById(R.id.tvToolbarTitle));
+        tvToolbarTitle.setText("Shikshya Executive");
+
     }
 
 
@@ -167,10 +182,10 @@ public class HomeFragment extends Fragment {
                     currentPage = 0;
                 }
                 vpAdvertise.setCurrentItem(currentPage++, true);
-                if (currentNoticePage == NUM_NOTICE_PAGE) {
+                /*if (currentNoticePage == NUM_NOTICE_PAGE) {
                     currentNoticePage = 0;
                 }
-                vpNotice.setCurrentItem(currentPage++, true);
+                vpNotice.setCurrentItem(currentPage++, true);*/
 
             }
         };
@@ -273,11 +288,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-  /*  @OnClick(R.id.tvNotices)
-    public void tvNoticesClicked(){
-        sendToNoticeList();
-    }*/
-
     @OnClick(R.id.btMore)
     public void btMoreClicked() {
         sendToNoticeList();
@@ -288,20 +298,6 @@ public class HomeFragment extends Fragment {
         startActivity(new Intent(getActivity(), NoticeActivity.class));
     }
 
-
-  /*  @OnClick(R.id.cvContacts)
-    public void cvContactsClicked(){startActivity(new Intent(getActivity(), ContactActivity.class));}*/
-
-
-   /* @OnClick(R.id.cvNotice1)
-    public void notice1Clickded() {
-        sendToNoticeDetail(1);
-    }*/
-
-  /*  @OnClick(R.id.cvNotice2)
-    public void notice2Clicked(){
-        sendToNoticeDetail(2);
-    }*/
 
     private void sendToNoticeDetail(int i) {
         Intent intent = new Intent(getActivity(), NoticeDetailActivity.class);

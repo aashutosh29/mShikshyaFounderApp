@@ -15,7 +15,6 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
-
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.ui.splashScreen.SplashScreenActivity;
@@ -180,7 +179,7 @@ public class ShikshyaShikshakMessagingService extends FirebaseMessagingService {
             PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), 123, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(),"shikshya")
                     .setSmallIcon(R.drawable.shikshya) //your app icon
-                    .setBadgeIconType(R.drawable.shikshya) //your app icon
+                    .setBadgeIconType(R.drawable.shik_res) //your app icon
                     .setChannelId(id)
                     .setContentTitle(notTitle)
                     .setAutoCancel(true).setContentIntent(pendingIntent)

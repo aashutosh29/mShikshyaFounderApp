@@ -3,6 +3,7 @@ package com.bihanitech.shikshyaprasasak.remote;
 
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.responseModel.HolidayEventResponse;
+import com.bihanitech.shikshyaprasasak.model.responseModel.NoticeResponse;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -33,5 +34,8 @@ public interface CDSService {
 
     @GET("holidayEvents")
     Call<HolidayEventResponse> fetchHolidayEventList(@Header("Authorization") String authToken);
+
+    @GET("lognotice")
+    Observable<NoticeResponse> getNoticeList(@Header("Authorization") String authToken, @Query("page") int page);
 
 }

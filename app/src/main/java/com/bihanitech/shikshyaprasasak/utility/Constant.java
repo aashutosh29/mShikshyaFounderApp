@@ -16,7 +16,7 @@ public class Constant {
     public static final String VERIFY_WAITING = "verify_waiting";
 
     public static final String LOGGED_IN = "logged_in";
-    public static final String TIME_RESEND  = "time_resend";
+    public static final String TIME_RESEND = "time_resend";
 
 
     /*--- Used for the statement item ---*/
@@ -76,7 +76,7 @@ public class Constant {
     public static final String MSG_CREATOR = "msg_creater";
     public static final String CREATED_AT = "created_at";
 
-    public static final String STATUS= "status";
+    public static final String STATUS = "status";
     public static final String APPROVAL_STATUS = "approvalstatus";
     public static final String LEAVE_MESSAGE = "leave_message";
     public static final String BROADCAST_NOTIFICATION = "com.bihanitech.shikshyashikshyak.BROADCAST_NOTIFICATION";
@@ -125,7 +125,7 @@ public class Constant {
     public static final String OLD_MARKS_ENTRY_META_ID = "old_marks_entry_meta_id";
 
 
-    public static final String UNREAD_CHATS = "unread_chats" ;
+    public static final String UNREAD_CHATS = "unread_chats";
     public static final String SUBJECT_NAME = "subject_name";
     public static final String EMP_ID = "emp_id";
     public static final String SUB_ID = "sub_id";
@@ -134,4 +134,19 @@ public class Constant {
 
 
     public static final String ST_NAME = "st_name";
+    public static final String SHARED_PREFS = "shared_prefs";
+    public static final String USER_ID = "user_id";
+    public static final int NETWORK_ERROR = 0;
+    public static final String NOTIFICATION_FLAG ="notification_flag" ;
+    public static final String NOTIFICATION_COUNT = "notification_count";
+    public static final String STUDENT_NAME = "student_name";
+    public static final String STUDENT_CLASS = "student_class";
+    public static final String STUDENT_ADDRESS = "student_address";
+    public static final String STUDENT_FATHER_NAME = "student_father_name";
+    public static final String STUDENT_MOTHER_NAME = "student_mother_name";
+    public static final String STUDENT_GUARDIAN_NAME = "student_guardian_name";
+    public static final String STUDENT_CONTACT_NUMBER = "student_contact_number";
+
+
+
 }

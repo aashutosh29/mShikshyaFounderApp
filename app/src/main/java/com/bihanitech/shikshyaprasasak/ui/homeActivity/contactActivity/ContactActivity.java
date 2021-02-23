@@ -34,14 +34,10 @@ public class ContactActivity extends AppCompatActivity implements ContactView{
     @BindView(R.id.ivmenu)
     ImageView ivMenu;
 
-    @BindView(R.id.ivProfile)
-    ImageView ivProfile;
 
     @BindView(R.id.rvContacts)
     RecyclerView rvContacts;
 
-    @BindView(R.id.ivTwoline)
-    ImageView ivTwoline;
 
     @BindView(R.id.tvToolbarTitle)
     TextView tvToolbarTitle;
@@ -59,8 +55,6 @@ public class ContactActivity extends AppCompatActivity implements ContactView{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         ivMenu.setVisibility(View.GONE);
-        ivProfile.setVisibility(View.GONE);
-        ivTwoline.setVisibility(View.GONE);
         tvToolbarTitle.setText("Contact");
 
         contactPresenter = new ContactPresenter(this,new MetaDatabaseRepo(getHelper()));

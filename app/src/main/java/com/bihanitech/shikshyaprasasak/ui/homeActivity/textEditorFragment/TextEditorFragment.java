@@ -38,7 +38,7 @@ public class TextEditorFragment extends Fragment {
         if (editorFragment == null)
             editorFragment = KRichEditorFragment.getInstance(
                     new Options()
-                            .placeHolder("Write something cool...")
+                            .placeHolder("Enter Notice body Here")
                             .onImageButtonClicked(new Runnable() {
                                 @Override
                                 public void run() {
@@ -146,10 +146,9 @@ public class TextEditorFragment extends Fragment {
             if (image != null) {
                 // The second param (true/false) would not reflect BASE64 mode or not
                 // Normal URL mode would pass the URL
-                /*editorFragment.getEditor().command(EditorButton.IMAGE, false, "https://" +
+               /* editorFragment.getEditor().command(EditorButton.IMAGE, false, "https://" +
                         "beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/" +
                         "Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg");*/
-
                 // For BASE64, image file path would be passed instead
                 editorFragment.getEditor().command(EditorButton.IMAGE, true, image.getPath());
             }
@@ -160,12 +159,13 @@ public class TextEditorFragment extends Fragment {
     @Override
     public void onPause() {
         // Simulate saving action
-        editorFragment.getEditor().getContents(new RichEditor.OnContentsReturned() {
+        /*editorFragment.getEditor().getContents(new RichEditor.OnContentsReturned() {
             @Override
             public void process(@NotNull String contents) {
-                Paper.book("demo").write("content", contents);
+                if (!contents.equals(""))
+                    Paper.book("demo").write("content", contents);
             }
-        });
+        });*/
         super.onPause();
     }
 

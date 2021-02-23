@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#0D2041</color>
     <color name="colorAccent">#18386D</color>
     <color name="colorAccentNew">#F5B700</color>
-    <color name="error" >#ff0000</color>
+    <color name="error">#ff0000</color>
     <color name="etNormal">#7c7c7c</color>
 
     <color name="colorPrimaryShadeMild">#294679</color>
@@ -16,12 +16,16 @@
     <color name="match4">#550527</color>
     <color name="shik_bg">#FCFEFF</color>
     <color name="dark_shik_bg">#F8FDFF</color>
+    <color name="label_main">#DE000000</color>
+    <color name="label_sub">#99000000</color>
+    <color name="divider">#BDBDBD</color>
 
 
     <color name="grayLight">#fcfcfc</color>
     <color name="grayMild">#CAC8C8</color>
     <color name="starBlue">#089eb3</color>
     <color name="endBlue">#09c4dd</color>
+
 
     <color name="light_grey_text">#474747</color>
     <color name="mid_grey_text">#2E2E2E</color>
@@ -44,7 +48,7 @@
     <color name="FounderBg">#F2F0F7</color>
     <color name="FounderRed">#C62828</color>
     <color name="FounderGreen">#2E7D32</color>
-
+    <color name="loginBackground">#0A2643</color>
 
     <color name="graphBlueColor">#123123</color>
     <color name="graphOrangeColor">#123123</color>
@@ -199,4 +203,5 @@
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
+    <color name="item_notify_color">#ECEBFF</color>
 </resources>

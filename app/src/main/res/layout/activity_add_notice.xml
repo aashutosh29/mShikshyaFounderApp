@@ -3,98 +3,150 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/FounderBg">
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clToolbar"
+        android:id="@+id/toolbarNew"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="#f4f4f4"
+        android:fitsSystemWindows="true"
+        android:maxHeight="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-        <include
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_icon_angle_left_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
-        android:elevation="0dp"
-        app:layout_constraintHeight_percent="0.92"
-        app:layout_constraintTop_toBottomOf="@id/clToolbar"
-
-        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toTopOf="parent">
+
 
             <TextView
-                android:id="@+id/tvCreateYourNoticeHere"
+                android:id="@+id/tvToolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="create your notice here"
-                android:textColor="@color/Black"
+                android:text="Add notice"
+                android:textColor="@color/FounderBlue"
+                android:textSize="@dimen/_14sdp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/vBorder"
-                android:layout_width="match_parent"
+                android:id="@+id/ivHome"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_home_white_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbarNew">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvCreateYourNoticeHere"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/ic_profile_icon"
-                app:chipBackgroundColor="#EDE9E9"
+
+                android:alpha="0.83"
+                android:text="@string/notice_created_on_this_section_will_be_sent_to_parents_teachers_or_both_as_per_category_selected_below"
+                android:textColor="@color/Black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvCreateYourNoticeHere" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.92" />
 
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:alpha="0.67"
                 android:text="Title"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vBorder" />
+                app:layout_constraintTop_toBottomOf="@id/tvCreateYourNoticeHere" />
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/etTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/bg_edit_text"
+                android:hint="Enter a title here"
+                android:padding="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvTitle"
-                app:layout_constraintWidth_percent="0.75" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
             <TextView
-                android:id="@+id/tvContent"
+                android:id="@+id/tvNewContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:alpha="0.67"
+
                 android:text="Content"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/etTitle" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clTextEditor"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/bg_edit_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvContent">
 
-                <FrameLayout
+                app:layout_constraintTop_toBottomOf="@id/tvNewContent">
+
+                <EditText
+                    android:id="@+id/etContentBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edit_text"
+                    android:hint="Enter notice details"
+                    android:padding="@dimen/_8sdp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--<FrameLayout
                     android:id="@+id/flTextEditor"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -103,63 +155,99 @@
                 android:id="@+id/tvPublishOn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
-                android:text="Publish On"
-                app:layout_constraintBottom_toTopOf="@id/tvCatagory"
-                app:layout_constraintStart_toStartOf="@id/tvTitle" />
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_26sdp"
+                android:alpha="0.67"
+                android:text="Expire On"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/clTextEditor" />
 
             <EditText
-                android:id="@+id/etPushishDate"
-                android:layout_width="wrap_content"
+                android:id="@+id/etExpire"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/bg_edit_text"
                 android:clickable="true"
-                android:editable="false"
-                android:hint="Select your Date here"
+                android:focusable="true"
+                android:hint="select notice expiry date"
                 android:inputType="none"
                 android:padding="8dp"
-                app:layout_constraintStart_toEndOf="@id/tvPublishOn"
-                app:layout_constraintTop_toTopOf="@id/tvPublishOn"
-                app:layout_constraintWidth_percent="0.75" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPublishOn" />
 
             <TextView
                 android:id="@+id/tvCatagory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginBottom="45dp"
+                android:alpha="0.67"
                 android:text="Category"
-                app:layout_constraintBottom_toTopOf="@id/btSubmitNotice"
-                app:layout_constraintStart_toStartOf="@id/tvTitle" />
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@id/etExpire" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clSelectCategory"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:background="@color/FounderBg"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/bg_edit_text"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvCatagory"
-                app:layout_constraintWidth_percent="0.75">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCatagory">
 
-                <Spinner
-                    android:id="@+id/spCatagory"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight=".28"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Spinner
+                        android:id="@+id/spCatagory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:src="@drawable/ic_down_arrow" />
+
+                </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
                 android:id="@+id/btSubmitNotice"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_32sdp"
                 android:layout_marginBottom="16dp"
-                android:background="#031737"
-                android:text="SUBMIT"
+                android:background="@drawable/bg_button"
+                android:text="Submit"
+                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tvTitle" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clSelectCategory" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

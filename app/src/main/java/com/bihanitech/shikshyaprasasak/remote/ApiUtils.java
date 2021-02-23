@@ -19,8 +19,6 @@ public class ApiUtils {
         return RetrofitClient.getClient(NEW_IP_URL).create(CDSService.class);
     }
 
-
-
     public static AUTHService getAuthCDSService(){
         return RetrofitClient.getClient(AUTH_BASE_URL).create(AUTHService.class);
     }

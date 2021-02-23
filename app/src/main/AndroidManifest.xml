@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bihanitech.shikshyaprasasak">
 
@@ -11,16 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".Test" />
         <activity
             android:name=".ui.splashScreen.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashAppTheme">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".ui.schoolSelection.SchoolSelection"
@@ -40,65 +44,69 @@
             android:parentActivityName=".ui.usermanagement.registrationActivity.RegistrationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme" />
-        <activity
-            android:name=".ui.homeActivity.analyticsFragment.AnalyticsFragment"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBarAppTheme">
+        <!-- <activity
+             android:name=".ui.homeActivity.analyticsFragment.AnalyticsFragment"
+             android:screenOrientation="portrait"
+             android:theme="@style/NoActionBarAppTheme">
 
-            <!-- <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
-        </activity>
-        <activity
-            android:name=".ui.homeActivity.calendarActivity.CalendarActivity"
-            android:theme="@style/NoActionBarAppTheme">
-            <!--  <intent-filter>
+             &lt;!&ndash;
+              <intent-filter>
                   <action android:name="android.intent.action.MAIN" />
 
                   <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>-->
+              </intent-filter>
+             &ndash;&gt;
+         </activity>-->
+        <activity
+            android:name=".ui.homeActivity.calendarActivity.CalendarActivity"
+            android:theme="@style/NoActionBarAppTheme">
+
+            <!--
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+            -->
 
         </activity>
         <activity
             android:name=".ui.webViewAcitivity.WebViewActivity"
             android:theme="@style/NoActionBarAppTheme">
-            <!-- <intent-filter>
+
+            <!--
+             <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
 
                  <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
+             </intent-filter>
+            -->
         </activity>
-
-
         <activity
             android:name=".ui.homeActivity.HomeActivity"
             android:label="Shikshya Prasasak"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme">
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
         </activity>
         <activity
             android:name=".ui.homeActivity.addNoticeActivity.AddNoticeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme">
 
-            <!--  <intent-filter>
+            <!--
+              <intent-filter>
                   <action android:name="android.intent.action.MAIN" />
 
                   <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>-->
-
+              </intent-filter>
+            -->
 
         </activity>
-
         <activity
             android:name=".ui.homeActivity.noticeActivity.NoticeActivity"
             android:label="Notice"
@@ -111,14 +119,12 @@
             android:parentActivityName=".ui.homeActivity.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme" />
-
         <activity
             android:name=".ui.homeActivity.contactActivity.ContactActivity"
             android:label="Contacts"
             android:parentActivityName=".ui.homeActivity.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme" />
-
 
         <service
             android:name=".remote.FCM.ShikshyaShikshakMessagingService"
@@ -137,6 +143,14 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/shikshya" />
+
+        <activity
+            android:name=".ui.notifyActivity.NotifyActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
+        <activity
+            android:name=".ui.homeActivity.searchActivity.SearchActivity"
+            android:theme="@style/NoActionBarAppTheme" />
         <!--
              Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more.
@@ -145,6 +159,15 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
+        <activity
+            android:name=".ui.homeActivity.StudentProfile.StudentProfileActivity"
+            android:theme="@style/NoActionBarAppTheme">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
     </application>
+
 </manifest>

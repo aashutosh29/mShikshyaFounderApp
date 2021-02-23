@@ -4,7 +4,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +16,21 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphConfig;
 import com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphView;
+import com.bihanitech.shikshyaprasasak.curveGraph.CustomMarkerView;
 import com.bihanitech.shikshyaprasasak.curveGraph.models.GraphData;
 import com.bihanitech.shikshyaprasasak.curveGraph.models.PointMap;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -35,6 +40,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
@@ -45,31 +51,25 @@ import com.github.mikephil.charting.utils.MPPointF;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class AnalyticsFragment extends Fragment implements OnChartValueSelectedListener {
 
-    /* @BindView(R.id.toolbar)
-     Toolbar toolbar;*/
-    Toolbar toolbar;
-    TextView tvToolbarTitle;
-    /*@BindView(R.id.tvToolbarTitle)
-    TextView tvToolbarTitle;*/
-
     public static final int[] FOUNDER_COLORS = {
-            Color.rgb(8, 154, 214), Color.rgb(160, 17, 28),
+            Color.rgb(8, 154, 214), Color.rgb(160, 17, 28)
     };
     public static final int[] FOUNDER_COLOR = {
-            Color.rgb(8, 154, 214)};
+            Color.rgb(8, 154, 214), Color.rgb(160, 17, 28)};
     protected final String[] parties = new String[]{
             "ABS", "PRST", "Party C"
     };
     protected Typeface tfRegular;
     protected Typeface tfLight;
     List<String> xAxisValues = new ArrayList<>(Arrays.asList("Nur", "Kg", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
+    TextView tvToolbarTitle;
+    Toolbar toolbarNew;
     private BarChart chart;
-
     private PieChart circularChart;
-
     private CurveGraphView curveGraphView;
 
     public AnalyticsFragment() {
@@ -79,16 +79,8 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analytics, container, false);
-        /* ButterKnife.bind(this, view);*/
 
-        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
-        //setContentView(R.layout.fragment_analytics);
-        toolbar = getActivity().findViewById(R.id.toolbar);
-        tvToolbarTitle = getActivity().findViewById(R.id.tvToolbarTitle);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        tvToolbarTitle.setText("Analytics");
-
+        initToolbar();
         ScrollView sView = view.findViewById(R.id.svMain);
         // Hide the Scollbar
         sView.setVerticalScrollBarEnabled(false);
@@ -99,24 +91,32 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
 
         //Initializing Bar graph
-        chart = view.findViewById(R.id.chart1);
-        setAllStuffsBarGraph();
+       /* chart = view.findViewById(R.id.chart1);
+        setAllStuffsBarGraph();*/
         //Initializing circular chart
         circularChart = view.findViewById(R.id.chCircular2);
-        setAllStuffsPieChart();
+        setAllStuffsPieChartStaff();
         circularChart = view.findViewById(R.id.chCircular1);
-        setAllStuffsPieChart();
+        setAllStuffsPieChartStudent();
         //Initializing Curve graph
         curveGraphView = view.findViewById(R.id.cgv);
         setAllStuffCurveGraph();
         return view;
     }
 
+    private void initToolbar() {
+        toolbarNew = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbarNew);
+        toolbarNew.setVisibility(View.VISIBLE);
+        tvToolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id.tvToolbarTitle);
+        tvToolbarTitle.setText("Analytics");
+    }
+
 
     private void setAllStuffsBarGraph() {
 
-
+/*
         chart.getLegend().setEnabled(false);
+
 
         chart.getDescription().setEnabled(false);
         // if more than 60 entries are displayed in the chart, no values will be
@@ -135,15 +135,20 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         xAxis.setDrawGridLines(false);
 
         chart.getAxisLeft().setDrawGridLines(false);
+        CustomMarkerView mv = new CustomMarkerView(getContext(), R.layout.graph_pointer);
+        chart.setMarker(mv);
+
+        //trying to
 
 
         //data for graph
         ArrayList<BarEntry> values = new ArrayList<>();
-       /* for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 12; i++) {
             float val = 8f;
 
-        }*/
-        values.add(new BarEntry(0, 65));
+        }
+
+
         values.add(new BarEntry(1, 60));
         values.add(new BarEntry(2, 55));
         values.add(new BarEntry(3, 65));
@@ -186,12 +191,120 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
 
         // add a nice and smooth animation
+        chart.animateY(1300);*/
+
+        Legend l = chart.getLegend();
+
+        //initialize array
+        LegendEntry legendEntry = new LegendEntry();
+        legendEntry.label = "Boys";
+        legendEntry.formColor = Color.rgb(8, 154, 214);
+
+        LegendEntry legendEntry1 = new LegendEntry();
+        legendEntry1.label = "Girls";
+        legendEntry1.formColor = Color.rgb(160, 17, 28);
+
+
+        //index for the chart
+        l.setEnabled(true);
+        l.setFormSize(10f);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setForm(Legend.LegendForm.SQUARE);
+        l.setTextSize(12f);
+        l.setTextColor(Color.BLACK);
+        l.setXEntrySpace(5f);
+        l.setYEntrySpace(5f);
+        l.setCustom(Arrays.asList(legendEntry, legendEntry1));
+
+
+        //chart description
+        chart.getDescription().setEnabled(false);
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        chart.setMaxVisibleValueCount(12);
+
+        // scaling can now only be done on x- and y-axis separately
+        chart.setPinchZoom(false);
+
+        chart.setDrawBarShadow(false);
+        chart.setDrawGridBackground(false);
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        //disable grid lines
+        xAxis.setDrawGridLines(false);
+        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getAxisRight().setLabelCount(12, true);
+
+
+        //data for graph
+        ArrayList<BarEntry> values = new ArrayList<>();
+       /* for (int i = 0; i < 12; i++) {
+            float val = 8f;
+
+        }*/
+        values.add(new BarEntry(0, new float[]{12f, 26f}));
+        values.add(new BarEntry(1, new float[]{17f, 32f}));
+        values.add(new BarEntry(2, new float[]{19f, 41f}));
+        values.add(new BarEntry(3, new float[]{16f, 21f}));
+        values.add(new BarEntry(4, new float[]{21f, 36f}));
+        values.add(new BarEntry(5, new float[]{35f, 10f}));
+        values.add(new BarEntry(6, new float[]{18f, 14f}));
+        values.add(new BarEntry(7, new float[]{14f, 21f}));
+        values.add(new BarEntry(8, new float[]{17f, 12f}));
+        values.add(new BarEntry(9, new float[]{14f, 13f}));
+        values.add(new BarEntry(10, new float[]{10f, 16f}));
+        BarDataSet set1;
+        set1 = new BarDataSet(values, "Students");
+        set1.setColors(FOUNDER_COLOR
+        );
+        set1.setDrawValues(true);
+
+        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
+
+        BarData data = new BarData(dataSets);
+        chart.setData(data);
+        data.setDrawValues(false);
+        chart.getAxisRight().setEnabled(false);
+
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setTypeface(tfRegular);
+        leftAxis.setTextColor(ColorTemplate.getHoloBlue());
+        //leftAxis.setDrawGridLines(true);
+        leftAxis.setGranularityEnabled(true);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setAxisMaximum(90f);
+        leftAxis.setYOffset(-9f);
+        leftAxis.setTextColor(Color.rgb(5, 5, 5));
+        // add a nice and smooth animation
         chart.animateY(1300);
+        CustomMarkerView mv = new CustomMarkerView(getContext(), R.layout.graph_pointer);
+        chart.setMarker(mv);
+
+       /* chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+
+                Toast.makeText(getContext(), "you clicked" + e.toString(), Toast.LENGTH_SHORT).show();
+                PopupMenu popupMenu = new PopupMenu(getContext(),chart);
+                popupMenu.getMenuInflater().inflate(R.menu.);
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });*/
 
 
     }
 
-    private void setAllStuffsPieChart() {
+    private void setAllStuffsPieChartStudent() {
 
         //circularChart = findViewById(R.id.chCircular2);
         circularChart.setUsePercentValues(false);
@@ -200,8 +313,10 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         Description description = new Description();
         description.setText("Student");
-        description.setPosition(350, 700);
+        description.setPosition(310, 640);
         description.setTextSize(16f);
+
+
         description.setTextColor(Color.parseColor("#036C99"));
         circularChart.setDescription(description);
 
@@ -245,6 +360,77 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         //forIndex
 
 
+
+                /*
+                 Legend l = circularChart.getLegend();
+                 setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);*/
+
+
+        // entry label styling
+        circularChart.setEntryLabelColor(Color.WHITE);
+        //  circularChart.setEntryLabelTypeface(tfRegular);
+        circularChart.setEntryLabelTextSize(0f);
+        setData(10, 5);
+    }
+
+    private void setAllStuffsPieChartStaff() {
+
+        //circularChart = findViewById(R.id.chCircular2);
+        circularChart.setUsePercentValues(false);
+        circularChart.getDescription().setEnabled(true);
+
+
+        Description description = new Description();
+        description.setText("Staff");
+        description.setPosition(310, 640);
+        description.setTextSize(16f);
+        description.setTextColor(Color.parseColor("#036C99"));
+        circularChart.setDescription(description);
+
+
+        circularChart.getLegend().setEnabled(false);
+        circularChart.setExtraOffsets(1, -10, 1, -10);
+
+
+        circularChart.setDragDecelerationFrictionCoef(0.95f);
+
+        circularChart.setCenterTextTypeface(tfLight);
+        circularChart.setCenterText(generateCenterSpannableText());
+
+        circularChart.setDrawHoleEnabled(true);
+        circularChart.setHoleColor(Color.parseColor("#F2F0F7"));
+
+        circularChart.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
+        circularChart.setTransparentCircleAlpha(110);
+
+        circularChart.setHoleRadius(72f);
+        circularChart.setTransparentCircleRadius(72f);
+
+
+        circularChart.setDrawCenterText(true);
+
+        circularChart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        circularChart.setRotationEnabled(true);
+        circularChart.setHighlightPerTapEnabled(true);
+        //    circularChart.setExtraOffsets(-2,-12,-2,-12);
+
+        // chart.setUnit(" €");
+        // chart.setDrawUnitsInChart(true);
+
+        // add a selection listener
+        circularChart.setOnChartValueSelectedListener(this);
+
+        circularChart.animateY(1400, Easing.EaseInOutQuad);
+
+
+        //forIndex
 
                 /*
                  Legend l = circularChart.getLegend();
@@ -359,7 +545,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
             public void run() {
                 curveGraphView.setData(11, 600, gd, gd1, gd2);
             }
-        }, 3000);
+        }, 10);
     }
 
 
@@ -426,9 +612,18 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     }
 
     private SpannableString generateCenterSpannableText() {
-        String absentNum = "16";
 
-        SpannableString s = new SpannableString("16 \n Absent \n 576 \n Total");
+        SpannableString s = new SpannableString("16\nAbsent\n576\nTotal");
+        s.setSpan(new ForegroundColorSpan(Color.rgb(160, 17, 28)), 0, 2, 0);
+        s.setSpan(new RelativeSizeSpan(2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), 3, 10, 1);
+        s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 3, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new ForegroundColorSpan(Color.rgb(8, 154, 214)), 10, 13, 2);
+        s.setSpan(new RelativeSizeSpan(2f), 10, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 10, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), 14, 19, 3);
+        s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 14, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return s;
     }
 
