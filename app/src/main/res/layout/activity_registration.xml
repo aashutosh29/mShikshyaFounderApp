@@ -161,8 +161,36 @@
         android:paddingBottom="8dp"
         android:textSize="13sp"
         android:textAllCaps="false"
-        android:id="@+id/btVisitor"/>
+        android:id="@+id/btVisitor" />
 
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCardSlider"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@drawable/shik_banner_20200553123753">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pv2Slider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,6 +33,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     RecyclerView rvSearch;
     @BindView(R.id.etStudentNameToSearch)
     EditText etStudentNameToSearch;
+    SearchAdapter recyclerAdapter;
 
     @Override
     protected void onStart() {
@@ -68,10 +69,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().equals(""))
-                    rvSearch.setVisibility(View.INVISIBLE);
+                /*if (editable.toString().trim().equals(""))
+                    rvSearch.setVisibility(View.INVISIBLE);*/
                 filter(editable.toString());
-                rvSearch.setVisibility(View.VISIBLE);
+                //rvSearch.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -86,7 +87,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvSearch.setLayoutManager(llm);
         rvSearch.setItemAnimator(new DefaultItemAnimator());
-        SearchAdapter recyclerAdapter = new SearchAdapter(searchProfiles, this);
+        recyclerAdapter = new SearchAdapter(searchProfiles, this);
         rvSearch.setAdapter(recyclerAdapter);
     }
 
@@ -95,16 +96,23 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         for (SearchProfile sP : searchProfiles) {
             if (sP.getName().toLowerCase().contains(text.toLowerCase())) {
                 filteredSearchProfileList.add(sP);
+
             }
         }
+       /* if (filteredSearchProfileList.size() == 0)
+            rvSearch.setVisibility(View.INVISIBLE);
+        else {*/
+
+        rvSearch.setVisibility(View.VISIBLE);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvSearch.setLayoutManager(llm);
         rvSearch.setItemAnimator(new DefaultItemAnimator());
         SearchAdapter recyclerAdapter = new SearchAdapter(filteredSearchProfileList, this);
         rvSearch.setAdapter(recyclerAdapter);
-
+        recyclerAdapter.notifyDataSetChanged();
     }
+
 
     private void populateStudentDetails() {
         SearchProfile searchProfile = new SearchProfile("Rajesh Adhikari", "Fulbari", "6 (C)", R.drawable.img_profile_1, "Ram Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");

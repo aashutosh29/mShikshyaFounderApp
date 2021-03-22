@@ -46,6 +46,7 @@ public class Constant {
     public static final String TOKEN = "token";
     public static final String SUCCESS = "success";
     public static final String DATA = "data";
+    public static final String STUDENT = "student";
     public static final String TEACHER_INFO = "teacher_info";
     public static final String TEACHER_NAME = "EMPNAME";
     public static final String TEACHER_ID = "EMPID";
@@ -79,7 +80,7 @@ public class Constant {
     public static final String STATUS = "status";
     public static final String APPROVAL_STATUS = "approvalstatus";
     public static final String LEAVE_MESSAGE = "leave_message";
-    public static final String BROADCAST_NOTIFICATION = "com.bihanitech.shikshyashikshyak.BROADCAST_NOTIFICATION";
+    public static final String BROADCAST_NOTIFICATION = "com.bihanitech.shikshyaprasasak.BROADCAST_NOTIFICATION";
 
     public static final String FCM_ID = "fcmid";
     public static final String REGISTRATION_COMPLETE = "registration_complete";
@@ -90,7 +91,12 @@ public class Constant {
     public static final String ST_CLASS_ID = "STCLASSID";
     public static final String MOBILE_NO = "MOBILENO";
 
-
+    public static final String REGNO = "REGNO";
+    public static final String STNAME = "STNAME";
+    public static final String STPPHOTO = "STPPHOTO";
+    public static final String ST_CLASS = "STCLASS";
+    public static final String ST_SECTION = "STSECTION";
+    public static final String ST_SECTION_NAME = "CLASSNAME";
     public static final String ACCOUNT_UPTODATE = "account_upto_date";
     public static final String NOTICE_UPTO_DATE = "notice_upto_date";
 
@@ -137,7 +143,7 @@ public class Constant {
     public static final String SHARED_PREFS = "shared_prefs";
     public static final String USER_ID = "user_id";
     public static final int NETWORK_ERROR = 0;
-    public static final String NOTIFICATION_FLAG ="notification_flag" ;
+    public static final String NOTIFICATION_FLAG = "notification_flag";
     public static final String NOTIFICATION_COUNT = "notification_count";
     public static final String STUDENT_NAME = "student_name";
     public static final String STUDENT_CLASS = "student_class";
@@ -146,7 +152,8 @@ public class Constant {
     public static final String STUDENT_MOTHER_NAME = "student_mother_name";
     public static final String STUDENT_GUARDIAN_NAME = "student_guardian_name";
     public static final String STUDENT_CONTACT_NUMBER = "student_contact_number";
-
+    public static final String SCHOOL_LOGO = "school_logo";
+    public static final String PASSWORD_SET_WAITING = "set_password_waiting";
 
 
 }

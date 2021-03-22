@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/shik_bg"
+    tools:context=".ui.homeActivity.webViewAcitivity.DrawViewActivity">
+
+    <!-- The ActionBar displayed at the top -->
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.bihanitech.shikshyaprasasak.utility.ZoomLayout
+        android:id="@+id/zoomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/svMainMenu"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <RelativeLayout
+            android:id="@+id/parentImageRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/photoEditImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter" />
+
+            <com.bihanitech.shikshyaprasasak.utility.photoeditorsdk.BrushDrawingView
+                android:id="@+id/brushDrawingView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/deleteRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C4111111"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/delete_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/_8sdp"
+                android:background="@drawable/custom_otuline_ract"
+                android:backgroundTint="@color/white"
+                android:padding="@dimen/_8sdp"
+                android:text="Drag Here To Delete"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/_12sdp" />
+        </RelativeLayout>
+
+
+    </com.bihanitech.shikshyaprasasak.utility.ZoomLayout>
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/clMainMenu"-->
+    <!--        android:background="@color/shik_bg"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/_40sdp">-->
+
+    <HorizontalScrollView
+        android:id="@+id/svMainMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/_4sdp">
+
+                <ImageView
+                    android:id="@+id/draw"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_brush" />
+
+                <ImageView
+                    android:id="@+id/eraser"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_eraser" />
+
+                <ImageView
+                    android:id="@+id/sticker"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_sticker" />
+
+                <ImageView
+                    android:id="@+id/text"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_text" />
+
+                <ImageView
+                    android:id="@+id/undo"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_undo"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/redo"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_redo"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/clear"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_broom" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </HorizontalScrollView>
+
+
+    <HorizontalScrollView
+        android:id="@+id/svPaintMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#61FAF8F8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/svMainMenu">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/_4sdp">
+
+                <ImageView
+                    android:id="@+id/pen"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_writer" />
+
+                <ImageView
+                    android:id="@+id/line"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_line" />
+
+                <ImageView
+                    android:id="@+id/rectangle"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_rectangle" />
+
+                <ImageView
+                    android:id="@+id/circle"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_circle" />
+
+                <ImageView
+                    android:id="@+id/ellipse"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_ellipse" />
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/custom_otuline_ract"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/svStickersMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#61FAF8F8"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/svMainMenu">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/_4sdp">
+
+                <ImageView
+                    android:id="@+id/sticker1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker1" />
+
+                <ImageView
+                    android:id="@+id/sticker2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker2" />
+
+                <ImageView
+                    android:id="@+id/sticker3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker3" />
+
+                <ImageView
+                    android:id="@+id/sticker4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker4" />
+
+                <ImageView
+                    android:id="@+id/sticker5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker5" />
+
+                <ImageView
+                    android:id="@+id/sticker6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker6" />
+
+                <ImageView
+                    android:id="@+id/sticker7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker7" />
+
+                <ImageView
+                    android:id="@+id/sticker8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker8" />
+
+                <ImageView
+                    android:id="@+id/sticker9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker9" />
+
+                <ImageView
+                    android:id="@+id/sticker10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/sticker10" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </HorizontalScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:alpha=".4"
+        android:elevation="@dimen/_50sdp"
+        android:src="@drawable/ic_drag"
+        android:visibility="gone"
+        app:backgroundTint="#00036C99"
+        app:fabCustomSize="82dp"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="82dp"
+        app:tint="@color/colorAccent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clReload"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/shik_bg"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <TextView
+            android:id="@+id/tvReloadInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_24sdp"
+            android:layout_marginBottom="@dimen/_80sdp"
+            android:gravity="center"
+            android:text="Can't load file !!! \n press reload to try again"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btReload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/custom_otuline_ract"
+            android:gravity="center"
+            android:padding="@dimen/_6sdp"
+            android:text="Reload"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvReloadInfo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

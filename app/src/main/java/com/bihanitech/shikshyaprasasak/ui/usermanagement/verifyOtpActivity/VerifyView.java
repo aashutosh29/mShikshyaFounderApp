@@ -1,6 +1,6 @@
 package com.bihanitech.shikshyaprasasak.ui.usermanagement.verifyOtpActivity;
 
-
+import com.bihanitech.shikshyaprasasak.model.StudentInfo;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 
 import java.util.List;
@@ -18,10 +18,11 @@ public interface VerifyView {
 
     void showServerError();
 
+    void saveStudentDetail(StudentInfo studentInfo, String token);
 
     void saveRecentNotices(List<NoticeItem> noticeItems);
 
     void addCurrentStudentId(String regNo);
 
-    void saveTeacherDetail(String teacherId, String teacherName, String mobileNo, String token);
+    void resendOTPSent();
 }

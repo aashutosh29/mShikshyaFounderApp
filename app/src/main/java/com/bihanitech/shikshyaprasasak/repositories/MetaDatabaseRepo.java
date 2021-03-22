@@ -2,9 +2,12 @@ package com.bihanitech.shikshyaprasasak.repositories;
 
 
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
+import com.bihanitech.shikshyaprasasak.model.ClassSubject;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
+import com.bihanitech.shikshyaprasasak.model.StudentInfo;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
+import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.List;
 
 public class MetaDatabaseRepo implements MetaDatabase {
 
-    private DatabaseHelper databaseHelper;
+    private final DatabaseHelper databaseHelper;
 
     public MetaDatabaseRepo(DatabaseHelper databaseHelper) {
         this.databaseHelper = databaseHelper;
@@ -30,6 +33,12 @@ public class MetaDatabaseRepo implements MetaDatabase {
 
     }
 
+    @Override
+    public void addClassSubject(List<ClassSubject> classSubjects) {
+        RuntimeExceptionDao<ClassSubject, Integer> classSubjectsDao = databaseHelper.getClassSubjectsDao();
+        classSubjectsDao.create(classSubjects);
+    }
+
 
     @Override
     public List<SchoolInfo> getSchoolInfo() {
@@ -37,8 +46,14 @@ public class MetaDatabaseRepo implements MetaDatabase {
     }
 
     @Override
-    public void addContactList(List<ContactsItem> contactsItems){
+    public void addContactList(List<ContactsItem> contactsItems) {
         databaseHelper.getContactsInfo().create(contactsItems);
+    }
+
+    @Override
+    public List<ClassSubject> getAllSubjectList() {
+        RuntimeExceptionDao<ClassSubject, Integer> classSubjectRuntimeExceptionDao = databaseHelper.getClassSubjectsDao();
+        return classSubjectRuntimeExceptionDao.queryForAll();
     }
 
     @Override
@@ -46,12 +61,20 @@ public class MetaDatabaseRepo implements MetaDatabase {
         return databaseHelper.getContactsInfo().queryForAll();
     }
 
+    @Override
+    public void addStudentInfo(List<StudentInfo> studentInfos) {
+        databaseHelper.getStudentInfosDao().create(studentInfos);
+    }
 
 
+    @Override
+    public void addNoticeItems(List<NoticeItem> noticeItems) {
+        RuntimeExceptionDao<NoticeItem, Integer> noticeItemsDao = databaseHelper.getNoticeItemsDao();
+        for (NoticeItem noticeItem : noticeItems) {
+            noticeItemsDao.createOrUpdate(noticeItem);
+        }
 
 
-
-
-
+    }
 
 }

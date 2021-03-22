@@ -6,18 +6,18 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
 import com.bihanitech.shikshyaprasasak.R;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.BaseActivity;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class VisitorFormActivity extends AppCompatActivity {
+public class AdmissionEnquiryForm extends BaseActivity {
 
     @BindView(R.id.etName)
     AppCompatEditText etName;
@@ -26,13 +26,13 @@ public class VisitorFormActivity extends AppCompatActivity {
     @BindView(R.id.etContact)
     AppCompatEditText etContact;
 
-    @BindView(R.id.etEmail)
+    @BindView(R.id.etAddress)
     AppCompatEditText etEmail;
 
-    @BindView(R.id.etSubject)
+    @BindView(R.id.etRegistrationClass)
     AppCompatEditText etSubject;
 
-    @BindView(R.id.etMessage)
+    @BindView(R.id.etDOB)
     AppCompatEditText etMessage;
 
     @BindDrawable(R.drawable.error_edit)
@@ -41,7 +41,7 @@ public class VisitorFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visitor_form);
+        setContentView(R.layout.activity_admission_enquiry_form);
         ButterKnife.bind(this);
         listenForFields();
     }

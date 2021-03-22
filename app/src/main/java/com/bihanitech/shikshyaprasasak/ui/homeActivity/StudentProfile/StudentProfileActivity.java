@@ -8,9 +8,19 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bihanitech.shikshyaprasasak.R;
+import com.bihanitech.shikshyaprasasak.adapter.AccountAdapter;
+import com.bihanitech.shikshyaprasasak.adapter.SubjectListAdapter;
+import com.bihanitech.shikshyaprasasak.model.Statements;
+import com.bihanitech.shikshyaprasasak.model.Subject;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +70,18 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     @BindView(R.id.ivBack)
     ImageView ivBack;
 
+    @BindView(R.id.rvStatements)
+    RecyclerView rvStatements;
+
+    @BindView(R.id.rvSubjects)
+    RecyclerView rvSubjects;
+
+    SubjectListAdapter subjectListAdapter;
+    AccountAdapter recyclerAdapter;
+
+    List<Statements> statementsList = new ArrayList<>();
+    List<Subject> subjectList = new ArrayList<>();
+
     Boolean firstSubjectShowingFirst = true;
 
     Boolean secondSubjectShowingSecond = true;
@@ -72,7 +94,12 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
         setContentView(R.layout.activity_student_profile);
         ButterKnife.bind(this);
         getAllIntentAndSetRespectiveView();
+        initDataOfAccount();
+        initRecyclerViewStatements();
+        initSubject();
+        initSubjectRecyclerView();
     }
+
 
     @OnClick(R.id.ivBack)
     void ivBackClicked() {
@@ -147,5 +174,40 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
 
     }
+
+    private void initRecyclerViewStatements() {
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvStatements.setLayoutManager(llm);
+        rvStatements.setItemAnimator(new DefaultItemAnimator());
+        recyclerAdapter = new AccountAdapter(statementsList, this);
+        rvStatements.setAdapter(recyclerAdapter);
+    }
+
+    private void initSubject() {
+        Subject subject = new Subject("Maths", "A");
+        subjectList.add(subject);
+        subject = new Subject("Science", "A+");
+        subjectList.add(subject);
+        subject = new Subject("Social", "B+");
+        subjectList.add(subject);
+    }
+
+    private void initDataOfAccount() {
+        Statements statement = new Statements(2, "2021-02-23", "Account paid From Receipt No:", "Rs. 5900.0", "Rs. 2560.0");
+        statementsList.add(statement);
+        statement = new Statements(1, "2021-02-23", "Opening Balance", "Rs. 3340.0", "Rs. 3340.0");
+        statementsList.add(statement);
+    }
+
+    private void initSubjectRecyclerView() {
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvSubjects.setLayoutManager(llm);
+        rvSubjects.setItemAnimator(new DefaultItemAnimator());
+        subjectListAdapter = new SubjectListAdapter(subjectList, this);
+        rvSubjects.setAdapter(subjectListAdapter);
+    }
+
 
 }

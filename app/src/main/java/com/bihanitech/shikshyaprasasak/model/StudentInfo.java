@@ -27,22 +27,49 @@ public class StudentInfo {
     @DatabaseField
     private String stSchool;
 
+    @DatabaseField
+    private String stSectionId;
+
+    @DatabaseField
+    private String stSectionName;
+
 
     //1 if downloaded else 0
     @DatabaseField
     private int resultRoutine;
 
 
-    public StudentInfo(){}
+    public StudentInfo() {
+    }
 
-    public StudentInfo(int stId, String regNo, String stName, String stPhoto, String stClass, String stSchool, int resultRoutine) {
+    public StudentInfo(int stId, String regNo, String stName, String stPhoto, String stClass, String stClassId, String stSchool, String stSectionId, String stSectionName, int resultRoutine) {
         this.stId = stId;
         this.regNo = regNo;
         this.stName = stName;
         this.stPhoto = stPhoto;
         this.stClass = stClass;
+        this.stClassId = stClassId;
         this.stSchool = stSchool;
+        this.stSectionId = stSectionId;
+        this.stSectionName = stSectionName;
         this.resultRoutine = resultRoutine;
+    }
+
+
+    public String getStSectionId() {
+        return stSectionId;
+    }
+
+    public void setStSectionId(String stSectionId) {
+        this.stSectionId = stSectionId;
+    }
+
+    public String getStSectionName() {
+        return stSectionName;
+    }
+
+    public void setStSectionName(String stSectionName) {
+        this.stSectionName = stSectionName;
     }
 
     public int getStId() {

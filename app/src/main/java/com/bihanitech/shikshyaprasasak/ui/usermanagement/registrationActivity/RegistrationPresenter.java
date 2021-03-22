@@ -2,11 +2,14 @@ package com.bihanitech.shikshyaprasasak.ui.usermanagement.registrationActivity;
 
 import android.util.Log;
 
-
+import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.remote.AUTHService;
 import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
+import com.bihanitech.shikshyaprasasak.remote.CDSService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -21,13 +24,16 @@ public class RegistrationPresenter {
 
     RegistrationView view;
     AUTHService authService;
+    CDSService cdsService;
+
+
     private static final String TAG = RegistrationPresenter.class.getSimpleName();
 
     public RegistrationPresenter(RegistrationView view) {
         this.view = view;
     }
 
-    public void authenticateNumber(String phoneNumber, String schoolId){
+    public void authenticateNumber(String phoneNumber, String schoolId) {
 
         authService = ApiUtils.getAuthCDSService();
 
@@ -49,17 +55,12 @@ public class RegistrationPresenter {
 
                     try {
                         res = response.body().string();
-                        if(res.length()!=0){
                         //    view.showToast(res);
-                       /*JsonObject post = new JsonObject().get(res.substring(0,res.length()-1)).getAsJsonObject();
+                        /*JsonObject post = new JsonObject().get(res.substring(0,res.length()-1)).getAsJsonObject();
                        String resJson = post.get("message").toString();
                        Log.v(TAG,resJson);
                        */
-                            view.authenticated(true);
-
-                        }else{
-                            view.authenticated(false);
-                        }
+                        view.authenticated(res.length() != 0);
                     } catch (IOException e) {
                         view.showServerError();
                         e.printStackTrace();
@@ -85,13 +86,15 @@ public class RegistrationPresenter {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
                 //showErrorMessage();
                 Log.d(TAG,call.toString());
                 Log.d(TAG, "error loading from API");
                 //   Log.d(TAG, t.getMessage());
                 Log.d(TAG, t.toString());
                 if(t instanceof Exception){
-                    Log.v(TAG,"this is ioException");
+                    t.printStackTrace();
+                    Log.v(TAG, "this is ioException");
                     view.showNetworkError();
 
                 }
@@ -105,5 +108,31 @@ public class RegistrationPresenter {
         }else{
             view.authenticated(false);
         }*/
+    }
+
+    public void fetchSliderList(String schoolId) {
+
+        if (cdsService == null) {
+            cdsService = ApiUtils.getCDSService();
+        }
+
+        cdsService.getShikshyaNotice(schoolId).enqueue(new Callback<List<EventSlider>>() {
+
+
+            @Override
+            public void onResponse(Call<List<EventSlider>> call, Response<List<EventSlider>> response) {
+                int status = response.code();
+                if (status == 200) {
+                    view.populateSliderList(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<EventSlider>> call, Throwable t) {
+                List<EventSlider> eventSliders = new ArrayList<>();
+                view.populateSliderList(eventSliders);
+            }
+        });
+
     }
 }

@@ -32,10 +32,11 @@ public class NumberInvalidDFragment extends DialogFragment {
     @BindView(R.id.tvLabel1)
     TextView tvLabel;
 
-    public static NumberInvalidDFragment newInstance(String message) {
+    public static NumberInvalidDFragment newInstance(String message, String btName) {
         NumberInvalidDFragment frag = new NumberInvalidDFragment();
         Bundle args = new Bundle();
-        args.putString(Constant.PHONE_NUMBER,message);
+        args.putString(Constant.PHONE_NUMBER, message);
+        args.putString("btName", btName);
         frag.setArguments(args);
         return frag;
     }
