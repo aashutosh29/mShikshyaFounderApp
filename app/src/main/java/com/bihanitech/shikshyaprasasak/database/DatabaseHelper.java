@@ -4,11 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.bihanitech.shikshyaprasasak.R;
-import com.bihanitech.shikshyaprasasak.model.ClassSubject;
+import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
-import com.bihanitech.shikshyaprasasak.model.StudentInfo;
 import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
-import com.bihanitech.shikshyaprasasak.model.eventHolidays.Holiday;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -28,15 +27,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-
     private RuntimeExceptionDao<SchoolInfo, Integer> schoolInfoDao = null;
     private RuntimeExceptionDao<ContactsItem, Integer> contactsItemsDao = null;
     private RuntimeExceptionDao<NoticeItem, Integer> noticeItemDao = null;
     private RuntimeExceptionDao<Event, Integer> eventsDao = null;
-    private RuntimeExceptionDao<Holiday, Integer> holidaysDao = null;
-    private RuntimeExceptionDao<ClassSubject, Integer> classSubjectsDao = null;
-    private RuntimeExceptionDao<StudentInfo, Integer> studentInfosDao = null;
-    private RuntimeExceptionDao<NoticeItem, Integer> noticeItemsDao = null;
+    private RuntimeExceptionDao<Classes, Integer> classesDao = null;
+    private RuntimeExceptionDao<ExamName, Integer> examNameDao = null;
 
 
     public DatabaseHelper(Context context) {
@@ -47,14 +43,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             //create the tables
+
+
             TableUtils.createTable(connectionSource, SchoolInfo.class);
             TableUtils.createTable(connectionSource, ContactsItem.class);
             TableUtils.createTable(connectionSource, NoticeItem.class);
             TableUtils.createTable(connectionSource, Event.class);
-            TableUtils.createTable(connectionSource, ClassSubject.class);
-            TableUtils.createTable(connectionSource, StudentInfo.class);
-            TableUtils.createTable(connectionSource, NoticeItem.class);
-
+            TableUtils.createTable(connectionSource, ExamName.class);
+            TableUtils.createTable(connectionSource, Classes.class);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,10 +65,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, ContactsItem.class, false);
             TableUtils.dropTable(connectionSource, NoticeItem.class, false);
             TableUtils.dropTable(connectionSource, Event.class, false);
-            TableUtils.dropTable(connectionSource, Holiday.class, false);
-            TableUtils.dropTable(connectionSource, ClassSubject.class, false);
-            TableUtils.dropTable(connectionSource, StudentInfo.class, false);
-            TableUtils.dropTable(connectionSource, NoticeItem.class, false);
+            TableUtils.dropTable(connectionSource, ExamName.class, false);
+            TableUtils.dropTable(connectionSource, Classes.class, false);
+
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,34 +108,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     }
 
-    public RuntimeExceptionDao<Holiday, Integer> getHolidaysDao() {
-        if (holidaysDao == null) {
-            holidaysDao = getRuntimeExceptionDao(Holiday.class);
-        }
+    public RuntimeExceptionDao<Classes, Integer> getClassesDao() {
 
-        return holidaysDao;
+        if (classesDao == null) {
+            classesDao = getRuntimeExceptionDao(Classes.class);
+        }
+        return classesDao;
+
     }
 
-    public RuntimeExceptionDao<ClassSubject, Integer> getClassSubjectsDao() {
-        if (classSubjectsDao == null) {
-            classSubjectsDao = getRuntimeExceptionDao(ClassSubject.class);
+    public RuntimeExceptionDao<ExamName, Integer> getExamNameDao() {
+
+        if (examNameDao == null) {
+            examNameDao = getRuntimeExceptionDao(ExamName.class);
         }
-        return classSubjectsDao;
-    }
+        return examNameDao;
 
-    public RuntimeExceptionDao<StudentInfo, Integer> getStudentInfosDao() {
-        if (studentInfosDao == null) {
-            studentInfosDao = getRuntimeExceptionDao(StudentInfo.class);
-        }
-
-        return studentInfosDao;
-    }
-
-    public RuntimeExceptionDao<NoticeItem, Integer> getNoticeItemsDao() {
-        if (noticeItemsDao == null) {
-            noticeItemsDao = getRuntimeExceptionDao(NoticeItem.class);
-        }
-
-        return noticeItemsDao;
     }
 }

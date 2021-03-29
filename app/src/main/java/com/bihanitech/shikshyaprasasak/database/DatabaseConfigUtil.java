@@ -1,9 +1,10 @@
 package com.bihanitech.shikshyaprasasak.database;
 
 
+import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
-import com.bihanitech.shikshyaprasasak.model.eventHolidays.Holiday;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
@@ -16,13 +17,12 @@ import java.io.File;
 
 public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 
-    private static final Class<?>[] classes = new Class[]{
+    private static final Class<?>[] classesDatabase = new Class[]{
             SchoolInfo.class,
             ContactsItem.class,
             NoticeItem.class,
             Event.class,
-            Holiday.class
-
+            ExamName.class, Classes.class
 
     };
 
@@ -36,6 +36,6 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             configFile = new File(pathToConfig);
         }
 
-        writeConfigFile(configFile, classes);
+        writeConfigFile(configFile, classesDatabase);
     }
 }

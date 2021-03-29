@@ -2,6 +2,8 @@ package com.bihanitech.shikshyaprasasak.repositories;
 
 
 import com.bihanitech.shikshyaprasasak.model.ClassSubject;
+import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.StudentInfo;
@@ -28,6 +30,10 @@ public interface MetaDatabase {
     List<ClassSubject> getAllSubjectList();
 
     void addStudentInfo(List<StudentInfo> studentInfos);
+
+    void addExamName(List<ExamName> examNames);
+
+    void addClasses(List<Classes> classes);
 
     void addNoticeItems(List<NoticeItem> noticeItems);
 

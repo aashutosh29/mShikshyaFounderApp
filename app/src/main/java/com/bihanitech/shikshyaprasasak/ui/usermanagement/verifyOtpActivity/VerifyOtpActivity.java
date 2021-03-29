@@ -58,32 +58,26 @@ import butterknife.OnClick;
 
 public class VerifyOtpActivity extends BaseActivity implements VerifyView {
 
+    private static final int VERIFYING_OTP = 1;
+    private static final int RESENDING_OTP = 0;
+    private static final int REQ_USER_CONSENT = 200;
+    private static final String TAG = VerifyOtpActivity.class.getSimpleName();
     @BindView(R.id.tvLabel2)
     TextView tvLabel2;
-
     @BindView(R.id.btResend)
     Button btResend;
-
     @BindView(R.id.tvOtp)
     EditText etOtp;
-
     @BindView(R.id.tvLabel1)
     TextView tvLabel1;
-
     @BindView(R.id.tvTime)
     TextView tvTime;
-
-    private static final int VERIFYING_OTP = 1;
     ProgressDFragment progressDFragment;
-
     Handler handler;
     Runnable runnable;
-
     VerifyPresenter presenter;
     SharedPrefsHelper sharedPrefsHelper;
     NumberInvalidDFragment numberInvalidDFragment;
-    private static final int RESENDING_OTP = 0;
-    private static final int REQ_USER_CONSENT = 200;
     FragmentManager fm;
     @BindView(R.id.tvResend)
     TextView tvResend;
@@ -91,10 +85,6 @@ public class VerifyOtpActivity extends BaseActivity implements VerifyView {
     Button btEdit;
     @BindView(R.id.tvContactsTitle)
     TextView tvContactsTitle;
-
-    private CountDownTimer countDownTimer;
-    private DatabaseHelper databaseHelper;
-    private static final String TAG = VerifyOtpActivity.class.getSimpleName();
     @BindView(R.id.call1)
     TextView call1;
     @BindView(R.id.call2)
@@ -103,6 +93,8 @@ public class VerifyOtpActivity extends BaseActivity implements VerifyView {
     TextView call3;
     SmsBroadcastReceiver smsBroadcastReceiver;
     Boolean isFirstOtp = true;
+    private CountDownTimer countDownTimer;
+    private DatabaseHelper databaseHelper;
     private int currentTask = 1;
 
     @Override

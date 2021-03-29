@@ -232,6 +232,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvIncomeVSDueBalance"
                 android:layout_width="match_parent"
@@ -241,7 +242,6 @@
                 android:background="@color/FounderBg"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cvAttendanceReport">
@@ -410,6 +410,112 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvMaleFemaleReport"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_4sdp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cvIncomeVSDueBalance">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/FounderBg">
+
+                    <ImageView
+                        android:id="@+id/ivSmallCirclemf"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="18dp"
+                        android:src="@drawable/ic_circle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvAttendanceReportmf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Attendance Report"
+                        android:textColor="#535151"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/ivSmallCirclemf"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cvMoreAndUpdatedmf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/ivRightArrowmf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/ic_right_arrow_24dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMoremf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="More"
+                            android:textColor="@color/FounderBlue"
+                            app:layout_constraintEnd_toStartOf="@id/ivRightArrowmf"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Updated on chaitra 24"
+                            android:textSize="12sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+
+                            app:layout_constraintTop_toBottomOf="@id/tvMoremf" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/chCircular1Mf"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_180sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/chCircular2Mf"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedmf" />
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/chCircular2Mf"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_180sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/chCircular1Mf"
+                        app:layout_constraintTop_toTopOf="@id/chCircular1Mf" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
             <Button
                 android:id="@+id/viewStatement"
                 android:layout_width="match_parent"
@@ -418,7 +524,7 @@
                 android:background="@drawable/bg_button"
                 android:text="View Statement"
                 android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/cvIncomeVSDueBalance" />
+                app:layout_constraintTop_toBottomOf="@id/cvMaleFemaleReport" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

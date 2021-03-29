@@ -85,11 +85,11 @@
             android:label="Shikshya Prasasak"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme">
-              <intent-filter>
+              <!--<intent-filter>
                   <action android:name="android.intent.action.MAIN" />
 
                   <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>
+              </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.homeActivity.addNoticeActivity.AddNoticeActivity"
@@ -166,6 +166,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
+        <activity
+            android:name=".ui.NewUserManagementSystem.SetupPasswordActivity.SetupPasswordActivity"
+            android:label="Setup Password"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NewUserManagementSystem.VerifyNumberActivity.VerifyNumberActivity"
+            android:label="Verify OTP code"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NewUserManagementSystem.RegisterActivity.RegisterActivity"
+            android:label="Register"
+            android:parentActivityName=".ui.NewUserManagementSystem.LoginActivity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NewUserManagementSystem.LoginActivity.LoginActivity"
+            android:label="Log In"
+            android:parentActivityName=".ui.schoolSelection.SchoolSelection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".ui.homeActivity.BaseActivity" />
     </application>
 
 </manifest>

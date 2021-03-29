@@ -1,6 +1,5 @@
 package com.bihanitech.shikshyaprasasak.ui.schoolSelection;
 
-
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 
 /**

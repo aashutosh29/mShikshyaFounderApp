@@ -68,8 +68,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     TextView tvName;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
-    @BindView(R.id.etPhoneNumber)
-    EditText etPhoneNumber;
+    @BindView(R.id.etEmailAddress)
+    EditText etEmailAddress;
     @BindView(R.id.etPassword)
     EditText etPassword;
 
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         schoolId = sharedPrefsHelper.getValue(Constant.SCHOOL_ID, "");
         timer = new Timer();
         presenter.fetchSliderList(schoolId);
-        textWatcher(etPhoneNumber);
+        textWatcher(etEmailAddress);
         textWatcher(etPassword);
     }
 
@@ -140,7 +140,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
                 validateInputs();
                 if (validInputs) {
                     Log.v("fcm id ", sharedPrefsHelper.getValue(Constant.FCM_ID, ""));
-                    presenter.login(sharedPrefsHelper.getValue(Constant.SCHOOL_ID, ""), etPhoneNumber.getText().toString(), etPassword.getText().toString(), sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""), sharedPrefsHelper.getValue(Constant.FCM_ID, ""), getDeviceId(this));
+                    //presenter.login(sharedPrefsHelper.getValue(Constant.SCHOOL_ID, ""), etEmailAddress.getText().toString(), etPassword.getText().toString(), sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""), sharedPrefsHelper.getValue(Constant.FCM_ID, ""), getDeviceId(this));
+                    presenter.login(etEmailAddress.getText().toString(), 1, sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""), etPassword.getText().toString());
                 }
                 break;
             case R.id.tvRegister:
@@ -157,10 +158,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             etPassword.setBackgroundResource(R.drawable.custom_edittext_background_error);
             etPassword.setError("Password should be at list 6 digits long");
         }
-        if (etPhoneNumber.getText().toString().length() != 10) {
+        if (etEmailAddress.getText().toString().length() <= 5) {
             validInputs = false;
-            etPhoneNumber.setBackgroundResource(R.drawable.custom_edittext_background_error);
-            etPhoneNumber.setError("Please enter a valid Phone Number");
+            etEmailAddress.setBackgroundResource(R.drawable.custom_edittext_background_error);
+            etEmailAddress.setError("Please enter a valid Email Address");
         }
 
     }
@@ -225,7 +226,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     public void retry() {
         validateInputs();
         if (validInputs) {
-            presenter.login(sharedPrefsHelper.getValue(Constant.SCHOOL_ID, ""), etPhoneNumber.getText().toString(), etPassword.getText().toString(), sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""), sharedPrefsHelper.getValue(Constant.FCM_ID, ""), getDeviceId(this));
+            //presenter.login(sharedPrefsHelper.getValue(Constant.SCHOOL_ID, ""), etEmailAddress.getText().toString(), etPassword.getText().toString(), sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""), sharedPrefsHelper.getValue(Constant.FCM_ID, ""), getDeviceId(this));
+            presenter.login(etEmailAddress.getText().toString(), 1, sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""), etPassword.getText().toString());
+
         }
     }
 
@@ -346,6 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
     }
 
+
     @Override
     public void verified(boolean flag, String message) {
         progressDFragment.dismissAllowingStateLoss();
@@ -399,6 +403,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             sharedPrefsHelper.saveValue(Constant.ST_SECTION, "");
         }
         sharedPrefsHelper.saveValue(Constant.TOKEN, token);
+    }
+
+
+    @Override
+    public void savePrimaryData(String schoolID, String logoImage, String schoolName, String lastSyncDate, String userName, String token) {
+        sharedPrefsHelper.saveValue(Constant.TOKEN, token);
+        sharedPrefsHelper.saveValue(Constant.SCHOOL_ID, schoolID);
+        sharedPrefsHelper.saveValue(Constant.SCHOOL_NAME, schoolName);
+        sharedPrefsHelper.saveValue(Constant.SCHOOL_LOGO, logoImage);
+        sharedPrefsHelper.saveValue(Constant.LAST_DATA_SYNC, lastSyncDate);
+        sharedPrefsHelper.saveValue(Constant.USER_NAME, userName);
     }
 
     @Override

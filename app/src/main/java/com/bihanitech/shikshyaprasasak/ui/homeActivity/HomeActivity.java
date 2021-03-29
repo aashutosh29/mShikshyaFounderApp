@@ -50,6 +50,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     Drawable ibUp;
     @BindView(R.id.ivNotification)
     ImageView ivNotification;
+
+
     TextView tvName;
     TextView tvSchool;
     SharedPrefsHelper sharedPrefsHelper;

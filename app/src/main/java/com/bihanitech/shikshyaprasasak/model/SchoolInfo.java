@@ -31,7 +31,7 @@ public class SchoolInfo {
     @Expose
     private String address;
 
-    public SchoolInfo(){
+    public SchoolInfo() {
 
     }
 

@@ -2,8 +2,8 @@ package com.bihanitech.shikshyaprasasak.ui.NewUserManagementSystem.LoginActivity
 
 import android.util.Log;
 
-import com.bihanitech.shikshyaprasasak.model.StudentInfo;
-import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
+import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.remote.AUTHService;
@@ -64,14 +64,14 @@ public class LoginPresenter {
     }
 
 
-    public void login(String schoolId, String phone, String password, String schoolName, String FCM, String deviceID) {
+    public void login(/*String schoolId,*/ String email, int rememberMe, String schoolName, String password/*, String FCM, String deviceID*/) {
 
 //        if (cdsService == null)
-        cdsService = ApiUtils.getV2AuthCDSService();
+        cdsService = ApiUtils.getDummyCDSService();
 
         view.showLoading();
 
-        cdsService.getLogin(schoolId, phone, "true", password, FCM, deviceID).enqueue(new Callback<ResponseBody>() {
+        cdsService.getLogin(email, password, rememberMe/*, "true", password, FCM, deviceID*/).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -89,68 +89,37 @@ public class LoginPresenter {
 
                                 JSONObject post = new JSONObject(res);
                                 Log.v(TAG, res);
-                                String message = post.getString(Constant.MESSAGE);
-                                if (message.equalsIgnoreCase(Constant.SUCCESS)) {
-                                    String token = post.getString(Constant.TOKEN);
+                                String result = post.getString(Constant.RESULT);
+                                if (result.equalsIgnoreCase(Constant.SUCCESS)) {
+                                    String message = post.getString(Constant.MESSAGE);
+                                    JSONObject newMessage = new JSONObject(message);
 
-                                    JSONObject dataArray = post.getJSONObject(Constant.DATA);
-                                    JSONArray studentDetailArr = dataArray.getJSONArray(Constant.STUDENT);
-                                    JSONArray contactArr = dataArray.getJSONArray(Constant.CONTACT);
-                                    JSONArray noticeArr = dataArray.getJSONArray(Constant.NOTICE);
-                                    JSONArray examArr = dataArray.getJSONArray(Constant.EXAM_TERMINAL);
+                                    String token = newMessage.getString(Constant.TOKEN);
+                                    String schoolID = newMessage.getString(Constant.SCHOOL_ID);
+                                    String logoImage = newMessage.getString(Constant.SCHOOL_LOGO);
+                                    String schoolName = newMessage.getString(Constant.SCHOOL_NAME);
+                                    String lastSyncDate = newMessage.getString(Constant.LAST_DATA_SYNC);
+                                    String userName = newMessage.getString(Constant.USER_NAME);
 
-                                    String regId = studentDetailArr.getJSONObject(0).getString(Constant.REGNO);
-                                    String studentName = studentDetailArr.getJSONObject(0).getString(Constant.STNAME);
-                                    Log.v(TAG, "regID " + regId + " student name " + studentName);
-                                    String className = studentDetailArr.getJSONObject(0).getString(Constant.ST_CLASS);
-                                    String classid = studentDetailArr.getJSONObject(0).getString(Constant.ST_CLASS_ID);
+                                    JSONArray classesArray = newMessage.getJSONArray(Constant.CLASSES);
+                                    JSONArray examNameArray = newMessage.getJSONArray(Constant.EXAM_NAME);
 
 
-                                    List<ContactsItem> contactsItemList = new ArrayList<>();
-                                    for (int i = 0; i < contactArr.length(); i++) {
-                                        ContactsItem contactsItem = new ContactsItem();
-                                        contactsItem.setName(contactArr.getJSONObject(i).getString(Constant.NAME));
-                                        contactsItem.setContacts(contactArr.getJSONObject(i).getString(Constant.CONTACT));
-                                        contactsItemList.add(contactsItem);
+                                    List<Classes> classes = new ArrayList<>();
+                                    List<ExamName> examNames = new ArrayList<>();
+
+                                    for (int i = 0; i < classesArray.length(); i++) {
+                                        Classes classes1 = new Classes(classesArray.getJSONObject(i).getString(Constant.CLASS_ID), classesArray.getJSONObject(i).getString(Constant.CLASS));
+                                        classes.add(classes1);
                                     }
-
-                                    List<NoticeItem> noticeItems = new ArrayList<>();
-                                    for (int i = 0; i < noticeArr.length(); i++) {
-                                        NoticeItem noticeItem = new NoticeItem();
-                                        noticeItem.setTitle(noticeArr.getJSONObject(i).getString(Constant.TITLE));
-                                        noticeItem.setDetail(noticeArr.getJSONObject(i).getString(Constant.CONTENT));
-                                        noticeItem.setpDate(noticeArr.getJSONObject(i).getString(Constant.PUBLISHED_TIME));
-                                        noticeItems.add(noticeItem);
+                                    metaDatabaseRepo.addClasses(classes);
+                                    for (int i = 0; i < examNameArray.length(); i++) {
+                                        ExamName examName = new ExamName(examNameArray.getJSONObject(i).getString(Constant.EXAM_ID), examNameArray.getJSONObject(i).getString(Constant.EXAM_NAME));
+                                        examNames.add(examName);
                                     }
+                                    metaDatabaseRepo.addExamName(examNames);
 
-                                    List<StudentInfo> studentInfoList = new ArrayList<>();
-                                    for (int i = 0; i < studentDetailArr.length(); i++) {
-                                        StudentInfo studentInfo = new StudentInfo();
-                                        studentInfo.setRegNo(studentDetailArr.getJSONObject(i).getString(Constant.REGNO));
-                                        studentInfo.setStName(studentDetailArr.getJSONObject(i).getString(Constant.STNAME));
-                                        studentInfo.setStClass(studentDetailArr.getJSONObject(i).getString(Constant.ST_CLASS));
-                                        studentInfo.setStPhoto(studentDetailArr.getJSONObject(i).getString(Constant.STPPHOTO));
-                                        studentInfo.setStSchool(schoolName);
-                                        studentInfo.setStClassId(studentDetailArr.getJSONObject(i).getString(Constant.ST_CLASS_ID));
-                                        studentInfo.setResultRoutine(0);
-
-                                        if (studentDetailArr.getJSONObject(i).getString(Constant.ST_SECTION).length() != 0) {
-                                            studentInfo.setStSectionId(studentDetailArr.getJSONObject(i).getString(Constant.ST_SECTION));
-                                            studentInfo.setStSectionName(studentDetailArr.getJSONObject(i).getJSONObject("section").getString("CLASSNAME"));
-                                        } else {
-                                            studentInfo.setStSectionId("");
-
-                                        }
-
-                                        view.subscribeStudentForNotifications(studentInfo);
-                                        studentInfoList.add(studentInfo);
-                                    }
-                                    view.saveStudentDetail(studentInfoList.get(0), token);
-
-                                    metaDatabaseRepo.addStudentInfo(studentInfoList);
-                                    view.addCurrentStudentId(studentInfoList.get(0).getRegNo());
-                                    metaDatabaseRepo.addContactList(contactsItemList);
-                                    view.saveRecentNotices(noticeItems);
+                                    view.savePrimaryData(schoolID, logoImage, schoolName, lastSyncDate, userName, token.trim());
                                     view.verified(true, "");
                                 } else {
                                     view.verified(false, "Email and password not registered or incorrect");

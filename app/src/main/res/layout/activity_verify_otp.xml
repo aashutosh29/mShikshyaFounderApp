@@ -10,38 +10,37 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Enter the 6-digit code you received via SMS."
-        android:textSize="18sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_19sdp"
+
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:text="@string/enter_the_6_digit_code_you_received_via_sms"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
+        android:textSize="16sp"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="#222"
-        android:id="@+id/tvLabel1"
-        />
+        android:id="@+id/tvLabel1" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/tvOtp"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Code"
-        app:layout_constraintWidth_percent=".4"
+        android:ems="5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textColorHint="#868686"
-        android:textSize="24sp"
+        android:hint="@string/code"
+        android:padding="@dimen/_5sdp"
+        android:textColorHint="#acacac"
         android:maxLength="6"
         android:textStyle="bold"
         android:background="#00000000"
         android:inputType="number"
         android:backgroundTint="#ffffff"
-        android:padding="6dp"
+        android:textSize="16sp"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/tvLabel1"
-        android:layout_marginTop="36dp"
-        />
+        android:layout_marginTop="36dp" />
     <View
         android:id="@+id/vBottom"
         android:layout_width="0dp"
@@ -53,88 +52,72 @@
         />
 
     <TextView
+        android:layout_marginStart="@dimen/_19sdp"
         android:id="@+id/tvLabel2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="The code was sent to 984******* it may take few minutes."
-        android:textSize="14sp"
+        android:layout_marginTop="@dimen/_19sdp"
+        android:layout_marginEnd="@dimen/_19sdp"
+        android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:text="@string/the_code_was_sent_to_984_it_may_take_few_minutes"
+        android:textColor="@color/dark_text_color"
         app:layout_constraintTop_toBottomOf="@+id/vBottom"
-        android:layout_marginTop="24dp"
-        />
-
-    <TextView
-        android:id="@+id/tvWrongLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wrong number?"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="#2b2b2b"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabel2"
-        android:layout_marginTop="8dp"
-        />
+        android:textSize="@dimen/_11sdp" />
 
     <Button
-        android:layout_width="0dp"
-
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_rect_button_yellow"
-        app:layout_constraintWidth_percent=".4"
-        android:text="Edit Number"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/tvWrongLabel"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:paddingStart="@dimen/_9sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_9sdp"
         android:minHeight="0dp"
         android:clickable="true"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="8dp"
-        android:layout_marginTop="8dp"
-        android:paddingBottom="8dp"
-        android:textSize="16sp"
+        android:paddingBottom="@dimen/_6sdp"
+        android:text="@string/wrong_number"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:textAllCaps="false"
-        android:id="@+id/btEdit"/>
+        android:id="@+id/btEdit" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvResend"
-        android:text="Didn't receive SMS"
-        android:textSize="15sp"
+        android:layout_marginBottom="@dimen/_9sdp"
+        android:text="@string/didn_t_receive_sms"
         app:layout_constraintBottom_toTopOf="@id/btResend"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12dp"/>
+        android:textSize="@dimen/_11sdp" />
 
     <Button
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_rect_button"
-        android:text="Resend SMS"
-        app:layout_constraintWidth_percent=".4"
+        android:layout_marginTop="100dp"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintTop_toBottomOf="@+id/tvLabel2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingStart="@dimen/_9sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:minHeight="0dp"
         android:enabled="false"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:textSize="16sp"
+        android:paddingTop="@dimen/_6sdp"
+        android:paddingEnd="@dimen/_9sdp"
+        android:paddingBottom="@dimen/_6sdp"
+        android:text="@string/resend_sms"
+        android:textSize="13sp"
+        app:layout_constraintVertical_bias=".3"
         android:textAllCaps="false"
-        android:id="@+id/btResend"/>
+        android:id="@+id/btResend" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -144,10 +127,125 @@
         app:layout_constraintTop_toBottomOf="@id/btResend"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp"
-        android:textSize="16sp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:textSize="@dimen/_11sdp"
         android:textColor="#2b2b2b"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/btEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime">
+
+
+        <TextView
+            android:id="@+id/tvContactsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_19sdp"
+            android:layout_marginEnd="@dimen/_19sdp"
+            android:gravity="center"
+            android:text="@string/if_it_takes_too_long_for_otp_please_contact_following_numbers"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvContactsTitle">
+
+            <TextView
+                android:id="@+id/tvContacts1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="center"
+                android:text="COSMOS Software : (+977) "
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/call1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9841068901"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvContacts1"
+                app:layout_constraintTop_toTopOf="@id/tvContacts1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl1">
+
+            <TextView
+                android:id="@+id/tvContacts2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click Software Solution : (+977) "
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <TextView
+                android:id="@+id/call2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="056530393"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvContacts2"
+                app:layout_constraintTop_toTopOf="@id/tvContacts2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl2">
+
+            <TextView
+                android:id="@+id/tvContacts3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bihani Tech : (+977) "
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/call3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="056571259"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvContacts3"
+                app:layout_constraintTop_toTopOf="@id/tvContacts3" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

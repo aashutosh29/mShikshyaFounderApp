@@ -117,5 +117,18 @@
     <string name="number_invalid"><![CDATA[The code provided is <b>invalid</b>. Please try again.]]></string>
     <string name="resending_otp">Resending OTP Code</string>
 
+    <string name="the_code_was_sent_to"><![CDATA[The code was sent to <b>]]></string>
+    <string name="the_code_was_sent_to_984_it_may_take_few_minutes">The code was sent to 984******* it may take few minutes.</string>
+    <string name="enter_the_6_digit_code_you_received_via_sms">Enter the 6-digit code you received via SMS.</string>
+    <string name="code">Code</string>
+    <string name="resend_sms">Resend SMS</string>
+    <string name="wrong_number">Wrong Number ?</string>
+    <string name="didn_t_receive_sms">Didn\'t receive SMS</string>
+    <string name="if_it_takes_too_long_for_otp_please_contact_following_numbers">If it takes too long for OTP, Please contact following numbers</string>
+    <string name="it_may_take_few_minutes"><![CDATA[</b> it may take few minutes.]]></string>
+    <string name="select_your_school">Select your school</string>
+    <string name="search_school">Search your School Name</string>
+    <string name="notice_board_is_empty">Notice Board is empty!!!</string>
+    <string name="looks_like_there_are_no_any_notices_published_yet">Looks like there are no any notices published yet</string>
 
 </resources>

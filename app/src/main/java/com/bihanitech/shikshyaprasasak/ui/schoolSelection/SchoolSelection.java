@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.TextView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,17 +19,20 @@ import com.bihanitech.shikshyaprasasak.adapter.SchoolListAdapter;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
-import com.bihanitech.shikshyaprasasak.ui.usermanagement.registrationActivity.RegistrationActivity;
+import com.bihanitech.shikshyaprasasak.ui.NewUserManagementSystem.LoginActivity.LoginActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.BaseActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SchoolSelection extends AppCompatActivity implements SchoolSelectionView{
+public class SchoolSelection extends BaseActivity implements SchoolSelectionView {
 
     @BindView(R.id.rvSchools)
     RecyclerView rvSchools;
@@ -43,8 +47,12 @@ public class SchoolSelection extends AppCompatActivity implements SchoolSelectio
     @BindView(R.id.ivClear)
     ImageView ivClear;
 
-    List<SchoolInfo> schoolInfoList ;
+    List<SchoolInfo> schoolInfoList;
     List<String> schoolNames;
+
+    @BindView(R.id.tvLabel1)
+    TextView tvLabel1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,32 +62,95 @@ public class SchoolSelection extends AppCompatActivity implements SchoolSelectio
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         schoolInfoList = new ArrayList<>();
         schoolNames = new ArrayList<>();
-        schoolSelectionPresenter = new SchoolSelectionPresenter(this,new MetaDatabaseRepo(getDatabaseHelper()));
+        schoolSelectionPresenter = new SchoolSelectionPresenter(this, new MetaDatabaseRepo(getDatabaseHelper()));
+
         schoolSelectionPresenter.setUpSchoolList();
         listenForSearch();
+//        Typeface typeface = ResourcesCompat.getFont(this, R.font.aakriti_regular);
+//        etSearch.setTypeface(typeface);
+        //  tvLabel1.setTypeface(typeface);
+    }
 
+
+    private void listenForSearch() {
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().length() == 0) {
+                    ivClear.setVisibility(View.GONE);
+                    hideKeyboard(SchoolSelection.this);
+                } else {
+                    searchForSchool(charSequence.toString());
+                    ivClear.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void searchForSchool(String searchKey) {
+
+        List<SchoolInfo> schoolInfos = new ArrayList<>();
+        for (SchoolInfo schoolInfo : schoolInfoList) {
+            String schoolNameLS = schoolInfo.getName().toLowerCase();
+            if (schoolNameLS.contains(searchKey.toLowerCase())) {
+                schoolInfos.add(schoolInfo);
+            }
+        }
+
+        rvSchools.setAdapter(new SchoolListAdapter(this, schoolInfos, R.layout.item_school, this));
+        //rvSchools.setLayoutManager(new GridLayoutManager(this,3));
+        rvSchools.setLayoutManager(new LinearLayoutManager(this));
+
+
+    }
+
+    @OnClick(R.id.ivClear)
+    public void ivClearClicked() {
+        etSearch.setText("");
+        ivClear.setVisibility(View.GONE);
+        rvSchools.setAdapter(new SchoolListAdapter(this, schoolInfoList, R.layout.item_school, this));
+        //rvSchools.setLayoutManager(new GridLayoutManager(this,3));
+        rvSchools.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override
     public void setUpRecyclerView(List<SchoolInfo> schoolInfo) {
-        if(schoolInfoList.size()==0)
+        if (schoolInfoList.size() == 0)
             schoolInfoList = schoolInfo;
-
-        rvSchools.setAdapter(new SchoolListAdapter(this,schoolInfo,R.layout.item_school,this));
+        rvSchools.setAdapter(new SchoolListAdapter(this, schoolInfo, R.layout.item_school, this));
         //rvSchools.setLayoutManager(new GridLayoutManager(this,3));
         rvSchools.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
-
-
-
     @Override
     public void sendToRegistration(SchoolInfo schoolInfo) {
-        sharedPrefsHelper.saveValue(Constant.SCHOOL_NAME,schoolInfo.getName());
-        sharedPrefsHelper.saveValue(Constant.SCHOOL_ADDRESS,schoolInfo.getAddress());
-        sharedPrefsHelper.saveValue(Constant.SCHOOL_ID,schoolInfo.getSchoolid());
-        Intent i = new Intent(this, RegistrationActivity.class);
+        sharedPrefsHelper.saveValue(Constant.SCHOOL_NAME, schoolInfo.getName());
+        sharedPrefsHelper.saveValue(Constant.SCHOOL_ADDRESS, schoolInfo.getAddress());
+        sharedPrefsHelper.saveValue(Constant.SCHOOL_ID, schoolInfo.getSchoolid());
+        sharedPrefsHelper.saveValue(Constant.SCHOOL_LOGO, schoolInfo.getLogo());
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();
     }
@@ -102,8 +173,8 @@ public class SchoolSelection extends AppCompatActivity implements SchoolSelectio
         return bMap;
     }*/
 
-    private DatabaseHelper getDatabaseHelper(){
-        if(databaseHelper==null){
+    private DatabaseHelper getDatabaseHelper() {
+        if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
         }
         return databaseHelper;
@@ -112,75 +183,10 @@ public class SchoolSelection extends AppCompatActivity implements SchoolSelectio
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(databaseHelper!=null){
+        if (databaseHelper != null) {
             OpenHelperManager.releaseHelper();
             databaseHelper = null;
         }
-    }
-
-    private void listenForSearch(){
-        etSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().length()==0){
-                    ivClear.setVisibility(View.GONE);
-                    hideKeyboard(SchoolSelection.this);
-                }else{
-                    searchForSchool(charSequence.toString());
-                    ivClear.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-    }
-
-    private void searchForSchool(String searchKey) {
-
-        List<SchoolInfo> schoolInfos = new ArrayList<>();
-        for (SchoolInfo schoolInfo : schoolInfoList) {
-            String schoolNameLS = schoolInfo.getName().toLowerCase();
-            if(schoolNameLS.contains(searchKey.toLowerCase())){
-                schoolInfos.add(schoolInfo);
-            }
-        }
-
-        rvSchools.setAdapter(new SchoolListAdapter(this,schoolInfos,R.layout.item_school,this));
-        //rvSchools.setLayoutManager(new GridLayoutManager(this,3));
-        rvSchools.setLayoutManager(new LinearLayoutManager(this));
-
-
-    }
-
-
-
-    @OnClick(R.id.ivClear)
-    public void ivClearClicked(){
-        etSearch.setText("");
-        ivClear.setVisibility(View.GONE);
-        rvSchools.setAdapter(new SchoolListAdapter(this,schoolInfoList,R.layout.item_school,this));
-        //rvSchools.setLayoutManager(new GridLayoutManager(this,3));
-        rvSchools.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-
-    public void hideKeyboard(Activity activity){
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

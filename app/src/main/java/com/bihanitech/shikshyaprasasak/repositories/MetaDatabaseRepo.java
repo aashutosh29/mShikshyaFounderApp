@@ -3,6 +3,8 @@ package com.bihanitech.shikshyaprasasak.repositories;
 
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.model.ClassSubject;
+import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.StudentInfo;
@@ -35,8 +37,8 @@ public class MetaDatabaseRepo implements MetaDatabase {
 
     @Override
     public void addClassSubject(List<ClassSubject> classSubjects) {
-        RuntimeExceptionDao<ClassSubject, Integer> classSubjectsDao = databaseHelper.getClassSubjectsDao();
-        classSubjectsDao.create(classSubjects);
+//        RuntimeExceptionDao<ClassSubject, Integer> classSubjectsDao = databaseHelper.getClassSubjectsDao();
+//        classSubjectsDao.create(classSubjects);
     }
 
 
@@ -52,8 +54,9 @@ public class MetaDatabaseRepo implements MetaDatabase {
 
     @Override
     public List<ClassSubject> getAllSubjectList() {
-        RuntimeExceptionDao<ClassSubject, Integer> classSubjectRuntimeExceptionDao = databaseHelper.getClassSubjectsDao();
-        return classSubjectRuntimeExceptionDao.queryForAll();
+//        RuntimeExceptionDao<ClassSubject, Integer> classSubjectRuntimeExceptionDao = databaseHelper.getClassSubjectsDao();
+//        return classSubjectRuntimeExceptionDao.queryForAll();
+        return null;
     }
 
     @Override
@@ -63,17 +66,33 @@ public class MetaDatabaseRepo implements MetaDatabase {
 
     @Override
     public void addStudentInfo(List<StudentInfo> studentInfos) {
-        databaseHelper.getStudentInfosDao().create(studentInfos);
+//        databaseHelper.getStudentInfosDao().create(studentInfos);
+    }
+
+    @Override
+    public void addExamName(List<ExamName> examNames) {
+
+        RuntimeExceptionDao<ExamName, Integer> examNameDao = databaseHelper.getExamNameDao();
+        examNameDao.create(examNames);
+
+    }
+
+    @Override
+    public void addClasses(List<Classes> classes) {
+
+        RuntimeExceptionDao<Classes, Integer> examNameDao = databaseHelper.getClassesDao();
+        examNameDao.create(classes);
+
     }
 
 
     @Override
     public void addNoticeItems(List<NoticeItem> noticeItems) {
-        RuntimeExceptionDao<NoticeItem, Integer> noticeItemsDao = databaseHelper.getNoticeItemsDao();
-        for (NoticeItem noticeItem : noticeItems) {
-            noticeItemsDao.createOrUpdate(noticeItem);
-        }
-
+//        RuntimeExceptionDao<NoticeItem, Integer> noticeItemsDao = databaseHelper.getNoticeItemsDao();
+//        for (NoticeItem noticeItem : noticeItems) {
+//            noticeItemsDao.createOrUpdate(noticeItem);
+//        }
+//
 
     }
 

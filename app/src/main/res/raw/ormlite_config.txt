@@ -1,5 +1,5 @@
 #
-# generated on 2020/05/05 01:58:53
+# generated on 2021/03/23 05:25:30
 #
 # --table-start--
 dataClass=com.bihanitech.shikshyaprasasak.model.SchoolInfo
@@ -87,27 +87,35 @@ fieldName=venue
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.bihanitech.shikshyaprasasak.model.eventHolidays.Holiday
-tableName=holiday
+dataClass=com.bihanitech.shikshyaprasasak.model.ExamName
+tableName=examname
 # --table-fields-start--
 # --field-start--
 fieldName=id
 generatedId=true
 # --field-end--
 # --field-start--
-fieldName=detail
+fieldName=examID
 # --field-end--
 # --field-start--
-fieldName=nepDay
+fieldName=examName
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.bihanitech.shikshyaprasasak.model.Classes
+tableName=classes
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
 # --field-end--
 # --field-start--
-fieldName=nepMonth
+fieldName=grade
 # --field-end--
 # --field-start--
-fieldName=nepYear
-# --field-end--
-# --field-start--
-fieldName=engDate
+fieldName=gradeId
 # --field-end--
 # --table-fields-end--
 # --table-end--

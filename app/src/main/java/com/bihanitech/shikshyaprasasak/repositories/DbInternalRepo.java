@@ -15,7 +15,7 @@ import java.util.List;
 public class DbInternalRepo implements DbInternal {
 
 
-    private DatabaseHelper databaseHelper;
+    private final DatabaseHelper databaseHelper;
 
     public DbInternalRepo(DatabaseHelper databaseHelper) {
         this.databaseHelper = databaseHelper;
@@ -46,9 +46,9 @@ public class DbInternalRepo implements DbInternal {
 
     @Override
     public void deleteEventsAndHolidays() {
-        RuntimeExceptionDao<Holiday, Integer> holidayDao = databaseHelper.getHolidaysDao();
+/*        RuntimeExceptionDao<Holiday, Integer> holidayDao = databaseHelper.getHolidaysDao();
         List<Holiday> holidays = holidayDao.queryForAll();
-        holidayDao.delete(holidays);
+        holidayDao.delete(holidays);*/
 
         RuntimeExceptionDao<Event, Integer> events = databaseHelper.getEventsDao();
         List<Event> eventList = events.queryForAll();
@@ -80,23 +80,25 @@ public class DbInternalRepo implements DbInternal {
 
     @Override
     public void addHolidays(List<Holiday> holidays) {
-        databaseHelper.getHolidaysDao().create(holidays);
+//        databaseHelper.getHolidaysDao().create(holidays);
     }
+
 
     @Override
     public List<Holiday> getHolidaysList(int year, int month) {
-        RuntimeExceptionDao<Holiday, Integer> holidaysDao = databaseHelper.getHolidaysDao();
-        List<Holiday> holidays = new ArrayList<>();
-        try {
-            QueryBuilder<Holiday, Integer> qb = holidaysDao.queryBuilder();
-            qb.where().eq("nepYear", year).and().eq("nepMonth", month);
-            PreparedQuery<Holiday> pq = qb.prepare();
-            holidays = holidaysDao.query(pq);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return holidays;
+//        RuntimeExceptionDao<Holiday, Integer> holidaysDao = databaseHelper.getHolidaysDao();
+//        List<Holiday> holidays = new ArrayList<>();
+//        try {
+//            QueryBuilder<Holiday, Integer> qb = holidaysDao.queryBuilder();
+//            qb.where().eq("nepYear", year).and().eq("nepMonth", month);
+//            PreparedQuery<Holiday> pq = qb.prepare();
+//            holidays = holidaysDao.query(pq);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return holidays;
+        return null;
 
     }
 

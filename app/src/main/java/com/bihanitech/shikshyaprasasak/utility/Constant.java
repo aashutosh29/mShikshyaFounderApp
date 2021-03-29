@@ -11,8 +11,8 @@ public class Constant {
     public static final String LOGO_NOT_DOWNLOADED = "logo_downloaded";
     public static final String PHONE_NUMBER = "phone_number";
     public static final String SCHOOL_ADDRESS = "school_address";
-    public static final String SCHOOL_NAME = "school_name";
-    public static final String SCHOOL_ID = "school_id";
+    public static final String SCHOOL_NAME = "schoolname";
+    public static final String SCHOOL_ID = "schoolid";
     public static final String VERIFY_WAITING = "verify_waiting";
 
     public static final String LOGGED_IN = "logged_in";
@@ -30,7 +30,7 @@ public class Constant {
     public static final String NOTICE_TITLE = "notice_title";
     public static final String NOTICE_DETAIL = "notice_detail";
     public static final String NOTICE_DATE = "notice_date";
-    public static final String EXAM_NAME = "exam_name";
+    public static final String EXAM_NAME = "examname";
 
 
     /*-- Used to handle network Error --*/
@@ -42,9 +42,9 @@ public class Constant {
 
 
     /*--- for handling authentication json --*/
-    public static final String MESSAGE = "message";
+    public static final String RESULT = "result";
     public static final String TOKEN = "token";
-    public static final String SUCCESS = "success";
+    public static final String SUCCESS = "success";//success
     public static final String DATA = "data";
     public static final String STUDENT = "student";
     public static final String TEACHER_INFO = "teacher_info";
@@ -59,9 +59,10 @@ public class Constant {
     public static final String CONTENT = "content";
     public static final String PUBLISHED_TIME = "posteddate";
     public static final String EXAM_TERMINAL = "examTerminal";
-    public static final String EXAM_ID = "EXAMID";
+    public static final String EXAM_ID = "examID";
     public static final String EXAM_NAME_VERIFY = "EXAMNAME";
 
+    public static final String OLD_LANGUAGE_IS_NEPALI = "old_language_is_nepali";
 
     /*----- for the recent notice section --*/
     public static final String NOTICE_COUNT = "noticeCount";
@@ -135,7 +136,7 @@ public class Constant {
     public static final String SUBJECT_NAME = "subject_name";
     public static final String EMP_ID = "emp_id";
     public static final String SUB_ID = "sub_id";
-    public static final String CLASS_ID = "class_id";
+    public static final String CLASS_ID = "classID";
     public static final String STUDENT_REG_NO = "student_reg_no";
 
 
@@ -152,8 +153,14 @@ public class Constant {
     public static final String STUDENT_MOTHER_NAME = "student_mother_name";
     public static final String STUDENT_GUARDIAN_NAME = "student_guardian_name";
     public static final String STUDENT_CONTACT_NUMBER = "student_contact_number";
-    public static final String SCHOOL_LOGO = "school_logo";
+    public static final String SCHOOL_LOGO = "logo";
     public static final String PASSWORD_SET_WAITING = "set_password_waiting";
 
 
+    public static final String MESSAGE = "message" +
+            "";
+    public static final String LAST_DATA_SYNC = "last_data_sync";
+    public static final String USER_NAME = "username";
+    public static final String CLASSES = "classes";
+    public static final String CLASS = "class";
 }

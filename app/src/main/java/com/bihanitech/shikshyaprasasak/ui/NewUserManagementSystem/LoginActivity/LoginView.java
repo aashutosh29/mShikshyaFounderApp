@@ -25,9 +25,12 @@ public interface LoginView {
 
     void saveStudentDetail(StudentInfo studentInfo, String token);
 
+
     void addCurrentStudentId(String regNo);
 
     void saveRecentNotices(List<NoticeItem> noticeItems);
 
     void subscribeStudentForNotifications(StudentInfo studentInfo);
+
+    void savePrimaryData(String schoolID, String logoImage, String schoolName, String lastSyncDate, String userName, String token);
 }

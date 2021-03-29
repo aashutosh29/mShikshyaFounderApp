@@ -25,6 +25,12 @@ import com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphView;
 import com.bihanitech.shikshyaprasasak.curveGraph.CustomMarkerView;
 import com.bihanitech.shikshyaprasasak.curveGraph.models.GraphData;
 import com.bihanitech.shikshyaprasasak.curveGraph.models.PointMap;
+import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
+import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
+import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
+import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
+import com.bihanitech.shikshyaprasasak.utility.Constant;
+import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -47,13 +53,14 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class AnalyticsFragment extends Fragment implements OnChartValueSelectedListener {
+public class AnalyticsFragment extends Fragment implements OnChartValueSelectedListener, AnalyticsView {
 
     public static final int[] FOUNDER_COLORS = {
             Color.rgb(8, 154, 214), Color.rgb(160, 17, 28)
@@ -65,12 +72,17 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     };
     protected Typeface tfRegular;
     protected Typeface tfLight;
+    protected SharedPrefsHelper sharedPrefsHelper;
     List<String> xAxisValues = new ArrayList<>(Arrays.asList("Nur", "Kg", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
     TextView tvToolbarTitle;
     Toolbar toolbarNew;
+    AnalyticsPresenter analyticsPresenter;
     private BarChart chart;
     private PieChart circularChart;
     private CurveGraphView curveGraphView;
+    private DatabaseHelper databaseHelper;
+    private String employeeGenderWiseText;
+    private String studentGenderWiseText;
 
     public AnalyticsFragment() {
 
@@ -79,8 +91,10 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analytics, container, false);
-
         initToolbar();
+        analyticsPresenter = new AnalyticsPresenter(this, new MetaDatabaseRepo(getHelper()));
+        sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
+        analyticsPresenter.getGenderWiseStaffAndStudent(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         ScrollView sView = view.findViewById(R.id.svMain);
         // Hide the Scollbar
         sView.setVerticalScrollBarEnabled(false);
@@ -98,9 +112,19 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         setAllStuffsPieChartStaff();
         circularChart = view.findViewById(R.id.chCircular1);
         setAllStuffsPieChartStudent();
+
+        //circularChart male and female
+        circularChart = view.findViewById(R.id.chCircular1Mf);
+        setAllStuffsPieChartStudentGender();
+        circularChart = view.findViewById(R.id.chCircular2Mf);
+        setAllStuffsPieChartStaffGender();
+
+
         //Initializing Curve graph
         curveGraphView = view.findViewById(R.id.cgv);
         setAllStuffCurveGraph();
+
+
         return view;
     }
 
@@ -358,9 +382,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
 
         //forIndex
-
-
-
                 /*
                  Legend l = circularChart.getLegend();
                  setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -370,8 +391,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         l.setXEntrySpace(7f);
         l.setYEntrySpace(0f);
         l.setYOffset(0f);*/
-
-
         // entry label styling
         circularChart.setEntryLabelColor(Color.WHITE);
         //  circularChart.setEntryLabelTypeface(tfRegular);
@@ -448,6 +467,147 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         //  circularChart.setEntryLabelTypeface(tfRegular);
         circularChart.setEntryLabelTextSize(0f);
         setData(10, 5);
+    }
+
+    private void setAllStuffsPieChartStaffGender() {
+
+        //circularChart = findViewById(R.id.chCircular2);
+        circularChart.setUsePercentValues(false);
+        circularChart.getDescription().setEnabled(true);
+
+        Description description = new Description();
+        description.setText("Staff");
+        description.setPosition(310, 640);
+        description.setTextSize(16f);
+        description.setTextColor(Color.parseColor("#036C99"));
+        circularChart.setDescription(description);
+
+        circularChart.getLegend().setEnabled(false);
+        circularChart.setExtraOffsets(1, -10, 1, -10);
+
+
+        circularChart.setDragDecelerationFrictionCoef(0.95f);
+
+        circularChart.setCenterTextTypeface(tfLight);
+        circularChart.setCenterText(employeeGenderWiseText);
+
+        circularChart.setDrawHoleEnabled(true);
+        circularChart.setHoleColor(Color.parseColor("#F2F0F7"));
+
+        circularChart.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
+        circularChart.setTransparentCircleAlpha(110);
+
+        circularChart.setHoleRadius(72f);
+        circularChart.setTransparentCircleRadius(72f);
+
+
+        circularChart.setDrawCenterText(true);
+
+        circularChart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        circularChart.setRotationEnabled(true);
+        circularChart.setHighlightPerTapEnabled(true);
+        //    circularChart.setExtraOffsets(-2,-12,-2,-12);
+
+        // chart.setUnit(" €");
+        // chart.setDrawUnitsInChart(true);
+
+        // add a selection listener
+        circularChart.setOnChartValueSelectedListener(this);
+
+        circularChart.animateY(1400, Easing.EaseInOutQuad);
+
+
+        //forIndex
+
+                /*
+                 Legend l = circularChart.getLegend();
+                 setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);*/
+
+
+        // entry label styling
+        circularChart.setEntryLabelColor(Color.WHITE);
+        //  circularChart.setEntryLabelTypeface(tfRegular);
+        circularChart.setEntryLabelTextSize(0f);
+        setData(10, 5);
+    }
+
+    private void setAllStuffsPieChartStudentGender() {
+
+        //circularChart = findViewById(R.id.chCircular2);
+        circularChart.setUsePercentValues(false);
+        circularChart.getDescription().setEnabled(true);
+
+
+        Description description = new Description();
+        description.setText("Student");
+        description.setPosition(310, 640);
+        description.setTextSize(16f);
+        description.setTextColor(Color.parseColor("#036C99"));
+        circularChart.setDescription(description);
+
+
+        circularChart.getLegend().setEnabled(false);
+        circularChart.setExtraOffsets(1, -10, 1, -10);
+
+
+        circularChart.setDragDecelerationFrictionCoef(0.95f);
+
+        circularChart.setCenterTextTypeface(tfLight);
+        circularChart.setCenterText(generateCenterSpannableText());
+
+        circularChart.setDrawHoleEnabled(true);
+        circularChart.setHoleColor(Color.parseColor("#F2F0F7"));
+
+        circularChart.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
+        circularChart.setTransparentCircleAlpha(110);
+
+        circularChart.setHoleRadius(72f);
+        circularChart.setTransparentCircleRadius(72f);
+
+
+        circularChart.setDrawCenterText(true);
+
+        circularChart.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        circularChart.setRotationEnabled(true);
+        circularChart.setHighlightPerTapEnabled(true);
+        //    circularChart.setExtraOffsets(-2,-12,-2,-12);
+
+        // chart.setUnit(" €");
+        // chart.setDrawUnitsInChart(true);
+
+        // add a selection listener
+        circularChart.setOnChartValueSelectedListener(this);
+
+        circularChart.animateY(1400, Easing.EaseInOutQuad);
+
+
+        //forIndex
+
+                /*
+                 Legend l = circularChart.getLegend();
+                 setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);*/
+
+
+        // entry label styling
+        circularChart.setEntryLabelColor(Color.WHITE);
+        //  circularChart.setEntryLabelTypeface(tfRegular);
+        circularChart.setEntryLabelTextSize(0f);
+        setData(10, 5);
+
     }
 
     private void setAllStuffCurveGraph() {
@@ -627,6 +787,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         return s;
     }
 
+
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         if (e == null)
@@ -636,10 +797,78 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                         + ", DataSet index: " + h.getDataSetIndex());
     }
 
+    private DatabaseHelper getHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(getContext(), DatabaseHelper.class);
+        }
+
+        return databaseHelper;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (databaseHelper != null) {
+            OpenHelperManager.releaseHelper();
+        }
+
+        databaseHelper = null;
+    }
+
     @Override
     public void onNothingSelected() {
         Log.i("PieChart", "nothing selected");
 
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void populateEmployeeGenderWise(List<EmployeeGenderWise> employeeGenderWises) {
+
+        int genderType = employeeGenderWises.get(0).getGENDER();
+        String female = "Female";
+        String male = "Male";
+        String totalMale;
+        String totalFemale;
+
+
+        if (genderType == 0) {
+            totalFemale = employeeGenderWises.get(0).getTotal().toString();
+            totalMale = employeeGenderWises.get(1).getTotal().toString();
+        } else {
+            totalMale = employeeGenderWises.get(0).getTotal().toString();
+            totalFemale = employeeGenderWises.get(1).getTotal().toString();
+        }
+
+        employeeGenderWiseText = totalFemale + "\n" + female + "\n" + totalMale + "\n" + male;
+
+
+    }
+
+    @Override
+    public void populateStudentGenderWise(List<StudentGenderWise> studentGenderWises) {
+        int genderType = studentGenderWises.get(0).getGENDER();
+        String female = "Female";
+        String male = "Male";
+        String totalMale;
+        String totalFemale;
+
+
+        if (genderType == 0) {
+            totalFemale = studentGenderWises.get(0).getTotal().toString();
+            totalMale = studentGenderWises.get(1).getTotal().toString();
+        } else {
+            totalMale = studentGenderWises.get(0).getTotal().toString();
+            totalFemale = studentGenderWises.get(1).getTotal().toString();
+        }
+
+        studentGenderWiseText = totalFemale + "\n" + female + "\n" + totalMale + "\n" + male;
+    }
+
 
 }

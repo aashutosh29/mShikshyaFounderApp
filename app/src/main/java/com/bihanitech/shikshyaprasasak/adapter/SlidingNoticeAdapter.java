@@ -2,6 +2,7 @@ package com.bihanitech.shikshyaprasasak.adapter;
 
 import android.content.Context;
 import android.os.Parcelable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +11,19 @@ import android.widget.TextView;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bihanitech.shikshyaprasasak.R;
+import com.bihanitech.shikshyaprasasak.model.Notice;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class SlidingNoticeAdapter extends PagerAdapter {
 
     Context context;
     LayoutInflater inflater;
-    private ArrayList<String> NAMES;
+    private final List<Notice> noticeList;
 
-    public SlidingNoticeAdapter(Context context, ArrayList<String> NAMES) {
+    public SlidingNoticeAdapter(Context context, List<Notice> noticeList) {
         this.context = context;
-        this.NAMES = NAMES;
+        this.noticeList = noticeList;
         inflater = LayoutInflater.from(context);
     }
 
@@ -32,7 +34,7 @@ public class SlidingNoticeAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return NAMES.size();
+        return 4;
     }
 
     @Override
@@ -42,9 +44,10 @@ public class SlidingNoticeAdapter extends PagerAdapter {
         assert textLayout != null;
         final TextView tvMainTitle = textLayout
                 .findViewById(R.id.tvMainTitle);
+        final TextView tvMainContent = textLayout.findViewById(R.id.tvDetail1);
 
-
-        tvMainTitle.setText(NAMES.get(position));
+        tvMainTitle.setText(Html.fromHtml(noticeList.get(position).getTitle()));
+        tvMainContent.setText(noticeList.get(position).getContent());
 
         view.addView(textLayout, 0);
 
