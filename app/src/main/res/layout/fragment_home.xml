@@ -60,8 +60,8 @@
                         android:text="Little Flower English Boarding School"
                         android:textColor="@color/FounderBlue"
                         android:textSize="16dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@id/ivSchoolIcon"
                         app:layout_constraintStart_toEndOf="@id/ivSchoolIcon"
                         app:layout_constraintTop_toTopOf="@id/ivSchoolIcon"
                         app:layout_constraintWidth_percent="0.45" />
@@ -74,6 +74,7 @@
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@id/tvSchoolName"
                         app:layout_constraintTop_toBottomOf="@id/tvSchoolName"
+                        app:layout_constraintBottom_toBottomOf="@id/ivSchoolIcon"
                         app:layout_constraintWidth_percent="0.35" />
 
                     <TextView
@@ -288,9 +289,8 @@
 
                             <com.viewpagerindicator.CirclePageIndicator
                                 android:id="@+id/cpNotice"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/_64sdp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
                                 android:layout_marginTop="4dp"
                                 android:padding="4dp"
                                 app:fillColor="@color/FounderBlue"
