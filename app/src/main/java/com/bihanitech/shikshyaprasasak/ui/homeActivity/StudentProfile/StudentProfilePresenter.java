@@ -3,6 +3,8 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.StudentProfile;
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
 import com.bihanitech.shikshyaprasasak.model.account.Account;
 import com.bihanitech.shikshyaprasasak.model.account.AccountResponse;
+import com.bihanitech.shikshyaprasasak.model.examResult.ExamResponse;
+import com.bihanitech.shikshyaprasasak.model.examResult.Result;
 import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
 import com.bihanitech.shikshyaprasasak.remote.CDSService;
 import com.bihanitech.shikshyaprasasak.remote.RequestHandler;
@@ -47,6 +49,7 @@ public class StudentProfilePresenter {
             }
         });
 
+
         Observable<StudentInformation> newCall = cdsService.getStudentInfo(regNo, authToken);
         RequestHandler.asyncTask(newCall, new RequestHandler.RetroReactiveCallBack<StudentInformation>() {
             @Override
@@ -67,6 +70,35 @@ public class StudentProfilePresenter {
             }
         });
 
+
+    }
+
+    void getExamDetails(String regNo, String studentClass, String authToken) {
+        if (cdsService == null) {
+            cdsService = ApiUtils.getDummyCDSService();
+
+        }
+
+        Observable<ExamResponse> call = cdsService.getExamResult(regNo, studentClass, authToken);
+        RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<ExamResponse>() {
+            @Override
+            public void onComplete(ExamResponse response) {
+
+                List<Result> results = response.getResult();
+                studentProfileView.populateExamResult(results);
+
+            }
+
+            @Override
+            public void onError(Exception e, int code) {
+                studentProfileView.showError(1);
+            }
+
+            @Override
+            public void onConnectionException(Exception e) {
+                studentProfileView.showError(1);
+            }
+        });
 
     }
 

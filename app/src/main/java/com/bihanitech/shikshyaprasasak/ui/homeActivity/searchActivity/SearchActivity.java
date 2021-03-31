@@ -243,6 +243,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         i.putExtra(Constant.STUDENT_MOTHER_NAME, searchProfile.getMothername());
         i.putExtra(Constant.STUDENT_GUARDIAN_NAME, searchProfile.getGurdainname());
         i.putExtra(Constant.STUDENT_CONTACT_NUMBER, searchProfile.getContact());
+        i.putExtra(Constant.STUDENT_CLASS_ID, searchProfile.getClass_().getSid());
         i.putExtra(Constant.REGNO, searchProfile.getRegno());
         startActivity(i);
 

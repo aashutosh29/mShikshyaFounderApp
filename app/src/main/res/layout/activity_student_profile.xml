@@ -291,14 +291,118 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvResultTitle" />
 
-                    <include
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layoutSubject"
                         layout="@layout/layout_subject"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvResultTitle" />
+                        app:layout_constraintTop_toBottomOf="@id/tvResultTitle">
+
+                        <View
+                            android:id="@+id/vBorder"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:background="#99000000"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvGradeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Grade"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder"
+                            app:layout_constraintTop_toBottomOf="@id/vBorder" />
+
+                        <TextView
+                            android:id="@+id/tvGrade"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="B+"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGradeTitle"
+                            app:layout_constraintTop_toBottomOf="@id/tvGradeTitle" />
+
+
+                        <TextView
+                            android:id="@+id/tvRemarksTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Remarks"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder"
+                            app:layout_constraintTop_toBottomOf="@id/tvGrade" />
+
+                        <TextView
+                            android:id="@+id/tvRemarks"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="Very Good"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGradeTitle"
+                            app:layout_constraintTop_toBottomOf="@id/tvRemarksTitle" />
+
+
+                        <TextView
+                            android:id="@+id/tvGPATitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="GPA"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="@id/vBorder"
+                            app:layout_constraintStart_toEndOf="@id/tvGrade"
+                            app:layout_constraintTop_toBottomOf="@id/vBorder" />
+
+                        <TextView
+                            android:id="@+id/tvGPA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="2.97"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGPATitle"
+                            app:layout_constraintTop_toBottomOf="@id/tvGPATitle" />
+
+
+                        <TextView
+                            android:id="@+id/tvResultSheet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Result Sheet"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder"
+                            app:layout_constraintTop_toBottomOf="@id/tvRemarks" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSubjects"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="@id/vBorder"
+                            app:layout_constraintStart_toStartOf="@id/vBorder"
+                            app:layout_constraintTop_toBottomOf="@id/tvResultSheet" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -338,14 +442,119 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvResultTitleSecond" />
 
-                    <include
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layoutSubjectSecond"
                         layout="@layout/layout_subject"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvResultTitleSecond" />
+                        app:layout_constraintTop_toBottomOf="@id/tvResultTitleSecond">
+
+                        <View
+                            android:id="@+id/vBorder2ndTerm"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:background="#99000000"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvGrade2ndTermTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Grade"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder2ndTerm"
+                            app:layout_constraintTop_toBottomOf="@id/vBorder2ndTerm" />
+
+                        <TextView
+                            android:id="@+id/tvGrade2ndTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="B+"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGrade2ndTermTitle"
+                            app:layout_constraintTop_toBottomOf="@id/tvGrade2ndTermTitle" />
+
+
+                        <TextView
+                            android:id="@+id/tvRemarksTitle2ndTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Remarks"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder2ndTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvGrade2ndTerm" />
+
+                        <TextView
+                            android:id="@+id/tvRemarks2ndTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="Very Good"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGrade2ndTermTitle"
+                            app:layout_constraintTop_toBottomOf="@id/tvRemarksTitle2ndTerm" />
+
+
+                        <TextView
+                            android:id="@+id/tvGPATitle2ndTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="GPA"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="@id/vBorder2ndTerm"
+                            app:layout_constraintStart_toEndOf="@id/tvGrade2ndTerm"
+                            app:layout_constraintTop_toBottomOf="@id/vBorder2ndTerm" />
+
+                        <TextView
+                            android:id="@+id/tvGPA2ndTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="2.97"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGPATitle2ndTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvGPATitle2ndTerm" />
+
+
+                        <TextView
+                            android:id="@+id/tvResultSheet2ndTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Result Sheet"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder2ndTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvRemarks2ndTerm" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSubjects2ndTerm"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="@id/vBorder2ndTerm"
+                            app:layout_constraintStart_toStartOf="@id/vBorder2ndTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvResultSheet2ndTerm" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -384,14 +593,120 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvResultTitleThird" />
 
-                    <include
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/layoutSubjectThird"
                         layout="@layout/layout_subject"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvResultTitleThird" />
+                        app:layout_constraintTop_toBottomOf="@id/tvResultTitleThird">
+
+                        <View
+                            android:id="@+id/vBorder3rdTerm"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:background="#99000000"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvGradeTitle3rdTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Grade"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder3rdTerm"
+                            app:layout_constraintTop_toBottomOf="@id/vBorder3rdTerm" />
+
+                        <TextView
+                            android:id="@+id/tvGrade3rdTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="B+"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGradeTitle3rdTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvGradeTitle3rdTerm" />
+
+
+                        <TextView
+                            android:id="@+id/tvRemarksTitle3rdTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Remarks"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder3rdTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvGrade3rdTerm" />
+
+                        <TextView
+                            android:id="@+id/tvRemarks3rdTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="Very Good"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGradeTitle3rdTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvRemarksTitle3rdTerm" />
+
+
+                        <TextView
+                            android:id="@+id/tvGPATitle3rdTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="GPA"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="@id/vBorder3rdTerm"
+                            app:layout_constraintStart_toEndOf="@id/tvGrade3rdTerm"
+                            app:layout_constraintTop_toBottomOf="@id/vBorder3rdTerm" />
+
+                        <TextView
+                            android:id="@+id/tvGPA3rdTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:text="2.97"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@id/tvGPATitle3rdTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvGPATitle3rdTerm" />
+
+
+                        <TextView
+                            android:id="@+id/tvResultSheet3rdTerm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_12sdp"
+                            android:alpha="0.60"
+                            android:text="Result Sheet"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            app:layout_constraintStart_toStartOf="@id/vBorder3rdTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvRemarks3rdTerm" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSubjects3rdTerm"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:layout_constraintEnd_toEndOf="@id/vBorder3rdTerm"
+                            app:layout_constraintStart_toStartOf="@id/vBorder3rdTerm"
+                            app:layout_constraintTop_toBottomOf="@id/tvResultSheet3rdTerm" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

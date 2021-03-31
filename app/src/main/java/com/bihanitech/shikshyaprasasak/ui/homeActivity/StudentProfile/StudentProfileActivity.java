@@ -20,6 +20,7 @@ import com.bihanitech.shikshyaprasasak.model.Statements;
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
 import com.bihanitech.shikshyaprasasak.model.Subject;
 import com.bihanitech.shikshyaprasasak.model.account.Account;
+import com.bihanitech.shikshyaprasasak.model.examResult.Result;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.bumptech.glide.Glide;
@@ -88,9 +89,37 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     @BindView(R.id.ivProfileImage)
     ImageView ivProfileImage;
 
+    @BindView(R.id.tvGrade)
+    TextView tvGrade;
+
+    @BindView(R.id.tvRemarks)
+    TextView tvRemarks;
+
+    @BindView(R.id.tvGPA)
+    TextView tvGPA;
+
+    @BindView(R.id.tvGrade2ndTerm)
+    TextView tvGrade2ndTerm;
+
+    @BindView(R.id.tvRemarks2ndTerm)
+    TextView tvRemarks2ndTerm;
+
+    @BindView(R.id.tvGPA2ndTerm)
+    TextView tvGPA2ndTerm;
+
+    @BindView(R.id.tvGrade3rdTerm)
+    TextView tvGrade3rdTerm;
+
+    @BindView(R.id.tvRemarks3rdTerm)
+    TextView tvRemarks3rdTerm;
+
+    @BindView(R.id.tvGPA3rdTerm)
+    TextView tvGPA3rdTerm;
+
     SharedPrefsHelper sharedPrefsHelper;
 
     String regNo;
+    String studentClassID;
 
     SubjectListAdapter subjectListAdapter;
     AccountAdapter recyclerAdapter;
@@ -196,6 +225,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
         tvGuardianName.setText(i.getStringExtra(Constant.STUDENT_GUARDIAN_NAME));
         tvContactNumber.setText(i.getStringExtra(Constant.STUDENT_CONTACT_NUMBER));
         regNo = i.getStringExtra(Constant.REGNO);
+        studentClassID = i.getStringExtra(Constant.STUDENT_CLASS_ID);
 
 
     }
@@ -270,6 +300,14 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     }
 
     @Override
+    public void populateExamResult(List<Result> results) {
+        tvGrade.setText(results.get(0).getStddivgrade());
+        tvGPA.setText(results.get(0).getStgpa());
+        tvRemarks.setText(results.get(0).getStremakrs());
+
+    }
+
+    @Override
     public void populateAccountDetails(List<Account> accountList) {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -283,5 +321,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
     private void fetchAccountData() {
         studentProfilePresenter.getAccountDetails(regNo, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+        studentProfilePresenter.getExamDetails(regNo, studentClassID, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
     }
 }

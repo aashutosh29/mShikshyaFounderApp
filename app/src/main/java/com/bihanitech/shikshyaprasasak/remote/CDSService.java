@@ -8,6 +8,7 @@ import com.bihanitech.shikshyaprasasak.model.NoticeResponse;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
 import com.bihanitech.shikshyaprasasak.model.account.AccountResponse;
+import com.bihanitech.shikshyaprasasak.model.examResult.ExamResponse;
 import com.bihanitech.shikshyaprasasak.model.responseModel.HolidayEventResponse;
 import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.model.student.StudentResponse;
@@ -83,6 +84,9 @@ public interface CDSService {
 
     @GET("student/{regNo}")
     Observable<StudentInformation> getStudentInfo(@Path("regNo") String regNo, @Header("Authorization") String authToken);
+
+    @GET("v2/resultRoutine")
+    Observable<ExamResponse> getExamResult(@Header("Authorization") String authToken, @Query("class") String StudentClass, @Query("regno") String regNo);
 
 
    /* @GET("publicNotice")
