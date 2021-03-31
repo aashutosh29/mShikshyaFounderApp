@@ -205,4 +205,5 @@
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
     <color name="item_notify_color">#ECEBFF</color>
+    <color name="InputBg">#ffffff</color>
 </resources>

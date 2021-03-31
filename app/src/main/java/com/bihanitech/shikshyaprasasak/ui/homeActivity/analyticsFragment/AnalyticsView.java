@@ -8,7 +8,7 @@ import java.util.List;
 public interface AnalyticsView {
     void showLoading();
 
-    void populateEmployeeGenderWise(List<EmployeeGenderWise> employeeGenderWises);
+    void populateEmployeeGenderWise(List<EmployeeGenderWise> employeeGenderWise);
 
     void populateStudentGenderWise(List<StudentGenderWise> studentGenderWises);
 }

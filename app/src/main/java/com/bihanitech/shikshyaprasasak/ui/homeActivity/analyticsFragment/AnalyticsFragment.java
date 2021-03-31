@@ -84,6 +84,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     private String employeeGenderWiseText;
     private String studentGenderWiseText;
 
+
     public AnalyticsFragment() {
 
     }
@@ -471,7 +472,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     private void setAllStuffsPieChartStaffGender() {
 
-        //circularChart = findViewById(R.id.chCircular2);
+        //  circularChart = (PieChart) getView().findViewById(R.id.chCircular2Mf);
         circularChart.setUsePercentValues(false);
         circularChart.getDescription().setEnabled(true);
 
@@ -539,6 +540,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     }
 
     private void setAllStuffsPieChartStudentGender() {
+        // circularChart = (PieChart) getView().findViewById(R.id.chCircular1Mf);
 
         //circularChart = findViewById(R.id.chCircular2);
         circularChart.setUsePercentValues(false);
@@ -560,7 +562,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         circularChart.setDragDecelerationFrictionCoef(0.95f);
 
         circularChart.setCenterTextTypeface(tfLight);
-        circularChart.setCenterText(generateCenterSpannableText());
+        circularChart.setCenterText(studentGenderWiseText);
 
         circularChart.setDrawHoleEnabled(true);
         circularChart.setHoleColor(Color.parseColor("#F2F0F7"));
@@ -833,21 +835,20 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         int genderType = employeeGenderWises.get(0).getGENDER();
         String female = "Female";
         String male = "Male";
-        String totalMale;
-        String totalFemale;
+        String totalMale = "";
+        String totalFemale = "";
 
 
         if (genderType == 0) {
             totalFemale = employeeGenderWises.get(0).getTotal().toString();
-            totalMale = employeeGenderWises.get(1).getTotal().toString();
+            //totalMale = employeeGenderWises.get(1).getTotal().toString();
         } else {
             totalMale = employeeGenderWises.get(0).getTotal().toString();
-            totalFemale = employeeGenderWises.get(1).getTotal().toString();
+            //totalFemale = employeeGenderWises.get(1).getTotal().toString();
         }
 
         employeeGenderWiseText = totalFemale + "\n" + female + "\n" + totalMale + "\n" + male;
-
-
+        setAllStuffsPieChartStaffGender();
     }
 
     @Override
@@ -861,13 +862,18 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         if (genderType == 0) {
             totalFemale = studentGenderWises.get(0).getTotal().toString();
+
             totalMale = studentGenderWises.get(1).getTotal().toString();
+
         } else {
             totalMale = studentGenderWises.get(0).getTotal().toString();
             totalFemale = studentGenderWises.get(1).getTotal().toString();
-        }
 
+        }
+        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_MALE, totalMale);
+        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_FEMALE, totalFemale);
         studentGenderWiseText = totalFemale + "\n" + female + "\n" + totalMale + "\n" + male;
+        setAllStuffsPieChartStudentGender();
     }
 
 

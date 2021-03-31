@@ -37,4 +37,5 @@ public interface MetaDatabase {
 
     void addNoticeItems(List<NoticeItem> noticeItems);
 
+    List<Classes> getClassList();
 }

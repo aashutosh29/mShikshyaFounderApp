@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bihanitech.shikshyaprasasak.R;
-import com.bihanitech.shikshyaprasasak.model.Statements;
+import com.bihanitech.shikshyaprasasak.model.account.Account;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.StudentProfile.StudentProfileView;
 
 import java.util.List;
@@ -19,9 +19,9 @@ import butterknife.ButterKnife;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountViewHolder> {
     StudentProfileView studentProfileView;
-    List<Statements> statementsList;
+    List<Account> statementsList;
 
-    public AccountAdapter(List<Statements> statementsList, StudentProfileView studentProfileView) {
+    public AccountAdapter(List<Account> statementsList, StudentProfileView studentProfileView) {
         this.statementsList = statementsList;
         this.studentProfileView = studentProfileView;
     }
@@ -37,11 +37,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
 
     @Override
     public void onBindViewHolder(@NonNull AccountAdapter.AccountViewHolder holder, final int position) {
-        holder.tvSn.setText(String.valueOf(statementsList.get(position).getsN()));
-        holder.tvDate.setText(statementsList.get(position).getDate());
-        holder.tvParticulars.setText(statementsList.get(position).getParticulars());
-        holder.tvAmount.setText(statementsList.get(position).getAmounts());
-        holder.tvBalance.setText(statementsList.get(position).getBalance());
+        holder.tvSn.setText(String.valueOf(statementsList.get(position).getVchrno()));
+        holder.tvDate.setText(statementsList.get(position).getTransactionDate());
+        holder.tvParticulars.setText(statementsList.get(position).getParticular());
+        holder.tvAmount.setText(statementsList.get(position).getDr());
+        holder.tvBalance.setText(statementsList.get(position).getCr());
 
     }
 

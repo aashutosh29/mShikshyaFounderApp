@@ -98,6 +98,8 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
     ConstraintLayout clNoNotice;
     @BindView(R.id.rvUpComingNotice)
     RecyclerView rvUpComingNotice;
+    @BindView(R.id.ivLoadingNotices)
+    ImageView ivLoadingNotices;
     SharedPrefsHelper sharedPrefsHelper;
     String orgNotice1 = "", orgNotice2 = "";
     Toolbar toolbarNew;
@@ -130,7 +132,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
         homePresenter = new HomeFragmentPresenter(this);
         homePresenter.getNotices(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         String imageURl = sharedPrefsHelper.getValue(Constant.SCHOOL_LOGO, "");
-        // showSchoolLogo(imageURl);
+        showSchoolLogo(imageURl);
         //setUpNoticeList();
         vpAdvertise.setOnItemClickListener(new ClickableViewPager.OnItemClickListener() {
             @Override
@@ -401,6 +403,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
     @Override
     public void noNoticeAvailable() {
         clEmpty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void dataSynced() {
+        ivLoadingNotices.setVisibility(View.GONE);
     }
 
     public String getMonth(int month) {

@@ -96,4 +96,11 @@ public class MetaDatabaseRepo implements MetaDatabase {
 
     }
 
+    @Override
+    public List<Classes> getClassList() {
+        RuntimeExceptionDao<Classes, Integer> classesItem = databaseHelper.getClassesDao();
+        return classesItem.queryForAll();
+
+    }
+
 }

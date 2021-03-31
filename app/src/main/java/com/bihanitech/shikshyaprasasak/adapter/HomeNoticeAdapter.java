@@ -1,5 +1,6 @@
 package com.bihanitech.shikshyaprasasak.adapter;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +41,13 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<HomeNoticeAdapter.Ho
         //holder.tvMonthEvent.setText(String.valueOf());
         //holder.tvDateEvent.setText();
         holder.tvTitle1s.setText(noticeList.get(position).getTitle());
-        holder.tvDetail1s.setText(noticeList.get(position).getContent());
+        holder.tvDetail1s.setText(Html.fromHtml(noticeList.get(position).getContent()));
 
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 4;
     }
 
     public static class HomeNoticeViewHolder extends RecyclerView.ViewHolder {

@@ -13,7 +13,7 @@ public class ApiUtils {
     //    public static final String NEW_IP_URL = "https://139.59.81.31/CoreApplicationandAPIService-4617993073/api/";
     public static final String NEW_IP_URL = "https://shikshyasoftware.com.np/CoreApplicationandAPIService-4617993073/api/";
     public static final String V2_AUTH_BASE_URL = "http://shikshyasoftware.com.np/CoreApplicationandAPIService-4617993073/api/v2/";
-    public static final String DUMMY_URL = "http://staging.shikshyasoftware.com/api/";
+    public static final String DUMMY_URL = "https://staging.shikshyasoftware.com/api/";
 
 
     public static CDSService getCDSService() {

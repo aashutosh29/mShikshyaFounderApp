@@ -1,12 +1,16 @@
 package com.bihanitech.shikshyaprasasak.remote;
 
 
+import com.bihanitech.shikshyaprasasak.model.ClassSectionResponse;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.NoticeResponse;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
+import com.bihanitech.shikshyaprasasak.model.StudentInformation;
+import com.bihanitech.shikshyaprasasak.model.account.AccountResponse;
 import com.bihanitech.shikshyaprasasak.model.responseModel.HolidayEventResponse;
 import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
+import com.bihanitech.shikshyaprasasak.model.student.StudentResponse;
 
 import java.util.List;
 
@@ -16,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -55,14 +60,32 @@ public interface CDSService {
     Call<ResponseBody> setPassword(@Query("con_password") String con_password, @Query("parentMobile") String parentMobile, @Query("parent_numb") String parent_numb, @Query("password") String password, @Query("schoolid") String schoolid);
 
     @GET("emptotalgenderStudent")
-    Observable<EmployeeGenderWise> getTotalGenderEmployee(@Header("Authorization") String authToken);
+    Observable<List<EmployeeGenderWise>> getTotalGenderEmployee(@Header("Authorization") String authToken);
+
+    @GET("emptotalgenderStudent")
+    Call<ResponseBody> getNewTotalGenderEmployee(@Header("Authorization") String authToken);
 
     @GET("totalgenderStudent")
-    Observable<StudentGenderWise> getTotalGenderWiseStudent(@Header("Authorization") String authToken);
+    Observable<List<StudentGenderWise>> getTotalGenderWiseStudent(@Header("Authorization") String authToken);
+
+    @GET("getClassSection")
+    Observable<ClassSectionResponse> getClassSection(@Header("Authorization") String authToken);
 
 
     @GET("publicNotice")
     Observable<NoticeResponse> getNoticesData(@Header("Authorization") String authToken);
 
+    @GET("student")
+    Observable<StudentResponse> getStudent(@Header("Authorization") String authToken, @Query("class") String studentClass, @Query("section") String studentSection);
+
+    @GET("feeLedger/{regNo}")
+    Observable<AccountResponse> getAccountDetails(@Path("regNo") String regNo, @Header("Authorization") String authToken);
+
+    @GET("student/{regNo}")
+    Observable<StudentInformation> getStudentInfo(@Path("regNo") String regNo, @Header("Authorization") String authToken);
+
+
+   /* @GET("publicNotice")
+    Call<ResponseBody> getNoticeList(@Header("Authorization") String AuthToken);*/
 
 }

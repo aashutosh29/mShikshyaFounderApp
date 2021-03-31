@@ -163,4 +163,8 @@ public class Constant {
     public static final String USER_NAME = "username";
     public static final String CLASSES = "classes";
     public static final String CLASS = "class";
+    public static final String STAFF_TOTAL_FEMALE = "staff_total_female";
+    public static final String STAFF_TOTAL_MALE = "staff_total_male";
+    public static final String STUDENT_TOTAL_MALE = "student_total_male";
+    public static final String STUDENT_TOTAL_FEMALE = "student_total_female";
 }

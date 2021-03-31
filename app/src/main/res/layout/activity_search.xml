@@ -81,6 +81,30 @@
             app:layout_constraintStart_toStartOf="@id/etStudentNameToSearch"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Spinner
+            android:id="@+id/spClass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@drawable/spinner_bg"
+            app:layout_constraintEnd_toStartOf="@id/spSection"
+            app:layout_constraintStart_toStartOf="@id/tvSearchStudent"
+            app:layout_constraintTop_toBottomOf="@id/tvSearchStudent" />
+
+        <Spinner
+            android:id="@+id/spSection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/spinner_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spClass"
+            app:layout_constraintTop_toBottomOf="@id/tvSearchStudent" />
+
+
         <EditText
             android:id="@+id/etStudentNameToSearch"
             android:layout_width="match_parent"
@@ -94,6 +118,7 @@
             android:hint="Write student name to search"
             android:maxLines="1"
             android:padding="@dimen/_8sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/VBorder"
             app:layout_constraintTop_toBottomOf="@id/tvSearchStudent" />
 
@@ -103,9 +128,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_4sdp"
             android:background="@color/white"
+            android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etStudentNameToSearch" />
+            app:layout_constraintTop_toBottomOf="@id/spSection" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -118,6 +144,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clSearchView">
+
+        <TextView
+            android:id="@+id/tvNoDataFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NO RECORD FOUND"
+            android:textSize="@dimen/_20sdp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSearch"

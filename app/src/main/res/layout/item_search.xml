@@ -29,7 +29,8 @@
 
         <TextView
             android:id="@+id/tvClassAndSection"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toStartOf="@id/ivProfileImageSearch"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="class 4 (B)"
@@ -59,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="4dp"
+            android:layout_marginEnd="@dimen/_4sdp"
             android:maxLines="2"
             android:text="Bharatpur 4, Chitwan"
             android:textColor="#6c6c6c"

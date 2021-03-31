@@ -8,4 +8,6 @@ public interface HomeFragmentView {
     void populateNotice(List<Notice> noticeList);
 
     void noNoticeAvailable();
+
+    void dataSynced();
 }

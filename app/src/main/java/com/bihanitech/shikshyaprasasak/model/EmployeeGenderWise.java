@@ -12,6 +12,11 @@ public class EmployeeGenderWise {
     @Expose
     private Integer total;
 
+    public EmployeeGenderWise(Integer gENDER, Integer total) {
+        this.gENDER = gENDER;
+        this.total = total;
+    }
+
     public Integer getGENDER() {
         return gENDER;
     }

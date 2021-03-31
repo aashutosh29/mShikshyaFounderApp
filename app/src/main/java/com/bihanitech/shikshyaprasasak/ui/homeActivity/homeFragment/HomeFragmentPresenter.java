@@ -30,11 +30,12 @@ public class HomeFragmentPresenter {
             cdsService = ApiUtils.getDummyCDSService();
         }
 
-        Log.v("TAGESTO ", token);
-        Observable<NoticeResponse> newCall = cdsService.getNoticesData("Bearer " + token.trim());
+
+        Observable<NoticeResponse> newCall = cdsService.getNoticesData("Bearer " + token);
         RequestHandler.asyncTask(newCall, new RequestHandler.RetroReactiveCallBack<NoticeResponse>() {
             @Override
             public void onComplete(NoticeResponse response) {
+                homeFragmentView.dataSynced();
                 List<Notice> noticeList = new ArrayList<>(response.getData());
                 Log.d(TAG, "onComplete: " + noticeList);
                 homeFragmentView.populateNotice(noticeList);
@@ -55,6 +56,39 @@ public class HomeFragmentPresenter {
 
 
     }
+
+  /*  public void fetchNoticeList(String token, final int ReFetch, String undeadNotice) {
+        cdsService = ApiUtils.getDummyCDSService();
+        cdsService.getNoticeList("bearer" + token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "Notice Loaded from api");
+                String res="";
+                Boolean save = true;
+                String readNotices = "";
+                int status = response.code();
+                Log.v(TAG, "Status code"+ response.code());
+                Log.v(TAG, "response"+response);
+                if (response.isSuccessful()){
+                    if (status == 200){
+                        try{
+                            res = response.body().string();
+                            if (res.length()!=0){
+                                String unRead = "";
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }*/
 
 
 }
