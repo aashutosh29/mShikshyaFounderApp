@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.adapter.SearchAdapter;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
+import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.SearchProfile;
 import com.bihanitech.shikshyaprasasak.model.student.Student;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
@@ -251,7 +252,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     }
 
     @Override
-    public void populateClasses(List<String> className) {
+    public void populateClasses(List<Classes> classesList) {
+
+        List<String> className = new ArrayList<>();
+        for (int i = 0; i < classesList.size(); i++) {
+            className.add(classesList.get(i).getGradeId());
+        }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, className);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spClass.setAdapter(arrayAdapter);
@@ -259,7 +265,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         spClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                searchPresenter.getStudents(parentView.getItemAtPosition(position).toString(), "", sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+                searchPresenter.getStudents(classesList.get(position).getGrade(), "", sharedPrefsHelper.getValue(Constant.TOKEN, ""));
             }
 
             @Override

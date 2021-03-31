@@ -46,8 +46,12 @@ public class SlidingNoticeAdapter extends PagerAdapter {
                 .findViewById(R.id.tvMainTitle);
         final TextView tvMainContent = textLayout.findViewById(R.id.tvDetail1);
 
+        final TextView tvDate = textLayout.findViewById(R.id.tvDateOfIssue);
+
         tvMainTitle.setText(Html.fromHtml(noticeList.get(position).getTitle()));
-        tvMainContent.setText(noticeList.get(position).getContent());
+        tvMainContent.setText(Html.fromHtml(noticeList.get(position).getContent()));
+        tvDate.setText(noticeList.get(position).getDate().split(" ")[0]);
+
 
         view.addView(textLayout, 0);
 

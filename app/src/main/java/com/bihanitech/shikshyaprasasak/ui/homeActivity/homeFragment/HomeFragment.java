@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
         initToolbar();
         //String schoolName = sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, "");
         tvSchoolName.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""));
-
+        tvSchoolAddress.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_ADDRESS, ""));
         Log.d(TAG, "onCreateView: " + sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         //Nepali date converter
         LightDateConverter dateConverter = new LightDateConverter();
@@ -128,6 +128,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
         tvTodayDate.setText(todayNepaliDate.getDay() + "");
         int a = (todayNepaliDate.getMonth());
         tvTodayMonth.setText(getMonth(a));
+
         //Satrting  Presenter
         homePresenter = new HomeFragmentPresenter(this);
         homePresenter.getNotices(sharedPrefsHelper.getValue(Constant.TOKEN, ""));

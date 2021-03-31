@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bihanitech.shikshyaprasasak.R;
-import com.bihanitech.shikshyaprasasak.model.Subject;
+import com.bihanitech.shikshyaprasasak.model.examResult.Mark;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.StudentProfile.StudentProfileView;
 
 import java.util.List;
@@ -19,10 +19,10 @@ import butterknife.ButterKnife;
 
 public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.SubjectViewHolder> {
     StudentProfileView studentProfileView;
-    List<Subject> subjectList;
+    List<Mark> markList;
 
-    public SubjectListAdapter(List<Subject> subjectList, StudentProfileView studentProfileView) {
-        this.subjectList = subjectList;
+    public SubjectListAdapter(List<Mark> subjectList, StudentProfileView studentProfileView) {
+        this.markList = subjectList;
         this.studentProfileView = studentProfileView;
     }
 
@@ -37,15 +37,17 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SubjectListAdapter.SubjectViewHolder holder, final int position) {
-        holder.tvNameOfSubject.setText(String.valueOf(subjectList.get(position).getSubjectName()));
-        holder.tvScore.setText(subjectList.get(position).getScore());
+
+
+        holder.tvNameOfSubject.setText(String.valueOf(markList.get(position).getSubname()));
+        holder.tvScore.setText(markList.get(position).getStgrade());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return subjectList.size();
+        return markList.size();
     }
 
     public static class SubjectViewHolder extends RecyclerView.ViewHolder {

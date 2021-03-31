@@ -40,8 +40,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
         holder.tvSn.setText(String.valueOf(statementsList.get(position).getVchrno()));
         holder.tvDate.setText(statementsList.get(position).getTransactionDate());
         holder.tvParticulars.setText(statementsList.get(position).getParticular());
-        holder.tvAmount.setText(statementsList.get(position).getDr());
-        holder.tvBalance.setText(statementsList.get(position).getCr());
+        holder.tvAmount.setText("Rs." + statementsList.get(position).getDr().toString());
+        holder.tvBalance.setText("Rs." + statementsList.get(position).getCr().toString());
 
     }
 

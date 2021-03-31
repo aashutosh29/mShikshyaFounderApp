@@ -10,7 +10,6 @@ import com.bihanitech.shikshyaprasasak.remote.CDSService;
 import com.bihanitech.shikshyaprasasak.remote.RequestHandler;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -28,11 +27,8 @@ public class SearchPresenter {
 
     void getSpinnerData() {
         List<Classes> classesList = metaDatabaseRepo.getClassList();
-        List<String> className = new ArrayList<>();
-        for (int i = 0; i < classesList.size(); i++) {
-            className.add(classesList.get(i).getGrade());
-        }
-        searchView.populateClasses(className);
+
+        searchView.populateClasses(classesList);
 
         Log.v("Astag", classesList.toString());
 

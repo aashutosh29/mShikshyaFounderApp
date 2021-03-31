@@ -9,12 +9,14 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.adapter.AccountAdapter;
+import com.bihanitech.shikshyaprasasak.adapter.ExamAdapter;
 import com.bihanitech.shikshyaprasasak.adapter.SubjectListAdapter;
 import com.bihanitech.shikshyaprasasak.model.Statements;
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
@@ -34,7 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class StudentProfileActivity extends AppCompatActivity implements StudentProfileView {
-
+/*
     @BindView(R.id.layoutSubject)
     View layoutSubject;
 
@@ -51,7 +53,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     ImageView ivDownUpArrowSecond;
 
     @BindView(R.id.ivDownUPArrowThird)
-    ImageView ivDownUpArrowThird;
+    ImageView ivDownUpArrowThird;*/
 
     @BindView(R.id.tvProfileName)
     TextView tvProfileName;
@@ -80,8 +82,9 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     @BindView(R.id.rvStatements)
     RecyclerView rvStatements;
 
-    @BindView(R.id.rvSubjects)
-    RecyclerView rvSubjects;
+    @BindView(R.id.rvExamResult)
+    RecyclerView rvExamResult;
+
 
     @BindView(R.id.tvNoDataFound)
     TextView tvNoDataFound;
@@ -89,40 +92,24 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     @BindView(R.id.ivProfileImage)
     ImageView ivProfileImage;
 
-    @BindView(R.id.tvGrade)
+    /*@BindView(R.id.tvGrade)
     TextView tvGrade;
 
     @BindView(R.id.tvRemarks)
     TextView tvRemarks;
 
     @BindView(R.id.tvGPA)
-    TextView tvGPA;
+    TextView tvGPA;*/
 
-    @BindView(R.id.tvGrade2ndTerm)
-    TextView tvGrade2ndTerm;
-
-    @BindView(R.id.tvRemarks2ndTerm)
-    TextView tvRemarks2ndTerm;
-
-    @BindView(R.id.tvGPA2ndTerm)
-    TextView tvGPA2ndTerm;
-
-    @BindView(R.id.tvGrade3rdTerm)
-    TextView tvGrade3rdTerm;
-
-    @BindView(R.id.tvRemarks3rdTerm)
-    TextView tvRemarks3rdTerm;
-
-    @BindView(R.id.tvGPA3rdTerm)
-    TextView tvGPA3rdTerm;
 
     SharedPrefsHelper sharedPrefsHelper;
-
+    Boolean firstSubjectShowingFirst = true;
     String regNo;
     String studentClassID;
 
     SubjectListAdapter subjectListAdapter;
     AccountAdapter recyclerAdapter;
+    ExamAdapter examAdapter;
     ProgressDialog dialog;
 
     StudentProfilePresenter studentProfilePresenter;
@@ -130,10 +117,10 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     List<Statements> statementsList = new ArrayList<>();
     List<Subject> subjectList = new ArrayList<>();
 
-    Boolean firstSubjectShowingFirst = true;
 
-    Boolean secondSubjectShowingSecond = true;
-    Boolean thirdSubjectShowingThird = true;
+
+   /* Boolean secondSubjectShowingSecond = true;
+    Boolean thirdSubjectShowingThird = true;*/
 
 
     @Override
@@ -159,14 +146,14 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
         onBackPressed();
     }
 
-
+/*
     @OnClick(R.id.ivDownUPArrow)
     void ivDownUPArrowOnClick() {
 
-          /* ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.clFirstTerm);
+          *//* ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.clFirstTerm);
         ViewGroup.LayoutParams params = constraintLayout.getLayoutParams();
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            constraintLayout.setLayoutParams(params);*/
+            constraintLayout.setLayoutParams(params);*//*
 
         if (firstSubjectShowingFirst) {
             layoutSubject.setVisibility(View.VISIBLE);
@@ -212,7 +199,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
         }
 
-    }
+    }*/
 
 
     private void getAllIntentAndSetRespectiveView() {
@@ -256,12 +243,12 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     }
 
     private void initSubjectRecyclerView() {
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+       /* LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvSubjects.setLayoutManager(llm);
         rvSubjects.setItemAnimator(new DefaultItemAnimator());
         subjectListAdapter = new SubjectListAdapter(subjectList, this);
-        rvSubjects.setAdapter(subjectListAdapter);
+        rvSubjects.setAdapter(subjectListAdapter);*/
     }
 
 
@@ -301,14 +288,45 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
     @Override
     public void populateExamResult(List<Result> results) {
-        tvGrade.setText(results.get(0).getStddivgrade());
+      /*  tvGrade.setText(results.get(0).getStddivgrade());
         tvGPA.setText(results.get(0).getStgpa());
-        tvRemarks.setText(results.get(0).getStremakrs());
+        tvRemarks.setText(results.get(0).getStremakrs());*/
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvExamResult.setLayoutManager(llm);
+        rvExamResult.setItemAnimator(new DefaultItemAnimator());
+        examAdapter = new ExamAdapter(results, this);
+        rvExamResult.setAdapter(examAdapter);
+
+    }
+
+    @Override
+    public void ivDownUpArrowClicked(Result result, ConstraintLayout clSubjects, ImageView ivDownUPArrow, RecyclerView rvSubjects) {
+        if (firstSubjectShowingFirst) {
+            clSubjects.setVisibility(View.VISIBLE);
+            firstSubjectShowingFirst = false;
+            ivDownUPArrow.setImageResource(R.drawable.ic_up_arrow);
+        } else {
+            clSubjects.setVisibility(View.GONE);
+            firstSubjectShowingFirst = true;
+            ivDownUPArrow.setImageResource(R.drawable.ic_down_arrow);
+
+        }
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvSubjects.setLayoutManager(llm);
+        rvSubjects.setItemAnimator(new DefaultItemAnimator());
+        subjectListAdapter = new SubjectListAdapter(result.getMarks(), this);
+        rvSubjects.setAdapter(subjectListAdapter);
 
     }
 
     @Override
     public void populateAccountDetails(List<Account> accountList) {
+        if (accountList.size() == 0) {
+            tvNoDataFound.setVisibility(View.VISIBLE);
+        }
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvStatements.setLayoutManager(llm);

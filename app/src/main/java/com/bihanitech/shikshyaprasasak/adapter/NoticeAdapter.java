@@ -1,5 +1,6 @@
 package com.bihanitech.shikshyaprasasak.adapter;
 
+import android.text.Html;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
@@ -47,8 +47,8 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
     public void onBindViewHolder(@NonNull NoticeViewHolder holder, final int position) {
         holder.tvTitle.setText(noticeItems.get(position).getTitle());
         holder.tvDate.setText(convertDate(noticeItems.get(position).getpDate()));
-        holder.tvDetail.setText(noticeItems.get(position).getDetail());
-        holder.cvNotice.setOnClickListener(new View.OnClickListener(){
+        holder.tvDetail.setText(Html.fromHtml(noticeItems.get(position).getDetail()));
+        holder.cvNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 noticeView.sendToDetailView(noticeItems.get(position));

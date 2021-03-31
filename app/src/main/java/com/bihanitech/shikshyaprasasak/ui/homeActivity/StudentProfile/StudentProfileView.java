@@ -1,5 +1,10 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.StudentProfile;
 
+import android.widget.ImageView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
 import com.bihanitech.shikshyaprasasak.model.account.Account;
 import com.bihanitech.shikshyaprasasak.model.examResult.Result;
@@ -18,4 +23,6 @@ public interface StudentProfileView {
     void populateStudentInformation(StudentInformation studentInformation);
 
     void populateExamResult(List<Result> results);
+
+    void ivDownUpArrowClicked(Result result, ConstraintLayout clSubjects, ImageView ivDownUPArrow, RecyclerView rvSubjects);
 }

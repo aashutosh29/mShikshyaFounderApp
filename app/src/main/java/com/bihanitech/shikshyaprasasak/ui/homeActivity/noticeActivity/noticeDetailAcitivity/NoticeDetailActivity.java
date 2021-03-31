@@ -1,8 +1,10 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.noticeDetailAcitivity;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -46,8 +48,8 @@ public class NoticeDetailActivity extends AppCompatActivity {
     }
 
     private void setUpNoticeDetail() {
-        tvTitle.setText(getIntent().getStringExtra(Constant.NOTICE_TITLE));
-        tvDetail.setText(getIntent().getStringExtra(Constant.NOTICE_DETAIL));
+        tvTitle.setText(Html.fromHtml(getIntent().getStringExtra(Constant.NOTICE_TITLE)));
+        tvDetail.setText(Html.fromHtml(getIntent().getStringExtra(Constant.NOTICE_DETAIL)));
         tvDate.setText(getIntent().getStringExtra(Constant.NOTICE_DATE));
     }
 
