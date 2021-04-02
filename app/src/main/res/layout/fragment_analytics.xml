@@ -136,7 +136,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/cvIncomeVSDueBalance">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -214,6 +214,7 @@
                         android:id="@+id/chCircular1"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_180sdp"
+                        app:layout_constraintWidth_percent="0.5"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginBottom="@dimen/_8sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -225,6 +226,7 @@
                         android:id="@+id/chCircular2"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_180sdp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/chCircular1"
                         app:layout_constraintTop_toTopOf="@id/chCircular1" />
@@ -244,7 +246,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvAttendanceReport">
+                app:layout_constraintTop_toBottomOf="@id/cvMaleFemaleReport">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -419,7 +421,7 @@
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvIncomeVSDueBalance">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -526,7 +528,7 @@
                 android:background="@drawable/bg_button"
                 android:text="View Statement"
                 android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/cvMaleFemaleReport" />
+                app:layout_constraintTop_toBottomOf="@id/cvAttendanceReport" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

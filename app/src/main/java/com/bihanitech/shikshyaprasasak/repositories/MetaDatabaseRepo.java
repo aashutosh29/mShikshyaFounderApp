@@ -7,6 +7,7 @@ import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
+import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.StudentInfo;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
@@ -85,6 +86,12 @@ public class MetaDatabaseRepo implements MetaDatabase {
 
     }
 
+    @Override
+    public void addSection(List<Section> sectionList) {
+        RuntimeExceptionDao<Section, Integer> sectionDao = databaseHelper.getSectionDao();
+        sectionDao.create(sectionList);
+    }
+
 
     @Override
     public void addNoticeItems(List<NoticeItem> noticeItems) {
@@ -101,6 +108,12 @@ public class MetaDatabaseRepo implements MetaDatabase {
         RuntimeExceptionDao<Classes, Integer> classesItem = databaseHelper.getClassesDao();
         return classesItem.queryForAll();
 
+    }
+
+    @Override
+    public List<Section> getSectionList() {
+        RuntimeExceptionDao<Section, Integer> sectionItem = databaseHelper.getSectionDao();
+        return sectionItem.queryForAll();
     }
 
 }

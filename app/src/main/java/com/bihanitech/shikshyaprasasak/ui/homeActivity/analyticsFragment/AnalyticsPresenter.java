@@ -3,6 +3,7 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment;
 import android.util.Log;
 
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
+import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
 import com.bihanitech.shikshyaprasasak.remote.CDSService;
@@ -30,34 +31,6 @@ public class AnalyticsPresenter {
             cdsService = ApiUtils.getDummyCDSService();
         }
         analyticsView.showLoading();
-     /*   cdsService.getNewTotalGenderEmployee("bearer " + token).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String res = null;
-                try {
-                    res = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    JSONArray object = new JSONArray(res);
-                    List<EmployeeGenderWise> employeeGenderWises = new ArrayList<>();
-                   *//* for (int i = 0; i <=object.getString("gender").length()-1;i++){
-                       EmployeeGenderWise employeeGenderWise =  new EmployeeGenderWise(object.getJSONObject(i).)
-                    }*//*
-                    Log.v("AsTag", object.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.v("AsTag", call.toString());
-            }
-        });*/
 
         Observable<List<EmployeeGenderWise>> call = cdsService.getTotalGenderEmployee("bearer " + token);
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<List<EmployeeGenderWise>>() {
@@ -105,5 +78,33 @@ public class AnalyticsPresenter {
                 Log.v("AsTag", e.toString());
             }
         });
+    }
+
+    public void getAttendanceReport(String authToken, String date) {
+
+        if (cdsService == null) {
+            cdsService = ApiUtils.getDummyCDSService();
+        }
+        Observable<StudentAttendance> call = cdsService.getStudentAttendance("Bearer" + authToken, date);
+        RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<StudentAttendance>() {
+            @Override
+            public void onComplete(StudentAttendance response) {
+                Log.d(TAG, "onComplete: " + response);
+                analyticsView.populateStudentAttendance(response);
+            }
+
+            @Override
+            public void onError(Exception e, int code) {
+                Log.d(TAG, "onError: " + e + code);
+            }
+
+            @Override
+            public void onConnectionException(Exception e) {
+                Log.d(TAG, "onConnectionException: " + e);
+
+            }
+        });
+
+
     }
 }

@@ -163,9 +163,13 @@ public class Constant {
     public static final String USER_NAME = "username";
     public static final String CLASSES = "classes";
     public static final String CLASS = "class";
-    public static final String STAFF_TOTAL_FEMALE = "staff_total_female";
-    public static final String STAFF_TOTAL_MALE = "staff_total_male";
-    public static final String STUDENT_TOTAL_MALE = "student_total_male";
-    public static final String STUDENT_TOTAL_FEMALE = "student_total_female";
     public static final String STUDENT_CLASS_ID = "student_class_id";
+    public static final String STUDENT_TOTAL_FEMALE_DATA = "student_total_female_data";
+    public static final String STUDENT_TOTAL_MALE_DATA = "student_total_male_data";
+    public static final String STAFF_TOTAL_FEMALE_DATA = "staff_total_female_data";
+    public static final String STAFF_TOTAL_MALE_DATA = "staff_total_male_Data";
+    public static final String STUDENT_PRESENT = "student_male_attendance";
+    public static final String STUDENT_ABSENT = "student_absent";
+    public static final String STUDENT_ATTENDANCE_DATE = "student_attendance_date";
+    public static final String SECTION_NAME = "section";
 }

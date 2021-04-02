@@ -21,6 +21,7 @@ import com.bihanitech.shikshyaprasasak.adapter.SearchAdapter;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.SearchProfile;
+import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.student.Student;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.StudentProfile.StudentProfileActivity;
@@ -56,6 +57,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     SearchPresenter searchPresenter;
     SearchAdapter recyclerAdapter;
     ProgressDialog dialog;
+    String grade = "";
+    String section = "";
     private DatabaseHelper databaseHelper;
 
     @Override
@@ -252,21 +255,46 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     }
 
     @Override
-    public void populateClasses(List<Classes> classesList) {
+    public void populateClassesAndSectionList(List<Classes> classesList, List<Section> sectionList) {
 
         List<String> className = new ArrayList<>();
+        List<String> sectionName = new ArrayList<>();
         for (int i = 0; i < classesList.size(); i++) {
             className.add(classesList.get(i).getGradeId());
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, className);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spClass.setAdapter(arrayAdapter);
+        for (int i = 0; i < sectionList.size(); i++) {
+            sectionName.add(sectionList.get(i).getClass_());
+        }
+
+        ArrayAdapter<String> arrayAdapterClass = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, className);
+        arrayAdapterClass.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spClass.setAdapter(arrayAdapterClass);
 
         spClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                searchPresenter.getStudents(classesList.get(position).getGrade(), "", sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+                grade = classesList.get(position).getGrade();
+                section = sectionList.get(0).getClassID();
+                //searchPresenter.getStudents(grade, section, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+
+                ArrayAdapter<String> arrayAdapterSection = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, sectionName);
+                arrayAdapterSection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spSection.setAdapter(arrayAdapterSection);
+                spSection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        section = sectionList.get(position).getClassID();
+                        searchPresenter.getStudents(grade, section, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        // your code here
+                    }
+
+                });
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -274,6 +302,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
             }
 
         });
+
 
     }
 

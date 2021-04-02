@@ -1,5 +1,5 @@
 #
-# generated on 2021/03/23 05:25:30
+# generated on 2021/04/02 04:42:02
 #
 # --table-start--
 dataClass=com.bihanitech.shikshyaprasasak.model.SchoolInfo
@@ -116,6 +116,23 @@ fieldName=grade
 # --field-end--
 # --field-start--
 fieldName=gradeId
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.bihanitech.shikshyaprasasak.model.Section
+tableName=section
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=_class
+# --field-end--
+# --field-start--
+fieldName=classID
 # --field-end--
 # --table-fields-end--
 # --table-end--

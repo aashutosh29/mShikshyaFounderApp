@@ -25,6 +25,7 @@ import com.bihanitech.shikshyaprasasak.ui.homeActivity.academicsFragment.Academi
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.AnalyticsFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.moreFragment.MoreFragment;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.NoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.notifyActivity.NotifyActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
@@ -71,6 +72,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         fm = getSupportFragmentManager();
         loadFragment(new HomeFragment());
         setUpBottomNavigation();
+        ivNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(HomeActivity.this, NoticeActivity.class);
+                startActivity(i);
+            }
+        });
 
 
     }

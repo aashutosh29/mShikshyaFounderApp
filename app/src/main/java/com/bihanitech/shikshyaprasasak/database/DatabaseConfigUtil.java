@@ -4,6 +4,7 @@ package com.bihanitech.shikshyaprasasak.database;
 import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
+import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
@@ -22,7 +23,7 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             ContactsItem.class,
             NoticeItem.class,
             Event.class,
-            ExamName.class, Classes.class
+            ExamName.class, Classes.class, Section.class
 
     };
 

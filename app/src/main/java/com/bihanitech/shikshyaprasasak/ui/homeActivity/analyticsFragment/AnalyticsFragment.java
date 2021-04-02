@@ -22,69 +22,63 @@ import androidx.fragment.app.Fragment;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphConfig;
 import com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphView;
-import com.bihanitech.shikshyaprasasak.curveGraph.CustomMarkerView;
 import com.bihanitech.shikshyaprasasak.curveGraph.models.GraphData;
 import com.bihanitech.shikshyaprasasak.curveGraph.models.PointMap;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
+import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class AnalyticsFragment extends Fragment implements OnChartValueSelectedListener, AnalyticsView {
-
     public static final int[] FOUNDER_COLORS = {
-            Color.rgb(8, 154, 214), Color.rgb(160, 17, 28)
-    };
-    public static final int[] FOUNDER_COLOR = {
-            Color.rgb(8, 154, 214), Color.rgb(160, 17, 28)};
-    protected final String[] parties = new String[]{
-            "ABS", "PRST", "Party C"
+            Color.rgb(160, 17, 28), Color.rgb(8, 154, 214)
     };
     protected Typeface tfRegular;
     protected Typeface tfLight;
     protected SharedPrefsHelper sharedPrefsHelper;
-    List<String> xAxisValues = new ArrayList<>(Arrays.asList("Nur", "Kg", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
+    String[] parties = new String[]{
+            "ABS", "PRST", "Party C"
+    };
+    //pieChart data
+    String female = "Female";
+    String male = "Male";
+    String totalMaleStaff = "n/a";
+    String totalFemaleStaff = "n/a";
+    String totalMaleStudent = "n/a";
+    String totalFemaleStudent = "n/a";
     TextView tvToolbarTitle;
+
+    //student attendance
+    String absent = "Absent";
+    String present = "Present";
     Toolbar toolbarNew;
     AnalyticsPresenter analyticsPresenter;
-    private BarChart chart;
-    private PieChart circularChart;
     private PieChart circularChartStudentGender;
     private PieChart circularChartStaffGender;
+    private PieChart pieChartStaff;
+    private PieChart pieChartStudent;
     private CurveGraphView curveGraphView;
     private DatabaseHelper databaseHelper;
-    private String employeeGenderWiseText;
-    private String studentGenderWiseText;
 
 
     public AnalyticsFragment() {
@@ -99,34 +93,31 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
         analyticsPresenter.getGenderWiseStaffAndStudent(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         ScrollView sView = view.findViewById(R.id.svMain);
-        // Hide the Scollbar
+        // Hide the Scrollbar
         sView.setVerticalScrollBarEnabled(false);
         sView.setHorizontalScrollBarEnabled(false);
 
+        //fonts
         tfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
         tfLight = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
 
 
-        //Initializing Bar graph
-       /* chart = view.findViewById(R.id.chart1);
-        setAllStuffsBarGraph();*/
         //Initializing circular chart
-        circularChart = view.findViewById(R.id.chCircular2);
+        pieChartStaff = view.findViewById(R.id.chCircular2);
         setAllStuffsPieChartStaff();
-        circularChart = view.findViewById(R.id.chCircular1);
+        pieChartStudent = view.findViewById(R.id.chCircular1);
         setAllStuffsPieChartStudent();
-
-        //circularChart male and female
         circularChartStudentGender = view.findViewById(R.id.chCircular1Mf);
         setAllStuffsPieChartStudentGender();
         circularChartStaffGender = view.findViewById(R.id.chCircular2Mf);
         setAllStuffsPieChartStaffGender();
 
 
+        analyticsPresenter.getAttendanceReport(sharedPrefsHelper.getValue(Constant.TOKEN, ""), "2021-04-02");
+
         //Initializing Curve graph
         curveGraphView = view.findViewById(R.id.cgv);
         setAllStuffCurveGraph();
-
 
         return view;
     }
@@ -139,203 +130,10 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     }
 
 
-    private void setAllStuffsBarGraph() {
-
-/*
-        chart.getLegend().setEnabled(false);
-
-
-        chart.getDescription().setEnabled(false);
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        chart.setMaxVisibleValueCount(12);
-
-        // scaling can now only be done on x- and y-axis separately
-        chart.setPinchZoom(false);
-
-        chart.setDrawBarShadow(false);
-        chart.setDrawGridBackground(false);
-
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        xAxis.setDrawGridLines(false);
-
-        chart.getAxisLeft().setDrawGridLines(false);
-        CustomMarkerView mv = new CustomMarkerView(getContext(), R.layout.graph_pointer);
-        chart.setMarker(mv);
-
-        //trying to
-
-
-        //data for graph
-        ArrayList<BarEntry> values = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            float val = 8f;
-
-        }
-
-
-        values.add(new BarEntry(1, 60));
-        values.add(new BarEntry(2, 55));
-        values.add(new BarEntry(3, 65));
-        values.add(new BarEntry(4, 55));
-        values.add(new BarEntry(5, 50));
-        values.add(new BarEntry(6, 50));
-        values.add(new BarEntry(7, 55));
-        values.add(new BarEntry(8, 60));
-        values.add(new BarEntry(9, 65));
-        values.add(new BarEntry(10, 60));
-
-
-        BarDataSet set1;
-
-
-        set1 = new BarDataSet(values, "Data Set");
-        set1.setColors(FOUNDER_COLOR
-        );
-        set1.setDrawValues(true);
-
-        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);
-        chart.getXAxis().setValueFormatter(new com.github.mikephil.charting.formatter.IndexAxisValueFormatter(xAxisValues));
-
-        BarData data = new BarData(dataSets);
-        chart.setData(data);
-        data.setDrawValues(false);
-        chart.getAxisRight().setEnabled(false);
-
-        YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setTypeface(tfRegular);
-        leftAxis.setTextColor(ColorTemplate.getHoloBlue());
-        //leftAxis.setDrawGridLines(true);
-        leftAxis.setGranularityEnabled(true);
-        leftAxis.setAxisMinimum(0f);
-        leftAxis.setAxisMaximum(90f);
-        leftAxis.setYOffset(-9f);
-        leftAxis.setTextColor(Color.rgb(5, 5, 5));
-
-
-        // add a nice and smooth animation
-        chart.animateY(1300);*/
-
-        Legend l = chart.getLegend();
-
-        //initialize array
-        LegendEntry legendEntry = new LegendEntry();
-        legendEntry.label = "Boys";
-        legendEntry.formColor = Color.rgb(8, 154, 214);
-
-        LegendEntry legendEntry1 = new LegendEntry();
-        legendEntry1.label = "Girls";
-        legendEntry1.formColor = Color.rgb(160, 17, 28);
-
-
-        //index for the chart
-        l.setEnabled(true);
-        l.setFormSize(10f);
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setForm(Legend.LegendForm.SQUARE);
-        l.setTextSize(12f);
-        l.setTextColor(Color.BLACK);
-        l.setXEntrySpace(5f);
-        l.setYEntrySpace(5f);
-        l.setCustom(Arrays.asList(legendEntry, legendEntry1));
-
-
-        //chart description
-        chart.getDescription().setEnabled(false);
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        chart.setMaxVisibleValueCount(12);
-
-        // scaling can now only be done on x- and y-axis separately
-        chart.setPinchZoom(false);
-
-        chart.setDrawBarShadow(false);
-        chart.setDrawGridBackground(false);
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        //disable grid lines
-        xAxis.setDrawGridLines(false);
-        chart.getAxisLeft().setDrawGridLines(false);
-        chart.getAxisRight().setLabelCount(12, true);
-
-
-        //data for graph
-        ArrayList<BarEntry> values = new ArrayList<>();
-       /* for (int i = 0; i < 12; i++) {
-            float val = 8f;
-
-        }*/
-        values.add(new BarEntry(0, new float[]{12f, 26f}));
-        values.add(new BarEntry(1, new float[]{17f, 32f}));
-        values.add(new BarEntry(2, new float[]{19f, 41f}));
-        values.add(new BarEntry(3, new float[]{16f, 21f}));
-        values.add(new BarEntry(4, new float[]{21f, 36f}));
-        values.add(new BarEntry(5, new float[]{35f, 10f}));
-        values.add(new BarEntry(6, new float[]{18f, 14f}));
-        values.add(new BarEntry(7, new float[]{14f, 21f}));
-        values.add(new BarEntry(8, new float[]{17f, 12f}));
-        values.add(new BarEntry(9, new float[]{14f, 13f}));
-        values.add(new BarEntry(10, new float[]{10f, 16f}));
-        BarDataSet set1;
-        set1 = new BarDataSet(values, "Students");
-        set1.setColors(FOUNDER_COLOR
-        );
-        set1.setDrawValues(true);
-
-        ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);
-        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
-
-        BarData data = new BarData(dataSets);
-        chart.setData(data);
-        data.setDrawValues(false);
-        chart.getAxisRight().setEnabled(false);
-
-        YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setTypeface(tfRegular);
-        leftAxis.setTextColor(ColorTemplate.getHoloBlue());
-        //leftAxis.setDrawGridLines(true);
-        leftAxis.setGranularityEnabled(true);
-        leftAxis.setAxisMinimum(0f);
-        leftAxis.setAxisMaximum(90f);
-        leftAxis.setYOffset(-9f);
-        leftAxis.setTextColor(Color.rgb(5, 5, 5));
-        // add a nice and smooth animation
-        chart.animateY(1300);
-        CustomMarkerView mv = new CustomMarkerView(getContext(), R.layout.graph_pointer);
-        chart.setMarker(mv);
-
-       /* chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-
-                Toast.makeText(getContext(), "you clicked" + e.toString(), Toast.LENGTH_SHORT).show();
-                PopupMenu popupMenu = new PopupMenu(getContext(),chart);
-                popupMenu.getMenuInflater().inflate(R.menu.);
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });*/
-
-
-    }
-
     private void setAllStuffsPieChartStudent() {
 
-        //circularChart = findViewById(R.id.chCircular2);
-        circularChart.setUsePercentValues(false);
-        circularChart.getDescription().setEnabled(true);
+        pieChartStudent.setUsePercentValues(false);
+        pieChartStudent.getDescription().setEnabled(true);
 
 
         Description description = new Description();
@@ -345,67 +143,92 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
 
         description.setTextColor(Color.parseColor("#036C99"));
-        circularChart.setDescription(description);
+        pieChartStudent.setDescription(description);
 
 
-        circularChart.getLegend().setEnabled(false);
-        circularChart.setExtraOffsets(1, -10, 1, -10);
+        pieChartStudent.getLegend().setEnabled(false);
+        pieChartStudent.setExtraOffsets(1, -10, 1, -10);
 
 
-        circularChart.setDragDecelerationFrictionCoef(0.95f);
+        pieChartStudent.setDragDecelerationFrictionCoef(0.95f);
 
-        circularChart.setCenterTextTypeface(tfLight);
-        circularChart.setCenterText(generateCenterSpannableText());
+        pieChartStudent.setCenterTextTypeface(tfLight);
+        pieChartStudent.setCenterText(generateStudentAttendance());
 
-        circularChart.setDrawHoleEnabled(true);
-        circularChart.setHoleColor(Color.parseColor("#F2F0F7"));
+        pieChartStudent.setDrawHoleEnabled(true);
+        pieChartStudent.setHoleColor(Color.parseColor("#F2F0F7"));
 
-        circularChart.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
-        circularChart.setTransparentCircleAlpha(110);
+        pieChartStudent.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
+        pieChartStudent.setTransparentCircleAlpha(110);
 
-        circularChart.setHoleRadius(72f);
-        circularChart.setTransparentCircleRadius(72f);
+        pieChartStudent.setHoleRadius(72f);
+        pieChartStudent.setTransparentCircleRadius(72f);
 
 
-        circularChart.setDrawCenterText(true);
+        pieChartStudent.setDrawCenterText(true);
 
-        circularChart.setRotationAngle(0);
+        pieChartStudent.setRotationAngle(0);
         // enable rotation of the chart by touch
-        circularChart.setRotationEnabled(true);
-        circularChart.setHighlightPerTapEnabled(true);
-        //    circularChart.setExtraOffsets(-2,-12,-2,-12);
-
-        // chart.setUnit(" €");
-        // chart.setDrawUnitsInChart(true);
+        pieChartStudent.setRotationEnabled(true);
+        pieChartStudent.setHighlightPerTapEnabled(true);
 
         // add a selection listener
-        circularChart.setOnChartValueSelectedListener(this);
-
-        circularChart.animateY(1400, Easing.EaseInOutQuad);
-
-
-        //forIndex
-                /*
-                 Legend l = circularChart.getLegend();
-                 setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-        l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);*/
+        pieChartStudent.setOnChartValueSelectedListener(this);
+        pieChartStudent.animateY(1400, Easing.EaseInOutQuad);
         // entry label styling
-        circularChart.setEntryLabelColor(Color.WHITE);
+        pieChartStudent.setEntryLabelColor(Color.WHITE);
         //  circularChart.setEntryLabelTypeface(tfRegular);
-        circularChart.setEntryLabelTextSize(0f);
-        setData(10, 5);
+        pieChartStudent.setEntryLabelTextSize(0f);
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
+        int range = 5;
+
+       /* for (int i = 0; i < 2; i++) {
+            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
+                    parties[i % parties.length]));
+        }*/
+
+
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_ABSENT, "")), (float) 2));
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_PRESENT, "")), (float) 2));
+
+        PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
+        dataSet.setDrawIcons(false);
+        dataSet.setSliceSpace(3f);
+        dataSet.setIconsOffset(new MPPointF(0, 40));
+        dataSet.setSelectionShift(5f);
+        dataSet.setDrawValues(false);
+
+        // add a lot of colors
+
+        ArrayList<Integer> colors = new ArrayList<>();
+
+        for (int c : FOUNDER_COLORS)
+            colors.add(c);
+
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+        dataSet.setColors(colors);
+
+        PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter(pieChartStudent));
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.WHITE);
+        data.setValueTypeface(tfLight);
+        pieChartStudent.setData(data);
+
+        // undo all highlights
+        pieChartStudent.highlightValues(null);
+
+        pieChartStudent.invalidate();
     }
 
     private void setAllStuffsPieChartStaff() {
 
-        //circularChart = findViewById(R.id.chCircular2);
-        circularChart.setUsePercentValues(false);
-        circularChart.getDescription().setEnabled(true);
+        pieChartStaff.setUsePercentValues(false);
+        pieChartStaff.getDescription().setEnabled(true);
 
 
         Description description = new Description();
@@ -413,132 +236,53 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         description.setPosition(310, 640);
         description.setTextSize(16f);
         description.setTextColor(Color.parseColor("#036C99"));
-        circularChart.setDescription(description);
+        pieChartStaff.setDescription(description);
 
 
-        circularChart.getLegend().setEnabled(false);
-        circularChart.setExtraOffsets(1, -10, 1, -10);
+        pieChartStaff.getLegend().setEnabled(false);
+        pieChartStaff.setExtraOffsets(1, -10, 1, -10);
 
 
-        circularChart.setDragDecelerationFrictionCoef(0.95f);
+        pieChartStaff.setDragDecelerationFrictionCoef(0.95f);
 
-        circularChart.setCenterTextTypeface(tfLight);
-        circularChart.setCenterText(generateCenterSpannableText());
+        pieChartStaff.setCenterTextTypeface(tfLight);
+        pieChartStaff.setCenterText(generateCenterSpannableText());
 
-        circularChart.setDrawHoleEnabled(true);
-        circularChart.setHoleColor(Color.parseColor("#F2F0F7"));
+        pieChartStaff.setDrawHoleEnabled(true);
+        pieChartStaff.setHoleColor(Color.parseColor("#F2F0F7"));
 
-        circularChart.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
-        circularChart.setTransparentCircleAlpha(110);
+        pieChartStaff.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
+        pieChartStaff.setTransparentCircleAlpha(110);
 
-        circularChart.setHoleRadius(72f);
-        circularChart.setTransparentCircleRadius(72f);
+        pieChartStaff.setHoleRadius(72f);
+        pieChartStaff.setTransparentCircleRadius(72f);
 
 
-        circularChart.setDrawCenterText(true);
+        pieChartStaff.setDrawCenterText(true);
 
-        circularChart.setRotationAngle(0);
+        pieChartStaff.setRotationAngle(0);
         // enable rotation of the chart by touch
-        circularChart.setRotationEnabled(true);
-        circularChart.setHighlightPerTapEnabled(true);
-        //    circularChart.setExtraOffsets(-2,-12,-2,-12);
-
-        // chart.setUnit(" €");
-        // chart.setDrawUnitsInChart(true);
+        pieChartStaff.setRotationEnabled(true);
+        pieChartStaff.setHighlightPerTapEnabled(true);
 
         // add a selection listener
-        circularChart.setOnChartValueSelectedListener(this);
-
-        circularChart.animateY(1400, Easing.EaseInOutQuad);
-
-
-        //forIndex
-
-                /*
-                 Legend l = circularChart.getLegend();
-                 setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-        l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);*/
-
+        pieChartStaff.setOnChartValueSelectedListener(this);
+        pieChartStaff.animateY(1400, Easing.EaseInOutQuad);
 
         // entry label styling
-        circularChart.setEntryLabelColor(Color.WHITE);
-        //  circularChart.setEntryLabelTypeface(tfRegular);
-        circularChart.setEntryLabelTextSize(0f);
-        setData(10, 5);
-    }
-
-    private void setAllStuffsPieChartStaffGender() {
-
-        //  circularChart = (PieChart) getView().findViewById(R.id.chCircular2Mf);
-        circularChartStaffGender.setUsePercentValues(false);
-        circularChartStaffGender.getDescription().setEnabled(true);
-
-        Description description = new Description();
-        description.setText("Staff");
-        description.setPosition(310, 640);
-        description.setTextSize(16f);
-        description.setTextColor(Color.parseColor("#036C99"));
-        circularChartStaffGender.setDescription(description);
-
-        circularChartStaffGender.getLegend().setEnabled(false);
-        circularChartStaffGender.setExtraOffsets(1, -10, 1, -10);
-
-
-        circularChartStaffGender.setDragDecelerationFrictionCoef(0.95f);
-
-        circularChartStaffGender.setCenterTextTypeface(tfLight);
-        circularChartStaffGender.setCenterText(employeeGenderWiseText);
-
-        circularChartStaffGender.setDrawHoleEnabled(true);
-        circularChartStaffGender.setHoleColor(Color.parseColor("#F2F0F7"));
-
-        circularChartStaffGender.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
-        circularChartStaffGender.setTransparentCircleAlpha(110);
-
-        circularChartStaffGender.setHoleRadius(72f);
-        circularChartStaffGender.setTransparentCircleRadius(72f);
-
-
-        circularChartStaffGender.setDrawCenterText(true);
-
-        circularChartStaffGender.setRotationAngle(0);
-        // enable rotation of the chart by touch
-        circularChartStaffGender.setRotationEnabled(true);
-        circularChartStaffGender.setHighlightPerTapEnabled(true);
-        //    circularChart.setExtraOffsets(-2,-12,-2,-12);
-
-        // chart.setUnit(" €");
-        // chart.setDrawUnitsInChart(true);
-
-        // add a selection listener
-        circularChartStaffGender.setOnChartValueSelectedListener(this);
-
-        circularChartStaffGender.animateY(1400, Easing.EaseInOutQuad);
-
-
-        // entry label styling
-        circularChartStaffGender.setEntryLabelColor(Color.WHITE);
-        //  circularChart.setEntryLabelTypeface(tfRegular);
-        circularChartStaffGender.setEntryLabelTextSize(0f);
+        pieChartStaff.setEntryLabelColor(Color.WHITE);
+        pieChartStaff.setEntryLabelTextSize(0f);
         ArrayList<PieEntry> entries = new ArrayList<>();
-        //entries.add(new PieEntry(5f,3), new PieEntry(5,9));
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
 
         int range = 5;
 
         for (int i = 0; i < 2; i++) {
-            /*   entries.add(new PieEntry(3,parties));*/
-
-
             entries.add(new PieEntry((float) (range),
                     parties[i % parties.length]));
         }
+
 
         PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
 
@@ -560,7 +304,116 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
+
+        PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter(pieChartStaff));
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.WHITE);
+        data.setValueTypeface(tfLight);
+        pieChartStaff.setData(data);
+
+        // undo all highlights
+        pieChartStaff.highlightValues(null);
+
+        pieChartStaff.invalidate();
+    }
+
+    private void setAllStuffsPieChartStaffGender() {
+
+        circularChartStaffGender.setUsePercentValues(false);
+        circularChartStaffGender.getDescription().setEnabled(true);
+
+        Description description = new Description();
+        description.setText("Staff");
+        description.setPosition(310, 640);
+        description.setTextSize(16f);
+        description.setTextColor(Color.parseColor("#036C99"));
+        circularChartStaffGender.setDescription(description);
+
+        circularChartStaffGender.getLegend().setEnabled(false);
+        circularChartStaffGender.setExtraOffsets(1, -10, 1, -10);
+
+
+        circularChartStaffGender.setDragDecelerationFrictionCoef(0.95f);
+
+        circularChartStaffGender.setCenterTextTypeface(tfLight);
+        circularChartStaffGender.setCenterText(generateStaffGenderSpannableText());
+
+        circularChartStaffGender.setDrawHoleEnabled(true);
+        circularChartStaffGender.setHoleColor(Color.parseColor("#F2F0F7"));
+
+        circularChartStaffGender.setTransparentCircleColor(Color.parseColor("#F2F0F7"));
+        circularChartStaffGender.setTransparentCircleAlpha(110);
+
+        circularChartStaffGender.setHoleRadius(72f);
+        circularChartStaffGender.setTransparentCircleRadius(72f);
+
+
+        circularChartStaffGender.setDrawCenterText(true);
+
+        circularChartStaffGender.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        circularChartStaffGender.setRotationEnabled(true);
+        circularChartStaffGender.setHighlightPerTapEnabled(true);
+        // add a selection listener
+        circularChartStaffGender.setOnChartValueSelectedListener(this);
+
+        circularChartStaffGender.animateY(1400, Easing.EaseInOutQuad);
+
+
+        // entry label styling
+        circularChartStaffGender.setEntryLabelColor(Color.WHITE);
+        circularChartStaffGender.setEntryLabelTextSize(0f);
+        ArrayList<PieEntry> entries = new ArrayList<>();
+        //entries.add(new PieEntry(5f,3), new PieEntry(5,9));
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
+
+        int range = 5;
+        String[] staffGender = new String[]{
+                male, female
+        };
+        List<String> staffGenderData = new ArrayList<>();
+        staffGenderData.add(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, ""));
+        staffGenderData.add(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, ""));
+
+       /* for (int i = 0; i < staffGender.length; i++) {
+
+            entries.add(new PieEntry((float) (range),
+                    staffGender[i % staffGender.length]));
+        }*/
+
+        if (sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "").equals("n/a") && sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "").equals("n/a")) {
+            entries.add(new PieEntry(0, (float) staffGender.length));
+            entries.add(new PieEntry(0, (float) staffGender.length));
+        } else if (sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "").equals("n/a")) {
+            entries.add(new PieEntry(0, (float) staffGender.length));
+            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "")), (float) staffGender.length));
+        } else if (sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "").equals("n/a")) {
+            entries.add(new PieEntry(0, (float) staffGender.length));
+            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "")), (float) staffGender.length));
+        } else {
+            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "")), (float) staffGender.length));
+            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "")), (float) staffGender.length));
+        }
+        PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
+        dataSet.setDrawIcons(false);
+
+        dataSet.setSliceSpace(3f);
+        dataSet.setIconsOffset(new MPPointF(0, 40));
+        dataSet.setSelectionShift(5f);
+        dataSet.setDrawValues(false);
+
+        // add a lot of colors
+
+        ArrayList<Integer> colors = new ArrayList<>();
+
+        for (int c : FOUNDER_COLORS)
+            colors.add(c);
+
+        colors.add(ColorTemplate.getHoloBlue());
+
+        dataSet.setColors(colors);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(circularChartStaffGender));
@@ -576,9 +429,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     }
 
     private void setAllStuffsPieChartStudentGender() {
-        //circularChart = (PieChart) getView().findViewById(R.id.chCircular1Mf);
-
-        //circularChart = findViewById(R.id.chCircular2);
         circularChartStudentGender.setUsePercentValues(false);
         circularChartStudentGender.getDescription().setEnabled(true);
 
@@ -598,7 +448,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         circularChartStudentGender.setDragDecelerationFrictionCoef(0.95f);
 
         circularChartStudentGender.setCenterTextTypeface(tfLight);
-        circularChartStudentGender.setCenterText(studentGenderWiseText);
+        circularChartStudentGender.setCenterText(generateStudentGenderSpannableText());
 
         circularChartStudentGender.setDrawHoleEnabled(true);
         circularChartStudentGender.setHoleColor(Color.parseColor("#F2F0F7"));
@@ -616,33 +466,14 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         // enable rotation of the chart by touch
         circularChartStudentGender.setRotationEnabled(true);
         circularChartStudentGender.setHighlightPerTapEnabled(true);
-        //    circularChart.setExtraOffsets(-2,-12,-2,-12);
-
-        // chart.setUnit(" €");
-        // chart.setDrawUnitsInChart(true);
 
         // add a selection listener
         circularChartStudentGender.setOnChartValueSelectedListener(this);
 
         circularChartStudentGender.animateY(1400, Easing.EaseInOutQuad);
 
-
-        //forIndex
-
-                /*
-                 Legend l = circularChart.getLegend();
-                 setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-        l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);*/
-
-
         // entry label styling
         circularChartStudentGender.setEntryLabelColor(Color.WHITE);
-        //  circularChart.setEntryLabelTypeface(tfRegular);
         circularChartStudentGender.setEntryLabelTextSize(0f);
 
         int count = 10;
@@ -656,14 +487,33 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
 
-        for (int i = 0; i < 2; i++) {
+       /* for (int i = 0; i < 2; i++) {
 
-            entries.add(new PieEntry((float) (5),
+            entries.add(new PieEntry((float) (range),
                     parties[i % parties.length]));
+        }*/
+        String[] studentGender = new String[]{
+                male, female
+        };
+        List<String> studentGenderData = new ArrayList<>();
+        studentGenderData.add(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, ""));
+        studentGenderData.add(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, ""));
+
+        if (sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "").equals("n/a") && sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "").equals("n/a")) {
+            entries.add(new PieEntry(0, (float) studentGender.length));
+            entries.add(new PieEntry(0, (float) studentGender.length));
+        } else if (sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "").equals("n/a")) {
+            entries.add(new PieEntry(0, (float) studentGender.length));
+            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "")), (float) studentGender.length));
+        } else if (sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "").equals("n/a")) {
+            entries.add(new PieEntry(0, (float) studentGender.length));
+            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "")), (float) studentGender.length));
+        } else {
+            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "")), (float) studentGender.length));
+            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "")), (float) studentGender.length));
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
-
 
         dataSet.setDrawIcons(false);
 
@@ -682,7 +532,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter(circularChartStudentGender));
@@ -798,84 +647,104 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     }
 
 
-    private void setData(int count, float range) {
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        //entries.add(new PieEntry(5f,3), new PieEntry(5,9));
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-
-        for (int i = 0; i < 2; i++) {
-            /*   entries.add(new PieEntry(3,parties));*/
-
-
-            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
-                    parties[i % parties.length],
-                    getResources().getDrawable(R.drawable.star)));
-        }
-
-        PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
-
-
-        dataSet.setDrawIcons(false);
-
-        dataSet.setSliceSpace(3f);
-        dataSet.setIconsOffset(new MPPointF(0, 40));
-        dataSet.setSelectionShift(5f);
-        dataSet.setDrawValues(false);
-
-        // add a lot of colors
-
-        ArrayList<Integer> colors = new ArrayList<>();
-
-        for (int c : FOUNDER_COLORS)
-            colors.add(c);
-
- /*       for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-*/
-        colors.add(ColorTemplate.getHoloBlue());
-
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
-
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter(circularChart));
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
-        data.setValueTypeface(tfLight);
-        circularChart.setData(data);
-
-        // undo all highlights
-        circularChart.highlightValues(null);
-
-        circularChart.invalidate();
-    }
-
     private SpannableString generateCenterSpannableText() {
 
         SpannableString s = new SpannableString("16\nAbsent\n576\nTotal");
         s.setSpan(new ForegroundColorSpan(Color.rgb(160, 17, 28)), 0, 2, 0);
         s.setSpan(new RelativeSizeSpan(2f), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         s.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), 3, 10, 1);
         s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 3, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         s.setSpan(new ForegroundColorSpan(Color.rgb(8, 154, 214)), 10, 13, 2);
         s.setSpan(new RelativeSizeSpan(2f), 10, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 10, 13, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         s.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), 14, 19, 3);
         s.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 14, 19, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return s;
     }
 
+    private SpannableString generateStudentGenderSpannableText() {
+        SpannableString ss = new SpannableString(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "") + "\n" + female + "\n" + sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "") + "\n" + male);
+        int lengthFemaleTotal = sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "").length();
+        int lengthFemale = 6;
+        int lengthMaleTotal = sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "").length();
+        int lengthMale = 4;
+
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(160, 17, 28)), 0, lengthFemaleTotal, 0);
+        ss.setSpan(new RelativeSizeSpan(2f), 0, lengthFemaleTotal, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, lengthFemaleTotal, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), lengthFemaleTotal + 1, lengthFemaleTotal + lengthFemale + 1, 1);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthFemaleTotal + 1, lengthFemaleTotal + lengthFemale + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(8, 154, 214)), lengthFemaleTotal + lengthFemale + 2, lengthFemaleTotal + lengthFemale + 2 + lengthMaleTotal, 2);
+        ss.setSpan(new RelativeSizeSpan(2f), lengthFemaleTotal + lengthFemale + 2, lengthFemaleTotal + lengthFemale + 2 + lengthMaleTotal, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthFemaleTotal + lengthFemale + 2, lengthFemaleTotal + lengthFemale + 2 + lengthMaleTotal, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), lengthFemaleTotal + lengthFemale + lengthMaleTotal + 3, lengthFemaleTotal + lengthFemale + lengthMaleTotal + 3 + lengthMale, 3);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthFemaleTotal + lengthFemale + lengthMaleTotal + 3, lengthFemaleTotal + lengthFemale + lengthMaleTotal + 3 + lengthMale, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return ss;
+    }
+
+
+    private SpannableString generateStaffGenderSpannableText() {
+        SpannableString ss = new SpannableString(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "") + "\n" + female + "\n" + sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "") + "\n" + male);
+        int lengthFemaleTotal = sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "").length();
+        int lengthFemale = 6;
+        int lengthMaleTotal = sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "").length();
+        int lengthMale = 4;
+
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(160, 17, 28)), 0, lengthFemaleTotal, 0);
+        ss.setSpan(new RelativeSizeSpan(2f), 0, lengthFemaleTotal, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, lengthFemaleTotal, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), lengthFemaleTotal + 1, lengthFemaleTotal + lengthFemale + 1, 1);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthFemaleTotal + 1, lengthFemaleTotal + lengthFemale + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(8, 154, 214)), lengthFemaleTotal + lengthFemale + 2, lengthFemaleTotal + lengthFemale + 2 + lengthMaleTotal, 2);
+        ss.setSpan(new RelativeSizeSpan(2f), lengthFemaleTotal + lengthFemale + 2, lengthFemaleTotal + lengthFemale + 2 + lengthMaleTotal, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthFemaleTotal + lengthFemale + 2, lengthFemaleTotal + lengthFemale + 2 + lengthMaleTotal, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), lengthFemaleTotal + lengthFemale + lengthMaleTotal + 3, lengthFemaleTotal + lengthFemale + lengthMaleTotal + 3 + lengthMale, 3);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthFemaleTotal + lengthFemale + lengthMaleTotal + 3, lengthFemaleTotal + lengthFemale + lengthMaleTotal + 3 + lengthMale, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return ss;
+    }
+
+
+    private SpannableString generateStudentAttendance() {
+        SpannableString ss = new SpannableString(sharedPrefsHelper.getValue(Constant.STUDENT_ABSENT, "") + "\n" + absent + "\n" + sharedPrefsHelper.getValue(Constant.STUDENT_PRESENT, "") + "\n" + present);
+        int lengthTotalAbsent = sharedPrefsHelper.getValue(Constant.STUDENT_ABSENT, "").length();
+        int lengthAbsent = 6;
+        int lengthTotalPresent = sharedPrefsHelper.getValue(Constant.STUDENT_PRESENT, "").length();
+        int lengthPresent = 4;
+
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(160, 17, 28)), 0, lengthTotalAbsent, 0);
+        ss.setSpan(new RelativeSizeSpan(2f), 0, lengthTotalAbsent, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, lengthTotalAbsent, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), lengthTotalAbsent + 1, lengthTotalAbsent + lengthAbsent + 1, 1);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthTotalAbsent + 1, lengthTotalAbsent + lengthAbsent + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(8, 154, 214)), lengthTotalAbsent + lengthAbsent + 2, lengthTotalAbsent + lengthAbsent + 2 + lengthTotalPresent, 2);
+        ss.setSpan(new RelativeSizeSpan(2f), lengthTotalAbsent + lengthAbsent + 2, lengthTotalAbsent + lengthAbsent + 2 + lengthTotalPresent, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthTotalAbsent + lengthAbsent + 2, lengthTotalAbsent + lengthAbsent + 2 + lengthTotalPresent, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        ss.setSpan(new ForegroundColorSpan(Color.rgb(74, 66, 66)), lengthTotalAbsent + lengthAbsent + lengthTotalPresent + 3, lengthTotalAbsent + lengthAbsent + lengthTotalPresent + 3 + lengthPresent, 3);
+        ss.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), lengthTotalAbsent + lengthAbsent + lengthTotalPresent + 3, lengthTotalAbsent + lengthAbsent + lengthTotalPresent + 3 + lengthPresent, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return ss;
+    }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
@@ -885,6 +754,68 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                 "Value: " + e.getY() + ", index: " + h.getX()
                         + ", DataSet index: " + h.getDataSetIndex());
     }
+
+
+    @Override
+    public void onNothingSelected() {
+        Log.i("PieChart", "nothing selected");
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void populateEmployeeGenderWise(List<EmployeeGenderWise> employeeGenderWises) {
+        List<Integer> genderTypeListStaff = new ArrayList<>();
+        for (int i = 0; i < employeeGenderWises.size(); i++) {
+            genderTypeListStaff.add(employeeGenderWises.get(i).getGENDER());
+        }
+
+        for (int j = 0; j < genderTypeListStaff.size(); j++) {
+            if (genderTypeListStaff.get(j) == 0) {
+                totalFemaleStaff = employeeGenderWises.get(j).getTotal().toString();
+            } else if (genderTypeListStaff.get(j) == 1) {
+                totalMaleStaff = employeeGenderWises.get(j).getTotal().toString();
+            }
+        }
+        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_FEMALE_DATA, totalFemaleStaff);
+        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_MALE_DATA, totalMaleStaff);
+        setAllStuffsPieChartStaffGender();
+    }
+
+    @Override
+    public void populateStudentGenderWise(List<StudentGenderWise> studentGenderWises) {
+
+        List<Integer> genderTypeListStudent = new ArrayList<>();
+        for (int i = 0; i < studentGenderWises.size(); i++) {
+            genderTypeListStudent.add(studentGenderWises.get(i).getGENDER());
+        }
+
+        for (int j = 0; j < genderTypeListStudent.size(); j++) {
+            if (genderTypeListStudent.get(j) == 0) {
+                totalFemaleStudent = studentGenderWises.get(j).getTotal().toString();
+            } else if (genderTypeListStudent.get(j) == 1) {
+                totalMaleStudent = studentGenderWises.get(j).getTotal().toString();
+            }
+        }
+        sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, totalFemaleStudent);
+        sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, totalMaleStudent);
+        setAllStuffsPieChartStudentGender();
+    }
+
+    @Override
+    public void populateStudentAttendance(StudentAttendance response) {
+
+        sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, response.getPresentCount().toString());
+        sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, response.getAbsentCount().toString());
+        sharedPrefsHelper.saveValue(Constant.STUDENT_ATTENDANCE_DATE, response.getDate());
+        setAllStuffsPieChartStudent();
+
+    }
+
 
     private DatabaseHelper getHelper() {
         if (databaseHelper == null) {
@@ -904,64 +835,4 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         databaseHelper = null;
     }
-
-    @Override
-    public void onNothingSelected() {
-        Log.i("PieChart", "nothing selected");
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void populateEmployeeGenderWise(List<EmployeeGenderWise> employeeGenderWises) {
-
-        int genderType = employeeGenderWises.get(0).getGENDER();
-        String female = "Female";
-        String male = "Male";
-        String totalMale = "";
-        String totalFemale = "";
-
-
-        if (genderType == 0) {
-            totalFemale = employeeGenderWises.get(0).getTotal().toString();
-            //totalMale = employeeGenderWises.get(1).getTotal().toString();
-        } else {
-            totalMale = employeeGenderWises.get(0).getTotal().toString();
-            //totalFemale = employeeGenderWises.get(1).getTotal().toString();
-        }
-
-        employeeGenderWiseText = totalFemale + "\n" + female + "\n" + totalMale + "\n" + male;
-        setAllStuffsPieChartStaffGender();
-    }
-
-    @Override
-    public void populateStudentGenderWise(List<StudentGenderWise> studentGenderWises) {
-        int genderType = studentGenderWises.get(0).getGENDER();
-        String female = "Female";
-        String male = "Male";
-        String totalMale;
-        String totalFemale;
-
-
-        if (genderType == 0) {
-            totalFemale = studentGenderWises.get(0).getTotal().toString();
-
-            totalMale = studentGenderWises.get(1).getTotal().toString();
-
-        } else {
-            totalMale = studentGenderWises.get(0).getTotal().toString();
-            totalFemale = studentGenderWises.get(1).getTotal().toString();
-
-        }
-        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_MALE, totalMale);
-        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_FEMALE, totalFemale);
-        studentGenderWiseText = totalFemale + "\n" + female + "\n" + totalMale + "\n" + male;
-        setAllStuffsPieChartStudentGender();
-    }
-
-
 }

@@ -3,6 +3,7 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.searchActivity;
 import android.util.Log;
 
 import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.student.Student;
 import com.bihanitech.shikshyaprasasak.model.student.StudentResponse;
 import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
@@ -27,8 +28,9 @@ public class SearchPresenter {
 
     void getSpinnerData() {
         List<Classes> classesList = metaDatabaseRepo.getClassList();
+        List<Section> sectionList = metaDatabaseRepo.getSectionList();
 
-        searchView.populateClasses(classesList);
+        searchView.populateClassesAndSectionList(classesList, sectionList);
 
         Log.v("Astag", classesList.toString());
 

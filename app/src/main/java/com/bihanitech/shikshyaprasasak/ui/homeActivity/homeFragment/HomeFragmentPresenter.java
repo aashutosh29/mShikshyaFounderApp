@@ -1,9 +1,12 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.bihanitech.shikshyaprasasak.model.Notice;
 import com.bihanitech.shikshyaprasasak.model.NoticeResponse;
+import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
+import com.bihanitech.shikshyaprasasak.model.holiday.HolidayResponse;
 import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
 import com.bihanitech.shikshyaprasasak.remote.CDSService;
 import com.bihanitech.shikshyaprasasak.remote.RequestHandler;
@@ -17,11 +20,14 @@ import io.reactivex.Observable;
 public class HomeFragmentPresenter {
     public static final String TAG = HomeFragmentPresenter.class.getSimpleName();
     HomeFragmentView homeFragmentView;
+    Context context;
     private MetaDatabaseRepo metaDatabaseRepo;
     private CDSService cdsService;
 
-    HomeFragmentPresenter(HomeFragmentView homeFragmentView) {
+
+    public HomeFragmentPresenter(HomeFragmentView homeFragmentView, Context context) {
         this.homeFragmentView = homeFragmentView;
+        this.context = context;
     }
 
 
@@ -56,6 +62,36 @@ public class HomeFragmentPresenter {
 
 
     }
+
+    public void getHoliday(String authToken) {
+        if (cdsService == null) {
+            cdsService = ApiUtils.getDummyCDSService();
+        }
+
+
+        Observable<HolidayResponse> called = cdsService.getUpComingHoliday("Bearer" + authToken);
+        RequestHandler.asyncTask(called, new RequestHandler.RetroReactiveCallBack<HolidayResponse>() {
+            @Override
+            public void onComplete(HolidayResponse response) {
+                List<Holiday> holidayList = new ArrayList<>(response.getData());
+                homeFragmentView.hideLoading();
+                homeFragmentView.populateHolidayList(holidayList);
+
+            }
+
+            @Override
+            public void onError(Exception e, int code) {
+
+            }
+
+            @Override
+            public void onConnectionException(Exception e) {
+
+            }
+        });
+    }
+
+
 
   /*  public void fetchNoticeList(String token, final int ReFetch, String undeadNotice) {
         cdsService = ApiUtils.getDummyCDSService();

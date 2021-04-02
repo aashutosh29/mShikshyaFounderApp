@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.ExamName;
+import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.remote.AUTHService;
@@ -104,10 +105,13 @@ public class LoginPresenter {
 
                                     JSONArray classesArray = newMessage.getJSONArray(Constant.CLASSES);
                                     JSONArray examNameArray = newMessage.getJSONArray(Constant.EXAM_NAME);
+                                    JSONArray sectionArray = newMessage.getJSONArray(Constant.SECTION_NAME);
 
 
                                     List<Classes> classes = new ArrayList<>();
                                     List<ExamName> examNames = new ArrayList<>();
+                                    List<Section> sectionList = new ArrayList<>();
+
 
                                     for (int i = 0; i < classesArray.length(); i++) {
                                         Classes classes1 = new Classes(classesArray.getJSONObject(i).getString(Constant.CLASS_ID), classesArray.getJSONObject(i).getString(Constant.CLASS));
@@ -119,6 +123,13 @@ public class LoginPresenter {
                                         examNames.add(examName);
                                     }
                                     metaDatabaseRepo.addExamName(examNames);
+
+                                    for (int i = 0; i < sectionArray.length(); i++) {
+                                        Section section = new Section(sectionArray.getJSONObject(i).getString(Constant.CLASS), sectionArray.getJSONObject(i).getString(Constant.CLASS_ID));
+                                        sectionList.add(section);
+                                    }
+                                    metaDatabaseRepo.addSection(sectionList);
+
 
                                     view.savePrimaryData(schoolID, logoImage, schoolName, lastSyncDate, userName, token.trim());
                                     view.verified(true, "");

@@ -22,9 +22,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#f4f4f4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/tvSearchStudent"
@@ -35,23 +35,24 @@
             android:textColor="@color/FounderBlue"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@id/etStudentNameToSearch"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <Button
             android:id="@+id/etStudentNameToSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_16sdp"
-            android:background="@drawable/bg_edit_text_white"
-            android:drawableStart="@drawable/ic_search_black_24dp"
+            android:background="@drawable/bg_button"
             android:drawablePadding="@dimen/_8sdp"
             android:focusable="false"
-            android:hint="Write student name to search"
             android:maxLines="1"
             android:padding="@dimen/_8sdp"
+            android:text="Search Student Profile"
+            android:textColor="@color/White"
             app:layout_constraintBottom_toTopOf="@id/VBorder"
             app:layout_constraintTop_toBottomOf="@id/tvSearchStudent" />
 
@@ -75,9 +76,10 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clSearchView">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

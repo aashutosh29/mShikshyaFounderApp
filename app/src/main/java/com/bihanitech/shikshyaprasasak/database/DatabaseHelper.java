@@ -7,6 +7,7 @@ import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
+import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
@@ -33,6 +34,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private RuntimeExceptionDao<Event, Integer> eventsDao = null;
     private RuntimeExceptionDao<Classes, Integer> classesDao = null;
     private RuntimeExceptionDao<ExamName, Integer> examNameDao = null;
+    private RuntimeExceptionDao<Section, Integer> sectionDao = null;
 
 
     public DatabaseHelper(Context context) {
@@ -51,6 +53,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Event.class);
             TableUtils.createTable(connectionSource, ExamName.class);
             TableUtils.createTable(connectionSource, Classes.class);
+            TableUtils.createTable(connectionSource, Section.class);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,6 +70,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Event.class, false);
             TableUtils.dropTable(connectionSource, ExamName.class, false);
             TableUtils.dropTable(connectionSource, Classes.class, false);
+            TableUtils.dropTable(connectionSource, Section.class, false);
 
             onCreate(database, connectionSource);
         } catch (SQLException e) {
@@ -124,5 +128,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
         return examNameDao;
 
+    }
+
+    public RuntimeExceptionDao<Section, Integer> getSectionDao() {
+        if (sectionDao == null) {
+            sectionDao = getRuntimeExceptionDao(Section.class);
+        }
+        return sectionDao;
     }
 }

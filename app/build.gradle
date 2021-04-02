@@ -94,6 +94,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
     implementation 'com.google.firebase:firebase-iid:21.0.1'
 
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.1'
+
 
 }
 apply plugin: "com.google.gms.google-services"

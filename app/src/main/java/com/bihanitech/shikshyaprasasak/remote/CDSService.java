@@ -5,10 +5,12 @@ import com.bihanitech.shikshyaprasasak.model.ClassSectionResponse;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.NoticeResponse;
+import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
 import com.bihanitech.shikshyaprasasak.model.account.AccountResponse;
 import com.bihanitech.shikshyaprasasak.model.examResult.ExamResponse;
+import com.bihanitech.shikshyaprasasak.model.holiday.HolidayResponse;
 import com.bihanitech.shikshyaprasasak.model.responseModel.HolidayEventResponse;
 import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.model.student.StudentResponse;
@@ -54,7 +56,7 @@ public interface CDSService {
     @GET("shikshyanotice")
     Call<List<EventSlider>> getShikshyaNotice(@Query("schoolid") String schoolId);
 
-    @GET("auth/login")
+    @GET("v2/v2.1/auth/login")
     Call<ResponseBody> getLogin(@Query("email") String emailId, @Query("password") String loginPassword, @Query("rememberme") int rememberMe);
 
     @POST("makeParentUser")
@@ -72,7 +74,6 @@ public interface CDSService {
     @GET("getClassSection")
     Observable<ClassSectionResponse> getClassSection(@Header("Authorization") String authToken);
 
-
     @GET("publicNotice")
     Observable<NoticeResponse> getNoticesData(@Header("Authorization") String authToken);
 
@@ -88,6 +89,11 @@ public interface CDSService {
     @GET("v2/resultRoutine")
     Observable<ExamResponse> getExamResult(@Header("Authorization") String authToken, @Query("class") String StudentClass, @Query("regno") String regNo);
 
+    @GET("holiday")
+    Observable<HolidayResponse> getUpComingHoliday(@Header("Authorization") String authToken);
+
+    @GET("v2/getSchoolAttendance")
+    Observable<StudentAttendance> getStudentAttendance(@Header("Authorization") String authToken, @Query("date") String date);
 
    /* @GET("publicNotice")
     Call<ResponseBody> getNoticeList(@Header("Authorization") String AuthToken);*/

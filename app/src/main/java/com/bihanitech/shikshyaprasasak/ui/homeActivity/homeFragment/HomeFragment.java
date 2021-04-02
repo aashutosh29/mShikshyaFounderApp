@@ -26,8 +26,10 @@ import com.bihanitech.shikshyaprasasak.adapter.HomeNoticeAdapter;
 import com.bihanitech.shikshyaprasasak.adapter.SlidingImageAdapter;
 import com.bihanitech.shikshyaprasasak.adapter.SlidingNoticeAdapter;
 import com.bihanitech.shikshyaprasasak.model.Notice;
+import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.NoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.noticeDetailAcitivity.NoticeDetailActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.upcomingHoliday.UpcomingHolidayActivity;
 import com.bihanitech.shikshyaprasasak.ui.webViewAcitivity.WebViewActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.NepCalendar.LightDateConverter;
@@ -130,8 +132,9 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
         tvTodayMonth.setText(getMonth(a));
 
         //Satrting  Presenter
-        homePresenter = new HomeFragmentPresenter(this);
+        homePresenter = new HomeFragmentPresenter(this, getContext());
         homePresenter.getNotices(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+        homePresenter.getHoliday(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         String imageURl = sharedPrefsHelper.getValue(Constant.SCHOOL_LOGO, "");
         showSchoolLogo(imageURl);
         //setUpNoticeList();
@@ -153,15 +156,18 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
             }
         });
 
-        vpNotice.setOnItemClickListener(new ClickableViewPager.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                // your code
-                Intent i = new Intent(getActivity(), NoticeActivity.class);
-                startActivity(i);
-
-            }
-        });
+//        vpNotice.setOnItemClickListener(new ClickableViewPager.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                // your code
+//                Intent i = new Intent(getActivity(), NoticeDetailActivity.class);
+//                i.putExtra(Constant.NOTICE_TITLE,"");
+//                i.putExtra(Constant.NOTICE_DATE,"");
+//                i.putExtra(Constant.NOTICE_DETAIL,"");
+//                startActivity(i);
+//
+//            }
+//        });
 
         init();
         return view;
@@ -173,6 +179,12 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
         tvToolbarTitle = Objects.requireNonNull(getActivity().findViewById(R.id.tvToolbarTitle));
         tvToolbarTitle.setText("Shikshya Executive");
 
+    }
+
+    @OnClick(R.id.clMore)
+    public void clMoreClicked() {
+        Intent i = new Intent(getContext(), UpcomingHolidayActivity.class);
+        startActivity(i);
     }
 
     private void showSchoolLogo(String imageUrl) {
@@ -364,13 +376,19 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
 
     @Override
     public void populateNotice(List<Notice> noticeList) {
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvUpComingNotice.setLayoutManager(llm);
-        rvUpComingNotice.setItemAnimator(new DefaultItemAnimator());
-        HomeNoticeAdapter homeNoticeAdapter = new HomeNoticeAdapter(noticeList, this);
-        rvUpComingNotice.setAdapter(homeNoticeAdapter);
 
+        vpNotice.setOnItemClickListener(new ClickableViewPager.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // your code
+                Intent i = new Intent(getActivity(), NoticeDetailActivity.class);
+                i.putExtra(Constant.NOTICE_TITLE, noticeList.get(position).getTitle());
+                i.putExtra(Constant.NOTICE_DATE, noticeList.get(position).getDate());
+                i.putExtra(Constant.NOTICE_DETAIL, noticeList.get(position).getContent());
+                startActivity(i);
+
+            }
+        });
 
         vpNotice.setAdapter(new SlidingNoticeAdapter(getContext(), noticeList));
         cpNotice.setViewPager(vpNotice);
@@ -409,6 +427,24 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
     @Override
     public void dataSynced() {
         ivLoadingNotices.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void populateHolidayList(List<Holiday> holidayList) {
+
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvUpComingNotice.setLayoutManager(llm);
+        rvUpComingNotice.setItemAnimator(new DefaultItemAnimator());
+        HomeNoticeAdapter homeNoticeAdapter = new HomeNoticeAdapter(holidayList, this);
+        rvUpComingNotice.setAdapter(homeNoticeAdapter);
+
+
+    }
+
+    @Override
+    public void hideLoading() {
+        getView().findViewById(R.id.loadingPanel).setVisibility(View.GONE);
     }
 
     public String getMonth(int month) {

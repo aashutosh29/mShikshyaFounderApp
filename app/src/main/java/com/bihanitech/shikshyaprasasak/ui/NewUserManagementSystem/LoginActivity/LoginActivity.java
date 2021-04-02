@@ -117,6 +117,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         tvName.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""));
         tvAddress.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_ADDRESS, ""));
         String imageUrl = sharedPrefsHelper.getValue(Constant.SCHOOL_LOGO, "");
+        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_FEMALE_DATA, "0");
+        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_MALE_DATA, "0");
+        sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, "0");
+        sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "0");
+        sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, "0");
+        sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, "0");
         showSchoolLogo(imageUrl);
         setUpFCM();
 
