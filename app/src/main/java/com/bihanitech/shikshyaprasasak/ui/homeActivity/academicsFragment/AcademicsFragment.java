@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,12 @@ import androidx.fragment.app.Fragment;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.curveGraph.CustomMarkerView;
+import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
+import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
+import com.bihanitech.shikshyaprasasak.model.acedamics.ClassData;
+import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.searchActivity.SearchActivity;
+import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
@@ -28,6 +34,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,17 +44,29 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragmentPresenter.TAG;
+
 
 public class AcademicsFragment extends Fragment implements AcademicsView {
     public static final int[] FOUNDER_COLOR = {
             Color.rgb(8, 154, 214), Color.rgb(160, 17, 28)};
-
     protected Typeface tfRegular;
+    String gradeAndDivision = "";
+    List<String> classificationXAxisValue = new ArrayList<>();
+    ArrayList<BarEntry> values = new ArrayList<>();
+    //each gradeAndDivision should have list  gradeAndDivisionYAxisCount
+    List<Float> gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
+    List<String> gradeAndDivisionGroupStudentGradeName = new ArrayList<>();
+
+
     TextView tvToolbarTitle;
     Toolbar toolbarNew;
+    AcademicsPresenter academicsPresenter;
     List<String> xAxisValues = new ArrayList<>(Arrays.asList("Nur", "Kg", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
     @BindView(R.id.etStudentNameToSearch)
     Button etStudentNameToSearch;
+    SharedPrefsHelper sharedPrefsHelper;
+    private DatabaseHelper databaseHelper;
     private BarChart chart;
 
     @Override
@@ -56,10 +75,15 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         ButterKnife.bind(this, view);
         initToolbar();
         chart = view.findViewById(R.id.chart1);
-        setAllStuffsBarGraph();
+        sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
+        academicsPresenter = new AcademicsPresenter(new MetaDatabaseRepo(getHelper()), this);
+        //setAllStuffsBarGraph();
         startSearchActivity();
+        academicsPresenter.getGraphData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RhZ2luZy5zaGlrc2h5YXNvZnR3YXJlLmNvbVwvYXBpXC92MlwvdjIuMVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MTc1OTI3OTQsImV4cCI6MTYxODE5Mjc5NCwibmJmIjoxNjE3NTkyNzk0LCJqdGkiOiJSVXZtZndDcTRhRUNMbnFZIiwic3ViIjozNywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsIm5hdnMiOlt7ImlkIjoxLCJuYW1lIjoic2Nob29sLWJhc2ljLXBhY2thZ2Utcm9sZSIsInBpdm90Ijp7InVzZXJfaWQiOjM3LCJyb2xlX2lkIjoxfX0seyJpZCI6NCwibmFtZSI6InNjaG9vbC1zdGFuZGFyZC1wYWNrYWdlLXJvbGUiLCJwaXZvdCI6eyJ1c2VyX2lkIjozNywicm9sZV9pZCI6NH19XX0.Ig-3fmRW63vrobIXBy9JrkxkfrBIaoSWzRM1t4DCM2U", "ED01");
+        Log.d(TAG, "onCreateView: " + sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         return view;
     }
+
 
     private void startSearchActivity() {
 
@@ -78,6 +102,25 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         tfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
         tvToolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Academics");
+    }
+
+    private DatabaseHelper getHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(getContext(), DatabaseHelper.class);
+        }
+
+        return databaseHelper;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (databaseHelper != null) {
+            OpenHelperManager.releaseHelper();
+        }
+
+        databaseHelper = null;
     }
 
     private void setAllStuffsBarGraph() {
@@ -125,13 +168,13 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         xAxis.setDrawGridLines(false);
         chart.getAxisLeft().setDrawGridLines(false);
 
-
+/*
         //data for graph
         ArrayList<BarEntry> values = new ArrayList<>();
-       /* for (int i = 0; i < 12; i++) {
+       *//* for (int i = 0; i < 12; i++) {
             float val = 8f;
 
-        }*/
+        }*//*
         values.add(new BarEntry(0, new float[]{12f, 26f}));
         values.add(new BarEntry(1, new float[]{17f, 32f}));
         values.add(new BarEntry(2, new float[]{19f, 41f}));
@@ -142,7 +185,7 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         values.add(new BarEntry(7, new float[]{14f, 21f}));
         values.add(new BarEntry(8, new float[]{17f, 12f}));
         values.add(new BarEntry(9, new float[]{14f, 13f}));
-        values.add(new BarEntry(10, new float[]{10f, 16f}));
+        values.add(new BarEntry(10, new float[]{10f, 16f}));*/
         BarDataSet set1;
         set1 = new BarDataSet(values, "Students");
         set1.setColors(FOUNDER_COLOR
@@ -151,7 +194,7 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
 
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(set1);
-        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
+        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(classificationXAxisValue));
 
         BarData data = new BarData(dataSets);
         chart.setData(data);
@@ -189,6 +232,25 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         });*/
 
 
+    }
+
+    @Override
+    public void loadDataOnGraph(List<ClassData> data) {
+
+
+        for (int i = 0; i < data.size(); i++) {
+            classificationXAxisValue.add(data.get(i).getClass_());
+            for (int j = 0; j < data.get(i).getData().size(); j++) {
+                gradeAndDivisionGroupStudentYAxisValue.add(data.get(i).getData().get(j).getCount().floatValue());
+                gradeAndDivisionGroupStudentGradeName.add(data.get(i).getData().get(j).getGrade());
+            }
+            float[] list = new float[gradeAndDivisionGroupStudentYAxisValue.size()];
+            for (int k = 0; k < gradeAndDivisionGroupStudentYAxisValue.size(); k++) {
+                list[k] = gradeAndDivisionGroupStudentYAxisValue.get(k);
+            }
+            values.add(new BarEntry(i, list));
+        }
+        setAllStuffsBarGraph();
     }
 
     //    private void setAllStuffsBarGraph() {

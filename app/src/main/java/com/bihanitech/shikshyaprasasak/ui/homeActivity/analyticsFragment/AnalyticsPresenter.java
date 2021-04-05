@@ -2,6 +2,7 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment;
 
 import android.util.Log;
 
+import com.bihanitech.shikshyaprasasak.model.ClassDueReport;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
@@ -80,16 +81,18 @@ public class AnalyticsPresenter {
         });
     }
 
-    public void getAttendanceReport(String authToken, String date) {
+    public void getAttendanceReport(String authToken, String newDate) {
 
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
         }
-        Observable<StudentAttendance> call = cdsService.getStudentAttendance("Bearer" + authToken, date);
+        Observable<StudentAttendance> call = cdsService.getStudentAttendance("Bearer" + authToken, newDate);
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<StudentAttendance>() {
             @Override
             public void onComplete(StudentAttendance response) {
                 Log.d(TAG, "onComplete: " + response);
+                analyticsView.onSuccess(newDate);
+                //getIncomeVsDueBalance(authToken);
                 analyticsView.populateStudentAttendance(response);
             }
 
@@ -107,4 +110,31 @@ public class AnalyticsPresenter {
 
 
     }
+
+    public void getIncomeVsDueBalance(String authToken) {
+        if (cdsService == null) {
+            cdsService = ApiUtils.getDummyCDSService();
+        }
+        Observable<List<ClassDueReport>> call = cdsService.getClassDueReport("Bearer " + authToken);
+        RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<List<ClassDueReport>>() {
+            @Override
+            public void onComplete(List<ClassDueReport> response) {
+                Log.d(TAG, "onComplete: " + response);
+                analyticsView.populateIncomeVsDueBlance(response);
+            }
+
+            @Override
+            public void onError(Exception e, int code) {
+                Log.d(TAG, "onError: " + e + code);
+
+            }
+
+            @Override
+            public void onConnectionException(Exception e) {
+                Log.d(TAG, "onConnectionException: " + e);
+
+            }
+        });
+    }
+
 }

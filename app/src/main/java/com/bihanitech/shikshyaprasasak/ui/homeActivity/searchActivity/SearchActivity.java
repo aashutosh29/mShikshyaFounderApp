@@ -250,10 +250,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         i.putExtra(Constant.STUDENT_CLASS_ID, searchProfile.getClass_().getSid());
         i.putExtra(Constant.REGNO, searchProfile.getRegno());
         startActivity(i);
-
-
     }
-
     @Override
     public void populateClassesAndSectionList(List<Classes> classesList, List<Section> sectionList) {
 

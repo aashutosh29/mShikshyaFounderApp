@@ -134,6 +134,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cvIncomeVSDueBalance">
@@ -141,7 +142,30 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+
                     android:background="@color/FounderBg">
+
+                    <ImageView
+                        android:id="@+id/ivLeftArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_8sdp"
+                        android:src="@drawable/ic_left_arrow"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivRightArrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_8sdp"
+                        android:src="@drawable/ic_right_arrow"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/ivSmallCircleA"
@@ -168,15 +192,19 @@
                         app:layout_constraintStart_toEndOf="@id/ivSmallCircleA"
                         app:layout_constraintTop_toTopOf="parent" />
 
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cvMoreAndUpdatedA"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="@dimen/_4sdp"
+                        android:background="@drawable/bg_button"
+                        android:padding="@dimen/_8sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <ImageView
+                        <!--<ImageView
                             android:id="@+id/ivRightArrowA"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -193,34 +221,44 @@
                             android:text="More"
                             android:textColor="@color/FounderBlue"
                             app:layout_constraintEnd_toStartOf="@id/ivRightArrowA"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent" />-->
 
                         <TextView
+                            android:id="@+id/tvDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginRight="16dp"
-                            android:text="Updated on chaitra 24"
+                            android:text="Chaitra 24 "
+                            android:textColor="@color/white"
                             android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/ivCalender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:src="@drawable/ic_calendar"
+                            app:layout_constraintBottom_toBottomOf="@id/tvDate"
                             app:layout_constraintEnd_toEndOf="parent"
-
-                            app:layout_constraintTop_toBottomOf="@id/tvMoreA" />
-
+                            app:layout_constraintStart_toEndOf="@id/tvDate"
+                            app:layout_constraintTop_toTopOf="@id/tvDate" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chCircular1"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_180sdp"
-                        app:layout_constraintWidth_percent="0.5"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginBottom="@dimen/_8sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/chCircular2"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedA" />
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedA"
+                        app:layout_constraintWidth_percent="0.5" />
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chCircular2"
@@ -334,6 +372,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/clAmount" />
+
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clAmount"

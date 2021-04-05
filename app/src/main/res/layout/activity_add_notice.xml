@@ -160,6 +160,7 @@
                 android:alpha="0.67"
                 android:text="Expire On"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@+id/clTextEditor" />
 
@@ -175,6 +176,7 @@
                 android:hint="select notice expiry date"
                 android:inputType="none"
                 android:padding="8dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvPublishOn" />

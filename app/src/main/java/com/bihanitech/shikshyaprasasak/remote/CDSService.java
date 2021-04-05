@@ -1,6 +1,7 @@
 package com.bihanitech.shikshyaprasasak.remote;
 
 
+import com.bihanitech.shikshyaprasasak.model.ClassDueReport;
 import com.bihanitech.shikshyaprasasak.model.ClassSectionResponse;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
@@ -9,6 +10,7 @@ import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
 import com.bihanitech.shikshyaprasasak.model.account.AccountResponse;
+import com.bihanitech.shikshyaprasasak.model.acedamics.AcademicResponse;
 import com.bihanitech.shikshyaprasasak.model.examResult.ExamResponse;
 import com.bihanitech.shikshyaprasasak.model.holiday.HolidayResponse;
 import com.bihanitech.shikshyaprasasak.model.responseModel.HolidayEventResponse;
@@ -18,8 +20,10 @@ import com.bihanitech.shikshyaprasasak.model.student.StudentResponse;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -94,6 +98,15 @@ public interface CDSService {
 
     @GET("v2/getSchoolAttendance")
     Observable<StudentAttendance> getStudentAttendance(@Header("Authorization") String authToken, @Query("date") String date);
+
+    @GET("classDueReport")
+    Observable<List<ClassDueReport>> getClassDueReport(@Header("Authorization") String authToken);
+
+    @POST("publicNotice")
+    Observable<ResponseBody> sendNoticeToServer(@Header("Authorization") String authToken, @Body RequestBody body);
+
+    @GET("v2/getSchoolResult")
+    Observable<AcademicResponse> getAcademicBarData(@Header("Authorization") String authToken, @Query("exam_id") String examId);
 
    /* @GET("publicNotice")
     Call<ResponseBody> getNoticeList(@Header("Authorization") String AuthToken);*/

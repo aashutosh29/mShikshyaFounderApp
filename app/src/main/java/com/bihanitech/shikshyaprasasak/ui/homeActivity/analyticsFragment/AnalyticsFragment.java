@@ -1,7 +1,9 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
@@ -12,11 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bihanitech.shikshyaprasasak.R;
@@ -25,6 +30,7 @@ import com.bihanitech.shikshyaprasasak.curveGraph.CurveGraphView;
 import com.bihanitech.shikshyaprasasak.curveGraph.models.GraphData;
 import com.bihanitech.shikshyaprasasak.curveGraph.models.PointMap;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
+import com.bihanitech.shikshyaprasasak.model.ClassDueReport;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
@@ -45,17 +51,28 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.AnalyticsPresenter.TAG;
 
 public class AnalyticsFragment extends Fragment implements OnChartValueSelectedListener, AnalyticsView {
     public static final int[] FOUNDER_COLORS = {
             Color.rgb(160, 17, 28), Color.rgb(8, 154, 214)
     };
+    final Calendar myCalendar = Calendar.getInstance();
     protected Typeface tfRegular;
     protected Typeface tfLight;
     protected SharedPrefsHelper sharedPrefsHelper;
+    int date = 0;
     String[] parties = new String[]{
             "ABS", "PRST", "Party C"
     };
@@ -67,12 +84,21 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     String totalMaleStudent = "n/a";
     String totalFemaleStudent = "n/a";
     TextView tvToolbarTitle;
+    String dateNow;
 
     //student attendance
     String absent = "Absent";
     String present = "Present";
     Toolbar toolbarNew;
+
     AnalyticsPresenter analyticsPresenter;
+
+
+    @BindView(R.id.cvMoreAndUpdatedA)
+    ConstraintLayout cvMoreAndUpdatedA;
+    @BindView(R.id.tvDate)
+    TextView tvDate;
+
     private PieChart circularChartStudentGender;
     private PieChart circularChartStaffGender;
     private PieChart pieChartStaff;
@@ -85,9 +111,11 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analytics, container, false);
+        ButterKnife.bind(this, view);
         initToolbar();
         analyticsPresenter = new AnalyticsPresenter(this, new MetaDatabaseRepo(getHelper()));
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
@@ -111,13 +139,40 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         setAllStuffsPieChartStudentGender();
         circularChartStaffGender = view.findViewById(R.id.chCircular2Mf);
         setAllStuffsPieChartStaffGender();
+        dateNow = java.time.LocalDate.now().toString();
+        Log.d(TAG, "onCreateView: " + dateNow);
 
+        analyticsPresenter.getAttendanceReport(sharedPrefsHelper.getValue(Constant.TOKEN, ""), dateNow);
+        tvDate.setText(dateNow);
 
-        analyticsPresenter.getAttendanceReport(sharedPrefsHelper.getValue(Constant.TOKEN, ""), "2021-04-02");
 
         //Initializing Curve graph
         curveGraphView = view.findViewById(R.id.cgv);
         setAllStuffCurveGraph();
+
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+        cvMoreAndUpdatedA.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(getContext(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         return view;
     }
@@ -127,6 +182,17 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         toolbarNew.setVisibility(View.VISIBLE);
         tvToolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Analytics");
+    }
+
+    private void updateLabel() {
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        Log.d(TAG, "updateLabel: " + sdf.format(myCalendar.getTime()));
+
+        analyticsPresenter.getAttendanceReport(sharedPrefsHelper.getValue(Constant.TOKEN, ""), sdf.format(myCalendar.getTime()));
+
+        //edittext.setText(sdf.format(myCalendar.getTime()));
     }
 
 
@@ -764,7 +830,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
@@ -814,6 +879,31 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         sharedPrefsHelper.saveValue(Constant.STUDENT_ATTENDANCE_DATE, response.getDate());
         setAllStuffsPieChartStudent();
 
+    }
+
+    @OnClick(R.id.ivRightArrow)
+    public void ivRightArrowClicked() {
+
+        date++;
+        //tvDate.setText("");
+    }
+
+    @OnClick(R.id.ivLeftArrow)
+    public void ivLeftArrowClicked() {
+        date--;
+        //tvDate.setText("");
+
+    }
+
+
+    @Override
+    public void populateIncomeVsDueBlance(List<ClassDueReport> response) {
+
+    }
+
+    @Override
+    public void onSuccess(String newDate) {
+        tvDate.setText(newDate);
     }
 
 

@@ -28,6 +28,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AddNoticeActivity extends AppCompatActivity implements AddNoticeView {
     final Calendar myCalendar = Calendar.getInstance();
@@ -39,6 +40,10 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
 
     @BindView(R.id.ivHome)
     ImageView ivHome;
+    @BindView(R.id.etTitle)
+    EditText etTitle;
+    @BindView(R.id.etContentBody)
+    EditText etContentBody;
     private KRichEditorFragment editorFragment;
 
     @Override
@@ -104,7 +109,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     }
 
     private void updateLabel() {
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "MM-dd-yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         edittext.setText(sdf.format(myCalendar.getTime()));
@@ -126,6 +131,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         }
         databaseHelper = null;
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (getCurrentFocus() != null) {
@@ -133,6 +139,27 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
+
+    }
+
+    @OnClick(R.id.btUploadNotice)
+    public void btUploadNoticeOnClicked() {
+        etContentBody.getText();
+        etTitle.getText();
+    }
+
+    @Override
+    public void showSuccess() {
+
+    }
+
+    @Override
+    public void showCantUpload() {
+
+    }
+
+    @Override
+    public void showNetworkError() {
 
     }
 }

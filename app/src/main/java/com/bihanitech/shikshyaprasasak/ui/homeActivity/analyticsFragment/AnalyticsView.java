@@ -1,5 +1,6 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment;
 
+import com.bihanitech.shikshyaprasasak.model.ClassDueReport;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
@@ -14,4 +15,8 @@ public interface AnalyticsView {
     void populateStudentGenderWise(List<StudentGenderWise> studentGenderWises);
 
     void populateStudentAttendance(StudentAttendance response);
+
+    void populateIncomeVsDueBlance(List<ClassDueReport> response);
+
+    void onSuccess(String newDate);
 }
