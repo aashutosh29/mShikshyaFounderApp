@@ -43,4 +43,6 @@ public interface MetaDatabase {
     List<Classes> getClassList();
 
     List<Section> getSectionList();
+
+    List<ExamName> getExamList();
 }

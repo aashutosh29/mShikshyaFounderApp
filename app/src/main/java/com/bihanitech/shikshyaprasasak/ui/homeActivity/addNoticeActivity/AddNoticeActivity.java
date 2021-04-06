@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity;
-import com.ebolo.krichtexteditor.fragments.KRichEditorFragment;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.text.SimpleDateFormat;
@@ -28,7 +27,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class AddNoticeActivity extends AppCompatActivity implements AddNoticeView {
     final Calendar myCalendar = Calendar.getInstance();
@@ -44,8 +42,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     EditText etTitle;
     @BindView(R.id.etContentBody)
     EditText etContentBody;
-    private KRichEditorFragment editorFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,11 +138,11 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
 
     }
 
-    @OnClick(R.id.btUploadNotice)
+    /*@OnClick(R.id.btUploadNotice)
     public void btUploadNoticeOnClicked() {
         etContentBody.getText();
         etTitle.getText();
-    }
+    }*/
 
     @Override
     public void showSuccess() {

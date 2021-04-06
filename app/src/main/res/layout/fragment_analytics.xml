@@ -319,6 +319,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:visibility="invisible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -356,7 +357,9 @@
                         android:id="@+id/cgv"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_150sdp"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:paddingHorizontal="@dimen/_8sdp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedB" />
 

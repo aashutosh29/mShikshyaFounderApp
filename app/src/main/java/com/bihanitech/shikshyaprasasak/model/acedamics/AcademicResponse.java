@@ -7,6 +7,10 @@ import java.util.List;
 
 public class AcademicResponse {
 
+    @SerializedName("result")
+    @Expose
+    private String result;
+
     @SerializedName("status")
     @Expose
     private String status;
@@ -30,4 +34,11 @@ public class AcademicResponse {
         this.data = data;
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
 }

@@ -24,7 +24,7 @@
                 </rotate>
             </item>
             <item
-                android:width="30dp"
+                android:width="64dp"
                 android:height="10dp"
                 android:bottom="21dp"
                 android:gravity="center">

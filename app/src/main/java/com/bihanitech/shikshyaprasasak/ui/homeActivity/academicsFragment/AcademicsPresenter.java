@@ -22,6 +22,10 @@ public class AcademicsPresenter {
         this.academicsView = academicsView;
     }
 
+    public void exams() {
+        academicsView.getExams(metaDatabaseRepo.getExamList());
+    }
+
     public void getGraphData(String authToken, String examId) {
 
         if (cdsService == null) {
@@ -31,9 +35,15 @@ public class AcademicsPresenter {
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<AcademicResponse>() {
             @Override
             public void onComplete(AcademicResponse response) {
-                academicsView.loadDataOnGraph(response.getData());
-                Log.d(TAG, "onComplete: " + response);
+
+                if (response.getStatus().equals("success")) {
+                    academicsView.loadDataOnGraph(response.getData());
+                    Log.d(TAG, "onComplete: " + response);
+                } else
+                    academicsView.noDataAvailable();
+
             }
+
 
             @Override
             public void onError(Exception e, int code) {

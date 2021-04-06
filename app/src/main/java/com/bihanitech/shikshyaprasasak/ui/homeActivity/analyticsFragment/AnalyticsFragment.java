@@ -72,7 +72,11 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     protected Typeface tfRegular;
     protected Typeface tfLight;
     protected SharedPrefsHelper sharedPrefsHelper;
+    List<String> incomeVsDueClass = new ArrayList<>();
     int date = 0;
+
+    int spanForIncomeVsDue;
+    int maxValueForIncomeVsDue;
     String[] parties = new String[]{
             "ABS", "PRST", "Party C"
     };
@@ -93,11 +97,22 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     AnalyticsPresenter analyticsPresenter;
 
-
+    PointMap pointMapTotalCharge;
+    PointMap pointMapTotalDue;
+    PointMap pointMapTotalPaid;
     @BindView(R.id.cvMoreAndUpdatedA)
     ConstraintLayout cvMoreAndUpdatedA;
     @BindView(R.id.tvDate)
     TextView tvDate;
+
+    @BindView(R.id.tvTotalChargedNum)
+    TextView tvTotalChargedNum;
+
+    @BindView(R.id.tvTotalPaidNum)
+    TextView tvTotalPaidNum;
+
+    @BindView(R.id.tvTotalDUeNum)
+    TextView tvTotalDUeNum;
 
     private PieChart circularChartStudentGender;
     private PieChart circularChartStaffGender;
@@ -119,6 +134,8 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         initToolbar();
         analyticsPresenter = new AnalyticsPresenter(this, new MetaDatabaseRepo(getHelper()));
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
+        sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, "n-a");
+        sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, "n-a");
         analyticsPresenter.getGenderWiseStaffAndStudent(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         ScrollView sView = view.findViewById(R.id.svMain);
         // Hide the Scrollbar
@@ -134,7 +151,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         pieChartStaff = view.findViewById(R.id.chCircular2);
         setAllStuffsPieChartStaff();
         pieChartStudent = view.findViewById(R.id.chCircular1);
-        setAllStuffsPieChartStudent();
+        //setAllStuffsPieChartStudent();
         circularChartStudentGender = view.findViewById(R.id.chCircular1Mf);
         setAllStuffsPieChartStudentGender();
         circularChartStaffGender = view.findViewById(R.id.chCircular2Mf);
@@ -256,8 +273,8 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         }*/
 
 
-        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_ABSENT, "")), (float) 2));
-        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_PRESENT, "")), (float) 2));
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_ABSENT, "n-a")), (float) 2));
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_PRESENT, "n-a")), (float) 2));
 
         PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
         dataSet.setDrawIcons(false);
@@ -552,6 +569,17 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         //entries.add(new PieEntry(5f,3), new PieEntry(5,9));
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
+//        No internet
+//        No internet
+//
+//        Try:
+//        Running Windows Network Diagnostics
+//        Changing DNS over HTTPS settings
+//                DNS_PROBE_FINISHED_NO_INTERNET
+//        Check your DNS over HTTPS settings
+//        Go to Opera > Preferences… > System > Use DNS-over-HTTPS instead of the system’s DNS settings and check your DNS-over-HTTPS provider.
+//
+//                kanboard.bihanitech.components
 
        /* for (int i = 0; i < 2; i++) {
 
@@ -629,6 +657,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                         .build()
         );
 
+/*
 
         PointMap pointMap = new PointMap();
         pointMap.addPoint(1, 10);
@@ -641,10 +670,11 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         pointMap.addPoint(9, 70);
         pointMap.addPoint(10, 75);
         pointMap.addPoint(11, 100);
+*/
 
 
         final GraphData gd = GraphData.builder(getContext())
-                .setPointMap(pointMap)
+                .setPointMap(pointMapTotalPaid)
                 .setGraphStroke(R.color.FounderRed)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
                 .animateLine(true)
@@ -653,7 +683,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                 .setStraightLine(true)
                 .build();
 
-
+/*
         PointMap pm1 = new PointMap();
         pm1.addPoint(1, 20);
         pm1.addPoint(2, 25);
@@ -665,11 +695,11 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         pm1.addPoint(8, 220);
         pm1.addPoint(9, 250);
         pm1.addPoint(10, 230);
-        pm1.addPoint(11, 350);
+        pm1.addPoint(11, 350);*/
 
 
         final GraphData gd1 = GraphData.builder(getContext())
-                .setPointMap(pm1)
+                .setPointMap(pointMapTotalDue)
                 .setGraphStroke(R.color.FounderGreen)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
                 .animateLine(true)
@@ -678,7 +708,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                 .setStraightLine(true)
                 .build();
 
-
+/*
         PointMap pm2 = new PointMap();
         pm2.addPoint(1, 30);
         pm2.addPoint(2, 40);
@@ -690,11 +720,11 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         pm2.addPoint(8, 340);
         pm2.addPoint(9, 400);
         pm2.addPoint(10, 380);
-        pm2.addPoint(11, 550);
+        pm2.addPoint(11, 550);*/
 
 
         final GraphData gd2 = GraphData.builder(getContext())
-                .setPointMap(pm2)
+                .setPointMap(pointMapTotalCharge)
                 .setGraphStroke(R.color.FounderBlue)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
                 .animateLine(true)
@@ -707,7 +737,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                curveGraphView.setData(11, 600, gd, gd1, gd2);
+                curveGraphView.setData(spanForIncomeVsDue, maxValueForIncomeVsDue, gd, gd1, gd2);
             }
         }, 10);
     }
@@ -846,8 +876,13 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                 totalMaleStaff = employeeGenderWises.get(j).getTotal().toString();
             }
         }
-        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_FEMALE_DATA, totalFemaleStaff);
-        sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_MALE_DATA, totalMaleStaff);
+        if (employeeGenderWises.size() == 0) {
+            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "0");
+            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, "0");
+        } else {
+            sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_FEMALE_DATA, totalFemaleStaff);
+            sharedPrefsHelper.saveValue(Constant.STAFF_TOTAL_MALE_DATA, totalMaleStaff);
+        }
         setAllStuffsPieChartStaffGender();
     }
 
@@ -866,17 +901,28 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                 totalMaleStudent = studentGenderWises.get(j).getTotal().toString();
             }
         }
-        sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, totalFemaleStudent);
-        sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, totalMaleStudent);
+        if (studentGenderWises.size() == 0) {
+            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "n/a");
+            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, "n/a");
+        } else {
+            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, totalFemaleStudent);
+            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, totalMaleStudent);
+        }
+
         setAllStuffsPieChartStudentGender();
     }
 
     @Override
     public void populateStudentAttendance(StudentAttendance response) {
+        if (response.getStatus().equals("unavailable")) {
+            sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, "n-a");
+            sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, "n-a");
+        } else {
 
-        sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, response.getPresentCount().toString());
-        sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, response.getAbsentCount().toString());
-        sharedPrefsHelper.saveValue(Constant.STUDENT_ATTENDANCE_DATE, response.getDate());
+            sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, response.getPresentCount().toString());
+            sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, response.getAbsentCount().toString());
+            //sharedPrefsHelper.saveValue(Constant.STUDENT_ATTENDANCE_DATE, response.getDate());
+        }
         setAllStuffsPieChartStudent();
 
     }
@@ -897,7 +943,48 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
 
     @Override
-    public void populateIncomeVsDueBlance(List<ClassDueReport> response) {
+    public void populateIncomeVsDueBalance(List<ClassDueReport> response) {
+
+        spanForIncomeVsDue = response.size();
+        pointMapTotalCharge = new PointMap();
+        pointMapTotalDue = new PointMap();
+        pointMapTotalPaid = new PointMap();
+        int[] list = new int[50];
+        int compare;
+        int totalCharge = 0;
+        int totalPaid = 0;
+        int totalDue = 0;
+        for (int i = 0; i < response.size(); i++) {
+            totalCharge = response.get(i).getTotalCharge() + totalCharge;
+            totalPaid = response.get(i).getTotalPaid() + totalPaid;
+            totalDue = response.get(i).getTotalDue() + totalDue;
+            list[i] = response.get(i).getTotalCharge();
+            incomeVsDueClass.add(response.get(i).getClass_());
+            pointMapTotalCharge.addPoint(i, response.get(i).getTotalCharge());
+            pointMapTotalDue.addPoint(i, response.get(i).getTotalDue());
+            pointMapTotalPaid.addPoint(i, response.get(i).getTotalPaid());
+
+        }
+        for (int i = 0; i < list.length; i++) {
+            for (int j = i + 1; j < list.length; j++) {
+                if (list[i] > list[j]) {
+                    compare = list[i];
+                    list[i] = list[j];
+                    list[j] = compare;
+                }
+            }
+
+        }
+        maxValueForIncomeVsDue = list[list.length - 1];
+
+        Log.d(TAG, "maxvalue: " + maxValueForIncomeVsDue);
+
+
+        tvTotalChargedNum.setText(totalCharge + "");
+        tvTotalPaidNum.setText(totalPaid + "");
+        tvTotalDUeNum.setText(totalDue + "");
+        setAllStuffCurveGraph();
+
 
     }
 

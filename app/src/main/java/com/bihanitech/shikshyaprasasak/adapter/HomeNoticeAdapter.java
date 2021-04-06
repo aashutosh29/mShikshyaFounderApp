@@ -50,6 +50,8 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<HomeNoticeAdapter.Ho
         //holder.tvMonthEvent.setText(String.valueOf());
         //holder.tvDateEvent.setText();
         holder.tvTitle1s.setText(holidayList.get(position).getTitle());
+        holder.tvStart.setText(holidayList.get(position).getStart());
+        holder.tvEnd.setText(holidayList.get(position).getEnd());
         //holder.tvDetail1s.setText(Html.fromHtml(noticeList.get(position).getContent()));
 
     }
@@ -64,10 +66,10 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<HomeNoticeAdapter.Ho
 
     public static class HomeNoticeViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tvMonthEvent)
-        TextView tvMonthEvent;
-        @BindView(R.id.tvDateEvent)
-        TextView tvDateEvent;
+        @BindView(R.id.tvStart)
+        TextView tvStart;
+        @BindView(R.id.tvEnd)
+        TextView tvEnd;
         @BindView(R.id.tvTitle1s)
         TextView tvTitle1s;
 

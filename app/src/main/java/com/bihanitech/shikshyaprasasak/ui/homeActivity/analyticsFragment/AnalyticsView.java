@@ -16,7 +16,7 @@ public interface AnalyticsView {
 
     void populateStudentAttendance(StudentAttendance response);
 
-    void populateIncomeVsDueBlance(List<ClassDueReport> response);
+    void populateIncomeVsDueBalance(List<ClassDueReport> response);
 
     void onSuccess(String newDate);
 }

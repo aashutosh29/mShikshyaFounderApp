@@ -38,9 +38,8 @@ public class AnalyticsPresenter {
             @Override
             public void onComplete(List<EmployeeGenderWise> response) {
                 Log.v("AsTag", response.toString());
-                List<EmployeeGenderWise> employeeGenderWises = response;
-
-                analyticsView.populateEmployeeGenderWise(employeeGenderWises);
+                getIncomeVsDueBalance(token);
+                analyticsView.populateEmployeeGenderWise(response);
             }
 
             @Override
@@ -92,6 +91,7 @@ public class AnalyticsPresenter {
             public void onComplete(StudentAttendance response) {
                 Log.d(TAG, "onComplete: " + response);
                 analyticsView.onSuccess(newDate);
+
                 //getIncomeVsDueBalance(authToken);
                 analyticsView.populateStudentAttendance(response);
             }
@@ -120,7 +120,7 @@ public class AnalyticsPresenter {
             @Override
             public void onComplete(List<ClassDueReport> response) {
                 Log.d(TAG, "onComplete: " + response);
-                analyticsView.populateIncomeVsDueBlance(response);
+                analyticsView.populateIncomeVsDueBalance(response);
             }
 
             @Override

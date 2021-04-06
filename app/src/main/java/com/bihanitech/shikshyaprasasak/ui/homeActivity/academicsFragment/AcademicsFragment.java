@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,13 +22,13 @@ import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.curveGraph.CustomMarkerView;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
+import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.acedamics.ClassData;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.searchActivity.SearchActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -37,7 +40,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,7 +51,7 @@ import static com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeF
 
 public class AcademicsFragment extends Fragment implements AcademicsView {
     public static final int[] FOUNDER_COLOR = {
-            Color.rgb(8, 154, 214), Color.rgb(160, 17, 28)};
+            Color.rgb(160, 17, 28), Color.rgb(8, 154, 214), Color.rgb(25, 168, 12), Color.rgb(168, 152, 12), Color.rgb(30, 168, 12), Color.rgb(31, 140, 145)};
     protected Typeface tfRegular;
     String gradeAndDivision = "";
     List<String> classificationXAxisValue = new ArrayList<>();
@@ -62,9 +64,10 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
     TextView tvToolbarTitle;
     Toolbar toolbarNew;
     AcademicsPresenter academicsPresenter;
-    List<String> xAxisValues = new ArrayList<>(Arrays.asList("Nur", "Kg", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
     @BindView(R.id.etStudentNameToSearch)
     Button etStudentNameToSearch;
+    @BindView(R.id.spExam)
+    Spinner spExam;
     SharedPrefsHelper sharedPrefsHelper;
     private DatabaseHelper databaseHelper;
     private BarChart chart;
@@ -77,14 +80,13 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         chart = view.findViewById(R.id.chart1);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
         academicsPresenter = new AcademicsPresenter(new MetaDatabaseRepo(getHelper()), this);
-        //setAllStuffsBarGraph();
+        academicsPresenter.exams();
+        setAllStuffsBarGraph();
         startSearchActivity();
-        academicsPresenter.getGraphData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RhZ2luZy5zaGlrc2h5YXNvZnR3YXJlLmNvbVwvYXBpXC92MlwvdjIuMVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MTc1OTI3OTQsImV4cCI6MTYxODE5Mjc5NCwibmJmIjoxNjE3NTkyNzk0LCJqdGkiOiJSVXZtZndDcTRhRUNMbnFZIiwic3ViIjozNywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsIm5hdnMiOlt7ImlkIjoxLCJuYW1lIjoic2Nob29sLWJhc2ljLXBhY2thZ2Utcm9sZSIsInBpdm90Ijp7InVzZXJfaWQiOjM3LCJyb2xlX2lkIjoxfX0seyJpZCI6NCwibmFtZSI6InNjaG9vbC1zdGFuZGFyZC1wYWNrYWdlLXJvbGUiLCJwaXZvdCI6eyJ1c2VyX2lkIjozNywicm9sZV9pZCI6NH19XX0.Ig-3fmRW63vrobIXBy9JrkxkfrBIaoSWzRM1t4DCM2U", "ED01");
+        //academicsPresenter.getGraphData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RhZ2luZy5zaGlrc2h5YXNvZnR3YXJlLmNvbVwvYXBpXC92MlwvdjIuMVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MTc1OTI3OTQsImV4cCI6MTYxODE5Mjc5NCwibmJmIjoxNjE3NTkyNzk0LCJqdGkiOiJSVXZtZndDcTRhRUNMbnFZIiwic3ViIjozNywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsIm5hdnMiOlt7ImlkIjoxLCJuYW1lIjoic2Nob29sLWJhc2ljLXBhY2thZ2Utcm9sZSIsInBpdm90Ijp7InVzZXJfaWQiOjM3LCJyb2xlX2lkIjoxfX0seyJpZCI6NCwibmFtZSI6InNjaG9vbC1zdGFuZGFyZC1wYWNrYWdlLXJvbGUiLCJwaXZvdCI6eyJ1c2VyX2lkIjozNywicm9sZV9pZCI6NH19XX0.Ig-3fmRW63vrobIXBy9JrkxkfrBIaoSWzRM1t4DCM2U", "ED01");
         Log.d(TAG, "onCreateView: " + sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         return view;
     }
-
-
     private void startSearchActivity() {
 
         etStudentNameToSearch.setOnClickListener(new View.OnClickListener() {
@@ -126,17 +128,19 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
     private void setAllStuffsBarGraph() {
 
         Legend l = chart.getLegend();
+        l.setEnabled(false);
+        //l.setEnabled(false);
 
-        //initialize array
+       /* //initialize array
         LegendEntry legendEntry = new LegendEntry();
         legendEntry.label = "Passed";
         legendEntry.formColor = Color.rgb(8, 154, 214);
 
         LegendEntry legendEntry1 = new LegendEntry();
         legendEntry1.label = "Failed";
-        legendEntry1.formColor = Color.rgb(160, 17, 28);
+        legendEntry1.formColor = Color.rgb(160, 17, 28);*/
 
-
+/*
         //index for the chart
         l.setEnabled(true);
         l.setFormSize(10f);
@@ -148,7 +152,7 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         l.setTextColor(Color.BLACK);
         l.setXEntrySpace(5f);
         l.setYEntrySpace(5f);
-        l.setCustom(Arrays.asList(legendEntry, legendEntry1));
+        l.setCustom(Arrays.asList(legendEntry, legendEntry1));*/
 
 
         //chart description
@@ -168,24 +172,13 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         xAxis.setDrawGridLines(false);
         chart.getAxisLeft().setDrawGridLines(false);
 
-/*
+
         //data for graph
-        ArrayList<BarEntry> values = new ArrayList<>();
-       *//* for (int i = 0; i < 12; i++) {
+       /* ArrayList<BarEntry> values = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
             float val = 8f;
 
-        }*//*
-        values.add(new BarEntry(0, new float[]{12f, 26f}));
-        values.add(new BarEntry(1, new float[]{17f, 32f}));
-        values.add(new BarEntry(2, new float[]{19f, 41f}));
-        values.add(new BarEntry(3, new float[]{16f, 21f}));
-        values.add(new BarEntry(4, new float[]{21f, 36f}));
-        values.add(new BarEntry(5, new float[]{16f, 25f}));
-        values.add(new BarEntry(6, new float[]{18f, 14f}));
-        values.add(new BarEntry(7, new float[]{14f, 21f}));
-        values.add(new BarEntry(8, new float[]{17f, 12f}));
-        values.add(new BarEntry(9, new float[]{14f, 13f}));
-        values.add(new BarEntry(10, new float[]{10f, 16f}));*/
+        }*/
         BarDataSet set1;
         set1 = new BarDataSet(values, "Students");
         set1.setColors(FOUNDER_COLOR
@@ -232,12 +225,13 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         });*/
 
 
+
     }
 
     @Override
     public void loadDataOnGraph(List<ClassData> data) {
 
-
+        //values = null;
         for (int i = 0; i < data.size(); i++) {
             classificationXAxisValue.add(data.get(i).getClass_());
             for (int j = 0; j < data.get(i).getData().size(); j++) {
@@ -248,9 +242,42 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
             for (int k = 0; k < gradeAndDivisionGroupStudentYAxisValue.size(); k++) {
                 list[k] = gradeAndDivisionGroupStudentYAxisValue.get(k);
             }
-            values.add(new BarEntry(i, list));
+            values.add(new BarEntry(i, list, gradeAndDivisionGroupStudentGradeName));
+            Log.d(TAG, "loadDataOnGraph: " + gradeAndDivisionGroupStudentYAxisValue);
         }
         setAllStuffsBarGraph();
+    }
+
+    @Override
+    public void getExams(List<ExamName> examList) {
+        List<String> examName = new ArrayList<>();
+        for (int i = 0; i < examList.size(); i++) {
+            examName.add(examList.get(i).getExamName());
+        }
+        ArrayAdapter<String> arrayAdapterSection = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, examName);
+        arrayAdapterSection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spExam.setAdapter(arrayAdapterSection);
+        spExam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                academicsPresenter.getGraphData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RhZ2luZy5zaGlrc2h5YXNvZnR3YXJlLmNvbVwvYXBpXC92MlwvdjIuMVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MTc1OTI3OTQsImV4cCI6MTYxODE5Mjc5NCwibmJmIjoxNjE3NTkyNzk0LCJqdGkiOiJSVXZtZndDcTRhRUNMbnFZIiwic3ViIjozNywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsIm5hdnMiOlt7ImlkIjoxLCJuYW1lIjoic2Nob29sLWJhc2ljLXBhY2thZ2Utcm9sZSIsInBpdm90Ijp7InVzZXJfaWQiOjM3LCJyb2xlX2lkIjoxfX0seyJpZCI6NCwibmFtZSI6InNjaG9vbC1zdGFuZGFyZC1wYWNrYWdlLXJvbGUiLCJwaXZvdCI6eyJ1c2VyX2lkIjozNywicm9sZV9pZCI6NH19XX0.Ig-3fmRW63vrobIXBy9JrkxkfrBIaoSWzRM1t4DCM2U", examList.get(i).getExamID());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void noDataAvailable() {
+        classificationXAxisValue = new ArrayList<>();
+        gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
+        //values.add(new BarEntry(0, 0,gradeAndDivisionGroupStudentGradeName));
+        setAllStuffsBarGraph();
+
     }
 
     //    private void setAllStuffsBarGraph() {

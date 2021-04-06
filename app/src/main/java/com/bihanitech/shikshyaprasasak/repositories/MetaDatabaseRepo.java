@@ -116,4 +116,10 @@ public class MetaDatabaseRepo implements MetaDatabase {
         return sectionItem.queryForAll();
     }
 
+    @Override
+    public List<ExamName> getExamList() {
+        RuntimeExceptionDao<ExamName, Integer> examNames = databaseHelper.getExamNameDao();
+        return examNames.queryForAll();
+    }
+
 }

@@ -22,45 +22,96 @@
             android:layout_height="match_parent"
 
             >
+            <!--
+                        <TextView
+                            android:id="@+id/tvDateEvent"
+                            android:layout_width="28dp"
+                            android:layout_height="39dp"
+                            android:text="12"
+                            android:textColor="@color/FounderBlue"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@id/tvMonthEvent"
+                            app:layout_constraintEnd_toEndOf="@id/tvMonthEvent"
+                            app:layout_constraintStart_toStartOf="@id/tvMonthEvent" />
 
-            <TextView
-                android:id="@+id/tvDateEvent"
-                android:layout_width="28dp"
-                android:layout_height="39dp"
-                android:text="12"
-                android:textColor="@color/FounderBlue"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/tvMonthEvent"
-                app:layout_constraintEnd_toEndOf="@id/tvMonthEvent"
-                app:layout_constraintStart_toStartOf="@id/tvMonthEvent" />
-
-            <TextView
-                android:id="@+id/tvMonthEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/Baisakh"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tvTitle1s"
-                app:layout_constraintStart_toStartOf="parent" />
+                        <TextView
+                            android:id="@+id/tvMonthEvent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/Baisakh"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/tvTitle1s"
+                            app:layout_constraintStart_toStartOf="parent" />-->
 
             <TextView
                 android:id="@+id/tvTitle1s"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="8dp"
                 android:maxLines="2"
                 android:text="Title no 1 for notice no 1"
+                android:textAlignment="textStart"
                 android:textColor="#3c3c3c"
-                android:textStyle="bold"
                 android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.80" />
+
+            <TextView
+                android:id="@+id/tvStartTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.60"
+                android:padding="@dimen/_8sdp"
+                android:text="Start:  "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle1s" />
+
+            <TextView
+                android:id="@+id/tvStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.80"
+                android:text="n.a"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/tvStartTitle"
+                app:layout_constraintStart_toEndOf="@id/tvStartTitle"
+                app:layout_constraintTop_toTopOf="@id/tvStartTitle" />
+
+            <TextView
+                android:id="@+id/tvEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:alpha="0.80"
+                android:text="n.a"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/tvEndText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvEndText" />
+
+            <TextView
+                android:id="@+id/tvEndText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.67"
+                android:padding="@dimen/_8sdp"
+                android:text="End:  "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@id/tvEnd"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle1s" />
             <!--<ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
