@@ -42,6 +42,8 @@ public class HomeFragmentPresenter {
             @Override
             public void onComplete(NoticeResponse response) {
                 homeFragmentView.dataSynced();
+                getHoliday(token);
+                homeFragmentView.onComplete();
                 List<Notice> noticeList = new ArrayList<>(response.getData());
                 Log.d(TAG, "onComplete: " + noticeList);
                 homeFragmentView.populateNotice(noticeList);

@@ -15,4 +15,6 @@ public interface HomeFragmentView {
     void populateHolidayList(List<Holiday> holidayList);
 
     void hideLoading();
+
+    void onComplete();
 }

@@ -7,478 +7,159 @@
     android:background="@color/dark_shik_bg"
     tools:context="com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity">
 
-
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlHome"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_founder_bg"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvSchoolDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="match_parent"
+                android:visibility="visible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/FounderBg">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_founder_bg"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/ivSchoolIcon"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_64sdp"
-                        android:layout_margin="8dp"
-                        android:src="@drawable/ic_school"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.2" />
-
-                    <TextView
-                        android:id="@+id/tvSchoolName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:text="Little Flower English Boarding School"
-                        android:textColor="@color/FounderBlue"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/ivSchoolIcon"
-                        app:layout_constraintTop_toTopOf="@id/ivSchoolIcon"
-                        app:layout_constraintWidth_percent="0.45" />
-
-                    <TextView
-                        android:id="@+id/tvSchoolAddress"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Bharatpur -4 Chitwan"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@id/ivSchoolIcon"
-                        app:layout_constraintStart_toStartOf="@id/tvSchoolName"
-                        app:layout_constraintTop_toBottomOf="@id/tvSchoolName"
-                        app:layout_constraintWidth_percent="0.35" />
-
-                    <TextView
-                        android:id="@+id/tvTodayMonth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="Baishakh"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvTodayDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="26"
-                        android:textColor="@color/FounderBlue"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@id/tvTodayMonth"
-                        app:layout_constraintEnd_toEndOf="@id/tvTodayMonth" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvNotice"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_140sdp"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-
-                android:layout_marginEnd="@dimen/_12sdp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toTopOf="@id/clAdvertise"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvSchoolDetails"
-
-
-                >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvSchoolDetails"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/FounderBg"
-
-                    >
-
-                    <ImageView
-                        android:id="@+id/ivCircleNotices"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/ic_circle"
-                        app:layout_constraintBottom_toBottomOf="@id/tvNotices"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tvNotices" />
-
-                    <TextView
-                        android:id="@+id/tvNotices"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:padding="4dp"
-                        android:text="Notice Board"
-                        android:textColor="@color/Black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/ivCircleNotices"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/btMore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:minHeight="0dp"
-                        android:text="More"
-                        android:textAllCaps="false"
-                        android:textColor="@color/FounderBlue"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@id/tvNotices"
-                        app:layout_constraintEnd_toStartOf="@id/ivMore"
-                        app:layout_constraintTop_toTopOf="@id/tvNotices" />
-
-                    <ImageView
-                        android:id="@+id/ivMore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:src="@drawable/ic_right_arrow_24dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/btMore" />
-
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cvNoticeOne"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_margin="16dp"
-                        android:background="@drawable/custom_ripple"
-                        android:clickable="true"
-                        android:visibility="visible"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-                        app:layout_constraintHeight_percent="0.67"
-                        app:layout_constraintTop_toBottomOf="@id/tvNotices">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="120dp"
-                                android:layout_marginHorizontal="@dimen/_6sdp"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_marginBottom="@dimen/_12sdp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <ImageView
-                                    android:id="@+id/ivLoadingNotices"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@drawable/ic_loading_notices"
-                                    android:visibility="visible"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
-
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:id="@+id/clEmpty"
-                                    android:layout_width="0dp"
-                                    android:layout_height="0dp"
-                                    android:layout_marginStart="@dimen/_3sdp"
-                                    android:layout_marginTop="@dimen/_3sdp"
-                                    android:layout_marginEnd="@dimen/_3sdp"
-                                    android:background="@color/shik_bg"
-                                    android:visibility="gone"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent">
-
-                                    <ImageView
-                                        android:id="@+id/ivEmpty"
-                                        android:layout_width="100dp"
-                                        android:layout_height="120dp"
-                                        android:layout_marginStart="@dimen/_16sdp"
-                                        android:scaleType="fitCenter"
-                                        android:src="@drawable/ic_no_notices"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                                    <androidx.constraintlayout.widget.ConstraintLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:paddingEnd="@dimen/_16sdp"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toEndOf="@id/ivEmpty"
-                                        app:layout_constraintTop_toTopOf="parent">
-
-                                        <TextView
-                                            android:id="@+id/tvEmpty"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="@dimen/_4sdp"
-                                            android:text="@string/notice_board_is_empty"
-                                            android:textAlignment="center"
-                                            android:textColor="#089AD6"
-                                            android:textSize="@dimen/_11sdp"
-                                            android:textStyle="bold"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toTopOf="parent" />
-
-                                        <TextView
-                                            android:id="@+id/tvEmptyDetail"
-                                            android:layout_width="0dp"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="@dimen/_2sdp"
-                                            android:text="@string/looks_like_there_are_no_any_notices_published_yet"
-                                            android:textAlignment="center"
-                                            android:textColor="@color/label_sub"
-                                            android:textSize="@dimen/_8sdp"
-                                            app:layout_constraintEnd_toEndOf="parent"
-                                            app:layout_constraintStart_toStartOf="parent"
-                                            app:layout_constraintTop_toBottomOf="@id/tvEmpty" />
-                                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-
-                            <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
-                                android:id="@+id/vpNotice"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <com.viewpagerindicator.CirclePageIndicator
-                                android:id="@+id/cpNotice"
-                                android:layout_width="@dimen/_64sdp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:padding="4dp"
-                                app:fillColor="@color/FounderBlue"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:pageColor="@color/FounderBg"
-
-                                />
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cvNoticeTwo"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_62sdp"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/custom_ripple"
-                        android:clickable="true"
-                        android:visibility="gone"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-
-                        app:layout_constraintTop_toBottomOf="@id/cvNoticeOne">
-
-
-                    </androidx.cardview.widget.CardView>
-
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clNoNotice"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone">
-
+                        android:background="@color/FounderBg">
 
                         <ImageView
-                            android:id="@+id/ivNoticeIcon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="36dp"
-                            android:src="@drawable/icon_megaphone"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:id="@+id/ivSchoolIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_64sdp"
+                            android:layout_margin="8dp"
+                            android:src="@drawable/ic_school"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.2" />
 
                         <TextView
-                            android:id="@+id/tvNoTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="No Notices Right Now!"
-                            android:textColor="#5c5c5c"
-                            android:textSize="15sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/ivNoticeIcon" />
-
-
-                        <TextView
-                            android:id="@+id/tvNoDetail"
+                            android:id="@+id/tvSchoolName"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="64dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginEnd="64dp"
-                            android:layout_marginBottom="36dp"
-                            android:text="It seems school have not published any notice yet"
-                            android:textAlignment="center"
-                            android:textColor="#6c6c6c"
-                            android:textSize="13sp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:text="Little Flower English Boarding School"
+                            android:textColor="@color/FounderBlue"
+                            android:textSize="16dp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@id/ivSchoolIcon"
+                            app:layout_constraintTop_toTopOf="@id/ivSchoolIcon"
+                            app:layout_constraintWidth_percent="0.45" />
+
+                        <TextView
+                            android:id="@+id/tvSchoolAddress"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Bharatpur -4 Chitwan"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="@id/ivSchoolIcon"
+                            app:layout_constraintStart_toStartOf="@id/tvSchoolName"
+                            app:layout_constraintTop_toBottomOf="@id/tvSchoolName"
+                            app:layout_constraintWidth_percent="0.35" />
+
+                        <TextView
+                            android:id="@+id/tvTodayMonth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:text="Baishakh"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvNoTitle" />
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvTodayDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="26"
+                            android:textColor="@color/FounderBlue"
+                            android:textSize="32sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@id/tvTodayMonth"
+                            app:layout_constraintEnd_toEndOf="@id/tvTodayMonth" />
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clAdvertise"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_180sdp"
-                android:layout_marginHorizontal="@dimen/_12sdp"
-                android:layout_marginVertical="@dimen/_12sdp"
-                android:background="@drawable/bg_edit_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvNotice">
 
-                <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
-                    android:id="@+id/vpAdvertise"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvNotice"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/_12sdp" />
+                    android:layout_height="@dimen/_140sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
 
-                <com.viewpagerindicator.CirclePageIndicator
-                    android:id="@+id/cpIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="16dp"
-                    android:padding="4dp"
-                    app:fillColor="@color/FounderBlue"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toTopOf="@id/clAdvertise"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:pageColor="@color/FounderBg"
-
-                    />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvUpComingEvent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:visibility="visible"
-                app:cardBackgroundColor="@color/FounderBg"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="0dp"
-                app:layout_constraintTop_toBottomOf="@id/clAdvertise"
-
-                >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cvSchoolDetails"
 
 
                     >
 
-                    <View
-                        android:id="@+id/vSpaceRecycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_6sdp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rvUpComingNotice" />
-
-                    <ImageView
-                        android:id="@+id/ivCircleNotice"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/ic_circle"
-                        app:layout_constraintBottom_toBottomOf="@id/tvUpComingEvent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tvUpComingEvent" />
-
-                    <TextView
-                        android:id="@+id/tvUpComingEvent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:padding="4dp"
-                        android:text="Upcoming Holidays"
-                        android:textColor="@color/Black"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@id/ivCircleNotice"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clMore"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_6sdp"
-                        app:layout_constraintBottom_toBottomOf="@id/tvUpComingEvent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tvUpComingEvent">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/FounderBg"
+
+                        >
+
+                        <ImageView
+                            android:id="@+id/ivCircleNotices"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/ic_circle"
+                            app:layout_constraintBottom_toBottomOf="@id/tvNotices"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvNotices" />
 
                         <TextView
-                            android:id="@+id/btMores"
+                            android:id="@+id/tvNotices"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:padding="4dp"
+                            android:text="Notice Board"
+                            android:textColor="@color/Black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@id/ivCircleNotices"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/btMore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="4dp"
@@ -488,271 +169,595 @@
                             android:textAllCaps="false"
                             android:textColor="@color/FounderBlue"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/ivMores"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintBottom_toBottomOf="@id/tvNotices"
+                            app:layout_constraintEnd_toStartOf="@id/ivMore"
+                            app:layout_constraintTop_toTopOf="@id/tvNotices" />
 
                         <ImageView
-                            android:id="@+id/ivMores"
+                            android:id="@+id/ivMore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
                             android:src="@drawable/ic_right_arrow_24dp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/btMores" />
+                            app:layout_constraintTop_toTopOf="@id/btMore" />
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cvNoticeOne"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_margin="16dp"
+                            android:background="@drawable/custom_ripple"
+                            android:clickable="true"
+                            android:visibility="visible"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintHeight_percent="0.67"
+                            app:layout_constraintTop_toBottomOf="@id/tvNotices">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="120dp"
+                                    android:layout_marginHorizontal="@dimen/_6sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:layout_marginBottom="@dimen/_12sdp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <ImageView
+                                        android:id="@+id/ivLoadingNotices"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/ic_loading_notices"
+                                        android:visibility="visible"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:id="@+id/clEmpty"
+                                        android:layout_width="0dp"
+                                        android:layout_height="0dp"
+                                        android:layout_marginStart="@dimen/_3sdp"
+                                        android:layout_marginTop="@dimen/_3sdp"
+                                        android:layout_marginEnd="@dimen/_3sdp"
+                                        android:background="@color/shik_bg"
+                                        android:visibility="gone"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <ImageView
+                                            android:id="@+id/ivEmpty"
+                                            android:layout_width="100dp"
+                                            android:layout_height="120dp"
+                                            android:layout_marginStart="@dimen/_16sdp"
+                                            android:scaleType="fitCenter"
+                                            android:src="@drawable/ic_no_notices"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                                        <androidx.constraintlayout.widget.ConstraintLayout
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:paddingEnd="@dimen/_16sdp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toEndOf="@id/ivEmpty"
+                                            app:layout_constraintTop_toTopOf="parent">
+
+                                            <TextView
+                                                android:id="@+id/tvEmpty"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/_4sdp"
+                                                android:text="@string/notice_board_is_empty"
+                                                android:textAlignment="center"
+                                                android:textColor="#089AD6"
+                                                android:textSize="@dimen/_11sdp"
+                                                android:textStyle="bold"
+                                                app:layout_constraintEnd_toEndOf="parent"
+                                                app:layout_constraintStart_toStartOf="parent"
+                                                app:layout_constraintTop_toTopOf="parent" />
+
+                                            <TextView
+                                                android:id="@+id/tvEmptyDetail"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="@dimen/_2sdp"
+                                                android:text="@string/looks_like_there_are_no_any_notices_published_yet"
+                                                android:textAlignment="center"
+                                                android:textColor="@color/label_sub"
+                                                android:textSize="@dimen/_8sdp"
+                                                app:layout_constraintEnd_toEndOf="parent"
+                                                app:layout_constraintStart_toStartOf="parent"
+                                                app:layout_constraintTop_toBottomOf="@id/tvEmpty" />
+                                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
+                                    android:id="@+id/vpNotice"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <com.viewpagerindicator.CirclePageIndicator
+                                    android:id="@+id/cpNotice"
+                                    android:layout_width="@dimen/_64sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:padding="4dp"
+                                    app:fillColor="@color/FounderBlue"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:pageColor="@color/FounderBg"
+
+                                    />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cvNoticeTwo"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_62sdp"
+                            android:layout_margin="8dp"
+                            android:background="@drawable/custom_ripple"
+                            android:clickable="true"
+                            android:visibility="gone"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+
+                            app:layout_constraintTop_toBottomOf="@id/cvNoticeOne">
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clNoNotice"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone">
+
+
+                            <ImageView
+                                android:id="@+id/ivNoticeIcon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="36dp"
+                                android:src="@drawable/icon_megaphone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvNoTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="No Notices Right Now!"
+                                android:textColor="#5c5c5c"
+                                android:textSize="15sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/ivNoticeIcon" />
+
+
+                            <TextView
+                                android:id="@+id/tvNoDetail"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="64dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginEnd="64dp"
+                                android:layout_marginBottom="36dp"
+                                android:text="It seems school have not published any notice yet"
+                                android:textAlignment="center"
+                                android:textColor="#6c6c6c"
+                                android:textSize="13sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvNoTitle" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
-                    <RelativeLayout
-                        android:id="@+id/loadingPanel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingVertical="@dimen/_16sdp"
-                        app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clAdvertise"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_180sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginVertical="@dimen/_12sdp"
+                    android:background="@drawable/bg_edit_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cvNotice">
 
-                        <ProgressBar
-                            android:id="@+id/pbLoading"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:indeterminate="true" />
-
-
-                    </RelativeLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvUpComingNotice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent" />
-
-
-                    <!--
-                                        <androidx.cardview.widget.CardView
-                                            android:id="@+id/cvNoticeOnes"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_margin="8dp"
-                                            android:background="@drawable/custom_ripple"
-                                            android:clickable="true"
-                                            android:visibility="visible"
-                                            app:cardCornerRadius="8dp"
-                                            app:cardElevation="0dp"
-                                            app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent">
-
-                                            <androidx.constraintlayout.widget.ConstraintLayout
-                                                android:id="@+id/cvNotice1s"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-
-                                                >
-
-                                                <TextView
-                                                    android:id="@+id/tvDateEvent"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:text="12"
-                                                    android:textColor="@color/FounderBlue"
-                                                    android:textSize="26sp"
-                                                    android:textStyle="bold"
-                                                    app:layout_constraintBottom_toTopOf="@id/tvMonthEvent"
-                                                    app:layout_constraintEnd_toEndOf="@id/tvMonthEvent"
-                                                    app:layout_constraintStart_toStartOf="@id/tvMonthEvent" />
-
-                                                <TextView
-                                                    android:id="@+id/tvMonthEvent"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginBottom="8dp"
-                                                    android:text="@string/Baisakh"
-                                                    android:textSize="12sp"
-                                                    app:layout_constraintBottom_toBottomOf="parent"
-                                                    app:layout_constraintEnd_toStartOf="@id/tvTitle1s"
-                                                    app:layout_constraintStart_toStartOf="parent" />
-
-                                                <TextView
-                                                    android:id="@+id/tvTitle1s"
-                                                    android:layout_width="0dp"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginStart="8dp"
-                                                    android:layout_marginTop="8dp"
-                                                    android:layout_marginEnd="8dp"
-                                                    android:maxLines="2"
-                                                    android:text="Title no 1 for notice no 1"
-                                                    android:textColor="#3c3c3c"
-                                                    android:textStyle="bold"
-                                                    app:layout_constraintEnd_toEndOf="parent"
-                                                    app:layout_constraintTop_toTopOf="parent"
-                                                    app:layout_constraintWidth_percent="0.80" />
-                                                &lt;!&ndash;<ImageView
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="match_parent"
-                                                    app:layout_constraintEnd_toStartOf="@id/tvTitle1s"
-                                                    />&ndash;&gt;
-
-
-                                                <TextView
-                                                    android:id="@+id/tvDetail1s"
-                                                    android:layout_width="0dp"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginTop="4dp"
-                                                    android:layout_marginBottom="4dp"
-                                                    android:text="This is a general notice for all the students and parent to meet at school ..."
-                                                    android:textColor="#6c6c6c"
-                                                    android:textSize="13sp"
-                                                    app:layout_constraintBottom_toBottomOf="parent"
-                                                    app:layout_constraintEnd_toEndOf="@id/tvTitle1s"
-                                                    app:layout_constraintStart_toStartOf="@id/tvTitle1s"
-                                                    app:layout_constraintTop_toBottomOf="@id/tvTitle1s" />
-
-                                            </androidx.constraintlayout.widget.ConstraintLayout>
-                                        </androidx.cardview.widget.CardView>
-
-
-                                        <androidx.cardview.widget.CardView
-                                            android:id="@+id/cvNoticeTwos"
-
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_margin="8dp"
-                                            android:background="@drawable/custom_ripple"
-                                            android:clickable="true"
-                                            android:visibility="visible"
-                                            app:cardCornerRadius="8dp"
-                                            app:cardElevation="0dp"
-                                            app:layout_constraintTop_toBottomOf="@id/cvNoticeOnes">
-
-                                            <androidx.constraintlayout.widget.ConstraintLayout
-                                                android:id="@+id/cvNotice2s"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent">
-
-                                                <TextView
-                                                    android:id="@+id/tvDateEvent2"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:text="16"
-                                                    android:textColor="@color/FounderBlue"
-                                                    android:textSize="26sp"
-                                                    android:textStyle="bold"
-                                                    app:layout_constraintBottom_toTopOf="@id/tvMonthEvent2"
-                                                    app:layout_constraintEnd_toEndOf="@id/tvMonthEvent2"
-                                                    app:layout_constraintStart_toStartOf="@id/tvMonthEvent2" />
-
-                                                <TextView
-                                                    android:id="@+id/tvMonthEvent2"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginBottom="8dp"
-                                                    android:text="@string/Baisakh"
-                                                    android:textSize="12sp"
-                                                    app:layout_constraintBottom_toBottomOf="parent"
-                                                    app:layout_constraintEnd_toStartOf="@id/tvTitle2s"
-                                                    app:layout_constraintStart_toStartOf="parent" />
-
-                                                <TextView
-                                                    android:id="@+id/tvTitle2s"
-                                                    android:layout_width="0dp"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginStart="8dp"
-                                                    android:layout_marginTop="8dp"
-                                                    android:layout_marginEnd="8dp"
-                                                    android:maxLines="2"
-                                                    android:text="School will remain closed until.... "
-                                                    android:textColor="#3c3c3c"
-                                                    android:textStyle="bold"
-                                                    app:layout_constraintEnd_toEndOf="parent"
-                                                    app:layout_constraintTop_toTopOf="parent"
-                                                    app:layout_constraintWidth_percent="0.80" />
-
-
-                                                <TextView
-                                                    android:id="@+id/tvDetail2s"
-                                                    android:layout_width="0dp"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_marginTop="4dp"
-                                                    android:layout_marginBottom="4dp"
-                                                    android:text="After the final exam completed and the spread of world wide virus in Nepal also, for the security...."
-                                                    android:textColor="#6c6c6c"
-                                                    android:textSize="13sp"
-                                                    app:layout_constraintEnd_toEndOf="@id/tvTitle2s"
-                                                    app:layout_constraintStart_toStartOf="@id/tvTitle2s"
-                                                    app:layout_constraintTop_toBottomOf="@id/tvTitle2s" />
-
-                                                <View
-                                                    android:layout_width="1dp"
-                                                    android:layout_height="1dp"
-                                                    android:layout_marginTop="8dp"
-                                                    app:layout_constraintStart_toStartOf="parent"
-                                                    app:layout_constraintTop_toBottomOf="@id/tvDetail2s" />
-                                            </androidx.constraintlayout.widget.ConstraintLayout>
-                                        </androidx.cardview.widget.CardView>-->
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clNoNotices"
+                    <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
+                        android:id="@+id/vpAdvertise"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone">
+                        android:layout_marginBottom="@dimen/_12sdp" />
 
+                    <com.viewpagerindicator.CirclePageIndicator
+                        android:id="@+id/cpIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="4dp"
+                        app:fillColor="@color/FounderBlue"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:pageColor="@color/FounderBg"
 
-                        <ImageView
-                            android:id="@+id/ivNoticeIcons"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="36dp"
-                            android:src="@drawable/icon_megaphone"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tvNoTitles"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="No Notices Right Now!"
-                            android:textColor="#5c5c5c"
-                            android:textSize="15sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/ivNoticeIcons" />
-
-
-                        <TextView
-                            android:id="@+id/tvNoDetails"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="64dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginEnd="64dp"
-                            android:layout_marginBottom="36dp"
-                            android:text="It seems school have not published any notice yet"
-                            android:textAlignment="center"
-                            android:textColor="#6c6c6c"
-                            android:textSize="13sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvNoTitles" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
 
-            <View
-                android:id="@+id/vSpaceBottom"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_16sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvUpComingEvent" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvUpComingEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/FounderBg"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintTop_toBottomOf="@id/clAdvertise"
+
+                    >
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                        >
+
+                        <View
+                            android:id="@+id/vSpaceRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_6sdp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rvUpComingNotice" />
+
+                        <ImageView
+                            android:id="@+id/ivCircleNotice"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/ic_circle"
+                            app:layout_constraintBottom_toBottomOf="@id/tvUpComingEvent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvUpComingEvent" />
+
+                        <TextView
+                            android:id="@+id/tvUpComingEvent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:padding="4dp"
+                            android:text="Upcoming Holidays"
+                            android:textColor="@color/Black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@id/ivCircleNotice"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
-    </ScrollView>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clMore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_6sdp"
+                            app:layout_constraintBottom_toBottomOf="@id/tvUpComingEvent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tvUpComingEvent">
+
+                            <TextView
+                                android:id="@+id/btMores"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="4dp"
+                                android:layout_marginBottom="4dp"
+                                android:minHeight="0dp"
+                                android:text="More"
+                                android:textAllCaps="false"
+                                android:textColor="@color/FounderBlue"
+                                android:textSize="14sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/ivMores"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/ivMores"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/ic_right_arrow_24dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/btMores" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/loadingPanel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingVertical="@dimen/_16sdp"
+                            app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent">
+
+                            <ProgressBar
+                                android:id="@+id/pbLoading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:indeterminate="true" />
+
+
+                        </RelativeLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvUpComingNotice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent" />
+
+
+                        <!--
+                                            <androidx.cardview.widget.CardView
+                                                android:id="@+id/cvNoticeOnes"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_margin="8dp"
+                                                android:background="@drawable/custom_ripple"
+                                                android:clickable="true"
+                                                android:visibility="visible"
+                                                app:cardCornerRadius="8dp"
+                                                app:cardElevation="0dp"
+                                                app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent">
+
+                                                <androidx.constraintlayout.widget.ConstraintLayout
+                                                    android:id="@+id/cvNotice1s"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
+
+                                                    >
+
+                                                    <TextView
+                                                        android:id="@+id/tvDateEvent"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:text="12"
+                                                        android:textColor="@color/FounderBlue"
+                                                        android:textSize="26sp"
+                                                        android:textStyle="bold"
+                                                        app:layout_constraintBottom_toTopOf="@id/tvMonthEvent"
+                                                        app:layout_constraintEnd_toEndOf="@id/tvMonthEvent"
+                                                        app:layout_constraintStart_toStartOf="@id/tvMonthEvent" />
+
+                                                    <TextView
+                                                        android:id="@+id/tvMonthEvent"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginBottom="8dp"
+                                                        android:text="@string/Baisakh"
+                                                        android:textSize="12sp"
+                                                        app:layout_constraintBottom_toBottomOf="parent"
+                                                        app:layout_constraintEnd_toStartOf="@id/tvTitle1s"
+                                                        app:layout_constraintStart_toStartOf="parent" />
+
+                                                    <TextView
+                                                        android:id="@+id/tvTitle1s"
+                                                        android:layout_width="0dp"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginStart="8dp"
+                                                        android:layout_marginTop="8dp"
+                                                        android:layout_marginEnd="8dp"
+                                                        android:maxLines="2"
+                                                        android:text="Title no 1 for notice no 1"
+                                                        android:textColor="#3c3c3c"
+                                                        android:textStyle="bold"
+                                                        app:layout_constraintEnd_toEndOf="parent"
+                                                        app:layout_constraintTop_toTopOf="parent"
+                                                        app:layout_constraintWidth_percent="0.80" />
+                                                    &lt;!&ndash;<ImageView
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="match_parent"
+                                                        app:layout_constraintEnd_toStartOf="@id/tvTitle1s"
+                                                        />&ndash;&gt;
+
+
+                                                    <TextView
+                                                        android:id="@+id/tvDetail1s"
+                                                        android:layout_width="0dp"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginTop="4dp"
+                                                        android:layout_marginBottom="4dp"
+                                                        android:text="This is a general notice for all the students and parent to meet at school ..."
+                                                        android:textColor="#6c6c6c"
+                                                        android:textSize="13sp"
+                                                        app:layout_constraintBottom_toBottomOf="parent"
+                                                        app:layout_constraintEnd_toEndOf="@id/tvTitle1s"
+                                                        app:layout_constraintStart_toStartOf="@id/tvTitle1s"
+                                                        app:layout_constraintTop_toBottomOf="@id/tvTitle1s" />
+
+                                                </androidx.constraintlayout.widget.ConstraintLayout>
+                                            </androidx.cardview.widget.CardView>
+
+
+                                            <androidx.cardview.widget.CardView
+                                                android:id="@+id/cvNoticeTwos"
+
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_margin="8dp"
+                                                android:background="@drawable/custom_ripple"
+                                                android:clickable="true"
+                                                android:visibility="visible"
+                                                app:cardCornerRadius="8dp"
+                                                app:cardElevation="0dp"
+                                                app:layout_constraintTop_toBottomOf="@id/cvNoticeOnes">
+
+                                                <androidx.constraintlayout.widget.ConstraintLayout
+                                                    android:id="@+id/cvNotice2s"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent">
+
+                                                    <TextView
+                                                        android:id="@+id/tvDateEvent2"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:text="16"
+                                                        android:textColor="@color/FounderBlue"
+                                                        android:textSize="26sp"
+                                                        android:textStyle="bold"
+                                                        app:layout_constraintBottom_toTopOf="@id/tvMonthEvent2"
+                                                        app:layout_constraintEnd_toEndOf="@id/tvMonthEvent2"
+                                                        app:layout_constraintStart_toStartOf="@id/tvMonthEvent2" />
+
+                                                    <TextView
+                                                        android:id="@+id/tvMonthEvent2"
+                                                        android:layout_width="wrap_content"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginBottom="8dp"
+                                                        android:text="@string/Baisakh"
+                                                        android:textSize="12sp"
+                                                        app:layout_constraintBottom_toBottomOf="parent"
+                                                        app:layout_constraintEnd_toStartOf="@id/tvTitle2s"
+                                                        app:layout_constraintStart_toStartOf="parent" />
+
+                                                    <TextView
+                                                        android:id="@+id/tvTitle2s"
+                                                        android:layout_width="0dp"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginStart="8dp"
+                                                        android:layout_marginTop="8dp"
+                                                        android:layout_marginEnd="8dp"
+                                                        android:maxLines="2"
+                                                        android:text="School will remain closed until.... "
+                                                        android:textColor="#3c3c3c"
+                                                        android:textStyle="bold"
+                                                        app:layout_constraintEnd_toEndOf="parent"
+                                                        app:layout_constraintTop_toTopOf="parent"
+                                                        app:layout_constraintWidth_percent="0.80" />
+
+
+                                                    <TextView
+                                                        android:id="@+id/tvDetail2s"
+                                                        android:layout_width="0dp"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginTop="4dp"
+                                                        android:layout_marginBottom="4dp"
+                                                        android:text="After the final exam completed and the spread of world wide virus in Nepal also, for the security...."
+                                                        android:textColor="#6c6c6c"
+                                                        android:textSize="13sp"
+                                                        app:layout_constraintEnd_toEndOf="@id/tvTitle2s"
+                                                        app:layout_constraintStart_toStartOf="@id/tvTitle2s"
+                                                        app:layout_constraintTop_toBottomOf="@id/tvTitle2s" />
+
+                                                    <View
+                                                        android:layout_width="1dp"
+                                                        android:layout_height="1dp"
+                                                        android:layout_marginTop="8dp"
+                                                        app:layout_constraintStart_toStartOf="parent"
+                                                        app:layout_constraintTop_toBottomOf="@id/tvDetail2s" />
+                                                </androidx.constraintlayout.widget.ConstraintLayout>
+                                            </androidx.cardview.widget.CardView>-->
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clNoNotices"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone">
+
+
+                            <ImageView
+                                android:id="@+id/ivNoticeIcons"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="36dp"
+                                android:src="@drawable/icon_megaphone"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvNoTitles"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="No Notices Right Now!"
+                                android:textColor="#5c5c5c"
+                                android:textSize="15sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/ivNoticeIcons" />
+
+
+                            <TextView
+                                android:id="@+id/tvNoDetails"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="64dp"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginEnd="64dp"
+                                android:layout_marginBottom="36dp"
+                                android:text="It seems school have not published any notice yet"
+                                android:textAlignment="center"
+                                android:textColor="#6c6c6c"
+                                android:textSize="13sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvNoTitles" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <View
+                    android:id="@+id/vSpaceBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_16sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cvUpComingEvent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
