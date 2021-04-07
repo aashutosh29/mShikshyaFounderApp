@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UpcomingHolidayView {
     void populateHolidayList(List<Holiday> holidayList);
+
+    void onComplete();
 }

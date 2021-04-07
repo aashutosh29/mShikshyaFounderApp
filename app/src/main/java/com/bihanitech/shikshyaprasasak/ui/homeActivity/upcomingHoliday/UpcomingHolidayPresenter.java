@@ -29,6 +29,7 @@ public class UpcomingHolidayPresenter {
         RequestHandler.asyncTask(called, new RequestHandler.RetroReactiveCallBack<HolidayResponse>() {
             @Override
             public void onComplete(HolidayResponse response) {
+                upcomingHolidayView.onComplete();
                 List<Holiday> holidayList = new ArrayList<>(response.getData());
                 upcomingHolidayView.populateHolidayList(holidayList);
             }
