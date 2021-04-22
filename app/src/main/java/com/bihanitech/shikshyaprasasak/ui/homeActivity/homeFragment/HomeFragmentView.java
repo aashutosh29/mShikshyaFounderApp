@@ -2,6 +2,7 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment;
 
 import com.bihanitech.shikshyaprasasak.model.Notice;
 import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
+import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface HomeFragmentView {
     void hideLoading();
 
     void onComplete();
+
+    void populateSliderList(List<EventSlider> body);
 }

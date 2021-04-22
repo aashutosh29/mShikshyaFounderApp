@@ -112,7 +112,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvNotice"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_140sdp"
+                    android:layout_height="@dimen/_160sdp"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
 
@@ -193,12 +193,13 @@
                             android:visibility="visible"
                             app:cardCornerRadius="8dp"
                             app:cardElevation="0dp"
-                            app:layout_constraintHeight_percent="0.67"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvNotices">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
@@ -217,8 +218,10 @@
                                         android:visibility="visible"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent" />
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintVertical_bias="0.0" />
 
                                     <androidx.constraintlayout.widget.ConstraintLayout
                                         android:id="@+id/clEmpty"
@@ -292,8 +295,9 @@
                                 <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
                                     android:id="@+id/vpNotice"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                                    android:layout_height="0dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/cpNotice" />
 
                                 <com.viewpagerindicator.CirclePageIndicator
                                     android:id="@+id/cpNotice"
@@ -324,7 +328,6 @@
                             android:visibility="gone"
                             app:cardCornerRadius="8dp"
                             app:cardElevation="0dp"
-
                             app:layout_constraintTop_toBottomOf="@id/cvNoticeOne">
 
 
@@ -387,7 +390,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clAdvertise"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_180sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginVertical="@dimen/_12sdp"
                     android:background="@drawable/bg_edit_text"
@@ -395,11 +398,41 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cvNotice">
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_22sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        app:cardCornerRadius="@dimen/_3sdp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clCardSlider"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_100sdp"
+                            android:background="@drawable/shik_banner_promo">
+
+                            <androidx.viewpager2.widget.ViewPager2
+                                android:id="@+id/pv2Slider"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            </androidx.viewpager2.widget.ViewPager2>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
                     <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
                         android:id="@+id/vpAdvertise"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/_12sdp" />
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:visibility="gone" />
 
                     <com.viewpagerindicator.CirclePageIndicator
                         android:id="@+id/cpIndicator"
@@ -408,6 +441,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="16dp"
                         android:padding="4dp"
+                        android:visibility="invisible"
                         app:fillColor="@color/FounderBlue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -512,6 +546,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:paddingVertical="@dimen/_16sdp"
+                            android:visibility="visible"
                             app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent">
 
                             <ProgressBar
@@ -522,6 +557,67 @@
 
 
                         </RelativeLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clError"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone"
+
+                            app:layout_constraintTop_toBottomOf="@id/clMore">
+
+                            <ImageView
+                                android:id="@+id/ivError"
+                                android:layout_width="@dimen/_64sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:src="@drawable/ic_sunset"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvErrorTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:alpha="0.8"
+                                android:text="OPPS!"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="@id/ivError"
+                                app:layout_constraintStart_toStartOf="@id/ivError"
+                                app:layout_constraintTop_toBottomOf="@id/ivError" />
+
+                            <TextView
+                                android:id="@+id/tvErrorSubTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:alpha="0.60"
+                                android:text="No holiday data available"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                app:layout_constraintEnd_toEndOf="@id/tvErrorTitle"
+                                app:layout_constraintStart_toStartOf="@id/tvErrorTitle"
+                                app:layout_constraintTop_toBottomOf="@id/tvErrorTitle" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:background="@drawable/bg_button"
+                                android:minHeight="0dp"
+                                android:paddingVertical="@dimen/_8sdp"
+                                android:text="Retry"
+                                android:textColor="@color/white"
+                                app:layout_constraintEnd_toEndOf="@id/tvErrorSubTitle"
+                                app:layout_constraintStart_toStartOf="@id/tvErrorSubTitle"
+                                app:layout_constraintTop_toBottomOf="@id/tvErrorSubTitle" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvUpComingNotice"

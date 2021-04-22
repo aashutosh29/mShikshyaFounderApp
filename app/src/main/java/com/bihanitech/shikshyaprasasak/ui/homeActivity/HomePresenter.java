@@ -5,9 +5,9 @@ import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 
 public class HomePresenter {
 
-    private MetaDatabaseRepo metaDatabaseRepo;
+    private final MetaDatabaseRepo metaDatabaseRepo;
     private CDSService cdsService;
-    private HomeView homeView;
+    private final HomeView homeView;
 
     public HomePresenter(MetaDatabaseRepo metaDatabaseRepo, HomeView homeView) {
         this.metaDatabaseRepo = metaDatabaseRepo;

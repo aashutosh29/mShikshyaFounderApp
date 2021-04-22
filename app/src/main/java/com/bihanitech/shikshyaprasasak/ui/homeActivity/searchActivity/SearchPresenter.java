@@ -41,7 +41,7 @@ public class SearchPresenter {
             cdsService = ApiUtils.getDummyCDSService();
         }
         searchView.showLoading();
-        Observable<StudentResponse> call = cdsService.getStudent("Bearer " + token, studentClass, studentSection);
+        Observable<StudentResponse> call = cdsService.getStudentTotal("Bearer " + token);
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<StudentResponse>() {
             @Override
             public void onComplete(StudentResponse response) {

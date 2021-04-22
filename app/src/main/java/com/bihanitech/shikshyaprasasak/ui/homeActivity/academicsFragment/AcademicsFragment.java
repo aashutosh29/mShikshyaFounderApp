@@ -46,6 +46,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity.token;
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragmentPresenter.TAG;
 
 
@@ -87,6 +88,7 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         Log.d(TAG, "onCreateView: " + sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         return view;
     }
+
     private void startSearchActivity() {
 
         etStudentNameToSearch.setOnClickListener(new View.OnClickListener() {
@@ -225,7 +227,6 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         });*/
 
 
-
     }
 
     @Override
@@ -260,7 +261,7 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         spExam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                academicsPresenter.getGraphData("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvc3RhZ2luZy5zaGlrc2h5YXNvZnR3YXJlLmNvbVwvYXBpXC92MlwvdjIuMVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MTc1OTI3OTQsImV4cCI6MTYxODE5Mjc5NCwibmJmIjoxNjE3NTkyNzk0LCJqdGkiOiJSVXZtZndDcTRhRUNMbnFZIiwic3ViIjozNywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsIm5hdnMiOlt7ImlkIjoxLCJuYW1lIjoic2Nob29sLWJhc2ljLXBhY2thZ2Utcm9sZSIsInBpdm90Ijp7InVzZXJfaWQiOjM3LCJyb2xlX2lkIjoxfX0seyJpZCI6NCwibmFtZSI6InNjaG9vbC1zdGFuZGFyZC1wYWNrYWdlLXJvbGUiLCJwaXZvdCI6eyJ1c2VyX2lkIjozNywicm9sZV9pZCI6NH19XX0.Ig-3fmRW63vrobIXBy9JrkxkfrBIaoSWzRM1t4DCM2U", examList.get(i).getExamID());
+                academicsPresenter.getGraphData(token, examList.get(i).getExamID());
             }
 
             @Override

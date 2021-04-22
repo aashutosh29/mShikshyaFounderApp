@@ -18,8 +18,9 @@ import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.Section;
+import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
-import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
 import com.bihanitech.shikshyaprasasak.ui.schoolSelection.SchoolSelection;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
@@ -71,10 +72,8 @@ public class MoreFragment extends Fragment implements MoreView {
 
     @OnClick(R.id.btUploadNotice)
     public void btUploadNoticeOnclick() {
-        Intent intent = new Intent(getContext(), AddNoticeActivity.class);
+        Intent intent = new Intent(getContext(), NoticeUploadActivity.class);
         startActivity(intent);
-
-
     }
 
     private void initToolbar() {
@@ -91,15 +90,12 @@ public class MoreFragment extends Fragment implements MoreView {
         db.delete(Classes.class.getSimpleName(), null, null);
         db.delete(ExamName.class.getSimpleName(), null, null);
         db.delete(Section.class.getSimpleName(), null, null);
-
-
+        db.delete(UploadNotice.class.getSimpleName(), null, null);
         SharedPrefsHelper.getInstance(getActivity()).clear();
         Intent il = new Intent(getActivity(), SchoolSelection.class);
         il.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(il);
-
     }
-
     private void showSchoolLogo(String imageUrl) {
         Glide.with(this)
                 .load(imageUrl)

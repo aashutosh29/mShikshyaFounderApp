@@ -1,9 +1,15 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.searchActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -31,6 +37,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,11 +45,10 @@ import butterknife.OnClick;
 
 public class SearchActivity extends AppCompatActivity implements SearchView {
 
+    private static final String TAG = SearchActivity.class.getSimpleName();
     List<SearchProfile> searchProfiles = new ArrayList<>();
     @BindView(R.id.rvSearch)
     RecyclerView rvSearch;
-    @BindView(R.id.etStudentNameToSearch)
-    EditText etStudentNameToSearch;
 
     SharedPrefsHelper sharedPrefsHelper;
     @BindView(R.id.spClass)
@@ -54,6 +60,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     @BindView(R.id.tvNoDataFound)
     TextView tvNoDataFound;
 
+    @BindView(R.id.etSearch)
+    EditText etSearch;
+
+
     SearchPresenter searchPresenter;
     SearchAdapter recyclerAdapter;
     ProgressDialog dialog;
@@ -64,7 +74,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     @Override
     protected void onStart() {
         super.onStart();
-        etStudentNameToSearch.requestFocus();
+        etSearch.requestFocus();
     }
 
     @Override
@@ -76,13 +86,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         searchPresenter = new SearchPresenter(new MetaDatabaseRepo(getHelper()), this);
         searchPresenter.getSpinnerData();
         populateStudentDetails();
-        initSpinner();
-        //searchPresenter.getStudents("L037", "L052", sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         dialog = new ProgressDialog(this);
-        //initRecyclerView();
-        makeASearch();
-
-
+        searchPresenter.getStudents(grade, section, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
     }
 
 
@@ -90,68 +95,32 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
         }
-
         return databaseHelper;
     }
 
-    private void makeASearch() {
 
-       /* etStudentNameToSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    private void filter(String text, List<Student> studentListNew) {
+        List<Student> filteredStudentList = new ArrayList<>();
 
+        Log.d(TAG, "filter: " + studentListNew.size());
+        for (Student students : studentListNew) {
+            if (students.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredStudentList.add(students);
             }
+        }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                *//*if (editable.toString().trim().equals(""))
-                    rvSearch.setVisibility(View.INVISIBLE);*//*
-                filter(editable.toString());
-                //rvSearch.setVisibility(View.VISIBLE);
-            }
-        });*/
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvSearch.setLayoutManager(llm);
+        rvSearch.setItemAnimator(new DefaultItemAnimator());
+        recyclerAdapter = new SearchAdapter(filteredStudentList, this, this);
+        rvSearch.setAdapter(recyclerAdapter);
     }
 
     @OnClick(R.id.ivBack)
     void ivBackOnClicked() {
         onBackPressed();
     }
-
-  /*  private void initRecyclerView() {
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvSearch.setLayoutManager(llm);
-        rvSearch.setItemAnimator(new DefaultItemAnimator());
-        recyclerAdapter = new SearchAdapter(searchProfiles, this);
-        rvSearch.setAdapter(recyclerAdapter);
-    }*/
-
-  /*  private void filter(String text) {
-        List<SearchProfile> filteredSearchProfileList = new ArrayList<>();
-        for (SearchProfile sP : searchProfiles) {
-            if (sP.getName().toLowerCase().contains(text.toLowerCase())) {
-                filteredSearchProfileList.add(sP);
-
-            }
-        }
-       *//* if (filteredSearchProfileList.size() == 0)
-            rvSearch.setVisibility(View.INVISIBLE);
-        else {*//*
-
-        rvSearch.setVisibility(View.VISIBLE);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvSearch.setLayoutManager(llm);
-        rvSearch.setItemAnimator(new DefaultItemAnimator());
-        SearchAdapter recyclerAdapter = new SearchAdapter(filteredSearchProfileList, this);
-        rvSearch.setAdapter(recyclerAdapter);
-        recyclerAdapter.notifyDataSetChanged();
-    }*/
 
 
     private void populateStudentDetails() {
@@ -251,6 +220,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         i.putExtra(Constant.REGNO, searchProfile.getRegno());
         startActivity(i);
     }
+
     @Override
     public void populateClassesAndSectionList(List<Classes> classesList, List<Section> sectionList) {
 
@@ -281,7 +251,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                         section = sectionList.get(position).getClassID();
-                        searchPresenter.getStudents(grade, section, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+                        //searchPresenter.getStudents(grade, section, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
                     }
 
                     @Override
@@ -307,14 +277,34 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     public void populateStudentList(List<Student> studentList) {
         if (studentList.size() == 0) {
             tvNoDataFound.setVisibility(View.VISIBLE);
+            //studentListNew.addAll(studentList);
+            /* this.studentList = studentList;*/
+        } else {
+            LinearLayoutManager llm = new LinearLayoutManager(this);
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            rvSearch.setLayoutManager(llm);
+            rvSearch.setItemAnimator(new DefaultItemAnimator());
+            recyclerAdapter = new SearchAdapter(studentList, this, this);
+            rvSearch.setAdapter(recyclerAdapter);
 
+
+            etSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    filter(editable.toString(), studentList);
+                }
+            });
         }
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvSearch.setLayoutManager(llm);
-        rvSearch.setItemAnimator(new DefaultItemAnimator());
-        recyclerAdapter = new SearchAdapter(studentList, this, this);
-        rvSearch.setAdapter(recyclerAdapter);
     }
 
     @Override
@@ -338,6 +328,14 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         tvNoDataFound.setVisibility(View.VISIBLE);
     }
 
-    private void initSpinner() {
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+
     }
 }

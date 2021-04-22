@@ -9,6 +9,7 @@ import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.StudentInfo;
+import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -120,6 +121,20 @@ public class MetaDatabaseRepo implements MetaDatabase {
     public List<ExamName> getExamList() {
         RuntimeExceptionDao<ExamName, Integer> examNames = databaseHelper.getExamNameDao();
         return examNames.queryForAll();
+    }
+
+    @Override
+    public void addUnPublishedNotice(String title, String content, int category) {
+        RuntimeExceptionDao<UploadNotice, Integer> uploadNotices = databaseHelper.getUploadNoticeDao();
+        UploadNotice uploadNotice = new UploadNotice(title, category, content, 1);
+        uploadNotices.create(uploadNotice);
+    }
+
+    @Override
+    public List<UploadNotice> getAllUnpublishedNotice() {
+        RuntimeExceptionDao<UploadNotice, Integer> uploadNoticeDao = databaseHelper.getUploadNoticeDao();
+        return uploadNoticeDao.queryForAll();
+
     }
 
 }

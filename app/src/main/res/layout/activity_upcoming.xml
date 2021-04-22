@@ -75,13 +75,86 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/_8sdp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvUpComingNotice"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#f3f3f3">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivError"
+                    android:layout_width="@dimen/_64sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:src="@drawable/ic_sunset"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvErrorTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:alpha="0.8"
+                    android:text="OPPS!"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@id/ivError"
+                    app:layout_constraintStart_toStartOf="@id/ivError"
+                    app:layout_constraintTop_toBottomOf="@id/ivError" />
+
+                <TextView
+                    android:id="@+id/tvErrorSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:alpha="0.60"
+                    android:text="No holiday data available"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="@id/tvErrorTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvErrorTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvErrorTitle" />
+
+                <Button
+                    android:id="@+id/btRetry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:background="@drawable/bg_button"
+                    android:minHeight="0dp"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:text="Retry"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="@id/tvErrorSubTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvErrorSubTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvErrorSubTitle" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvUpComingNotice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="#f3f3f3" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.StudentInfo;
+import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 
@@ -45,4 +46,8 @@ public interface MetaDatabase {
     List<Section> getSectionList();
 
     List<ExamName> getExamList();
+
+    void addUnPublishedNotice(String title, String content, int category);
+
+    List<UploadNotice> getAllUnpublishedNotice();
 }

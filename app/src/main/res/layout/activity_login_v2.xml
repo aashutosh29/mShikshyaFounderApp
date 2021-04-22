@@ -166,7 +166,8 @@
             android:layout_height="wrap_content"
             android:text="@string/dont_have_an_account"
             android:textColor="@color/label_main"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_10sdp"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tvRegister"
@@ -177,7 +178,8 @@
             android:text="@string/register"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/_12sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
 
         <TextView
@@ -188,7 +190,8 @@
             android:text="|   HELP"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/_12sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
     </LinearLayout>
 
 

@@ -41,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
 
     private static final String TAG = HomeActivity.class.getSimpleName();
+    public static String token;
     @BindView(R.id.bnNavigation)
     BottomNavigationView bnNavigation;
     @BindView(R.id.ivNewCircle)
@@ -51,8 +52,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     Drawable ibUp;
     @BindView(R.id.ivNotification)
     ImageView ivNotification;
-
-
     TextView tvName;
     TextView tvSchool;
     SharedPrefsHelper sharedPrefsHelper;
@@ -61,15 +60,18 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private DatabaseHelper databaseHelper;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
+        token = sharedPrefsHelper.getValue(Constant.TOKEN, "");
         Log.d(TAG, "onCreate: " + sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         homePresenter = new HomePresenter(new MetaDatabaseRepo(getDatabaseHelper()), this);
         homePresenter.getStudentsList();
+
         fm = getSupportFragmentManager();
         loadFragment(new HomeFragment());
         setUpBottomNavigation();
@@ -100,13 +102,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                     case R.id.action_home:
                         loadFragment(new HomeFragment());
                         return true;
-
-
                     case R.id.action_analytics:
                         loadFragment(new AnalyticsFragment());
                         return true;
-
-
                     case R.id.action_academic:
                         loadFragment(new AcademicsFragment());
                         return true;
@@ -128,7 +126,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             FragmentManager fm = getSupportFragmentManager();
             UpdateDF networkErrorDFragment = UpdateDF.newInstance(Constant.SERVER_ERROR, HomeActivity.class.getSimpleName());
             networkErrorDFragment.show(fm, "NetworkError");
-
             //show update dialog
         }
     }
@@ -180,7 +177,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private DatabaseHelper getDatabaseHelper() {
         if (databaseHelper == null)
             databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-
         return databaseHelper;
     }
 

@@ -7,6 +7,7 @@ import com.bihanitech.shikshyaprasasak.model.Notice;
 import com.bihanitech.shikshyaprasasak.model.NoticeResponse;
 import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
 import com.bihanitech.shikshyaprasasak.model.holiday.HolidayResponse;
+import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
 import com.bihanitech.shikshyaprasasak.remote.CDSService;
 import com.bihanitech.shikshyaprasasak.remote.RequestHandler;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragmentPresenter {
     public static final String TAG = HomeFragmentPresenter.class.getSimpleName();
@@ -31,7 +35,7 @@ public class HomeFragmentPresenter {
     }
 
 
-    public void getNotices(String token) {
+    public void getNotices(String token, boolean refresh) {
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
         }
@@ -43,7 +47,9 @@ public class HomeFragmentPresenter {
             public void onComplete(NoticeResponse response) {
                 homeFragmentView.dataSynced();
                 getHoliday(token);
-                homeFragmentView.onComplete();
+                if (refresh) {
+                    homeFragmentView.onComplete();
+                }
                 List<Notice> noticeList = new ArrayList<>(response.getData());
                 Log.d(TAG, "onComplete: " + noticeList);
                 homeFragmentView.populateNotice(noticeList);
@@ -58,10 +64,8 @@ public class HomeFragmentPresenter {
             @Override
             public void onConnectionException(Exception e) {
                 Log.d(TAG, "onConnectionException: " + e);
-
             }
         });
-
 
     }
 
@@ -93,40 +97,30 @@ public class HomeFragmentPresenter {
         });
     }
 
+    public void fetchSliderList(String schoolId) {
+        if (cdsService == null) {
+            cdsService = ApiUtils.getCDSService();
+        }
+
+        cdsService.getShikshyaNotice(schoolId).enqueue(new Callback<List<EventSlider>>() {
 
 
-  /*  public void fetchNoticeList(String token, final int ReFetch, String undeadNotice) {
-        cdsService = ApiUtils.getDummyCDSService();
-        cdsService.getNoticeList("bearer" + token).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d(TAG, "Notice Loaded from api");
-                String res="";
-                Boolean save = true;
-                String readNotices = "";
+            public void onResponse(Call<List<EventSlider>> call, Response<List<EventSlider>> response) {
                 int status = response.code();
-                Log.v(TAG, "Status code"+ response.code());
-                Log.v(TAG, "response"+response);
-                if (response.isSuccessful()){
-                    if (status == 200){
-                        try{
-                            res = response.body().string();
-                            if (res.length()!=0){
-                                String unRead = "";
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                if (status == 200) {
+                    homeFragmentView.populateSliderList(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+            public void onFailure(Call<List<EventSlider>> call, Throwable t) {
+                List<EventSlider> eventSliders = new ArrayList<>();
+                homeFragmentView.populateSliderList(eventSliders);
             }
         });
-    }*/
+
+    }
 
 
 }

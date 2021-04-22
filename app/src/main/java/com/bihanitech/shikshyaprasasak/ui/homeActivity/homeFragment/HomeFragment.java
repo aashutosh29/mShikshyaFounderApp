@@ -1,8 +1,8 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -20,19 +21,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager;
 import com.bihanitech.shikshyaprasasak.adapter.HomeNoticeAdapter;
-import com.bihanitech.shikshyaprasasak.adapter.SlidingImageAdapter;
+import com.bihanitech.shikshyaprasasak.adapter.SliderAdapter;
 import com.bihanitech.shikshyaprasasak.adapter.SlidingNoticeAdapter;
 import com.bihanitech.shikshyaprasasak.model.Notice;
 import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
+import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.ProgressDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.NoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.noticeDetailAcitivity.NoticeDetailActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.upcomingHoliday.UpcomingHolidayActivity;
-import com.bihanitech.shikshyaprasasak.ui.webViewAcitivity.WebViewActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.NepCalendar.LightDateConverter;
 import com.bihanitech.shikshyaprasasak.utility.NepCalendar.Model;
@@ -54,16 +56,13 @@ import butterknife.OnClick;
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragmentPresenter.TAG;
 
 public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRefreshLayout.OnRefreshListener {
-
-    private static final Integer[] IMAGES = {R.drawable.img_slider, R.drawable.img_slider_two, R.drawable.img_slider_one, R.drawable.img_slider};
-    private static int currentPage = 0;
-    private static int NUM_PAGES = 0;
+    private static final int currentPage = 0;
+    private static final int NUM_PAGES = 0;
     private static int currentNoticePage = 0;
     private static int NUM_NOTICE_PAGE = 0;
-    private final ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
+    SliderAdapter sliderAdapter;
     ProgressDFragment progressDFragment;
     HomeFragmentPresenter homePresenter;
-    String URl;
     @BindView(R.id.vpAdvertise)
     ClickableViewPager vpAdvertise;
     @BindView(R.id.vpNotice)
@@ -102,16 +101,21 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
     RecyclerView rvUpComingNotice;
     @BindView(R.id.ivLoadingNotices)
     ImageView ivLoadingNotices;
-
+    @BindView(R.id.pv2Slider)
+    ViewPager2 pv2Slider;
+    @BindView(R.id.cvSlider)
+    CardView cvSlider;
     @BindView(R.id.srlHome)
     SwipeRefreshLayout srlHome;
-
+    @BindView(R.id.clCardSlider)
+    ConstraintLayout clCardSlider;
     FragmentManager fm;
     SharedPrefsHelper sharedPrefsHelper;
     Toolbar toolbarNew;
     TextView tvToolbarTitle;
     Model todayNepaliDate;
-
+    String schoolId;
+    Timer timer;
 
     public HomeFragment() {
 
@@ -125,47 +129,22 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
         initToolbar();
         srlHome.setOnRefreshListener(this);
-        //String schoolName = sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, "");
-        //Starting  Presenter
+        schoolId = sharedPrefsHelper.getValue(Constant.SCHOOL_ID, "");
         homePresenter = new HomeFragmentPresenter(this, getContext());
+        homePresenter.fetchSliderList(schoolId);
         tvSchoolName.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""));
         tvSchoolAddress.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_ADDRESS, ""));
         Log.d(TAG, "onCreateView: " + sharedPrefsHelper.getValue(Constant.TOKEN, ""));
-
-
-        //Nepali date converter
+        timer = new Timer();
         LightDateConverter dateConverter = new LightDateConverter();
         todayNepaliDate = dateConverter.getTodayNepaliDate();
         tvTodayDate.setText(todayNepaliDate.getDay() + "");
         int a = (todayNepaliDate.getMonth());
         tvTodayMonth.setText(getMonth(a));
-
         fm = getFragmentManager();
-
-
         String imageURl = sharedPrefsHelper.getValue(Constant.SCHOOL_LOGO, "");
         showSchoolLogo(imageURl);
-        //setUpNoticeList();
-        vpAdvertise.setOnItemClickListener(new ClickableViewPager.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                if (position == 0)
-                    URl = "https://www.facebook.com/";
-                else if (position == 1)
-                    URl = "https://www.youtube.com/";
-
-                else
-                    URl = "https://www.google.com/";
-                // your code
-                Intent i = new Intent(getActivity(), WebViewActivity.class);
-                i.putExtra("url", URl);
-                startActivity(i);
-
-            }
-        });
-
-        init();
-        homePresenter.getNotices(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+        homePresenter.getNotices(sharedPrefsHelper.getValue(Constant.TOKEN, ""), false);
         return view;
     }
 
@@ -192,68 +171,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
                 .into(ivSchoolIcon);
     }
 
-    private void init() {
-        for (int i = 0; i < IMAGES.length; i++)
-            ImagesArray.add(IMAGES[i]);
-        vpAdvertise.setAdapter(new SlidingImageAdapter(getContext(), ImagesArray));
 
-
-        indicator.setViewPager(vpAdvertise);
-
-
-        final float density = getResources().getDisplayMetrics().density;
-
-        //Set circle indicator radius
-        indicator.setRadius(3 * density);
-
-
-        NUM_PAGES = IMAGES.length;
-
-
-        // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == NUM_PAGES) {
-                    currentPage = 0;
-                }
-                vpAdvertise.setCurrentItem(currentPage++, true);
-                /*if (currentNoticePage == NUM_NOTICE_PAGE) {
-                    currentNoticePage = 0;
-                }
-                vpNotice.setCurrentItem(currentPage++, true);*/
-
-            }
-        };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 5000, 5000);
-
-        // Pager listener over indicator
-        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                currentPage = position;
-
-            }
-
-            @Override
-            public void onPageScrolled(int pos, float arg1, int arg2) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int pos) {
-
-            }
-        });
-
-    }
 
     @OnClick(R.id.btMore)
     public void btMoreClicked() {
@@ -328,8 +246,6 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
         rvUpComingNotice.setItemAnimator(new DefaultItemAnimator());
         HomeNoticeAdapter homeNoticeAdapter = new HomeNoticeAdapter(holidayList, this);
         rvUpComingNotice.setAdapter(homeNoticeAdapter);
-
-
     }
 
     @Override
@@ -381,13 +297,71 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
 
     @Override
     public void onRefresh() {
-        loadHome();
+        loadHome(true);
     }
 
-    private void loadHome() {
+    private void loadHome(boolean refresh) {
         srlHome.setRefreshing(false);
         progressDFragment = ProgressDFragment.newInstance("Loading data");
         progressDFragment.show(fm, "data");
-        homePresenter.getNotices(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+        if (refresh) {
+            homePresenter.getNotices(sharedPrefsHelper.getValue(Constant.TOKEN, ""), true);
+        }
+
+    }
+
+
+    public void slideTheSlider() {
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                pv2Slider.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        pv2Slider.setCurrentItem((pv2Slider.getCurrentItem() + 1) % sliderAdapter.getItemCount());
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask, 6000, 8000);
+
+
+    }
+
+    @Override
+    public void populateSliderList(List<EventSlider> response) {
+        if (response.size() >= 1) {
+
+            cvSlider.setVisibility(View.VISIBLE);
+            double cvHight = Resources.getSystem().getDisplayMetrics().widthPixels / 2.5;
+            clCardSlider.setMaxHeight((int) cvHight);
+            clCardSlider.setMinHeight((int) cvHight);
+
+            List<EventSlider> eventSliders = response;
+            sliderAdapter = new SliderAdapter(eventSliders, this, getContext());
+            pv2Slider.setAdapter(sliderAdapter);
+
+            slideTheSlider();
+
+        } else {
+            cvSlider.setVisibility(View.VISIBLE);
+
+            double cvHight = cvSlider.getWidth() / 2.6;
+
+            clCardSlider.setMaxHeight((int) cvHight);
+            clCardSlider.setMinHeight((int) cvHight);
+
+
+            List<EventSlider> eventSliders = new ArrayList<>();
+            EventSlider es = new EventSlider();
+            es.setImage("no responce");
+            eventSliders.add(es);
+
+            SliderAdapter sliderAdapter = new SliderAdapter(eventSliders, this, getContext());
+            pv2Slider.setAdapter(sliderAdapter);
+        }
+
+
     }
 }

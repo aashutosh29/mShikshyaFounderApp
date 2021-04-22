@@ -73,12 +73,13 @@
             android:id="@+id/tvSearchStudent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:text="Search Student"
             android:textColor="@color/FounderBlue"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/etStudentNameToSearch"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
@@ -88,8 +89,29 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_4sdp"
             android:background="@drawable/spinner_bg"
+            android:visibility="invisible"
             app:layout_constraintEnd_toStartOf="@id/spSection"
             app:layout_constraintStart_toStartOf="@id/tvSearchStudent"
+            app:layout_constraintTop_toBottomOf="@id/tvSearchStudent" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/ic_search_bg"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/_9sdp"
+            android:hint="Search student here"
+            android:maxLines="1"
+            android:minHeight="0dp"
+            android:padding="@dimen/_4sdp"
+            android:paddingVertical="@dimen/_8sdp"
+            android:singleLine="true"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvSearchStudent" />
 
         <Spinner
@@ -100,26 +122,9 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:background="@drawable/spinner_bg"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spClass"
-            app:layout_constraintTop_toBottomOf="@id/tvSearchStudent" />
-
-
-        <EditText
-            android:id="@+id/etStudentNameToSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_16sdp"
-            android:background="@drawable/bg_edit_text_white"
-            android:drawableStart="@drawable/ic_search_black_24dp"
-            android:drawablePadding="@dimen/_8sdp"
-            android:hint="Write student name to search"
-            android:maxLines="1"
-            android:padding="@dimen/_8sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/VBorder"
             app:layout_constraintTop_toBottomOf="@id/tvSearchStudent" />
 
 
@@ -127,11 +132,11 @@
             android:id="@+id/VBorder"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_4sdp"
-            android:background="@color/white"
             android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spSection" />
+            app:layout_constraintTop_toBottomOf="@id/etSearch" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

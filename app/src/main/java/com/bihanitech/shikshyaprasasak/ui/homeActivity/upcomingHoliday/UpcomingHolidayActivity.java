@@ -1,9 +1,14 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.upcomingHoliday;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +40,21 @@ public class UpcomingHolidayActivity extends AppCompatActivity implements Upcomi
     @BindView(R.id.slUpcomingHoliday)
     SwipeRefreshLayout slUpcomingHoliday;
 
+    @BindView(R.id.ivError)
+    ImageView ivError;
+
+    @BindView(R.id.tvErrorTitle)
+    TextView tvErrorTitle;
+
+    @BindView(R.id.tvErrorSubTitle)
+    TextView tvErrorSubTitle;
+
+    @BindView(R.id.btRetry)
+    Button btRetry;
+
+    @BindView(R.id.clError)
+    ConstraintLayout clError;
+
     FragmentManager fm;
 
     @Override
@@ -51,6 +71,15 @@ public class UpcomingHolidayActivity extends AppCompatActivity implements Upcomi
 
     @Override
     public void populateHolidayList(List<Holiday> holidayList) {
+
+
+        //shorting
+        /*List<String> date = new ArrayList<>();
+        for (int i = 0; i < holidayList.size(); i++) {
+            date.add(holidayList.get(i).getStart());
+        }
+        date.sort(Comparator.naturalOrder());*/
+
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvUpComingNotice.setLayoutManager(llm);
@@ -70,10 +99,55 @@ public class UpcomingHolidayActivity extends AppCompatActivity implements Upcomi
         progressDFragment.dismiss();
     }
 
+
     private void loadHoliday() {
         slUpcomingHoliday.setRefreshing(false);
         progressDFragment = ProgressDFragment.newInstance("Loading Holiday");
         progressDFragment.show(fm, "order");
         upcomingHolidayPresenter.getHoliday(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+    }
+
+
+    //handle Error
+
+    @Override
+    public void showNoDataFound() {
+        clError.setVisibility(View.VISIBLE);
+        tvErrorTitle.setText("Oops!");
+        tvErrorSubTitle.setText("No holiday Available");
+        btRetry.setVisibility(View.INVISIBLE);
+
+
+    }
+
+    @Override
+    public void showNetworkError() {
+        clError.setVisibility(View.VISIBLE);
+        tvErrorTitle.setText("No internet available");
+        tvErrorSubTitle.setText("Connect to the internet ");
+        btRetry.setVisibility(View.VISIBLE);
+        btRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadHoliday();
+            }
+        });
+
+
+    }
+
+    @Override
+    public void showServerError() {
+        clError.setVisibility(View.VISIBLE);
+        tvErrorTitle.setText("Something went wrong");
+        tvErrorSubTitle.setText("Please try again later");
+        btRetry.setVisibility(View.VISIBLE);
+        btRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadHoliday();
+            }
+        });
+
     }
 }

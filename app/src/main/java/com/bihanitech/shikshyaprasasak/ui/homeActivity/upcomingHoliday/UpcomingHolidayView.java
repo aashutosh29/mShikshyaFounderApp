@@ -8,4 +8,10 @@ public interface UpcomingHolidayView {
     void populateHolidayList(List<Holiday> holidayList);
 
     void onComplete();
+
+    void showNoDataFound();
+
+    void showNetworkError();
+
+    void showServerError();
 }

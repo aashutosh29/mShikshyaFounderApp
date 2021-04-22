@@ -8,6 +8,7 @@ import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.Section;
+import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
@@ -35,6 +36,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private RuntimeExceptionDao<Classes, Integer> classesDao = null;
     private RuntimeExceptionDao<ExamName, Integer> examNameDao = null;
     private RuntimeExceptionDao<Section, Integer> sectionDao = null;
+    private RuntimeExceptionDao<UploadNotice, Integer> uploadNoticeDao = null;
 
 
     public DatabaseHelper(Context context) {
@@ -45,20 +47,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             //create the tables
-
-
             TableUtils.createTable(connectionSource, SchoolInfo.class);
             TableUtils.createTable(connectionSource, ContactsItem.class);
             TableUtils.createTable(connectionSource, NoticeItem.class);
             TableUtils.createTable(connectionSource, Event.class);
             TableUtils.createTable(connectionSource, ExamName.class);
             TableUtils.createTable(connectionSource, Classes.class);
+            TableUtils.createTable(connectionSource, UploadNotice.class);
             TableUtils.createTable(connectionSource, Section.class);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -71,6 +70,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, ExamName.class, false);
             TableUtils.dropTable(connectionSource, Classes.class, false);
             TableUtils.dropTable(connectionSource, Section.class, false);
+            TableUtils.dropTable(connectionSource, UploadNotice.class, false);
 
             onCreate(database, connectionSource);
         } catch (SQLException e) {
@@ -135,5 +135,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             sectionDao = getRuntimeExceptionDao(Section.class);
         }
         return sectionDao;
+    }
+
+    public RuntimeExceptionDao<UploadNotice, Integer> getUploadNoticeDao() {
+        if (uploadNoticeDao == null) {
+            uploadNoticeDao = getRuntimeExceptionDao(UploadNotice.class);
+        }
+        return uploadNoticeDao;
     }
 }

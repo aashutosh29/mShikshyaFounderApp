@@ -9,6 +9,7 @@ import com.bihanitech.shikshyaprasasak.model.NoticeResponse;
 import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
+import com.bihanitech.shikshyaprasasak.model.TitleWise;
 import com.bihanitech.shikshyaprasasak.model.account.AccountResponse;
 import com.bihanitech.shikshyaprasasak.model.acedamics.AcademicResponse;
 import com.bihanitech.shikshyaprasasak.model.examResult.ExamResponse;
@@ -107,6 +108,15 @@ public interface CDSService {
 
     @GET("v2/getSchoolResult")
     Observable<AcademicResponse> getAcademicBarData(@Header("Authorization") String authToken, @Query("exam_id") String examId);
+
+    @GET("titleWise")
+    Observable<List<TitleWise>> getTitleWiseData(@Header("Authorization") String authToken, @Query("from") String fromDate, @Query("to") String toDate);
+
+    @GET("v2/getAllStudent")
+    Observable<StudentResponse> getStudentTotal(@Header("Authorization") String authToken);
+
+
+
 
    /* @GET("publicNotice")
     Call<ResponseBody> getNoticeList(@Header("Authorization") String AuthToken);*/

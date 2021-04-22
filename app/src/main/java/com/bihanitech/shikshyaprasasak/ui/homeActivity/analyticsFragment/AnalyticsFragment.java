@@ -1,6 +1,7 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.statement.StatementActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.github.mikephil.charting.animation.Easing;
@@ -113,6 +116,9 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     @BindView(R.id.tvTotalDUeNum)
     TextView tvTotalDUeNum;
+
+    @BindView(R.id.viewStatement)
+    Button viewStatement;
 
     private PieChart circularChartStudentGender;
     private PieChart circularChartStaffGender;
@@ -199,6 +205,13 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         toolbarNew.setVisibility(View.VISIBLE);
         tvToolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Analytics");
+        viewStatement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), StatementActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void updateLabel() {

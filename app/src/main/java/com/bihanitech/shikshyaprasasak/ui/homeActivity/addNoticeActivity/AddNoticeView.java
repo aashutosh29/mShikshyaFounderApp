@@ -6,4 +6,10 @@ public interface AddNoticeView {
     void showCantUpload();
 
     void showNetworkError();
+
+    void retry();
+
+    void savedLocally();
+
+    void saveNoticeLocally();
 }

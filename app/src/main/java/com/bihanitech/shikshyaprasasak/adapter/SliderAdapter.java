@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.ui.NewUserManagementSystem.LoginActivity.LoginView;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragmentView;
 import com.bihanitech.shikshyaprasasak.ui.usermanagement.registrationActivity.RegistrationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -26,6 +27,7 @@ public class SliderAdapter extends RecyclerView.Adapter<com.bihanitech.shikshyap
     // HomeFragmentView view;
     RegistrationView view2;
     LoginView view3;
+    HomeFragmentView homeFragmentView;
 
     Context context;
     int viewNo;
@@ -48,6 +50,13 @@ public class SliderAdapter extends RecyclerView.Adapter<com.bihanitech.shikshyap
     public SliderAdapter(List<EventSlider> eventSliders, LoginView view, Context context) {
         this.eventSliders = eventSliders;
         this.view3 = view;
+        this.context = context;
+        viewNo = 2;
+    }
+
+    public SliderAdapter(List<EventSlider> eventSliders, HomeFragmentView homeFragmentView, Context context) {
+        this.eventSliders = eventSliders;
+        this.homeFragmentView = homeFragmentView;
         this.context = context;
         viewNo = 2;
     }

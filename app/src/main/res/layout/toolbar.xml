@@ -28,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/ivNotification"
             android:layout_width="@dimen/_18sdp"
             android:layout_height="@dimen/_18sdp"

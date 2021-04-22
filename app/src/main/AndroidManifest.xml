@@ -15,9 +15,15 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Test" />
         <activity
+            android:name=".ui.homeActivity.noticeUploadActivity.NoticeUploadActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarAppTheme" />
+        <activity
             android:name=".ui.splashScreen.SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashAppTheme">
+
+            <!-- main activity here-->
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -94,16 +100,15 @@
         </activity>
         <activity
             android:name=".ui.homeActivity.addNoticeActivity.AddNoticeActivity"
+            android:label="Notice"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme">
 
-            <!--
-              <intent-filter>
-                  <action android:name="android.intent.action.MAIN" />
+            <!-- <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
 
-                  <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>
-            -->
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>-->
 
         </activity>
         <activity
@@ -193,6 +198,11 @@
             android:label="Upcoming Holiday"
             android:parentActivityName=".ui.homeActivity.HomeActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.homeActivity.analyticsFragment.statement.StatementActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarAppTheme" />
     </application>
 
 </manifest>

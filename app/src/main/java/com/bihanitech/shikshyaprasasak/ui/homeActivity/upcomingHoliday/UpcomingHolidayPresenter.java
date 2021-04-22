@@ -31,16 +31,21 @@ public class UpcomingHolidayPresenter {
             public void onComplete(HolidayResponse response) {
                 upcomingHolidayView.onComplete();
                 List<Holiday> holidayList = new ArrayList<>(response.getData());
+                if (holidayList.size() == 0) {
+                    upcomingHolidayView.showNoDataFound();
+                }
                 upcomingHolidayView.populateHolidayList(holidayList);
             }
 
             @Override
             public void onError(Exception e, int code) {
+                upcomingHolidayView.showNetworkError();
 
             }
 
             @Override
             public void onConnectionException(Exception e) {
+                upcomingHolidayView.showServerError();
 
             }
         });

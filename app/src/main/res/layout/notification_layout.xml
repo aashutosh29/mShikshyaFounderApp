@@ -2,25 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="130dp">
+    android:layout_height="wrap_content">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cvNotice1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
 
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ivNoticeBg"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_noticebg"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvMainTitle"
+
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.05" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvDateOfIssue"
@@ -37,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="8dp"
             android:maxLines="2"
             android:text="Result Postponed due to COVID-19"
@@ -51,11 +56,9 @@
         <TextView
             android:id="@+id/tvDetail1"
             android:layout_width="0dp"
-
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="@dimen/_16sdp"
             android:text="Final Examination result is postponded for ultimated time due to the corona virus spread world wide virus spread world wide......."
             android:textColor="#6c6c6c"
             android:textSize="13sp"
