@@ -1,6 +1,7 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.editNoitceActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,9 @@ import androidx.fragment.app.FragmentManager;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
+import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.Section;
+import com.bihanitech.shikshyaprasasak.model.student.Student;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity;
@@ -34,6 +38,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -59,7 +64,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     FragmentManager fm;
     Boolean click = false;
 
-
+    ProgressDialog dialog;
     SharedPrefsHelper sharedPrefsHelper;
     Spinner spCategory;
 
@@ -77,6 +82,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
         ButterKnife.bind(this);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         addNoticePresenter = new AddNoticePresenter(this, new MetaDatabaseRepo(getHelper()));
+        dialog = new ProgressDialog(this);
         intent = getIntent();
         initToolbar();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -147,7 +153,8 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     @SuppressLint("ShowToast")
     @Override
-    public void showSuccess() {
+    public void
+    showSuccess() {
         Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT);
         addNoticePresenter.deleteLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)));
         etTitle.setText("");
@@ -216,6 +223,39 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     @Override
     public void deletedLocally() {
         Toast.makeText(this, "Delete Successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+        dialog.setMessage("Loading data");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
+    }
+
+    @Override
+    public void populateClassesAndSectionList(List<Classes> classesList, List<Section> sectionList) {
+
+    }
+
+    @Override
+    public void showLoadingForStudent() {
+
+    }
+
+    @Override
+    public void hideLoadingForStudent() {
+
+    }
+
+    @Override
+    public void populateStudentList(List<Student> studentList) {
+
+    }
+
+    @Override
+    public void showError() {
+
     }
 
     private void loadSpinner() {

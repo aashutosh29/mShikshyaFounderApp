@@ -2,17 +2,20 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity;
 
 import android.util.Log;
 
+import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.Section;
+import com.bihanitech.shikshyaprasasak.model.UploadResponse;
+import com.bihanitech.shikshyaprasasak.model.student.Student;
+import com.bihanitech.shikshyaprasasak.model.student.StudentResponse;
 import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
 import com.bihanitech.shikshyaprasasak.remote.CDSService;
 import com.bihanitech.shikshyaprasasak.remote.RequestHandler;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 
-import io.reactivex.Observable;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import java.util.List;
 
-import static com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragmentPresenter.TAG;
+import io.reactivex.Observable;
+
 
 public class AddNoticePresenter {
     private final AddNoticeView addNoticeView;
@@ -32,27 +35,20 @@ public class AddNoticePresenter {
 
         }
 
+        addNoticeView.showLoading();
 
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("class", grade)
-                .addFormDataPart("content", content)
-                .addFormDataPart("publishon", publishOn)
-                .addFormDataPart("section", Section)
-                .addFormDataPart("title", title)
-                .addFormDataPart("type", category)
-                .build();
 
-        Log.d(TAG, "uploadNotice: " + requestBody.toString());
-
-        Observable<ResponseBody> call = cdsService.sendNoticeToServer("Bearer " + authToken, requestBody);
-        RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<ResponseBody>() {
+        Observable<UploadResponse> call = cdsService.sendNoticeToServer("Bearer " + authToken, title, content, Integer.parseInt(category), "", "");
+        RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<UploadResponse>() {
             @Override
-            public void onComplete(ResponseBody response) {
-                if (isEdit) {
-                    addNoticeView.deletedLocally();
+            public void onComplete(UploadResponse response) {
+                if (response.getResult().equals("success")) {
+                    if (isEdit) {
+                        addNoticeView.deletedLocally();
+                    }
+                    addNoticeView.showSuccess();
+
                 }
-                addNoticeView.showSuccess();
             }
 
             @Override
@@ -84,5 +80,45 @@ public class AddNoticePresenter {
     public void deleteLocally(int id) {
         metaDatabaseRepo.deleteUnpublishedNotice(id);
         addNoticeView.deletedLocally();
+    }
+
+    void getSpinnerData() {
+
+        List<Classes> classesList = metaDatabaseRepo.getClassList();
+        List<Section> sectionList = metaDatabaseRepo.getSectionList();
+
+        addNoticeView.populateClassesAndSectionList(classesList, sectionList);
+
+        Log.v("Astag", classesList.toString());
+
+    }
+
+
+    void getStudents(String studentClass, String studentSection, String token) {
+        if (cdsService == null) {
+            cdsService = ApiUtils.getDummyCDSService();
+        }
+        addNoticeView.showLoadingForStudent();
+        Observable<StudentResponse> call = cdsService.getStudentFiltered("Bearer " + token, studentClass, studentSection);
+        RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<StudentResponse>() {
+            @Override
+            public void onComplete(StudentResponse response) {
+                List<Student> studentList = response.getData();
+                addNoticeView.hideLoadingForStudent();
+                addNoticeView.populateStudentList(studentList);
+            }
+
+            @Override
+            public void onError(Exception e, int code) {
+                addNoticeView.showError();
+            }
+
+            @Override
+            public void onConnectionException(Exception e) {
+                addNoticeView.showError();
+            }
+        });
+
+
     }
 }

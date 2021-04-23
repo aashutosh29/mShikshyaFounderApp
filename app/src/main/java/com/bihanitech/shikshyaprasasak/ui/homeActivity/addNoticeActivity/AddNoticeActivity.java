@@ -1,6 +1,7 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,19 +9,30 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bihanitech.shikshyaprasasak.R;
+import com.bihanitech.shikshyaprasasak.adapter.StudentDetailsAdapter;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
+import com.bihanitech.shikshyaprasasak.model.Classes;
+import com.bihanitech.shikshyaprasasak.model.Section;
+import com.bihanitech.shikshyaprasasak.model.student.Student;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity;
@@ -29,8 +41,10 @@ import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -50,14 +64,22 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     ImageView ivBack;
     @BindView(R.id.btUploadNoticeLater)
     Button btUploadNoticeLater;
-
+    ProgressDialog dialog;
+    @BindView(R.id.clClassSectionStudent)
+    ConstraintLayout clClassSectionStudent;
     NetworkErrorDFragment networkErrorDFragment;
     FragmentManager fm;
     Boolean click = false;
+    @BindView(R.id.spClass)
+    Spinner spClass;
 
-
+    @BindView(R.id.spSection)
+    Spinner spSection;
     SharedPrefsHelper sharedPrefsHelper;
     Spinner spCategory;
+
+    @BindView(R.id.loadingPanel)
+    RelativeLayout loadingPanel;
 
     @BindView(R.id.ivHome)
     ImageView ivHome;
@@ -66,6 +88,20 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @BindView(R.id.etContentBody)
     EditText etContentBody;
 
+    @BindView(R.id.clSelectStudent)
+    ConstraintLayout clSelectStudent;
+
+    @BindView(R.id.tvError)
+    TextView tvError;
+
+    @BindView(R.id.rvStudents)
+    RecyclerView rvStudents;
+
+    StudentDetailsAdapter recyclerAdapter;
+
+    String grade = "";
+    String section = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +109,11 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         ButterKnife.bind(this);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         addNoticePresenter = new AddNoticePresenter(this, new MetaDatabaseRepo(getHelper()));
+        dialog = new ProgressDialog(this);
         initToolbar();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadSpinner();
+
     }
 
 
@@ -130,10 +168,11 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @SuppressLint("ShowToast")
     @Override
     public void showSuccess() {
+        dialog.dismiss();
         Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT);
         etTitle.setText("");
         etContentBody.setText("");
-        loadSpinner();
+        onBackPressed();
     }
 
     @Override
@@ -192,10 +231,122 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         String[] items = new String[]{"Notice", "News", "Notice to teacher", "Notice to class section"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spCategory.setAdapter(adapter);
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                if (selectedItem.equals("Notice to class section")) {
+                    clClassSectionStudent.setVisibility(View.VISIBLE);
+                    addNoticePresenter.getSpinnerData();
+                    // do your stuff
+                } else {
+                    clClassSectionStudent.setVisibility(View.INVISIBLE);
+                }
+            } // to close the onItemSelected
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
     private void addNotice() {
 
         addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+    }
+
+    @Override
+    public void showLoading() {
+
+        dialog.setMessage("Loading data");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
+    }
+
+    @Override
+    public void populateClassesAndSectionList(List<Classes> classesList, List<Section> sectionList) {
+
+        List<String> className = new ArrayList<>();
+        List<String> sectionName = new ArrayList<>();
+
+        for (int i = 0; i < classesList.size(); i++) {
+            className.add(classesList.get(i).getGradeId());
+        }
+        for (int i = 0; i < sectionList.size(); i++) {
+            sectionName.add(sectionList.get(i).getClass_());
+        }
+
+
+        ArrayAdapter<String> arrayAdapterClass = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, className);
+        arrayAdapterClass.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spClass.setAdapter(arrayAdapterClass);
+
+        spClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                grade = classesList.get(position).getGrade();
+                section = sectionList.get(0).getClassID();
+                clSelectStudent.setVisibility(View.VISIBLE);
+                addNoticePresenter.getStudents(grade, section, token);
+                ArrayAdapter<String> arrayAdapterSection = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, sectionName);
+                arrayAdapterSection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spSection.setAdapter(arrayAdapterSection);
+                spSection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        section = sectionList.get(position).getClassID();
+                        addNoticePresenter.getStudents(grade, section, token);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        // your code here
+                    }
+
+                });
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+    }
+
+    @Override
+    public void showLoadingForStudent() {
+        tvError.setVisibility(View.GONE);
+        loadingPanel.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideLoadingForStudent() {
+        loadingPanel.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void populateStudentList(List<Student> studentList) {
+        if (studentList.size() == 0) {
+            tvError.setVisibility(View.VISIBLE);
+            tvError.setText("NO RECORD FOUND");
+        } else {
+            tvError.setVisibility(View.GONE);
+            LinearLayoutManager llm = new LinearLayoutManager(this);
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            rvStudents.setLayoutManager(llm);
+            rvStudents.setItemAnimator(new DefaultItemAnimator());
+            recyclerAdapter = new StudentDetailsAdapter(studentList, this);
+            rvStudents.setAdapter(recyclerAdapter);
+        }
+    }
+
+    @Override
+    public void showError() {
+        tvError.setVisibility(View.VISIBLE);
+        tvError.setText("Something Went Wrong");
     }
 }

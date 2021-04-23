@@ -10,6 +10,7 @@ import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentInformation;
 import com.bihanitech.shikshyaprasasak.model.TitleWise;
+import com.bihanitech.shikshyaprasasak.model.UploadResponse;
 import com.bihanitech.shikshyaprasasak.model.account.AccountResponse;
 import com.bihanitech.shikshyaprasasak.model.acedamics.AcademicResponse;
 import com.bihanitech.shikshyaprasasak.model.examResult.ExamResponse;
@@ -21,10 +22,8 @@ import com.bihanitech.shikshyaprasasak.model.student.StudentResponse;
 import java.util.List;
 
 import io.reactivex.Observable;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -83,7 +82,7 @@ public interface CDSService {
     Observable<NoticeResponse> getNoticesData(@Header("Authorization") String authToken);
 
     @GET("student")
-    Observable<StudentResponse> getStudent(@Header("Authorization") String authToken, @Query("class") String studentClass, @Query("section") String studentSection);
+    Observable<StudentResponse> getStudentFiltered(@Header("Authorization") String authToken, @Query("class") String studentClass, @Query("section") String studentSection);
 
     @GET("feeLedger/{regNo}")
     Observable<AccountResponse> getAccountDetails(@Path("regNo") String regNo, @Header("Authorization") String authToken);
@@ -104,7 +103,7 @@ public interface CDSService {
     Observable<List<ClassDueReport>> getClassDueReport(@Header("Authorization") String authToken);
 
     @POST("publicNotice")
-    Observable<ResponseBody> sendNoticeToServer(@Header("Authorization") String authToken, @Body RequestBody body);
+    Observable<UploadResponse> sendNoticeToServer(@Header("Authorization") String authToken, @Query("title") String title, @Query("content") String content, @Query("type") int type, @Query("section") String section, @Query("class") String class_);
 
     @GET("v2/getSchoolResult")
     Observable<AcademicResponse> getAcademicBarData(@Header("Authorization") String authToken, @Query("exam_id") String examId);

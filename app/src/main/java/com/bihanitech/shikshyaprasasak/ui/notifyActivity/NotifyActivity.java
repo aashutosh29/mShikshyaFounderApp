@@ -193,7 +193,7 @@ public class NotifyActivity extends AppCompatActivity implements NotifyView {
         this.currentPage = currentPage;
         this.totalPages = totalPages;
 
-        if (init_Load == true) {
+        if (init_Load) {
             if (progressDFragment != null && progressDFragment.isAdded()) {
                 progressDFragment.dismissAllowingStateLoss();
             }
