@@ -172,4 +172,8 @@ public class Constant {
     public static final String STUDENT_ABSENT = "student_absent";
     public static final String STUDENT_ATTENDANCE_DATE = "student_attendance_date";
     public static final String SECTION_NAME = "section";
+    public static final String UNPUBLISHED_ID = "unpublished_id";
+    public static final String UNPUBLISHED_TITLE = "unpublished_title";
+    public static final String UNPUBLISHED_CONTENT = "unpublished_content";
+    public static final String UNPUBLISHED_CATEGORY = "unpulblished_category";
 }

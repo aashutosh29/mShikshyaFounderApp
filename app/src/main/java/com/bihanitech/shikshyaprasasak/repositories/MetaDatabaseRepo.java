@@ -13,7 +13,11 @@ import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.DeleteBuilder;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -134,6 +138,39 @@ public class MetaDatabaseRepo implements MetaDatabase {
     public List<UploadNotice> getAllUnpublishedNotice() {
         RuntimeExceptionDao<UploadNotice, Integer> uploadNoticeDao = databaseHelper.getUploadNoticeDao();
         return uploadNoticeDao.queryForAll();
+
+    }
+
+    @Override
+    public void updateUnPublishedNotice(int id, String title, String content, int category) {
+
+        RuntimeExceptionDao<UploadNotice, Integer> uploadNoticeDao = databaseHelper.getUploadNoticeDao();
+        QueryBuilder<UploadNotice, Integer> queryBuilder = uploadNoticeDao.queryBuilder();
+        try {
+            queryBuilder.where().eq("id", id);
+            PreparedQuery<UploadNotice> pq = queryBuilder.prepare();
+            UploadNotice uploadNotice = uploadNoticeDao.queryForFirst(pq);
+            uploadNotice.setContent(content);
+            uploadNotice.setTitle(title);
+            uploadNotice.setCategory(category);
+            uploadNoticeDao.createOrUpdate(uploadNotice);
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void deleteUnpublishedNotice(int id) {
+        RuntimeExceptionDao<UploadNotice, Integer> uploadNoticeDao = databaseHelper.getUploadNoticeDao();
+        DeleteBuilder<UploadNotice, Integer> deleteBuilder = uploadNoticeDao.deleteBuilder();
+        try {
+            deleteBuilder.where().eq("id", id);
+            deleteBuilder.delete();
+
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
 
     }
 

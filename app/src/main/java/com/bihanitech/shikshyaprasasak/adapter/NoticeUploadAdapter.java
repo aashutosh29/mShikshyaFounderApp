@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bihanitech.shikshyaprasasak.R;
@@ -37,7 +38,7 @@ public class NoticeUploadAdapter extends RecyclerView.Adapter<NoticeUploadAdapte
     @Override
     public void onBindViewHolder(@NonNull NoticeUploadAdapter.NoticeUploadViewHolder holder, final int position) {
         String toWhom = "n-a";
-        switch (uploadNotices.get(position).getStatus()) {
+        switch (uploadNotices.get(position).getCategory()) {
             case 1:
                 toWhom = "All";
                 break;
@@ -55,6 +56,12 @@ public class NoticeUploadAdapter extends RecyclerView.Adapter<NoticeUploadAdapte
         holder.tvTitle.setText(uploadNotices.get(position).getTitle());
         holder.tvContent.setText(uploadNotices.get(position).getContent());
         holder.tvToWhom.setText(toWhom);
+        holder.cvUnPublishedNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noticeUploadView.onClickOnItem(uploadNotices.get(position));
+            }
+        });
 
     }
 
@@ -71,6 +78,8 @@ public class NoticeUploadAdapter extends RecyclerView.Adapter<NoticeUploadAdapte
         TextView tvContent;
         @BindView(R.id.tvToWhom)
         TextView tvToWhom;
+        @BindView(R.id.cvUnpublishedNotice)
+        CardView cvUnPublishedNotice;
 
         public NoticeUploadViewHolder(View itemView) {
             super(itemView);

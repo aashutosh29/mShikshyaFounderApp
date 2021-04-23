@@ -6,6 +6,7 @@
     android:background="@color/white">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvUnpublishedNotice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"

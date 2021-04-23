@@ -16,6 +16,8 @@ import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.editNoitceActivity.EditNoticeActivity;
+import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
@@ -89,5 +91,15 @@ public class NoticeUploadActivity extends AppCompatActivity implements NoticeUpl
             NoticeUploadAdapter recyclerAdapter = new NoticeUploadAdapter(allUnpublishedNotice, this);
             rvNoticeUpload.setAdapter(recyclerAdapter);
         }
+    }
+
+    @Override
+    public void onClickOnItem(UploadNotice uploadNotice) {
+        Intent i = new Intent(NoticeUploadActivity.this, EditNoticeActivity.class);
+        i.putExtra(Constant.UNPUBLISHED_ID, uploadNotice.getId() + "");
+        i.putExtra(Constant.UNPUBLISHED_TITLE, uploadNotice.getTitle());
+        i.putExtra(Constant.UNPUBLISHED_CONTENT, uploadNotice.getContent());
+        i.putExtra(Constant.UNPUBLISHED_CATEGORY, uploadNotice.getCategory() + "");
+        startActivity(i);
     }
 }

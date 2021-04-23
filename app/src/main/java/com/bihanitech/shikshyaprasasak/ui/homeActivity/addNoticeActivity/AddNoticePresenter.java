@@ -72,4 +72,14 @@ public class AddNoticePresenter {
         metaDatabaseRepo.addUnPublishedNotice(title, content, category);
         addNoticeView.savedLocally();
     }
+
+    public void updateLocally(int id, String title, String content, int category) {
+        metaDatabaseRepo.updateUnPublishedNotice(id, title, content, category);
+        addNoticeView.savedLocally();
+    }
+
+    public void deleteLocally(int id) {
+        metaDatabaseRepo.deleteUnpublishedNotice(id);
+        addNoticeView.deletedLocally();
+    }
 }

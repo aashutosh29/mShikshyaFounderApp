@@ -40,7 +40,7 @@
                 android:id="@+id/tvToolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add notice"
+                android:text="Edit notice"
                 android:textColor="@color/FounderBlue"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold"
@@ -249,7 +249,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clSelectCategory" />
+                app:layout_constraintTop_toBottomOf="@id/btDelete" />
 
             <Button
                 android:id="@+id/btUploadNoticeLater"
@@ -259,14 +259,29 @@
                 android:layout_marginTop="@dimen/_32sdp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_button"
-                android:text="Upload later"
+                android:text="Done"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clSelectCategory"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <Button
+                android:id="@+id/btDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_button"
+                android:text="Delete"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btSubmitNotice" />
-
+                app:layout_constraintTop_toBottomOf="@id/clSelectCategory"
+                app:layout_constraintWidth_percent="0.4" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

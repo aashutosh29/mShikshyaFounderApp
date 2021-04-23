@@ -6,6 +6,8 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class UploadNotice {
 
+    @DatabaseField(generatedId = true)
+    int id;
     @DatabaseField
     String title;
     @DatabaseField
@@ -25,6 +27,13 @@ public class UploadNotice {
     public UploadNotice() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getStatus() {
         return status;

@@ -203,6 +203,11 @@
             android:name=".ui.homeActivity.analyticsFragment.statement.StatementActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme" />
+
+        <activity
+            android:name=".ui.homeActivity.editNoitceActivity.EditNoticeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarAppTheme" />
     </application>
 
 </manifest>

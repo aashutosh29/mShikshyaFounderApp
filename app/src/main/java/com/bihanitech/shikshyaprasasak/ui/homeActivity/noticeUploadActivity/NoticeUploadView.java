@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface NoticeUploadView {
     void populateUnpublishedNotice(List<UploadNotice> allUnpublishedNotice);
+
+    void onClickOnItem(UploadNotice uploadNotice);
 }

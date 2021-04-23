@@ -50,4 +50,8 @@ public interface MetaDatabase {
     void addUnPublishedNotice(String title, String content, int category);
 
     List<UploadNotice> getAllUnpublishedNotice();
+
+    void updateUnPublishedNotice(int id, String title, String content, int category);
+
+    void deleteUnpublishedNotice(int id);
 }

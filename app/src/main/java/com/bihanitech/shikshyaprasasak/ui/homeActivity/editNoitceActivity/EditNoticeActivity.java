@@ -1,4 +1,4 @@
-package com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity;
+package com.bihanitech.shikshyaprasasak.ui.homeActivity.editNoitceActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,6 +24,9 @@ import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticePresenter;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeView;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -39,7 +42,7 @@ import butterknife.OnClick;
 
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity.token;
 
-public class AddNoticeActivity extends AppCompatActivity implements AddNoticeView {
+public class EditNoticeActivity extends AppCompatActivity implements AddNoticeView {
     private static final String TAG = AddNoticeActivity.class.getSimpleName();
     final Calendar myCalendar = Calendar.getInstance();
     AddNoticePresenter addNoticePresenter;
@@ -50,6 +53,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     ImageView ivBack;
     @BindView(R.id.btUploadNoticeLater)
     Button btUploadNoticeLater;
+    Intent intent;
 
     NetworkErrorDFragment networkErrorDFragment;
     FragmentManager fm;
@@ -69,15 +73,22 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_notice);
+        setContentView(R.layout.item_edit_noitce_activity);
         ButterKnife.bind(this);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         addNoticePresenter = new AddNoticePresenter(this, new MetaDatabaseRepo(getHelper()));
+        intent = getIntent();
         initToolbar();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        setContent();
         loadSpinner();
 
 
+    }
+
+    private void setContent() {
+        etTitle.setText(intent.getStringExtra(Constant.UNPUBLISHED_TITLE));
+        etContentBody.setText(intent.getStringExtra(Constant.UNPUBLISHED_CONTENT));
     }
 
 
@@ -92,7 +103,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         ivHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddNoticeActivity.this, HomeActivity.class);
+                Intent intent = new Intent(EditNoticeActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -139,6 +150,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @Override
     public void showSuccess() {
         Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT);
+        addNoticePresenter.deleteLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)));
         etTitle.setText("");
         etContentBody.setText("");
         loadSpinner();
@@ -169,14 +181,23 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
                 Toast.makeText(this, "please Enter full notice", Toast.LENGTH_SHORT).show();
             } else {
-                addNoticePresenter.saveLocally(etTitle.getText().toString(), etContentBody.getText().toString(), spCategory.getSelectedItemPosition() + 1);
+                addNoticePresenter.updateLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)), etTitle.getText().toString(), etContentBody.getText().toString(), spCategory.getSelectedItemPosition() + 1);
                 click = true;
-                Intent i = new Intent(AddNoticeActivity.this, NoticeUploadActivity.class);
+                Intent i = new Intent(EditNoticeActivity.this, NoticeUploadActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
             }
         }
     }
+
+    @OnClick(R.id.btDelete)
+    void btDeleteClicked() {
+        addNoticePresenter.deleteLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)));
+        Intent i = new Intent(EditNoticeActivity.this, NoticeUploadActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+    }
+
 
     @Override
     public void retry() {
@@ -195,7 +216,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
 
     @Override
     public void deletedLocally() {
-
+        Toast.makeText(this, "Delete Successfully", Toast.LENGTH_SHORT).show();
     }
 
     private void loadSpinner() {
@@ -203,11 +224,12 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         String[] items = new String[]{"Notice", "News", "Notice to teacher", "Notice to class section"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spCategory.setAdapter(adapter);
+        spCategory.setSelection(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_CATEGORY)) - 1);
     }
 
 
     private void addNotice() {
-
         addNoticePresenter.uploadNotice(token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+
     }
 }

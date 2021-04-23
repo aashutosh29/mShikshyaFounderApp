@@ -12,4 +12,6 @@ public interface AddNoticeView {
     void savedLocally();
 
     void saveNoticeLocally();
+
+    void deletedLocally();
 }
