@@ -7,7 +7,7 @@
     android:background="#f3f3f3">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvNoticeOnes"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clNoticeOnes"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

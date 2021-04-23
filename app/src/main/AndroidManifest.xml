@@ -196,8 +196,8 @@
         <activity
             android:name=".ui.homeActivity.upcomingHoliday.UpcomingHolidayActivity"
             android:label="Upcoming Holiday"
-            android:parentActivityName=".ui.homeActivity.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarAppTheme" />
 
         <activity
             android:name=".ui.homeActivity.analyticsFragment.statement.StatementActivity"

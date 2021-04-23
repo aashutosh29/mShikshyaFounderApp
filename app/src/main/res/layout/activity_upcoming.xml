@@ -5,79 +5,69 @@
     android:layout_height="match_parent">
 
 
-    <!--   <androidx.constraintlayout.widget.ConstraintLayout
-           android:id="@+id/clToolbar"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="@color/FounderBlue"
-           android:paddingVertical="@dimen/_8sdp"
-           app:layout_constraintBottom_toTopOf="@id/rvUpComingNotice"
-           app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/FounderBlue"
+        android:fitsSystemWindows="true"
+        android:maxHeight="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-           <ImageView
-               android:id="@+id/ivBack"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:padding="@dimen/_8sdp"
-               android:src="@drawable/ef_ic_arrow_back"
-               app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/ic_icon_angle_left_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-           <TextView
-               android:id="@+id/tvToolbarTitle"
-               style="@style/ToolbarTextAppearance"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="@dimen/_8sdp"
-               android:text="Upcoming Holiday"
-               android:textColor="@android:color/white"
-               app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintStart_toEndOf="@id/ivBack"
-               app:layout_constraintTop_toTopOf="parent" />
 
-           &lt;!&ndash;  <ImageView
-                 android:id="@+id/ivNotification"
-                 android:layout_width="@dimen/_18sdp"
-                 android:layout_height="@dimen/_18sdp"
-                 android:layout_margin="@dimen/_12sdp"
-                 android:src="@drawable/ic_notification_filled"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notices"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- <ImageView
+                 android:id="@+id/ivHome"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginEnd="8dp"
+                 android:padding="8dp"
+                 android:src="@drawable/ic_home_white_24dp"
                  app:layout_constraintBottom_toBottomOf="parent"
                  app:layout_constraintEnd_toEndOf="parent"
-                 app:layout_constraintTop_toTopOf="parent" />
-
-             <ImageView
-                 android:id="@+id/ivNewCircle"
-                 android:layout_width="@dimen/_8sdp"
-                 android:layout_height="@dimen/_8sdp"
-                 android:src="@drawable/noti_circle"
-                 android:visibility="invisible"
-                 app:layout_constraintEnd_toEndOf="@id/ivNotification"
-                 app:layout_constraintTop_toTopOf="@id/ivNotification" />&ndash;&gt;
-
-           <ImageView
-               android:id="@+id/ivmenu"
-               android:layout_width="28dp"
-               android:layout_height="28dp"
-               android:layout_marginEnd="16dp"
-               android:paddingEnd="8dp"
-               android:src="@drawable/ic_more_vert_black_24dp"
-               android:visibility="gone"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintTop_toTopOf="@id/tvToolbarTitle" />
+                 app:layout_constraintTop_toTopOf="parent" />-->
 
 
-       </androidx.constraintlayout.widget.ConstraintLayout>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/slUpcomingHoliday"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/_8sdp"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbarNew">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

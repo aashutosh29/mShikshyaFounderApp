@@ -76,8 +76,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         initToolbar();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadSpinner();
-
-
     }
 
 
@@ -96,10 +94,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                 startActivity(intent);
             }
         });
-
-
     }
-
 
     private DatabaseHelper getHelper() {
         if (databaseHelper == null) {
@@ -124,15 +119,12 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return super.dispatchTouchEvent(ev);
-
     }
-
 
     @SuppressLint("NonConstantResourceId")
     @OnClick(R.id.btSubmitNotice)
     void btSubmitNoticeClicked() {
         addNotice();
-
     }
 
     @SuppressLint("ShowToast")
@@ -142,8 +134,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         etTitle.setText("");
         etContentBody.setText("");
         loadSpinner();
-
-
     }
 
     @Override
@@ -151,7 +141,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         FragmentManager fm = getSupportFragmentManager();
         networkErrorDFragment = NetworkErrorDFragment.newInstance(Constant.SERVER_ERROR, "");
         networkErrorDFragment.show(fm, "ServerError");
-
     }
 
     @Override
@@ -205,9 +194,8 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         spCategory.setAdapter(adapter);
     }
 
-
     private void addNotice() {
 
-        addNoticePresenter.uploadNotice(token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+        addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
     }
 }

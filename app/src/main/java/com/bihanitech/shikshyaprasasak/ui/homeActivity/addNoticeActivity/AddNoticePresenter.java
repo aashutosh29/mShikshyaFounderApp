@@ -25,7 +25,7 @@ public class AddNoticePresenter {
         this.metaDatabaseRepo = metaDatabaseRepo;
     }
 
-    public void uploadNotice(String authToken, String grade, String title, String content, String publishOn, String Section, String category) {
+    public void uploadNotice(Boolean isEdit, String authToken, String grade, String title, String content, String publishOn, String Section, String category) {
 
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
@@ -49,6 +49,9 @@ public class AddNoticePresenter {
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<ResponseBody>() {
             @Override
             public void onComplete(ResponseBody response) {
+                if (isEdit) {
+                    addNoticeView.deletedLocally();
+                }
                 addNoticeView.showSuccess();
             }
 

@@ -26,6 +26,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.bihanitech.shikshyaprasasak.utility.MyApp.getContext;
 
@@ -134,6 +135,11 @@ public class UpcomingHolidayActivity extends AppCompatActivity implements Upcomi
         });
 
 
+    }
+
+    @OnClick(R.id.ivBack)
+    void ivBackClicked() {
+        onBackPressed();
     }
 
     @Override

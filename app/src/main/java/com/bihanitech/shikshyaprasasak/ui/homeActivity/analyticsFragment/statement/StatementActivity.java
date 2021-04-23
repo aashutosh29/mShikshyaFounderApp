@@ -27,6 +27,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity.token;
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.AnalyticsPresenter.TAG;
@@ -156,6 +157,11 @@ public class StatementActivity extends AppCompatActivity implements StatementVie
         dialog.setInverseBackgroundForced(false);
         dialog.show();
 
+    }
+
+    @OnClick(R.id.ivBack)
+    void ivBackPressed() {
+        onBackPressed();
     }
 
     @Override

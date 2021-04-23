@@ -143,7 +143,6 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     @OnClick(R.id.btSubmitNotice)
     void btSubmitNoticeClicked() {
         addNotice();
-
     }
 
     @SuppressLint("ShowToast")
@@ -229,7 +228,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
 
     private void addNotice() {
-        addNoticePresenter.uploadNotice(token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+        addNoticePresenter.uploadNotice(true, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
 
     }
 }

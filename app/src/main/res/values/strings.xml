@@ -130,5 +130,6 @@
     <string name="search_school">Search your School Name</string>
     <string name="notice_board_is_empty">Notice Board is empty!!!</string>
     <string name="looks_like_there_are_no_any_notices_published_yet">Looks like there are no any notices published yet</string>
+    <string name="total_student_staff_report"><![CDATA[Total Student & Staff Report]]></string>
 
 </resources>

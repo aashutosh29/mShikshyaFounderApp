@@ -92,7 +92,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     String totalFemaleStudent = "n/a";
     TextView tvToolbarTitle;
     String dateNow;
-
     //student attendance
     String absent = "Absent";
     String present = "Present";
@@ -164,7 +163,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         setAllStuffsPieChartStaffGender();
         dateNow = java.time.LocalDate.now().toString();
         Log.d(TAG, "onCreateView: " + dateNow);
-
         analyticsPresenter.getAttendanceReport(sharedPrefsHelper.getValue(Constant.TOKEN, ""), dateNow);
         tvDate.setText(dateNow);
 
@@ -221,7 +219,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         Log.d(TAG, "updateLabel: " + sdf.format(myCalendar.getTime()));
 
         analyticsPresenter.getAttendanceReport(sharedPrefsHelper.getValue(Constant.TOKEN, ""), sdf.format(myCalendar.getTime()));
-
         //edittext.setText(sdf.format(myCalendar.getTime()));
     }
 
@@ -230,8 +227,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         pieChartStudent.setUsePercentValues(false);
         pieChartStudent.getDescription().setEnabled(true);
-
-
         Description description = new Description();
         description.setText("Student");
         description.setPosition(310, 640);
@@ -352,8 +347,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         pieChartStaff.setHoleRadius(72f);
         pieChartStaff.setTransparentCircleRadius(72f);
-
-
         pieChartStaff.setDrawCenterText(true);
 
         pieChartStaff.setRotationAngle(0);
@@ -864,7 +857,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                         + ", DataSet index: " + h.getDataSetIndex());
     }
 
-
     @Override
     public void onNothingSelected() {
         Log.i("PieChart", "nothing selected");
@@ -934,7 +926,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
             sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, response.getPresentCount().toString());
             sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, response.getAbsentCount().toString());
-            //sharedPrefsHelper.saveValue(Constant.STUDENT_ATTENDANCE_DATE, response.getDate());
         }
         setAllStuffsPieChartStudent();
 
@@ -942,15 +933,12 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     @OnClick(R.id.ivRightArrow)
     public void ivRightArrowClicked() {
-
         date++;
-        //tvDate.setText("");
     }
 
     @OnClick(R.id.ivLeftArrow)
     public void ivLeftArrowClicked() {
         date--;
-        //tvDate.setText("");
 
     }
 

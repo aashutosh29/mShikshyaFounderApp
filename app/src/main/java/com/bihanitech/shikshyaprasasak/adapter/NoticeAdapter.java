@@ -48,7 +48,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
         holder.tvTitle.setText(noticeItems.get(position).getTitle());
         holder.tvDate.setText(convertDate(noticeItems.get(position).getpDate()));
         holder.tvDetail.setText(Html.fromHtml(noticeItems.get(position).getDetail()));
-        holder.cvNotice.setOnClickListener(new View.OnClickListener() {
+        holder.clNoticeOnes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 noticeView.sendToDetailView(noticeItems.get(position));
@@ -61,10 +61,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
         return noticeItems.size();
     }
 
-    public static class NoticeViewHolder extends RecyclerView.ViewHolder{
+    public static class NoticeViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.cvNotice)
-        ConstraintLayout cvNotice;
+
+        @BindView(R.id.clNoticeOnes)
+        ConstraintLayout clNoticeOnes;
 
         @BindView(R.id.tvTitle)
         TextView tvTitle;
