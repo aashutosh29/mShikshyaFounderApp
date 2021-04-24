@@ -56,6 +56,16 @@ public class Student {
     @Expose
     private Section section;
 
+    private Boolean CheckStatus;
+
+    public Boolean getCheckStatus() {
+        return CheckStatus;
+    }
+
+    public void setCheckStatus(Boolean checkStatus) {
+        CheckStatus = checkStatus;
+    }
+
     public String getRegno() {
         return regno;
     }

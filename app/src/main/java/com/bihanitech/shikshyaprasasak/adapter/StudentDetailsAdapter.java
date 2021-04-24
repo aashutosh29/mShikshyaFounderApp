@@ -1,9 +1,11 @@
 package com.bihanitech.shikshyaprasasak.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragmentPresenter.TAG;
 
 public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAdapter.StudentDetailsViewHolder> {
     AddNoticeView addNoticeView;
@@ -40,7 +44,19 @@ public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAd
     public void onBindViewHolder(@NonNull StudentDetailsAdapter.StudentDetailsViewHolder holder, final int position) {
         holder.tvName.setText(students.get(position).getName());
         holder.tvFatherName.setText(students.get(position).getFathername());
-
+        holder.cbStudent.setChecked(students.get(position).getCheckStatus());
+        holder.cbStudent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    students.get(position).setCheckStatus(true);
+                } else {
+                    addNoticeView.ifUnChecked(students);
+                    students.get(position).setCheckStatus(false);
+                }
+                Log.d(TAG, "onCheckedChanged: " + students.get(position).getCheckStatus());
+            }
+        });
 
     }
 

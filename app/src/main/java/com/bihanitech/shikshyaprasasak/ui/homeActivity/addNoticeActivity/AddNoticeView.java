@@ -29,7 +29,9 @@ public interface AddNoticeView {
 
     void hideLoadingForStudent();
 
-    void populateStudentList(List<Student> studentList);
+    void populateStudentList(List<Student> studentList, Boolean checked);
 
     void showError();
+
+    void ifUnChecked(List<Student> students);
 }

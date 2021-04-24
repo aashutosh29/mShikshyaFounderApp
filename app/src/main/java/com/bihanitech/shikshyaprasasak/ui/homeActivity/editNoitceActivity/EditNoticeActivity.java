@@ -249,12 +249,18 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     }
 
     @Override
-    public void populateStudentList(List<Student> studentList) {
+    public void populateStudentList(List<Student> studentList, Boolean checked) {
+
+    }
+
+
+    @Override
+    public void showError() {
 
     }
 
     @Override
-    public void showError() {
+    public void ifUnChecked(List<Student> students) {
 
     }
 

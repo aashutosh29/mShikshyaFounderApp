@@ -12,12 +12,14 @@ import com.bihanitech.shikshyaprasasak.remote.CDSService;
 import com.bihanitech.shikshyaprasasak.remote.RequestHandler;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 
 
 public class AddNoticePresenter {
+    public static List<Student> studentList1 = new ArrayList<>();
     private final AddNoticeView addNoticeView;
     private final MetaDatabaseRepo metaDatabaseRepo;
     CDSService cdsService;
@@ -104,8 +106,13 @@ public class AddNoticePresenter {
             @Override
             public void onComplete(StudentResponse response) {
                 List<Student> studentList = response.getData();
+                if (studentList.size() > 0) {
+                    studentList1.addAll(studentList);
+                }
+
                 addNoticeView.hideLoadingForStudent();
-                addNoticeView.populateStudentList(studentList);
+
+                addNoticeView.populateStudentList(studentList, false);
             }
 
             @Override

@@ -117,8 +117,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     List<Statements> statementsList = new ArrayList<>();
     List<Subject> subjectList = new ArrayList<>();
 
-
-
    /* Boolean secondSubjectShowingSecond = true;
     Boolean thirdSubjectShowingThird = true;*/
 

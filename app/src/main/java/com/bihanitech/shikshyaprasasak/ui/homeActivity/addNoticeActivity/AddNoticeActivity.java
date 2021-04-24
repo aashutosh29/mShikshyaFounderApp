@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -52,6 +53,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity.token;
+import static com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticePresenter.studentList1;
 
 public class AddNoticeActivity extends AppCompatActivity implements AddNoticeView {
     private static final String TAG = AddNoticeActivity.class.getSimpleName();
@@ -72,6 +74,11 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     Boolean click = false;
     @BindView(R.id.spClass)
     Spinner spClass;
+    @BindView(R.id.tvAllChecked)
+    TextView tvAllChecked;
+
+
+    Boolean isHide = true;
 
     @BindView(R.id.spSection)
     Spinner spSection;
@@ -97,10 +104,18 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @BindView(R.id.rvStudents)
     RecyclerView rvStudents;
 
+    @BindView(R.id.tvHideShow)
+    TextView tvHideShow;
+
     StudentDetailsAdapter recyclerAdapter;
+
+    Context context;
 
     String grade = "";
     String section = "";
+
+    @BindView(R.id.cbAll)
+    CheckBox cbAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +124,25 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         ButterKnife.bind(this);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         addNoticePresenter = new AddNoticePresenter(this, new MetaDatabaseRepo(getHelper()));
+        context = AddNoticeActivity.this;
         dialog = new ProgressDialog(this);
         initToolbar();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadSpinner();
+
+
+    }
+
+    public void itemClicked(View v) {
+        CheckBox checkBox = (CheckBox) v;
+        if (checkBox.isChecked()) {
+            populateStudentList(studentList1, true);
+            tvAllChecked.setText("All students are selected");
+
+        } else if (!checkBox.isChecked()) {
+            populateStudentList(studentList1, false);
+            tvAllChecked.setText("");
+        }
 
     }
 
@@ -329,11 +359,26 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     }
 
     @Override
-    public void populateStudentList(List<Student> studentList) {
+    public void populateStudentList(List<Student> studentList, Boolean checked) {
         if (studentList.size() == 0) {
             tvError.setVisibility(View.VISIBLE);
+            tvAllChecked.setVisibility(View.GONE);
             tvError.setText("NO RECORD FOUND");
         } else {
+            int j = studentList.size();
+            for (int i = 0; i < j; i++) {
+                studentList.get(i).setCheckStatus(false);
+            }
+            if (checked) {
+                for (int i = 0; i < j; i++) {
+                    studentList.get(i).setCheckStatus(true);
+                }
+            }
+            if (!checked) {
+                for (int i = 0; i < j; i++) {
+                    studentList.get(i).setCheckStatus(false);
+                }
+            }
             tvError.setVisibility(View.GONE);
             LinearLayoutManager llm = new LinearLayoutManager(this);
             llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -344,9 +389,56 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         }
     }
 
+    @OnClick(R.id.tvHideShow)
+    void tvHideShowClicked() {
+        if (isHide) {
+            rvStudents.setVisibility(View.GONE);
+            tvAllChecked.setVisibility(View.VISIBLE);
+            tvHideShow.setText("Show");
+            tvHideShow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow_white, 0);
+            isHide = false;
+
+        } else {
+            rvStudents.setVisibility(View.VISIBLE);
+            tvAllChecked.setVisibility(View.GONE);
+            tvHideShow.setText("Hide");
+            tvHideShow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_up_arrow_white, 0);
+            isHide = true;
+        }
+
+    }
+
     @Override
     public void showError() {
+        tvAllChecked.setVisibility(View.GONE);
         tvError.setVisibility(View.VISIBLE);
         tvError.setText("Something Went Wrong");
+    }
+
+    @Override
+    public void ifUnChecked(List<Student> students) {
+        List<Student> CheckedStudent = new ArrayList<>();
+        int j = students.size();
+
+        for (int i = 0; i < j; i++) {
+            if (students.get(i).getCheckStatus()) {
+                CheckedStudent.add(students.get(i));
+            }
+        }
+        int k = CheckedStudent.size();
+
+        switch (k) {
+            case 0:
+                tvAllChecked.setText("No student is Selected.");
+                break;
+            case 1:
+                tvAllChecked.setText("1 Student is Selected.");
+                break;
+            default:
+                tvAllChecked.setText(k + " Students are Selected.");
+        }
+
+        cbAll.setChecked(false);
+
     }
 }
