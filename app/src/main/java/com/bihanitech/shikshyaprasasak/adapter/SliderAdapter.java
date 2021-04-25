@@ -25,8 +25,9 @@ public class SliderAdapter extends RecyclerView.Adapter<com.bihanitech.shikshyap
 
     List<EventSlider> eventSliders;
     // HomeFragmentView view;
-    RegistrationView view2;
-    LoginView view3;
+    RegistrationView registrationView;
+    LoginView loginView;
+
     HomeFragmentView homeFragmentView;
 
     Context context;
@@ -42,14 +43,14 @@ public class SliderAdapter extends RecyclerView.Adapter<com.bihanitech.shikshyap
 
     public SliderAdapter(List<EventSlider> eventSliders, RegistrationView view, Context context) {
         this.eventSliders = eventSliders;
-        this.view2 = view;
+        this.registrationView = view;
         this.context = context;
-        viewNo = 2;
+        viewNo = 1;
     }
 
     public SliderAdapter(List<EventSlider> eventSliders, LoginView view, Context context) {
         this.eventSliders = eventSliders;
-        this.view3 = view;
+        this.loginView = view;
         this.context = context;
         viewNo = 2;
     }
@@ -58,7 +59,7 @@ public class SliderAdapter extends RecyclerView.Adapter<com.bihanitech.shikshyap
         this.eventSliders = eventSliders;
         this.homeFragmentView = homeFragmentView;
         this.context = context;
-        viewNo = 2;
+        viewNo = 3;
     }
 
     @Override
@@ -85,17 +86,16 @@ public class SliderAdapter extends RecyclerView.Adapter<com.bihanitech.shikshyap
         holder.ivSlidigImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (viewNo == 2) {
-                    view2.sliderItemClicked(eventSliders.get(position));
+                if (viewNo == 1) {
+                    registrationView.sliderItemClicked(eventSliders.get(position));
+
+                } else if (viewNo == 2) {
+                    loginView.sliderItemClicked(eventSliders.get(position));
+
 
                 } else if (viewNo == 3) {
-                    view3.sliderItemClicked(eventSliders.get(position));
-
-
-                } /*else {
-                    view.sliderItemClicked(eventSliders.get(position));
-
-                }*/
+                    homeFragmentView.sliderItemClicked(eventSliders.get(position));
+                }
             }
         });
     }

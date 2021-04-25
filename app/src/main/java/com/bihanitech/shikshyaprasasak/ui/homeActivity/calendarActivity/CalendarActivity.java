@@ -90,15 +90,14 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
     TextView tvToolbarTitle;
 
 
-
     @BindView(R.id.btLeft)
     ImageView btLeft;
 
     @BindView(R.id.btRight)
     ImageView btRight;
 
-    @BindView(R.id.ivmenu)
-    ImageView ivMenu;
+  /*  @BindView(R.id.ivmenu)
+    ImageView ivMenu;*/
 
 
     FragmentManager fm;
@@ -140,7 +139,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarView 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ivMenu.setVisibility(View.GONE);
+        // ivMenu.setVisibility(View.GONE);
         tvToolbarTitle.setText("Calendar");
 
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);

@@ -68,6 +68,8 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     SharedPrefsHelper sharedPrefsHelper;
     Spinner spCategory;
 
+    Context context;
+
     @BindView(R.id.ivHome)
     ImageView ivHome;
     @BindView(R.id.etTitle)
@@ -83,6 +85,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         addNoticePresenter = new AddNoticePresenter(this, new MetaDatabaseRepo(getHelper()));
         dialog = new ProgressDialog(this);
+        context = EditNoticeActivity.this;
         intent = getIntent();
         initToolbar();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -155,17 +158,19 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     @Override
     public void
     showSuccess() {
+
+        dialog.dismiss();
         Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT);
-        addNoticePresenter.deleteLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)));
         etTitle.setText("");
         etContentBody.setText("");
-        loadSpinner();
+        onBackPressed();
 
 
     }
 
     @Override
     public void showCantUpload() {
+        dialog.dismiss();
         FragmentManager fm = getSupportFragmentManager();
         networkErrorDFragment = NetworkErrorDFragment.newInstance(Constant.SERVER_ERROR, "");
         networkErrorDFragment.show(fm, "ServerError");
@@ -174,6 +179,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     @Override
     public void showNetworkError() {
+        dialog.dismiss();
         FragmentManager fm = getSupportFragmentManager();
         networkErrorDFragment = NetworkErrorDFragment.newInstance(Constant.NETOWRK_ERROR, "");
         networkErrorDFragment.show(fm, "NetworkError");
@@ -222,6 +228,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     @Override
     public void deletedLocally() {
+        addNoticePresenter.deleteLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)));
         Toast.makeText(this, "Delete Successfully", Toast.LENGTH_SHORT).show();
     }
 
@@ -264,9 +271,14 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     }
 
+    @Override
+    public void getListOfStudentToSendNotice(List<Student> students) {
+
+    }
+
     private void loadSpinner() {
         spCategory = findViewById(R.id.spCatagory);
-        String[] items = new String[]{"Notice", "News", "Notice to teacher", "Notice to class section"};
+        String[] items = new String[]{"Notice", "News", "Notice to teacher"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spCategory.setAdapter(adapter);
         spCategory.setSelection(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_CATEGORY)) - 1);
@@ -274,7 +286,14 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
 
     private void addNotice() {
-        addNoticePresenter.uploadNotice(true, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
-
+        if (click) {
+            Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
+        } else {
+            if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
+                Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
+            } else {
+                addNoticePresenter.uploadNotice(true, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+            }
+        }
     }
 }

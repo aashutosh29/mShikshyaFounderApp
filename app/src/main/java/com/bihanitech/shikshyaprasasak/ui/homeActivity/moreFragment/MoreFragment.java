@@ -20,6 +20,7 @@ import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
 import com.bihanitech.shikshyaprasasak.ui.schoolSelection.SchoolSelection;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
@@ -72,7 +73,7 @@ public class MoreFragment extends Fragment implements MoreView {
 
     @OnClick(R.id.btUploadNotice)
     public void btUploadNoticeOnclick() {
-        Intent intent = new Intent(getContext(), NoticeUploadActivity.class);
+        Intent intent = new Intent(getContext(), AddNoticeActivity.class);
         startActivity(intent);
     }
 
@@ -96,6 +97,7 @@ public class MoreFragment extends Fragment implements MoreView {
         il.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(il);
     }
+
     private void showSchoolLogo(String imageUrl) {
         Glide.with(this)
                 .load(imageUrl)
@@ -122,6 +124,12 @@ public class MoreFragment extends Fragment implements MoreView {
         }
 
         databaseHelper = null;
+    }
+
+    @OnClick(R.id.btSavedNotice)
+    void btSavedNoticeClicked() {
+        Intent intent = new Intent(getContext(), NoticeUploadActivity.class);
+        startActivity(intent);
     }
 
 

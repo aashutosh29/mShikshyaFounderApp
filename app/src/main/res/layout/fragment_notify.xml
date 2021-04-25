@@ -124,8 +124,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".6" />
 
-            <com.bihanitech.shikshyaprasasak.utility.SpinKit.SpinKitView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <com.bihanitech.shikshyaprasasak.utility.SpinKit.SpinKitView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/spin_kit"
                 style="@style/SpinKitView.Large.ThreeBounce"
                 android:layout_width="match_parent"
@@ -163,7 +162,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -184,25 +183,25 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-<!--
-    <TextView
-        android:id="@+id/tvUnreadNotification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:text="notification are seen here "
-        android:textColor="@color/dark_text"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tlToolbarNew" />
+    <!--
+        <TextView
+            android:id="@+id/tvUnreadNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:text="notification are seen here "
+            android:textColor="@color/dark_text"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tlToolbarNew" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvNotifyList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUnreadNotification" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotifyList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUnreadNotification" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

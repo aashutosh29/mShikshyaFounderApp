@@ -8,11 +8,11 @@
         android:id="@+id/nav_upload_notice"
         android:title="Uplodad Notice" />
 
-  <item
-      android:id="@+id/nav_web_view"
-      android:title="WebView" />
+    <item
+        android:id="@+id/nav_web_view"
+        android:title="WebView" />
 
-  <item
+    <item
         android:id="@+id/nav_homework"
         android:title="Homework" />
 
@@ -27,18 +27,18 @@
         android:title="Contacts" />
 
 
-  <item
+    <item
         android:id="@+id/nav_marks_entry"
         android:title="Marks Entry" />
 
 
     <item
         android:id="@+id/nav_sync_subject"
-        android:title="Sync Subjects"/>
+        android:title="Sync Subjects" />
 
     <item
         android:id="@+id/nav_sync_students"
-        android:title="Sync Students"/>
+        android:title="Sync Students" />
 
 
 </menu>

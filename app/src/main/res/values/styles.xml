@@ -9,7 +9,6 @@
     </style>
 
 
-
     <style name="SplashAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#40e4ec</item>

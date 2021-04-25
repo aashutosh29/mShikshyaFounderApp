@@ -6,8 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,8 +23,6 @@ import com.bihanitech.shikshyaprasasak.ui.homeActivity.academicsFragment.Academi
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.AnalyticsFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.moreFragment.MoreFragment;
-import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.NoticeActivity;
-import com.bihanitech.shikshyaprasasak.ui.notifyActivity.NotifyActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,7 +31,6 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class HomeActivity extends AppCompatActivity implements HomeView {
 
@@ -44,21 +39,20 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     public static String token;
     @BindView(R.id.bnNavigation)
     BottomNavigationView bnNavigation;
-    @BindView(R.id.ivNewCircle)
-    ImageView ivNewCircle;
+    /* @BindView(R.id.ivNewCircle)
+     ImageView ivNewCircle;*/
     @BindDrawable(R.drawable.ic_arrow_drop_down_black_24dp)
     Drawable ibDown;
     @BindDrawable(R.drawable.ic_arrow_drop_up_black_24dp)
     Drawable ibUp;
-    @BindView(R.id.ivNotification)
-    ImageView ivNotification;
+    /*  @BindView(R.id.ivNotification)
+      ImageView ivNotification;*/
     TextView tvName;
     TextView tvSchool;
     SharedPrefsHelper sharedPrefsHelper;
     HomePresenter homePresenter;
     FragmentManager fm;
     private DatabaseHelper databaseHelper;
-
 
 
     @Override
@@ -75,13 +69,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         fm = getSupportFragmentManager();
         loadFragment(new HomeFragment());
         setUpBottomNavigation();
-        ivNotification.setOnClickListener(new View.OnClickListener() {
+        /*ivNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HomeActivity.this, NoticeActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
 
 
     }
@@ -141,14 +135,14 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         }
     }
 
-    @OnClick(R.id.ivNotification)
+   /* @OnClick(R.id.ivNotification)
     public void cvNotificationClicked() {
         sharedPrefsHelper.saveValue(Constant.NOTIFICATION_COUNT, 0);
         ivNewCircle.setVisibility(View.GONE);
         Intent i = new Intent(HomeActivity.this, NotifyActivity.class);
         startActivity(i);
     }
-
+*/
 
     private void invalidateStudentInfo() {
         tvName.setText(sharedPrefsHelper.getValue(Constant.TEACHER_NAME, ""));

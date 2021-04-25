@@ -3,8 +3,6 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.contactActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,14 +23,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ContactActivity extends AppCompatActivity implements ContactView{
+public class ContactActivity extends AppCompatActivity implements ContactView {
 
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.ivmenu)
-    ImageView ivMenu;
+   /* @BindView(R.id.ivmenu)
+    ImageView ivMenu;*/
 
 
     @BindView(R.id.rvContacts)
@@ -54,10 +52,10 @@ public class ContactActivity extends AppCompatActivity implements ContactView{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ivMenu.setVisibility(View.GONE);
+        // ivMenu.setVisibility(View.GONE);
         tvToolbarTitle.setText("Contact");
 
-        contactPresenter = new ContactPresenter(this,new MetaDatabaseRepo(getHelper()));
+        contactPresenter = new ContactPresenter(this, new MetaDatabaseRepo(getHelper()));
 //      dummy ho talako
 //       contactPresenter.
         contactPresenter.convertAllDateToNepali();
@@ -65,7 +63,7 @@ public class ContactActivity extends AppCompatActivity implements ContactView{
     }
 
     private void setUpList() {
-       contactPresenter.fetchContacts();
+        contactPresenter.fetchContacts();
 
     }
 
@@ -75,22 +73,22 @@ public class ContactActivity extends AppCompatActivity implements ContactView{
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvContacts.setLayoutManager(llm);
         rvContacts.setItemAnimator(new DefaultItemAnimator());
-        ContactAdapter recyclerAdapter = new ContactAdapter(contactsItemList,this);
+        ContactAdapter recyclerAdapter = new ContactAdapter(contactsItemList, this);
         rvContacts.setAdapter(recyclerAdapter);
     }
 
 
     @Override
     public void proceedToCall(String contacts) {
-        if(contacts != null){
+        if (contacts != null) {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + contacts));
             startActivity(intent);
         }
     }
 
-    private DatabaseHelper getHelper(){
-        if(databaseHelper == null){
-            databaseHelper = OpenHelperManager.getHelper(this,DatabaseHelper.class);
+    private DatabaseHelper getHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
         }
         return databaseHelper;
     }
@@ -98,7 +96,7 @@ public class ContactActivity extends AppCompatActivity implements ContactView{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(databaseHelper == null){
+        if (databaseHelper == null) {
             OpenHelperManager.releaseHelper();
         }
         databaseHelper = null;

@@ -65,79 +65,76 @@
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
         android:layout_marginTop="8dp"
-        android:id="@+id/swipeRefreshLayout"
-        app:layout_constraintTop_toBottomOf="@id/toolbarNew"
+        android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbarNew">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rvNotices"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-        />
+            />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNoNotice"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/clNoNotice"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/toolbarNew"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarNew">
 
 
         <ImageView
+            android:id="@+id/ivNoticeIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_megaphone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="64dp"
-            android:id="@+id/ivNoticeIcon"
-            />
+            android:src="@drawable/icon_megaphone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tvNoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="No Notices Right Now!"
             android:textColor="#5c5c5c"
             android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@+id/ivNoticeIcon"
-            android:id="@+id/tvNoTitle"/>
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivNoticeIcon" />
 
 
         <TextView
+            android:id="@+id/tvNoDetail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="36dp"
             android:text="It seems school have not published any notice yet"
+            android:textAlignment="center"
             android:textColor="#6c6c6c"
             android:textSize="13sp"
-            android:layout_marginStart="64dp"
-            android:layout_marginEnd="64dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="4dp"
-            android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@+id/tvNoTitle"
-            android:id="@+id/tvNoDetail"
-            android:layout_marginBottom="36dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNoTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

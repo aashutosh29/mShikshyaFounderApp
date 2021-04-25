@@ -35,6 +35,7 @@ import com.bihanitech.shikshyaprasasak.ui.dialogFragment.ProgressDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.NoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.noticeDetailAcitivity.NoticeDetailActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.upcomingHoliday.UpcomingHolidayActivity;
+import com.bihanitech.shikshyaprasasak.ui.webViewAcitivity.WebViewActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.NepCalendar.LightDateConverter;
 import com.bihanitech.shikshyaprasasak.utility.NepCalendar.Model;
@@ -170,7 +171,6 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .into(ivSchoolIcon);
     }
-
 
 
     @OnClick(R.id.btMore)
@@ -363,5 +363,19 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
         }
 
 
+    }
+
+    @Override
+    public void sliderItemClicked(EventSlider eventSlider) {
+        if (eventSlider.getUrl() != null) {
+            if (eventSlider.getUrl().length() > 4) {
+                if (timer != null) {
+                    timer.cancel();
+                }
+                Intent i = new Intent(getContext(), WebViewActivity.class);
+                i.putExtra("url", eventSlider.getUrl());
+                startActivity(i);
+            }
+        }
     }
 }

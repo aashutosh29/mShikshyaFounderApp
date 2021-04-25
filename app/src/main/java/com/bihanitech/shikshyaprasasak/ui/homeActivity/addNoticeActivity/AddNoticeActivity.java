@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -36,7 +37,6 @@ import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.student.Student;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
-import com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -65,7 +65,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @BindView(R.id.ivBack)
     ImageView ivBack;
     @BindView(R.id.btUploadNoticeLater)
-    Button btUploadNoticeLater;
+    ImageView btUploadNoticeLater;
     ProgressDialog dialog;
     @BindView(R.id.clClassSectionStudent)
     ConstraintLayout clClassSectionStudent;
@@ -76,6 +76,9 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     Spinner spClass;
     @BindView(R.id.tvAllChecked)
     TextView tvAllChecked;
+
+    @BindView(R.id.btSubmitNotice)
+    Button btSubmitNotice;
 
 
     Boolean isHide = true;
@@ -88,8 +91,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @BindView(R.id.loadingPanel)
     RelativeLayout loadingPanel;
 
-    @BindView(R.id.ivHome)
-    ImageView ivHome;
+
     @BindView(R.id.etTitle)
     EditText etTitle;
     @BindView(R.id.etContentBody)
@@ -110,7 +112,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     StudentDetailsAdapter recyclerAdapter;
 
     Context context;
-
     String grade = "";
     String section = "";
 
@@ -155,13 +156,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                 onBackPressed();
             }
         });
-        ivHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddNoticeActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     private DatabaseHelper getHelper() {
@@ -207,6 +202,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
 
     @Override
     public void showCantUpload() {
+        dialog.dismiss();
         FragmentManager fm = getSupportFragmentManager();
         networkErrorDFragment = NetworkErrorDFragment.newInstance(Constant.SERVER_ERROR, "");
         networkErrorDFragment.show(fm, "ServerError");
@@ -214,6 +210,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
 
     @Override
     public void showNetworkError() {
+        dialog.dismiss();
         FragmentManager fm = getSupportFragmentManager();
         networkErrorDFragment = NetworkErrorDFragment.newInstance(Constant.NETOWRK_ERROR, "");
         networkErrorDFragment.show(fm, "NetworkError");
@@ -266,10 +263,12 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if (selectedItem.equals("Notice to class section")) {
                     clClassSectionStudent.setVisibility(View.VISIBLE);
+                    btUploadNoticeLater.setVisibility(View.GONE);
                     addNoticePresenter.getSpinnerData();
                     // do your stuff
                 } else {
-                    clClassSectionStudent.setVisibility(View.INVISIBLE);
+                    clClassSectionStudent.setVisibility(View.GONE);
+                    btUploadNoticeLater.setVisibility(View.VISIBLE);
                 }
             } // to close the onItemSelected
 
@@ -281,13 +280,20 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     }
 
     private void addNotice() {
+        if (click) {
+            Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
+        } else {
+            if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
+                Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
+            } else {
 
-        addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+                addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+            }
+        }
     }
 
     @Override
     public void showLoading() {
-
         dialog.setMessage("Loading data");
         dialog.setCancelable(false);
         dialog.setInverseBackgroundForced(false);
@@ -295,7 +301,8 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     }
 
     @Override
-    public void populateClassesAndSectionList(List<Classes> classesList, List<Section> sectionList) {
+    public void populateClassesAndSectionList
+            (List<Classes> classesList, List<Section> sectionList) {
 
         List<String> className = new ArrayList<>();
         List<String> sectionName = new ArrayList<>();
@@ -306,8 +313,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         for (int i = 0; i < sectionList.size(); i++) {
             sectionName.add(sectionList.get(i).getClass_());
         }
-
-
         ArrayAdapter<String> arrayAdapterClass = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, className);
         arrayAdapterClass.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spClass.setAdapter(arrayAdapterClass);
@@ -437,8 +442,42 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             default:
                 tvAllChecked.setText(k + " Students are Selected.");
         }
-
         cbAll.setChecked(false);
+    }
 
+    @Override
+    public void getListOfStudentToSendNotice(List<Student> students) {
+        btSubmitNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int j = students.size();
+                List<Student> studentArrayList = new ArrayList<>();
+                List<String> studentId = new ArrayList<>();
+                for (int i = 0; i < j; i++) {
+                    if (students.get(i).getCheckStatus()) {
+                        studentArrayList.add(students.get(i));
+                    }
+                }
+                int k = studentArrayList.size();
+                for (int i = 0; i < k; i++) {
+                    studentId.add(studentArrayList.get(i).getRegno());
+                }
+                if (click) {
+                    Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
+                        Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
+                    } else if (studentArrayList.size() == 0) {
+                        Toast.makeText(context, "Please Select Student", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d(TAG, "onClick: non-filtered" + students.size());
+                        Log.d(TAG, "onClick: filtered" + studentArrayList.size());
+                        addNoticePresenter.uploadNotice(false, token, grade, etTitle.getText().toString(), etContentBody.getText().toString(), "", section, String.valueOf(spCategory.getSelectedItemPosition() + 1));
+                        click = true;
+                    }
+                }
+
+            }
+        });
     }
 }

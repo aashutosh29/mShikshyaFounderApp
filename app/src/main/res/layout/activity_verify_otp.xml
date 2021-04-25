@@ -8,129 +8,129 @@
     tools:context="com.bihanitech.shikshyaprasasak.ui.usermanagement.verifyOtpActivity.VerifyOtpActivity">
 
     <TextView
+        android:id="@+id/tvLabel1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_19sdp"
 
+        android:layout_marginTop="@dimen/_19sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:text="@string/enter_the_6_digit_code_you_received_via_sms"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
         android:textColor="#222"
-        android:id="@+id/tvLabel1" />
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/tvOtp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="@string/code"
-        android:padding="@dimen/_5sdp"
-        android:textColorHint="#acacac"
-        android:maxLength="6"
-        android:textStyle="bold"
+        android:layout_marginTop="36dp"
         android:background="#00000000"
-        android:inputType="number"
         android:backgroundTint="#ffffff"
-        android:textSize="16sp"
+        android:ems="5"
+        android:hint="@string/code"
+        android:inputType="number"
+        android:maxLength="6"
+        android:padding="@dimen/_5sdp"
         android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/tvLabel1"
-        android:layout_marginTop="36dp" />
+        android:textColorHint="#acacac"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLabel1" />
+
     <View
         android:id="@+id/vBottom"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@id/tvOtp"
-        app:layout_constraintStart_toStartOf="@id/tvOtp"
         app:layout_constraintEnd_toEndOf="@id/tvOtp"
-        />
+        app:layout_constraintStart_toStartOf="@id/tvOtp"
+        app:layout_constraintTop_toBottomOf="@id/tvOtp" />
 
     <TextView
-        android:layout_marginStart="@dimen/_19sdp"
         android:id="@+id/tvLabel2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_19sdp"
         android:layout_marginTop="@dimen/_19sdp"
         android:layout_marginEnd="@dimen/_19sdp"
         android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/the_code_was_sent_to_984_it_may_take_few_minutes"
         android:textColor="@color/dark_text_color"
-        app:layout_constraintTop_toBottomOf="@+id/vBottom"
-        android:textSize="@dimen/_11sdp" />
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vBottom" />
 
     <Button
+        android:id="@+id/btEdit"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginBottom="@dimen/_12sdp"
+        android:clickable="true"
+        android:minHeight="0dp"
         android:paddingStart="@dimen/_9sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:paddingTop="@dimen/_6sdp"
         android:paddingEnd="@dimen/_9sdp"
-        android:minHeight="0dp"
-        android:clickable="true"
         android:paddingBottom="@dimen/_6sdp"
         android:text="@string/wrong_number"
+        android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textAllCaps="false"
-        android:id="@+id/btEdit" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/tvResend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvResend"
         android:layout_marginBottom="@dimen/_9sdp"
         android:text="@string/didn_t_receive_sms"
+        android:textSize="@dimen/_11sdp"
         app:layout_constraintBottom_toTopOf="@id/btResend"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="@dimen/_11sdp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/btResend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_rect_button"
         android:layout_marginTop="100dp"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@+id/tvLabel2"
-        android:paddingStart="@dimen/_9sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:minHeight="0dp"
+        android:background="@drawable/custom_rect_button"
         android:enabled="false"
+        android:minHeight="0dp"
+        android:paddingStart="@dimen/_9sdp"
         android:paddingTop="@dimen/_6sdp"
         android:paddingEnd="@dimen/_9sdp"
         android:paddingBottom="@dimen/_6sdp"
         android:text="@string/resend_sms"
-        android:textSize="13sp"
-        app:layout_constraintVertical_bias=".3"
         android:textAllCaps="false"
-        android:id="@+id/btResend" />
+        android:textColor="@android:color/darker_gray"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLabel2"
+        app:layout_constraintVertical_bias=".3" />
 
     <TextView
+        android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="02:00"
-        android:id="@+id/tvTime"
-        app:layout_constraintTop_toBottomOf="@id/btResend"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_3sdp"
-        android:textSize="@dimen/_11sdp"
+        android:text="02:00"
         android:textColor="#2b2b2b"
-        android:textStyle="bold" />
+        android:textSize="@dimen/_11sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btResend" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

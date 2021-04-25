@@ -26,9 +26,6 @@ public class SharedPrefsHelper {
     }
 
 
-
-
-
     public void saveValue(String key,String value){
         sInstance.edit().putString(key,value).apply();
     }

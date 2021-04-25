@@ -24,23 +24,19 @@ public class AddNoticePresenter {
     private final MetaDatabaseRepo metaDatabaseRepo;
     CDSService cdsService;
 
-
     public AddNoticePresenter(AddNoticeView addNoticeView, MetaDatabaseRepo metaDatabaseRepo) {
         this.addNoticeView = addNoticeView;
         this.metaDatabaseRepo = metaDatabaseRepo;
     }
 
-    public void uploadNotice(Boolean isEdit, String authToken, String grade, String title, String content, String publishOn, String Section, String category) {
+    public void uploadNotice(Boolean isEdit, String authToken, String grade, String title, String content, String publishOn, String section, String category) {
 
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
 
         }
-
         addNoticeView.showLoading();
-
-
-        Observable<UploadResponse> call = cdsService.sendNoticeToServer("Bearer " + authToken, title, content, Integer.parseInt(category), "", "");
+        Observable<UploadResponse> call = cdsService.sendNoticeToServer("Bearer " + authToken, title, content, /*Integer.parseInt(category)*/2, section, grade);
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<UploadResponse>() {
             @Override
             public void onComplete(UploadResponse response) {
@@ -56,14 +52,16 @@ public class AddNoticePresenter {
             @Override
             public void onError(Exception e, int code) {
                 addNoticeView.showCantUpload();
-                addNoticeView.saveNoticeLocally();
+                if (!(grade.equals("")))
+                    addNoticeView.saveNoticeLocally();
 
             }
 
             @Override
             public void onConnectionException(Exception e) {
                 addNoticeView.showNetworkError();
-                addNoticeView.saveNoticeLocally();
+                if (!(grade.equals("")))
+                    addNoticeView.saveNoticeLocally();
             }
         });
 
@@ -125,7 +123,5 @@ public class AddNoticePresenter {
                 addNoticeView.showError();
             }
         });
-
-
     }
 }

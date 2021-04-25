@@ -6,69 +6,64 @@
     android:layout_height="130sp">
 
     <androidx.cardview.widget.CardView
-        android:layout_margin="8dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="2dp"
         android:id="@+id/cvCircleDefault"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="8dp"
         android:layout_marginHorizontal="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-          <TextView
-              app:layout_constraintBottom_toTopOf="@id/tvSection"
-              android:id="@+id/tvClass"
-              android:layout_marginStart="8dp"
-              app:layout_constraintStart_toStartOf="parent"
-              android:singleLine="true"
-              android:textStyle="bold"
-              android:textSize="26sp"
-              android:textColor="@color/colorAccent"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Play Group"></TextView>
-
             <TextView
-                app:layout_constraintBottom_toTopOf="@id/tvSubject"
-                android:id="@+id/tvSection"
+                android:id="@+id/tvClass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:layout_constraintStart_toStartOf="parent"
                 android:singleLine="true"
-                android:textSize="16sp"
+                android:text="Play Group"
                 android:textColor="@color/colorAccent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(marigolds)"></TextView>
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tvSection"
+                app:layout_constraintStart_toStartOf="parent"></TextView>
 
             <TextView
-                android:textColor="#888787"
-                android:layout_marginBottom="8sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:id="@+id/tvSubject"
-                android:layout_marginStart="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                android:singleLine="true"
-                android:textSize="12sp"
+                android:id="@+id/tvSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Social Studies"></TextView>
+                android:layout_marginStart="8dp"
+                android:singleLine="true"
+                android:text="(marigolds)"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/tvSubject"
+                app:layout_constraintStart_toStartOf="parent"></TextView>
 
+            <TextView
+                android:id="@+id/tvSubject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8sp"
+                android:singleLine="true"
+                android:text="Social Studies"
+                android:textColor="#888787"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"></TextView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-
     </androidx.cardview.widget.CardView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

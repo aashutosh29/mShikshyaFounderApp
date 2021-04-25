@@ -20,4 +20,6 @@ public interface HomeFragmentView {
     void onComplete();
 
     void populateSliderList(List<EventSlider> body);
+
+    void sliderItemClicked(EventSlider eventSlider);
 }

@@ -4,9 +4,9 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff"
-    android:textSize="17sp"
+    android:gravity="left"
     android:paddingLeft="10dp"
-    android:textColor="#222"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:gravity="left"/>
+    android:textColor="#222"
+    android:textSize="17sp" />

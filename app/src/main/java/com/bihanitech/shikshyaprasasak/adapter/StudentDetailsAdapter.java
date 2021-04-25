@@ -53,8 +53,11 @@ public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAd
                 } else {
                     addNoticeView.ifUnChecked(students);
                     students.get(position).setCheckStatus(false);
+
                 }
                 Log.d(TAG, "onCheckedChanged: " + students.get(position).getCheckStatus());
+
+                addNoticeView.getListOfStudentToSendNotice(students);
             }
         });
 

@@ -16,6 +16,7 @@
         <activity android:name=".Test" />
         <activity
             android:name=".ui.homeActivity.noticeUploadActivity.NoticeUploadActivity"
+            android:parentActivityName=".ui.homeActivity.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarAppTheme" />
         <activity
@@ -77,16 +78,8 @@
         </activity>
         <activity
             android:name=".ui.webViewAcitivity.WebViewActivity"
-            android:theme="@style/NoActionBarAppTheme">
-
-            <!--
-             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-            -->
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarAppTheme" />
         <activity
             android:name=".ui.homeActivity.HomeActivity"
             android:label="Shikshya Prasasak"

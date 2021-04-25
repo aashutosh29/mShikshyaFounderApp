@@ -8,86 +8,83 @@
     tools:context=".ui.homeActivity.contactActivity.ContactActivity">
 
     <include
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        layout="@layout/toolbar"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/shik_bg"
             android:layout_height="match_parent"
-            >
+            android:background="@color/shik_bg">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/cvTitle"
                 android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/layout_rounded"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="@drawable/layout_rounded">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/titleName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
                     android:layout_marginStart="12dp"
+                    android:text="Name"
                     android:textColor="@android:color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:id="@+id/titleName"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Contact"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:layout_marginEnd="24dp"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
                     android:id="@+id/titleContact"
-                    />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:text="Contact"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvContacts"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/rvContacts"
-                android:background="@color/shik_bg"
                 android:layout_marginTop="4dp"
-                app:layout_constraintTop_toBottomOf="@id/cvTitle"
+                android:background="@color/shik_bg"
+                app:layout_constraintEnd_toEndOf="@id/cvTitle"
                 app:layout_constraintStart_toStartOf="@id/cvTitle"
-                app:layout_constraintEnd_toEndOf="@id/cvTitle"/>
+                app:layout_constraintTop_toBottomOf="@id/cvTitle" />
 
             <View
+                android:id="@+id/vBottom"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:id="@+id/vBottom"
-                android:background="@android:color/black"
-                app:layout_constraintStart_toStartOf="@id/cvTitle"
-                app:layout_constraintEnd_toEndOf="@id/cvTitle"
-                app:layout_constraintTop_toBottomOf="@id/rvContacts"
                 android:layout_marginTop="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="24dp"
-                />
+                android:background="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/cvTitle"
+                app:layout_constraintStart_toStartOf="@id/cvTitle"
+                app:layout_constraintTop_toBottomOf="@id/rvContacts" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
