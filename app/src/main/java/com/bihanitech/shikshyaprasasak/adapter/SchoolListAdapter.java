@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 
 public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.SchoolListViewHolder>{
 
-        private List<SchoolInfo> schoolList;
+        private final List<SchoolInfo> schoolList;
 
         int itemLayout ;
 

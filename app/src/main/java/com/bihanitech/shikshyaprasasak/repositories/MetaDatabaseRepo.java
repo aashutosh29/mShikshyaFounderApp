@@ -10,6 +10,7 @@ import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.StudentInfo;
 import com.bihanitech.shikshyaprasasak.model.UploadNotice;
+import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -171,6 +172,21 @@ public class MetaDatabaseRepo implements MetaDatabase {
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
+
+    }
+
+    @Override
+    public List<Holiday> fetchLocallySavedNotice() {
+
+        RuntimeExceptionDao<Holiday, Integer> holidayDao = databaseHelper.getHolidayDao();
+        return holidayDao.queryForAll();
+
+    }
+
+    @Override
+    public void saveHolidayResponse(List<Holiday> holidays) {
+        RuntimeExceptionDao<Holiday, Integer> holidaysDao = databaseHelper.getHolidayDao();
+        holidaysDao.create(holidays);
 
     }
 

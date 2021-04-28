@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.contactActivity.ContactView;
@@ -22,8 +21,9 @@ import butterknife.ButterKnife;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
 
-    private List<ContactsItem> contactsItemList;
-    private ContactView contactView;
+    private final List<ContactsItem> contactsItemList;
+    private final ContactView contactView;
+
     public ContactAdapter(List<ContactsItem> contactsItemList, ContactView contactView) {
         this.contactsItemList = contactsItemList;
         this.contactView = contactView;
@@ -32,7 +32,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     @NonNull
     @Override
     public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact, parent, false);
         ContactViewHolder contactViewHolder = new ContactViewHolder(view);
 
         return contactViewHolder;

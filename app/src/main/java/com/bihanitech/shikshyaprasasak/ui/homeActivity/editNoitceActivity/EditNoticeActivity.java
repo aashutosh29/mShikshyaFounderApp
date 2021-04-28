@@ -27,6 +27,7 @@ import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.student.Student;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
+import com.bihanitech.shikshyaprasasak.ui.dialogFragment.SuccessDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticePresenter;
@@ -61,6 +62,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     Intent intent;
 
     NetworkErrorDFragment networkErrorDFragment;
+    SuccessDFragment successDFragment;
     FragmentManager fm;
     Boolean click = false;
 
@@ -158,12 +160,17 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     @Override
     public void
     showSuccess() {
-
         dialog.dismiss();
         Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT);
         etTitle.setText("");
         etContentBody.setText("");
-        onBackPressed();
+        uploaded();
+    }
+
+    void uploaded() {
+        FragmentManager fm = getSupportFragmentManager();
+        successDFragment = SuccessDFragment.newInstance();
+        successDFragment.show(fm, "Success");
 
 
     }
@@ -276,6 +283,11 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     }
 
+    @Override
+    public void back() {
+        onBackPressed();
+    }
+
     private void loadSpinner() {
         spCategory = findViewById(R.id.spCatagory);
         String[] items = new String[]{"Notice", "News", "Notice to teacher"};
@@ -284,7 +296,6 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
         spCategory.setSelection(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_CATEGORY)) - 1);
     }
 
-
     private void addNotice() {
         if (click) {
             Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
@@ -292,7 +303,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
             if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
                 Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
             } else {
-                addNoticePresenter.uploadNotice(true, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+                addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), "", "", "2", "[]");
             }
         }
     }

@@ -8,8 +8,8 @@ import java.util.List;
 
 public class HolidaysPresenter {
 
-    private HolidaysView holidaysView;
-    private DbInternalRepo dbInternalRepo;
+    private final HolidaysView holidaysView;
+    private final DbInternalRepo dbInternalRepo;
 
     public HolidaysPresenter(HolidaysView holidaysView, DbInternalRepo dbInternalRepo) {
         this.holidaysView = holidaysView;

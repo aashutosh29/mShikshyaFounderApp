@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class PointMap {
     public int maxValue = 0;
-    private HashMap<Integer, Integer> pointMap;
+    private final HashMap<Integer, Integer> pointMap;
 
     public PointMap() {
         pointMap = new HashMap<Integer, Integer>();

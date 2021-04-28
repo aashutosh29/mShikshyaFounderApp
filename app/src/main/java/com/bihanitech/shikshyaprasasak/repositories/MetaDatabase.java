@@ -9,6 +9,7 @@ import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.StudentInfo;
 import com.bihanitech.shikshyaprasasak.model.UploadNotice;
+import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 
@@ -54,4 +55,8 @@ public interface MetaDatabase {
     void updateUnPublishedNotice(int id, String title, String content, int category);
 
     void deleteUnpublishedNotice(int id);
+
+    List<Holiday> fetchLocallySavedNotice();
+
+    void saveHolidayResponse(List<Holiday> holidays);
 }

@@ -3,303 +3,370 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#F2F3F7">
 
-
-    <TextView
-        android:id="@+id/tvNoticeTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_14ssp"
-        android:text="Notices"
-        android:textColor="@color/FounderBlue"
-        android:textSize="@dimen/_18sdp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvProfileImage"
-        android:layout_width="@dimen/_62sdp"
-        android:layout_height="@dimen/_62sdp"
-        android:layout_marginTop="@dimen/_24sdp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/_40sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvNoticeTitle">
-
-        <ImageView
-            android:id="@+id/ivProfileImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/img_profile_2" />
-
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/tvUserName"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:gravity="center"
-        android:text="Test user"
-        android:textColor="@color/label_main"
-        android:textSize="@dimen/_16sdp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/cvProfileImage" />
-
-
-    <TextView
-        android:id="@+id/tvSchoolName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:gravity="center"
-        android:text="Shikshya School"
-
-        android:textColor="@color/label_sub"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintTop_toBottomOf="@id/tvUserName" />
-
-
-    <TextView
-        android:id="@+id/tvSchoolAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:gravity="center"
-        android:paddingStart="60dp"
-        android:paddingEnd="60dp"
-        android:text="Bharatpur-15 Nepal"
-        android:textColor="@color/label_sub"
-        android:textSize="12dp"
-        app:layout_constraintTop_toBottomOf="@id/tvSchoolName" />
-
-
-    <TextView
-
-        android:id="@+id/tvLastUpdateDate2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_32sdp"
-        android:alpha=".6"
-        android:text="Last Updated:2070-11-12"
-        android:textColor="@color/label_sub"
-        android:textSize="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSchoolAddress" />
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/clLastupdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:background="@color/white"
-        android:visibility="visible"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:cardElevation="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tvSchoolAddress">
-
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible">
-
-            <TextView
-                android:id="@+id/tvLastUpdateDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_14sdp"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:alpha=".6"
-                android:text="Last Updated:2070-11-12"
-                android:textColor="@color/label_sub"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/tvDueAmountTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="Due Amount"
-                android:textColor="@color/label_sub"
-
-                android:textSize="@dimen/_9sdp"
-                app:layout_constraintStart_toStartOf="@id/tvLastUpdateDate"
-                app:layout_constraintTop_toBottomOf="@id/tvLastUpdateDate"
-                app:layout_constraintWidth_percent=".45" />
-
-            <TextView
-                android:id="@+id/tvDueAmount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_12sdp"
-                android:text="n/a"
-                android:textColor="@color/label_sub"
-                android:textSize="@dimen/_14sdp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tvLastUpdateDate"
-                app:layout_constraintTop_toBottomOf="@id/tvDueAmountTitle"
-                app:layout_constraintWidth_percent=".45" />
-
-
-            <TextView
-                android:id="@+id/tvOrderLimitTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="Order Limit"
-                android:textColor="@color/label_sub"
-                android:textSize="@dimen/_9sdp"
-                app:layout_constraintStart_toStartOf="@id/tvLastUpdateDate"
-                app:layout_constraintTop_toBottomOf="@id/tvDueAmount"
-                app:layout_constraintWidth_percent=".45" />
-
-            <TextView
-                android:id="@+id/tvOrderLimit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_12sdp"
-                android:text="n/a"
-                android:textColor="@color/label_sub"
-                android:textSize="@dimen/_14sdp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tvLastUpdateDate"
-                app:layout_constraintTop_toBottomOf="@id/tvOrderLimitTitle"
-                app:layout_constraintWidth_percent=".45" />
-
-
-            <TextView
-                android:id="@+id/tvCashInHandTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:text="cheque in Hand"
-                android:textColor="@color/label_sub"
-                android:textSize="@dimen/_9sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvLastUpdateDate"
-                app:layout_constraintWidth_percent=".45" />
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_12sdp"
-                android:textColor="@color/label_sub"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvCashInHandTitle"
-                app:layout_constraintWidth_percent=".45">
+                android:id="@+id/clUserProfile"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                app:layout_constraintHeight_percent="0.2"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_marginStart="@dimen/_19sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_profile_3" />
 
                 <TextView
-                    android:id="@+id/tvNoOfCheque"
+                    android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="n/a"
-                    android:textColor="@color/label_sub"
-                    android:textSize="@dimen/_14sdp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_marginStart="@dimen/_18sdp"
+                    android:text="Aashutosh Rimal"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintStart_toEndOf="@id/ivProfile"
+                    app:layout_constraintTop_toTopOf="@id/ivProfile" />
 
                 <TextView
-                    android:id="@+id/tvChequeAmount"
-                    android:layout_width="0dp"
+                    android:id="@+id/tvSchoolName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:maxLines="1"
-                    android:text="(n/a)"
-                    android:textColor="@color/label_sub"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:text="9840858560"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/tvNoOfCheque"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tvNoOfCheque" />
+                    app:layout_constraintStart_toStartOf="@id/tvUserName"
+                    app:layout_constraintTop_toBottomOf="@id/tvUserName" />
+
+                <TextView
+                    android:id="@+id/tvUSerContact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.87"
+                    android:text="Bharatpur-15 , Chitwan"
+                    android:textColor="@color/dark_black"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="@id/tvSchoolName"
+                    app:layout_constraintTop_toBottomOf="@id/tvSchoolName" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clStatementAndStudentSearchProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/clUserProfile">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clStatement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    app:layout_constraintBottom_toTopOf="@id/clSearchStudentProfile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivStatement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_order_history"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.87"
+                        android:text="Statements"
+                        android:textColor="@color/dark_black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivStatement"
+                        app:layout_constraintStart_toEndOf="@id/ivStatement"
+                        app:layout_constraintTop_toTopOf="@id/ivStatement" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clSearchStudentProfile"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_13sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clStatement">
+
+                    <ImageView
+                        android:id="@+id/ivSearchStudentProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_search"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.87"
+                        android:text="Search student profile"
+                        android:textColor="@color/dark_black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivSearchStudentProfile"
+                        app:layout_constraintStart_toEndOf="@id/ivSearchStudentProfile"
+                        app:layout_constraintTop_toTopOf="@id/ivSearchStudentProfile" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNoitce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/clStatementAndStudentSearchProfile">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clUploadNotice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivUploadNotice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_upload_noitce"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.87"
+                        android:text="Upload Notice"
+                        android:textColor="@color/dark_black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivUploadNotice"
+                        app:layout_constraintStart_toEndOf="@id/ivUploadNotice"
+                        app:layout_constraintTop_toTopOf="@id/ivUploadNotice" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clSavedNotice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_13sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clUploadNotice">
+
+                    <ImageView
+                        android:id="@+id/ivSavedNotice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_saved_black"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.87"
+                        android:text="Saved Notice"
+                        android:textColor="@color/dark_black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivSavedNotice"
+                        app:layout_constraintStart_toEndOf="@id/ivSavedNotice"
+                        app:layout_constraintTop_toTopOf="@id/ivSavedNotice" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clUserOthers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/clNoitce">
+
+                <TextView
+                    android:id="@+id/tvUserOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_19sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:alpha="0.87"
+                    android:text="Other"
+                    android:textColor="@color/dark_black"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clUserPrivacyPolicy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_13sdp"
+                    app:layout_constraintBottom_toTopOf="@id/clUserFAQ"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvUserOther">
+
+                    <ImageView
+                        android:id="@+id/ivUserPrivacyPolicy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_privacy_policy"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_9sdp"
+                        android:alpha="0.87"
+                        android:text="Privacy Policy"
+                        android:textColor="@color/dark_black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivUserPrivacyPolicy"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clUserFAQ"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    app:layout_constraintBottom_toTopOf="@id/clUserLogOut"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clUserPrivacyPolicy">
+
+                    <ImageView
+                        android:id="@+id/ivUserFAQ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_fa_question"
+
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_9sdp"
+                        android:alpha="0.87"
+                        android:text="FAQ"
+                        android:textColor="@color/dark_black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivUserFAQ"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clUserLogOut"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_marginBottom="@dimen/_14sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clUserFAQ">
+
+                    <ImageView
+                        android:id="@+id/ivUserLogOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_logout"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_9sdp"
+                        android:alpha="0.87"
+                        android:text="Log Out"
+                        android:textColor="@color/dark_black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivUserLogOut"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/version"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clUserOthers" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-
-    <Button
-        android:id="@+id/btAppInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:background="@drawable/bg_button"
-        android:text="App Info"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintEnd_toStartOf="@id/btSavedNotice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clLastupdate" />
-
-    <Button
-        android:id="@+id/btUploadNotice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:background="@drawable/bg_button"
-        android:text="Upload Notice"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btSavedNotice"
-        app:layout_constraintTop_toBottomOf="@id/clLastupdate" />
-
-    <Button
-        android:id="@+id/btSavedNotice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:background="@drawable/bg_button"
-        android:text="Saved notice"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintEnd_toStartOf="@id/btUploadNotice"
-        app:layout_constraintStart_toEndOf="@id/btAppInfo"
-        app:layout_constraintTop_toBottomOf="@id/clLastupdate" />
-
-
-    <Button
-        android:id="@+id/btLogout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:background="@color/divider"
-        android:text="Logout"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_14sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btSavedNotice" />
-
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

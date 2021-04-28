@@ -7,6 +7,7 @@ import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
+import com.bihanitech.shikshyaprasasak.model.eventHolidays.Holiday;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
@@ -24,7 +25,7 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
             ContactsItem.class,
             NoticeItem.class,
             Event.class,
-            ExamName.class, Classes.class, Section.class, UploadNotice.class
+            ExamName.class, Classes.class, Section.class, UploadNotice.class, Holiday.class
 
     };
 

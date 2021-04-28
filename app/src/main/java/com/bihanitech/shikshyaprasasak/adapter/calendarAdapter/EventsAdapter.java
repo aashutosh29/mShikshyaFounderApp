@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.HolidaysViewHolder> {
 
-    private List<Event> examRoutineItemList;
+    private final List<Event> examRoutineItemList;
 
     public EventsAdapter(List<Event> examRoutineItemList) {
         this.examRoutineItemList = examRoutineItemList;

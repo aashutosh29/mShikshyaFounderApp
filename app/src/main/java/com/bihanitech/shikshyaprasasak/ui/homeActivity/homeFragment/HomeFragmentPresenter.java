@@ -34,6 +34,11 @@ public class HomeFragmentPresenter {
         this.context = context;
     }
 
+    void getLocallySavedUpComingNotice() {
+
+        homeFragmentView.populateHolidayList(metaDatabaseRepo.fetchLocallySavedNotice(), true);
+    }
+
 
     public void getNotices(String token, boolean refresh) {
         if (cdsService == null) {
@@ -46,7 +51,6 @@ public class HomeFragmentPresenter {
             @Override
             public void onComplete(NoticeResponse response) {
                 homeFragmentView.dataSynced();
-                getHoliday(token);
                 if (refresh) {
                     homeFragmentView.onComplete();
                 }
@@ -73,15 +77,15 @@ public class HomeFragmentPresenter {
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
         }
-
-
         Observable<HolidayResponse> called = cdsService.getUpComingHoliday("Bearer" + authToken);
         RequestHandler.asyncTask(called, new RequestHandler.RetroReactiveCallBack<HolidayResponse>() {
             @Override
             public void onComplete(HolidayResponse response) {
                 List<Holiday> holidayList = new ArrayList<>(response.getData());
                 homeFragmentView.hideLoading();
-                homeFragmentView.populateHolidayList(holidayList);
+                homeFragmentView.populateHolidayList(holidayList, true);
+                saveHoliday(holidayList);
+
 
             }
 
@@ -119,6 +123,11 @@ public class HomeFragmentPresenter {
                 homeFragmentView.populateSliderList(eventSliders);
             }
         });
+
+    }
+
+    public void saveHoliday(List<Holiday> holidays) {
+        metaDatabaseRepo.saveHolidayResponse(holidays);
 
     }
 

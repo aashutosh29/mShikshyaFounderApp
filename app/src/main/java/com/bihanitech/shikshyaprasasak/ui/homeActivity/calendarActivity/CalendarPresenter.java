@@ -22,8 +22,8 @@ import retrofit2.Response;
 public class CalendarPresenter {
 
     public static final String TAG = CalendarPresenter.class.getSimpleName();
-    private CalendarView calendarView;
-    private DbInternalRepo dbInternalRepo;
+    private final CalendarView calendarView;
+    private final DbInternalRepo dbInternalRepo;
     private CDSService cdsService;
 
     public CalendarPresenter(CalendarView calendarView, DbInternalRepo dbInternalRepo) {

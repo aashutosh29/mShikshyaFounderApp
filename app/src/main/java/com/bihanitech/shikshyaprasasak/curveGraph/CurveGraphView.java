@@ -57,7 +57,7 @@ public class CurveGraphView extends View {
     private int guidelineCount;
     private int intervalCount;
     private GraphData[] graphDataArray = {};
-    private Path path = new Path();
+    private final Path path = new Path();
     private Paint xAxisScalePaint;
     private Paint yAxisScalePaint;
     private Paint axisLinePaint;
@@ -71,7 +71,7 @@ public class CurveGraphView extends View {
     private CurveGraphConfig.Builder builder;
     private boolean isConfigured;
     // Context
-    private Context context;
+    private final Context context;
 
     private long animationDuration;
 

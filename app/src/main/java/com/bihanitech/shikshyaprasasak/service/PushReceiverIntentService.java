@@ -20,7 +20,7 @@ public class PushReceiverIntentService extends IntentService {
         super("PushReceiverIntentService");
     }
 
-    private Handler.Callback callback = new Handler.Callback() {
+    private final Handler.Callback callback = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
             try {
@@ -28,7 +28,7 @@ public class PushReceiverIntentService extends IntentService {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            return  true;
+            return true;
         }
     };
 

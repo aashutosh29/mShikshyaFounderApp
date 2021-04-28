@@ -13,7 +13,7 @@ public interface HomeFragmentView {
 
     void dataSynced();
 
-    void populateHolidayList(List<Holiday> holidayList);
+    void populateHolidayList(List<Holiday> holidayList, Boolean isFirst);
 
     void hideLoading();
 

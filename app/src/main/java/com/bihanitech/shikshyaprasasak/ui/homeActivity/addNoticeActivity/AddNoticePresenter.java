@@ -29,23 +29,19 @@ public class AddNoticePresenter {
         this.metaDatabaseRepo = metaDatabaseRepo;
     }
 
-    public void uploadNotice(Boolean isEdit, String authToken, String grade, String title, String content, String publishOn, String section, String category) {
+    public void uploadNotice(Boolean isEdit, String authToken, String grade, String title, String content, String publishOn, String section, String category, String regNo) {
 
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
 
         }
         addNoticeView.showLoading();
-        Observable<UploadResponse> call = cdsService.sendNoticeToServer("Bearer " + authToken, title, content, /*Integer.parseInt(category)*/2, section, grade);
+        Observable<UploadResponse> call = cdsService.sendNoticeToServer("Bearer " + authToken, title, content, /*Integer.parseInt(category)*/2, section, grade, regNo);
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<UploadResponse>() {
             @Override
             public void onComplete(UploadResponse response) {
                 if (response.getResult().equals("success")) {
-                    if (isEdit) {
-                        addNoticeView.deletedLocally();
-                    }
                     addNoticeView.showSuccess();
-
                 }
             }
 
@@ -103,13 +99,14 @@ public class AddNoticePresenter {
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<StudentResponse>() {
             @Override
             public void onComplete(StudentResponse response) {
-                List<Student> studentList = response.getData();
+                List<Student> studentList;
+                studentList1 = new ArrayList<>();
+                studentList = response.getData();
                 if (studentList.size() > 0) {
                     studentList1.addAll(studentList);
                 }
 
                 addNoticeView.hideLoadingForStudent();
-
                 addNoticeView.populateStudentList(studentList, false);
             }
 

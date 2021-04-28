@@ -21,9 +21,9 @@ import okhttp3.ResponseBody;
 
 public class NoticePresenter {
 
-    private NoticeView noticeView;
+    private final NoticeView noticeView;
     private CDSService cdsService;
-    private DbInternalRepo dbInternal;
+    private final DbInternalRepo dbInternal;
     private static final String TAG = NoticePresenter.class.getSimpleName();
 
     public NoticePresenter(NoticeView noticeView,DbInternalRepo dbInternal)

@@ -203,7 +203,7 @@
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="120dp"
+                                    android:layout_height="match_parent"
                                     android:layout_marginHorizontal="@dimen/_6sdp"
                                     android:layout_marginTop="@dimen/_5sdp"
                                     android:layout_marginBottom="@dimen/_12sdp"
@@ -295,9 +295,9 @@
                                 <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
                                     android:id="@+id/vpNotice"
                                     android:layout_width="match_parent"
-                                    android:layout_height="0dp"
+                                    android:layout_height="wrap_content"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/cpNotice" />
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <com.viewpagerindicator.CirclePageIndicator
                                     android:id="@+id/cpNotice"

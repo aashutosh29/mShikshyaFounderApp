@@ -14,9 +14,9 @@ public class GraphData {
     int gradientStartColor = 0, gradientEndColor = 0;
     int maxValue;
     private WeakReference<Context> ctxWeakRef;
-    private PointMap graphDataPoints;
+    private final PointMap graphDataPoints;
     private boolean isStraightLine = false;
-    private int pointRadius;
+    private final int pointRadius;
     private boolean animateLine = false;
 
     private GraphData(Builder builder) {

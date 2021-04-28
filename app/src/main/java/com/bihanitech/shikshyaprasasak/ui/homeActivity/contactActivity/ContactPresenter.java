@@ -2,7 +2,6 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.contactActivity;
 
 import android.util.Log;
 
-
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.utility.NepCalendar.LightDateConverter;
 import com.bihanitech.shikshyaprasasak.utility.NepCalendar.Model;
@@ -12,8 +11,8 @@ import java.util.List;
 
 public class ContactPresenter {
 
-    private ContactView contactView;
-    private MetaDatabaseRepo metaDatabaseRepo;
+    private final ContactView contactView;
+    private final MetaDatabaseRepo metaDatabaseRepo;
 
     //test code
     private List<String> engDate = new ArrayList<>();

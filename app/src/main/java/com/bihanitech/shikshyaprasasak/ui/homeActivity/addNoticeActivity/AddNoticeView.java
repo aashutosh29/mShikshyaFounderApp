@@ -36,4 +36,6 @@ public interface AddNoticeView {
     void ifUnChecked(List<Student> students);
 
     void getListOfStudentToSendNotice(List<Student> students);
+
+    void back();
 }

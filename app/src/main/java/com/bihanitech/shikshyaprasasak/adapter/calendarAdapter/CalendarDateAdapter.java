@@ -23,7 +23,7 @@ public class CalendarDateAdapter extends RecyclerView.Adapter<CalendarDateAdapte
 
 
     Model todayNepDate;
-    private List<CDayItem> days;
+    private final List<CDayItem> days;
 
     public CalendarDateAdapter(List<CDayItem> days, Model todayNepDate) {
         this.days = days;

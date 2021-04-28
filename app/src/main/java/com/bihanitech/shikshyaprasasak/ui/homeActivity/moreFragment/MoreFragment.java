@@ -21,7 +21,9 @@ import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.statement.StatementActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.searchActivity.SearchActivity;
 import com.bihanitech.shikshyaprasasak.ui.schoolSelection.SchoolSelection;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
@@ -42,9 +44,9 @@ public class MoreFragment extends Fragment implements MoreView {
     TextView tvUserName;
     @BindView(R.id.tvSchoolName)
     TextView tvSchoolName;
-    @BindView(R.id.tvSchoolAddress)
+    @BindView(R.id.tvUSerContact)
     TextView tvSchoolAddress;
-    @BindView(R.id.ivProfileImage)
+    @BindView(R.id.ivProfile)
     ImageView ivProfileImage;
     SharedPrefsHelper sharedPrefsHelper;
     TextView tvToolbarTitle;
@@ -71,7 +73,7 @@ public class MoreFragment extends Fragment implements MoreView {
 
     }
 
-    @OnClick(R.id.btUploadNotice)
+    @OnClick(R.id.clUploadNotice)
     public void btUploadNoticeOnclick() {
         Intent intent = new Intent(getContext(), AddNoticeActivity.class);
         startActivity(intent);
@@ -84,7 +86,23 @@ public class MoreFragment extends Fragment implements MoreView {
         tvToolbarTitle.setText("More");
     }
 
-    @OnClick(R.id.btLogout)
+
+    //here
+    @OnClick(R.id.clStatement)
+    void clStatementClicked() {
+        Intent i = new Intent(getContext(), StatementActivity.class);
+        startActivity(i);
+    }
+
+    @OnClick(R.id.clSearchStudentProfile)
+    void clSearchStudentProfile() {
+
+        Intent i = new Intent(getContext(), SearchActivity.class);
+        startActivity(i);
+
+    }
+
+    @OnClick(R.id.clUserLogOut)
     public void btLogoutClicked() {
         DatabaseHelper databaseHelper = OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
         SQLiteDatabase db = databaseHelper.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
@@ -126,7 +144,7 @@ public class MoreFragment extends Fragment implements MoreView {
         databaseHelper = null;
     }
 
-    @OnClick(R.id.btSavedNotice)
+    @OnClick(R.id.clSavedNotice)
     void btSavedNoticeClicked() {
         Intent intent = new Intent(getContext(), NoticeUploadActivity.class);
         startActivity(intent);

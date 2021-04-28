@@ -11,22 +11,22 @@ import java.util.List;
 public class Calendar {
 
     @SuppressLint("UseSparseArrays")
-    private HashMap<Integer, int[]> daysInMonthMap = new HashMap<>();
+    private final HashMap<Integer, int[]> daysInMonthMap = new HashMap<>();
     @SuppressLint("UseSparseArrays")
-    private HashMap<Integer, int[]> startWeekDayMonthMap = new HashMap<>();
+    private final HashMap<Integer, int[]> startWeekDayMonthMap = new HashMap<>();
 
 
-    private List<List<Integer>> bs = Arrays.asList(
-            Arrays.asList(2000,30,32,31,32,31,30,30,30,29,30,29,31),
-            Arrays.asList(2001,31,31,32,31,31,31,30,29,30,29,30,30),
-            Arrays.asList(2002,31,31,32,32,31,30,30,29,30,29,30,30),
-            Arrays.asList(2003,31,32,31,32,31,30,30,30,29,29,30,31),
-            Arrays.asList(2004,30,32,31,32,31,30,30,30,29,30,29,31),
-            Arrays.asList(2005,31,31,32,31,31,31,30,29,30,29,30,30),
-            Arrays.asList(2006,31,31,32,32,31,30,30,29,30,29,30,30),
-            Arrays.asList(2007,31,32,31,32,31,30,30,30,29,29,30,31),
-            Arrays.asList(2008,31,31,31,32,31,31,29,30,30,29,29,31),
-            Arrays.asList(2009,31,31,32,31,31,31,30,29,30,29,30,30),
+    private final List<List<Integer>> bs = Arrays.asList(
+            Arrays.asList(2000, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31),
+            Arrays.asList(2001, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30),
+            Arrays.asList(2002, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30),
+            Arrays.asList(2003, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31),
+            Arrays.asList(2004, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31),
+            Arrays.asList(2005, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30),
+            Arrays.asList(2006, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30),
+            Arrays.asList(2007, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31),
+            Arrays.asList(2008, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31),
+            Arrays.asList(2009, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30),
             Arrays.asList(2010,31,31,32,32,31,30,30,29,30,29,30,30),
             Arrays.asList(2011,31,32,31,32,31,30,30,30,29,29,30,31),
             Arrays.asList(2012,31,31,31,32,31,31,29,30,30,29,30,30),
@@ -112,26 +112,26 @@ public class Calendar {
         );
 
 
-    private HashMap<String,String> nepDate = new HashMap<String,String>(){
+    private final HashMap<String, String> nepDate = new HashMap<String, String>() {
         {
-            put("year","");
-            put("month","");
-            put("date","");
-            put("day","");
-            put("month","");
-            put("numDay","");
+            put("year", "");
+            put("month", "");
+            put("date", "");
+            put("day", "");
+            put("month", "");
+            put("numDay", "");
         }
     };
 
 
-    private HashMap<String,String> engDate = new HashMap<String,String>(){
+    private final HashMap<String, String> engDate = new HashMap<String, String>() {
         {
-            put("year","");
-            put("month","");
-            put("date","");
-            put("day","");
-            put("month","");
-            put("numDay","");
+            put("year", "");
+            put("month", "");
+            put("date", "");
+            put("day", "");
+            put("month", "");
+            put("numDay", "");
         }
     };
 

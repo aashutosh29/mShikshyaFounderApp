@@ -62,9 +62,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         ButterKnife.bind(this);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         token = sharedPrefsHelper.getValue(Constant.TOKEN, "");
-        Log.d(TAG, "onCreate: " + sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+
         homePresenter = new HomePresenter(new MetaDatabaseRepo(getDatabaseHelper()), this);
         homePresenter.getStudentsList();
+
+
+        Log.d(TAG, "onCreate: " + token);
 
         fm = getSupportFragmentManager();
         loadFragment(new HomeFragment());

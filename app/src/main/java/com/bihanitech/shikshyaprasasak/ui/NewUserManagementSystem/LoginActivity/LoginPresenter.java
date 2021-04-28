@@ -187,6 +187,7 @@ public class LoginPresenter {
         });
     }
 
+
     public void saveNoticeToDB(List<NoticeItem> noticeItems) {
 
         metaDatabaseRepo.addNoticeItems(noticeItems);

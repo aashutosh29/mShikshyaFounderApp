@@ -135,6 +135,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
         homePresenter.fetchSliderList(schoolId);
         tvSchoolName.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""));
         tvSchoolAddress.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_ADDRESS, ""));
+        checkFirst();
         Log.d(TAG, "onCreateView: " + sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         timer = new Timer();
         LightDateConverter dateConverter = new LightDateConverter();
@@ -147,6 +148,17 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
         showSchoolLogo(imageURl);
         homePresenter.getNotices(sharedPrefsHelper.getValue(Constant.TOKEN, ""), false);
         return view;
+    }
+
+    private void checkFirst() {
+
+        if (!sharedPrefsHelper.getValue(Constant.FIRST_LOAD_HOME, false)) {
+            homePresenter.getHoliday(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+        } else {
+            homePresenter.getLocallySavedUpComingNotice();
+        }
+
+
     }
 
     private void initToolbar() {
@@ -238,8 +250,9 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
     }
 
     @Override
-    public void populateHolidayList(List<Holiday> holidayList) {
+    public void populateHolidayList(List<Holiday> holidayList, Boolean isFirst) {
 
+        sharedPrefsHelper.saveValue(Constant.FIRST_LOAD_HOME, isFirst);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvUpComingNotice.setLayoutManager(llm);

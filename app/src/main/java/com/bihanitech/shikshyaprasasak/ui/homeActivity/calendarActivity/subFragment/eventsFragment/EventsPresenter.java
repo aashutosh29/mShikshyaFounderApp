@@ -7,8 +7,8 @@ import java.util.List;
 
 public class EventsPresenter {
 
-    private EventsView eventsView;
-    private DbInternalRepo dbInternalRepo;
+    private final EventsView eventsView;
+    private final DbInternalRepo dbInternalRepo;
 
     public EventsPresenter(EventsView eventsView, DbInternalRepo dbInternalRepo) {
         this.eventsView = eventsView;

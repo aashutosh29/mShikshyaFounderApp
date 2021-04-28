@@ -10,6 +10,7 @@ import com.bihanitech.shikshyaprasasak.model.SchoolInfo;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.model.eventHolidays.Event;
+import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
 import com.bihanitech.shikshyaprasasak.model.itemModels.ContactsItem;
 import com.bihanitech.shikshyaprasasak.model.itemModels.NoticeItem;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -37,6 +38,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private RuntimeExceptionDao<ExamName, Integer> examNameDao = null;
     private RuntimeExceptionDao<Section, Integer> sectionDao = null;
     private RuntimeExceptionDao<UploadNotice, Integer> uploadNoticeDao = null;
+    private RuntimeExceptionDao<com.bihanitech.shikshyaprasasak.model.holiday.Holiday, Integer> holidayDao = null;
 
 
     public DatabaseHelper(Context context) {
@@ -55,6 +57,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Classes.class);
             TableUtils.createTable(connectionSource, UploadNotice.class);
             TableUtils.createTable(connectionSource, Section.class);
+            TableUtils.createTable(connectionSource, com.bihanitech.shikshyaprasasak.model.holiday.Holiday.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,6 +74,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, Classes.class, false);
             TableUtils.dropTable(connectionSource, Section.class, false);
             TableUtils.dropTable(connectionSource, UploadNotice.class, false);
+            TableUtils.dropTable(connectionSource, Holiday.class, false);
 
             onCreate(database, connectionSource);
         } catch (SQLException e) {
@@ -142,5 +146,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             uploadNoticeDao = getRuntimeExceptionDao(UploadNotice.class);
         }
         return uploadNoticeDao;
+    }
+
+    public RuntimeExceptionDao<com.bihanitech.shikshyaprasasak.model.holiday.Holiday, Integer> getHolidayDao() {
+        if (holidayDao == null) {
+            holidayDao = getRuntimeExceptionDao(com.bihanitech.shikshyaprasasak.model.holiday.Holiday.class);
+        }
+        return holidayDao;
     }
 }

@@ -15,8 +15,8 @@ public class EventHolidaysAdapter extends FragmentStatePagerAdapter {
     final int PAGE_COUNT = 2;
     int nepYear = 0;
     int nepMonth = 0;
-    private String[] tabTitles = new String[]{"Holidays", "Events"};
-    private Context context;
+    private final String[] tabTitles = new String[]{"Holidays", "Events"};
+    private final Context context;
 
     public EventHolidaysAdapter(FragmentManager fm, Context context, int nepYear, int nepMonth) {
         super(fm);

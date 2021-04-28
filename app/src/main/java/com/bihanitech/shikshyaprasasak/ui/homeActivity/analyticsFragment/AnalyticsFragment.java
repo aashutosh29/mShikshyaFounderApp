@@ -1,7 +1,6 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -17,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -37,7 +37,6 @@ import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
 import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
 import com.bihanitech.shikshyaprasasak.model.StudentGenderWise;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
-import com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.statement.StatementActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.github.mikephil.charting.animation.Easing;
@@ -69,6 +68,9 @@ import static com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.
 
 public class AnalyticsFragment extends Fragment implements OnChartValueSelectedListener, AnalyticsView {
     public static final int[] FOUNDER_COLORS = {
+            Color.rgb(8, 154, 214), Color.rgb(160, 17, 28)
+    };
+    public static final int[] FOUNDER_COLORS_NEW = {
             Color.rgb(160, 17, 28), Color.rgb(8, 154, 214)
     };
     final Calendar myCalendar = Calendar.getInstance();
@@ -86,10 +88,10 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     //pieChart data
     String female = "Female";
     String male = "Male";
-    String totalMaleStaff = "n/a";
-    String totalFemaleStaff = "n/a";
-    String totalMaleStudent = "n/a";
-    String totalFemaleStudent = "n/a";
+    String totalMaleStaff = "0";
+    String totalFemaleStaff = "0";
+    String totalMaleStudent = "0";
+    String totalFemaleStudent = "0";
     TextView tvToolbarTitle;
     String dateNow;
     //student attendance
@@ -119,6 +121,15 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     @BindView(R.id.viewStatement)
     Button viewStatement;
 
+    @BindView(R.id.loadingPanel)
+    RelativeLayout loadingPanel;
+
+    @BindView(R.id.tvNetworkError)
+    TextView tvNetworkError;
+
+    @BindView(R.id.chCircular1)
+    PieChart chCircular1;
+
     private PieChart circularChartStudentGender;
     private PieChart circularChartStaffGender;
     private PieChart pieChartStaff;
@@ -139,8 +150,8 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         initToolbar();
         analyticsPresenter = new AnalyticsPresenter(this, new MetaDatabaseRepo(getHelper()));
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
-        sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, "n-a");
-        sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, "n-a");
+        sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, "0");
+        sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, "0");
         analyticsPresenter.getGenderWiseStaffAndStudent(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         ScrollView sView = view.findViewById(R.id.svMain);
         // Hide the Scrollbar
@@ -154,8 +165,9 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         //Initializing circular chart
         pieChartStaff = view.findViewById(R.id.chCircular2);
-        setAllStuffsPieChartStaff();
         pieChartStudent = view.findViewById(R.id.chCircular1);
+        setAllStuffsPieChartStaff();
+
         //setAllStuffsPieChartStudent();
         circularChartStudentGender = view.findViewById(R.id.chCircular1Mf);
         setAllStuffsPieChartStudentGender();
@@ -203,13 +215,13 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         toolbarNew.setVisibility(View.VISIBLE);
         tvToolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Analytics");
-        viewStatement.setOnClickListener(new View.OnClickListener() {
+       /* viewStatement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(), StatementActivity.class);
                 startActivity(i);
             }
-        });
+        });*/
     }
 
     private void updateLabel() {
@@ -281,8 +293,8 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         }*/
 
 
-        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_ABSENT, "n-a")), (float) 2));
-        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_PRESENT, "n-a")), (float) 2));
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_ABSENT, "0")), (float) 2));
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_PRESENT, "0")), (float) 2));
 
         PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
         dataSet.setDrawIcons(false);
@@ -295,7 +307,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         ArrayList<Integer> colors = new ArrayList<>();
 
-        for (int c : FOUNDER_COLORS)
+        for (int c : FOUNDER_COLORS_NEW)
             colors.add(c);
 
 
@@ -362,6 +374,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         pieChartStaff.setEntryLabelColor(Color.WHITE);
         pieChartStaff.setEntryLabelTextSize(0f);
         ArrayList<PieEntry> entries = new ArrayList<>();
+        pieChartStaff.setCenterText("NO RECORD FOUND");
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
 
@@ -472,19 +485,10 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                     staffGender[i % staffGender.length]));
         }*/
 
-        if (sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "").equals("n/a") && sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "").equals("n/a")) {
-            entries.add(new PieEntry(0, (float) staffGender.length));
-            entries.add(new PieEntry(0, (float) staffGender.length));
-        } else if (sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "").equals("n/a")) {
-            entries.add(new PieEntry(0, (float) staffGender.length));
-            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "")), (float) staffGender.length));
-        } else if (sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "").equals("n/a")) {
-            entries.add(new PieEntry(0, (float) staffGender.length));
-            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "")), (float) staffGender.length));
-        } else {
-            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "")), (float) staffGender.length));
-            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "")), (float) staffGender.length));
-        }
+
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "")), (float) staffGender.length));
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "")), (float) staffGender.length));
+
         PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
         dataSet.setDrawIcons(false);
 
@@ -599,19 +603,10 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         studentGenderData.add(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, ""));
         studentGenderData.add(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, ""));
 
-        if (sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "").equals("n/a") && sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "").equals("n/a")) {
-            entries.add(new PieEntry(0, (float) studentGender.length));
-            entries.add(new PieEntry(0, (float) studentGender.length));
-        } else if (sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "").equals("n/a")) {
-            entries.add(new PieEntry(0, (float) studentGender.length));
-            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "")), (float) studentGender.length));
-        } else if (sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "").equals("n/a")) {
-            entries.add(new PieEntry(0, (float) studentGender.length));
-            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "")), (float) studentGender.length));
-        } else {
-            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "")), (float) studentGender.length));
-            entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "")), (float) studentGender.length));
-        }
+
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_MALE_DATA, "")), (float) studentGender.length));
+        entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "")), (float) studentGender.length));
+
 
         PieDataSet dataSet = new PieDataSet(entries, "Student Attendance");
 
@@ -907,8 +902,8 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
             }
         }
         if (studentGenderWises.size() == 0) {
-            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "n/a");
-            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, "n/a");
+            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, "0");
+            sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, "0");
         } else {
             sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_FEMALE_DATA, totalFemaleStudent);
             sharedPrefsHelper.saveValue(Constant.STUDENT_TOTAL_MALE_DATA, totalMaleStudent);
@@ -920,10 +915,9 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     @Override
     public void populateStudentAttendance(StudentAttendance response) {
         if (response.getStatus().equals("unavailable")) {
-            sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, "n-a");
-            sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, "n-a");
+            tvNetworkError.setVisibility(View.VISIBLE);
+            chCircular1.setVisibility(View.INVISIBLE);
         } else {
-
             sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, response.getPresentCount().toString());
             sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, response.getAbsentCount().toString());
         }
@@ -991,7 +985,30 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     @Override
     public void onSuccess(String newDate) {
+        loadingPanel.setVisibility(View.GONE);
+        tvNetworkError.setVisibility(View.GONE);
+        chCircular1.setVisibility(View.VISIBLE);
         tvDate.setText(newDate);
+    }
+
+    @Override
+    public void LoadingScreenOnAttendance() {
+        tvNetworkError.setVisibility(View.GONE);
+        chCircular1.setVisibility(View.INVISIBLE);
+        loadingPanel.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showNetworkErrorOnAttendance(String type) {
+
+        tvNetworkError.setVisibility(View.VISIBLE);
+        loadingPanel.setVisibility(View.GONE);
+        chCircular1.setVisibility(View.INVISIBLE);
+        if (type.equals("server"))
+            tvNetworkError.setText("THERE iS PROBLEM IN SERVER");
+
+        else if (type.equals("network"))
+            tvNetworkError.setText("NO INTERNET AVAILABLE!");
     }
 
 

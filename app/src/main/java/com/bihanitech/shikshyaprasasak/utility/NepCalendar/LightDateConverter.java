@@ -17,6 +17,7 @@ package com.bihanitech.shikshyaprasasak.utility.NepCalendar;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 
@@ -26,6 +27,7 @@ import com.bihanitech.shikshyaprasasak.model.itemModels.CDayItem;
 import org.jetbrains.annotations.Contract;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -45,9 +47,9 @@ import java.util.List;
 public class LightDateConverter {
 
     @SuppressLint("UseSparseArrays")
-    private HashMap<Integer, int[]> daysInMonthMap = new HashMap<>();
+    private final HashMap<Integer, int[]> daysInMonthMap = new HashMap<>();
     @SuppressLint("UseSparseArrays")
-    private HashMap<Integer, int[]> startWeekDayMonthMap = new HashMap<>();
+    private final HashMap<Integer, int[]> startWeekDayMonthMap = new HashMap<>();
 
     public LightDateConverter() {
     /*

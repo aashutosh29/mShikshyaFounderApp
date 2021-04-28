@@ -197,7 +197,7 @@
                         android:id="@+id/cvMoreAndUpdatedA"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="@dimen/_4sdp"
                         android:background="@drawable/bg_button"
                         android:padding="@dimen/_8sdp"
@@ -248,6 +248,38 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+                    <RelativeLayout
+                        android:id="@+id/loadingPanel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingVertical="@dimen/_16sdp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedA">
+
+                        <ProgressBar
+                            android:id="@+id/pbLoading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true" />
+
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tvNetworkError"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="NO RECORD FOUND. PLEASE SELECT ANOTHER DATE."
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedA" />
+
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chCircular1"
                         android:layout_width="0dp"
@@ -258,7 +290,9 @@
                         app:layout_constraintEnd_toStartOf="@id/chCircular2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedA"
+                        app:layout_constraintVertical_bias="0.0"
                         app:layout_constraintWidth_percent="0.5" />
+
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chCircular2"
@@ -571,6 +605,7 @@
                 android:background="@drawable/bg_button"
                 android:text="View Statement"
                 android:textColor="@color/white"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/cvAttendanceReport" />
 
 

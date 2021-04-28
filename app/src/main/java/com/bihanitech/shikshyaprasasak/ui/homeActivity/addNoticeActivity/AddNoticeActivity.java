@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,6 +36,7 @@ import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.student.Student;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
+import com.bihanitech.shikshyaprasasak.ui.dialogFragment.SuccessDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -70,6 +70,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @BindView(R.id.clClassSectionStudent)
     ConstraintLayout clClassSectionStudent;
     NetworkErrorDFragment networkErrorDFragment;
+    SuccessDFragment successDFragment;
     FragmentManager fm;
     Boolean click = false;
     @BindView(R.id.spClass)
@@ -128,7 +129,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         context = AddNoticeActivity.this;
         dialog = new ProgressDialog(this);
         initToolbar();
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadSpinner();
 
 
@@ -145,6 +145,43 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             tvAllChecked.setText("");
         }
 
+        btSubmitNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int j = studentList1.size();
+                List<Student> studentArrayList = new ArrayList<>();
+                String studentId = "";
+                for (int i = 0; i < j; i++) {
+                    if (studentList1.get(i).getCheckStatus()) {
+                        studentArrayList.add(studentList1.get(i));
+                    }
+                }
+                int k = studentArrayList.size();
+                String finalJson = "";
+                for (int i = 0; i < k; i++) {
+                    studentId = studentId + "\"" + studentArrayList.get(i).getRegno() + "\",";
+                }
+                if (studentId.length() > 0) {
+                    studentId = studentId.substring(0, (studentId.length() - 1));
+                }
+                finalJson = "[" + studentId + "]";
+
+                if (click) {
+                    Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
+                        Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
+                    } else if (studentArrayList.size() == 0) {
+                        Toast.makeText(context, "Please Select Student", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d(TAG, "onClick: non-filtered" + studentList1.size());
+                        Log.d(TAG, "onClick: filtered" + studentArrayList.size());
+                        addNoticePresenter.uploadNotice(false, token, grade, etTitle.getText().toString(), etContentBody.getText().toString(), "", section, String.valueOf(spCategory.getSelectedItemPosition() + 1), finalJson);
+                        click = true;
+                    }
+                }
+            }
+        });
     }
 
 
@@ -197,7 +234,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT);
         etTitle.setText("");
         etContentBody.setText("");
-        onBackPressed();
+        Uploaded();
     }
 
     @Override
@@ -214,6 +251,14 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         FragmentManager fm = getSupportFragmentManager();
         networkErrorDFragment = NetworkErrorDFragment.newInstance(Constant.NETOWRK_ERROR, "");
         networkErrorDFragment.show(fm, "NetworkError");
+    }
+
+    void Uploaded() {
+        FragmentManager fm = getSupportFragmentManager();
+        successDFragment = SuccessDFragment.newInstance();
+        successDFragment.show(fm, "Success");
+
+
     }
 
     @OnClick(R.id.btUploadNoticeLater)
@@ -287,7 +332,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                 Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
             } else {
 
-                addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1));
+                addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1), "[]");
             }
         }
     }
@@ -323,7 +368,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                 grade = classesList.get(position).getGrade();
                 section = sectionList.get(0).getClassID();
                 clSelectStudent.setVisibility(View.VISIBLE);
-                addNoticePresenter.getStudents(grade, section, token);
+                //addNoticePresenter.getStudents(grade, section, token);
                 ArrayAdapter<String> arrayAdapterSection = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, sectionName);
                 arrayAdapterSection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spSection.setAdapter(arrayAdapterSection);
@@ -398,7 +443,6 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     void tvHideShowClicked() {
         if (isHide) {
             rvStudents.setVisibility(View.GONE);
-            tvAllChecked.setVisibility(View.VISIBLE);
             tvHideShow.setText("Show");
             tvHideShow.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_down_arrow_white, 0);
             isHide = false;
@@ -418,11 +462,12 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         tvAllChecked.setVisibility(View.GONE);
         tvError.setVisibility(View.VISIBLE);
         tvError.setText("Something Went Wrong");
+        loadingPanel.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void ifUnChecked(List<Student> students) {
-        List<Student> CheckedStudent = new ArrayList<>();
+       /* List<Student> CheckedStudent = new ArrayList<>();
         int j = students.size();
 
         for (int i = 0; i < j; i++) {
@@ -441,7 +486,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                 break;
             default:
                 tvAllChecked.setText(k + " Students are Selected.");
-        }
+        }*/
         cbAll.setChecked(false);
     }
 
@@ -452,16 +497,22 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             public void onClick(View view) {
                 int j = students.size();
                 List<Student> studentArrayList = new ArrayList<>();
-                List<String> studentId = new ArrayList<>();
+                String studentId = "";
                 for (int i = 0; i < j; i++) {
                     if (students.get(i).getCheckStatus()) {
                         studentArrayList.add(students.get(i));
                     }
                 }
                 int k = studentArrayList.size();
+                String finalJson = "";
                 for (int i = 0; i < k; i++) {
-                    studentId.add(studentArrayList.get(i).getRegno());
+                    studentId = studentId + "\"" + studentArrayList.get(i).getRegno() + "\",";
                 }
+                if (studentId.length() > 0) {
+                    studentId = studentId.substring(0, (studentId.length() - 1));
+                }
+                finalJson = "[" + studentId + "]";
+
                 if (click) {
                     Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
                 } else {
@@ -472,12 +523,18 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                     } else {
                         Log.d(TAG, "onClick: non-filtered" + students.size());
                         Log.d(TAG, "onClick: filtered" + studentArrayList.size());
-                        addNoticePresenter.uploadNotice(false, token, grade, etTitle.getText().toString(), etContentBody.getText().toString(), "", section, String.valueOf(spCategory.getSelectedItemPosition() + 1));
+                        addNoticePresenter.uploadNotice(false, token, grade, etTitle.getText().toString(), etContentBody.getText().toString(), "", section, String.valueOf(spCategory.getSelectedItemPosition() + 1), finalJson);
                         click = true;
                     }
                 }
 
             }
         });
+    }
+
+    @Override
+    public void back() {
+        onBackPressed();
+        deletedLocally();
     }
 }

@@ -36,24 +36,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class StudentProfileActivity extends AppCompatActivity implements StudentProfileView {
-/*
-    @BindView(R.id.layoutSubject)
-    View layoutSubject;
-
-    @BindView(R.id.layoutSubjectSecond)
-    View layoutSubjectSecond;
-
-    @BindView(R.id.layoutSubjectThird)
-    View layoutSubjectThird;
-
-    @BindView(R.id.ivDownUPArrow)
-    ImageView ivDownUpArrow;
-
-    @BindView(R.id.ivDownUpArrowSecond)
-    ImageView ivDownUpArrowSecond;
-
-    @BindView(R.id.ivDownUPArrowThird)
-    ImageView ivDownUpArrowThird;*/
 
     @BindView(R.id.tvProfileName)
     TextView tvProfileName;
@@ -92,14 +74,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     @BindView(R.id.ivProfileImage)
     ImageView ivProfileImage;
 
-    /*@BindView(R.id.tvGrade)
-    TextView tvGrade;
-
-    @BindView(R.id.tvRemarks)
-    TextView tvRemarks;
-
-    @BindView(R.id.tvGPA)
-    TextView tvGPA;*/
 
 
     SharedPrefsHelper sharedPrefsHelper;
@@ -117,8 +91,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     List<Statements> statementsList = new ArrayList<>();
     List<Subject> subjectList = new ArrayList<>();
 
-   /* Boolean secondSubjectShowingSecond = true;
-    Boolean thirdSubjectShowingThird = true;*/
 
 
     @Override
@@ -132,9 +104,7 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
         getAllIntentAndSetRespectiveView();
         fetchAccountData();
         initDataOfAccount();
-        //initRecyclerViewStatements();
         initSubject();
-        initSubjectRecyclerView();
 
     }
 
@@ -143,61 +113,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     void ivBackClicked() {
         onBackPressed();
     }
-
-/*
-    @OnClick(R.id.ivDownUPArrow)
-    void ivDownUPArrowOnClick() {
-
-          *//* ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.clFirstTerm);
-        ViewGroup.LayoutParams params = constraintLayout.getLayoutParams();
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            constraintLayout.setLayoutParams(params);*//*
-
-        if (firstSubjectShowingFirst) {
-            layoutSubject.setVisibility(View.VISIBLE);
-            firstSubjectShowingFirst = false;
-            ivDownUpArrow.setImageResource(R.drawable.ic_up_arrow);
-        } else {
-            layoutSubject.setVisibility(View.GONE);
-            firstSubjectShowingFirst = true;
-            ivDownUpArrow.setImageResource(R.drawable.ic_down_arrow);
-
-        }
-    }
-
-    @OnClick(R.id.ivDownUpArrowSecond)
-    void setIvDownUpArrowSecondOnClick() {
-
-
-        if (secondSubjectShowingSecond) {
-            layoutSubjectSecond.setVisibility(View.VISIBLE);
-            secondSubjectShowingSecond = false;
-            ivDownUpArrowSecond.setImageResource(R.drawable.ic_up_arrow);
-        } else {
-            layoutSubjectSecond.setVisibility(View.GONE);
-            secondSubjectShowingSecond = true;
-            ivDownUpArrowSecond.setImageResource(R.drawable.ic_down_arrow);
-
-        }
-
-    }
-
-    @OnClick(R.id.ivDownUPArrowThird)
-    void setIvDownUpArrowThirdOnClick() {
-
-
-        if (thirdSubjectShowingThird) {
-            layoutSubjectThird.setVisibility(View.VISIBLE);
-            thirdSubjectShowingThird = false;
-            ivDownUpArrowThird.setImageResource(R.drawable.ic_up_arrow);
-        } else {
-            layoutSubjectThird.setVisibility(View.GONE);
-            thirdSubjectShowingThird = true;
-            ivDownUpArrowThird.setImageResource(R.drawable.ic_down_arrow);
-
-        }
-
-    }*/
 
 
     private void getAllIntentAndSetRespectiveView() {
@@ -215,14 +130,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
     }
 
-   /* private void initRecyclerViewStatements() {
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvStatements.setLayoutManager(llm);
-        rvStatements.setItemAnimator(new DefaultItemAnimator());
-        recyclerAdapter = new AccountAdapter(statementsList, this);
-        rvStatements.setAdapter(recyclerAdapter);
-    }*/
 
     private void initSubject() {
         Subject subject = new Subject("Maths", "A");
@@ -240,14 +147,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
         statementsList.add(statement);
     }
 
-    private void initSubjectRecyclerView() {
-       /* LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvSubjects.setLayoutManager(llm);
-        rvSubjects.setItemAnimator(new DefaultItemAnimator());
-        subjectListAdapter = new SubjectListAdapter(subjectList, this);
-        rvSubjects.setAdapter(subjectListAdapter);*/
-    }
 
 
     @Override
@@ -286,9 +185,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
     @Override
     public void populateExamResult(List<Result> results) {
-      /*  tvGrade.setText(results.get(0).getStddivgrade());
-        tvGPA.setText(results.get(0).getStgpa());
-        tvRemarks.setText(results.get(0).getStremakrs());*/
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);

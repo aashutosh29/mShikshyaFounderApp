@@ -85,29 +85,30 @@ public class AnalyticsPresenter {
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
         }
+
+        analyticsView.LoadingScreenOnAttendance();
         Observable<StudentAttendance> call = cdsService.getStudentAttendance("Bearer" + authToken, newDate);
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<StudentAttendance>() {
             @Override
             public void onComplete(StudentAttendance response) {
                 Log.d(TAG, "onComplete: " + response);
                 analyticsView.onSuccess(newDate);
-
                 //getIncomeVsDueBalance(authToken);
                 analyticsView.populateStudentAttendance(response);
             }
 
             @Override
             public void onError(Exception e, int code) {
+                analyticsView.showNetworkErrorOnAttendance("server");
                 Log.d(TAG, "onError: " + e + code);
             }
 
             @Override
             public void onConnectionException(Exception e) {
                 Log.d(TAG, "onConnectionException: " + e);
-
+                analyticsView.showNetworkErrorOnAttendance("network");
             }
         });
-
 
     }
 
