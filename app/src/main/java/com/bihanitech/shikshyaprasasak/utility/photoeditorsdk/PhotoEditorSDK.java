@@ -50,7 +50,7 @@ public class PhotoEditorSDK implements MultiTouchListener.OnMultiTouchListener {
     public void addImage(Bitmap desiredImage) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View imageRootView = inflater.inflate(R.layout.photo_editor_sdk_image_item_list, null);
-        ImageView imageView = (ImageView) imageRootView.findViewById(R.id.photo_editor_sdk_image_iv);
+        ImageView imageView = imageRootView.findViewById(R.id.photo_editor_sdk_image_iv);
         imageView.setImageBitmap(desiredImage);
         imageView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT));
@@ -91,7 +91,7 @@ public class PhotoEditorSDK implements MultiTouchListener.OnMultiTouchListener {
     public void addEmoji(String emojiName, Typeface emojiFont) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View emojiRootView = inflater.inflate(R.layout.photo_editor_sdk_text_item_list, null);
-        TextView emojiTextView = (TextView) emojiRootView.findViewById(R.id.photo_editor_sdk_text_tv);
+        TextView emojiTextView = emojiRootView.findViewById(R.id.photo_editor_sdk_text_tv);
         emojiTextView.setTypeface(emojiFont);
         emojiTextView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         emojiTextView.setText(convertEmoji(emojiName));

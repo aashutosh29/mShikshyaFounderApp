@@ -19,6 +19,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.editNoitceActivity.EditNoticeActivity;
+import com.bihanitech.shikshyaprasasak.utility.Constant;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -39,11 +41,12 @@ public class SuccessDFragment extends DialogFragment {
     Button btRetry;
     @BindDrawable(R.drawable.ic_error_server)
     Drawable serverError;
-    private String errorSource;
+    private Boolean isAddNotice;
 
-    public static SuccessDFragment newInstance() {
+    public static SuccessDFragment newInstance(boolean isAddNotice) {
         SuccessDFragment frag = new SuccessDFragment();
         Bundle args = new Bundle();
+        args.putBoolean(Constant.IS_ADD_NOTICE, isAddNotice);
         frag.setArguments(args);
         frag.setCancelable(false);
 
@@ -57,6 +60,7 @@ public class SuccessDFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_fragment_success, container);
         ButterKnife.bind(this, view);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        isAddNotice = getArguments().getBoolean(Constant.IS_ADD_NOTICE);
         return view;
     }
 
@@ -74,9 +78,12 @@ public class SuccessDFragment extends DialogFragment {
 
     @OnClick(R.id.btRetry)
     public void btRetryClicked() {
-        ((AddNoticeActivity) getActivity()).back();
+        if (isAddNotice) {
+            ((AddNoticeActivity) getActivity()).back();
+        } else {
+            ((EditNoticeActivity) getActivity()).back();
+        }
         getDialog().dismiss();
-
     }
 
 

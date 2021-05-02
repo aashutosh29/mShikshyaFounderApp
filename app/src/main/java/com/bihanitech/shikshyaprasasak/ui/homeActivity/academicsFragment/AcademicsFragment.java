@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -21,12 +22,12 @@ import androidx.fragment.app.Fragment;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.curveGraph.CustomMarkerView;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
-import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
 import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.acedamics.ClassData;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.searchActivity.SearchActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
+import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -46,7 +47,6 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity.token;
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragmentPresenter.TAG;
 
 
@@ -55,11 +55,11 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
             Color.rgb(160, 17, 28), Color.rgb(8, 154, 214), Color.rgb(25, 168, 12), Color.rgb(168, 152, 12), Color.rgb(30, 168, 12), Color.rgb(31, 140, 145)};
     protected Typeface tfRegular;
     String gradeAndDivision = "";
-    List<String> classificationXAxisValue = new ArrayList<>();
+    List<String> classificationXAxisValue;
     ArrayList<BarEntry> values = new ArrayList<>();
     //each gradeAndDivision should have list  gradeAndDivisionYAxisCount
-    List<Float> gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
-    List<String> gradeAndDivisionGroupStudentGradeName = new ArrayList<>();
+    List<Float> gradeAndDivisionGroupStudentYAxisValue;
+    List<String> gradeAndDivisionGroupStudentGradeName;
 
     TextView tvToolbarTitle;
     Toolbar toolbarNew;
@@ -68,9 +68,20 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
     Button etStudentNameToSearch;
     @BindView(R.id.spExam)
     Spinner spExam;
+
+    @BindView(R.id.chart1)
+    BarChart chart1;
+
+    @BindView(R.id.tvError)
+    TextView tvError;
+
+    @BindView(R.id.loadingPanel)
+    RelativeLayout loadingPanel;
+
     SharedPrefsHelper sharedPrefsHelper;
     private DatabaseHelper databaseHelper;
     private BarChart chart;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -110,14 +121,12 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(getContext(), DatabaseHelper.class);
         }
-
         return databaseHelper;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         if (databaseHelper != null) {
             OpenHelperManager.releaseHelper();
         }
@@ -131,7 +140,7 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         l.setEnabled(false);
         //l.setEnabled(false);
 
-       /* //initialize array
+ /* //initialize array
         LegendEntry legendEntry = new LegendEntry();
         legendEntry.label = "Passed";
         legendEntry.formColor = Color.rgb(8, 154, 214);
@@ -229,7 +238,12 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
 
     @Override
     public void loadDataOnGraph(List<ClassData> data) {
-
+        chart1.setVisibility(View.VISIBLE);
+        tvError.setVisibility(View.GONE);
+        loadingPanel.setVisibility(View.GONE);
+        classificationXAxisValue = new ArrayList<>();
+        gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
+        gradeAndDivisionGroupStudentGradeName = new ArrayList<>();
         //values = null;
         for (int i = 0; i < data.size(); i++) {
             classificationXAxisValue.add(data.get(i).getClass_());
@@ -259,7 +273,7 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         spExam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                academicsPresenter.getGraphData(token, examList.get(i).getExamID());
+                academicsPresenter.getGraphData(sharedPrefsHelper.getValue(Constant.TOKEN, ""), examList.get(i).getExamID());
             }
 
             @Override
@@ -272,11 +286,33 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
 
     @Override
     public void noDataAvailable() {
-        classificationXAxisValue = new ArrayList<>();
-        gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
-        //values.add(new BarEntry(0, 0,gradeAndDivisionGroupStudentGradeName));
-        setAllStuffsBarGraph();
+        loadingPanel.setVisibility(View.GONE);
+        chart1.setVisibility(View.INVISIBLE);
+        tvError.setVisibility(View.VISIBLE);
+        tvError.setText("NO DATA FOUND PLEASE SELECT ANOTHER TERMINAL");
 
+       /* classificationXAxisValue = new ArrayList<>();
+        gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
+        setAllStuffsBarGraph();*/
+
+    }
+
+    @Override
+    public void error(boolean isNetworkError) {
+        loadingPanel.setVisibility(View.GONE);
+        chart1.setVisibility(View.INVISIBLE);
+        tvError.setVisibility(View.VISIBLE);
+        if (isNetworkError)
+            tvError.setText("THERE IS PROBLEM IN INTERNET");
+        else
+            tvError.setText("THERE IS PROBLEM IN SERVER");
+    }
+
+    @Override
+    public void showLoading() {
+        loadingPanel.setVisibility(View.VISIBLE);
+        chart1.setVisibility(View.INVISIBLE);
+        tvError.setVisibility(View.INVISIBLE);
     }
 
 

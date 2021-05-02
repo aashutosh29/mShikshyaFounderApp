@@ -3,6 +3,7 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -44,6 +45,8 @@ public class NoticeActivity extends AppCompatActivity implements NoticeView, Swi
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
+    @BindView(R.id.tvToolbarTitle)
+    TextView tvToolbarTitle;
     FragmentManager fm;
     ProgressDFragment progressDFragment;
 
@@ -59,6 +62,7 @@ public class NoticeActivity extends AppCompatActivity implements NoticeView, Swi
         noticePresenter = new NoticePresenter(this, new DbInternalRepo(getDatabaseHelper()));
         swipeRefreshLayout.setOnRefreshListener(this);
         fm = getSupportFragmentManager();
+        tvToolbarTitle.setText("Notice");
 
         if (!sharedPrefsHelper.getValue(Constant.NOTICE_UPTO_DATE, false)) {
             setUpNoticeList();

@@ -28,9 +28,11 @@ import com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager;
 import com.bihanitech.shikshyaprasasak.adapter.HomeNoticeAdapter;
 import com.bihanitech.shikshyaprasasak.adapter.SliderAdapter;
 import com.bihanitech.shikshyaprasasak.adapter.SlidingNoticeAdapter;
+import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.model.Notice;
 import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
 import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
+import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.ProgressDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.NoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeActivity.noticeDetailAcitivity.NoticeDetailActivity;
@@ -42,6 +44,7 @@ import com.bihanitech.shikshyaprasasak.utility.NepCalendar.Model;
 import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -110,6 +113,8 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
     SwipeRefreshLayout srlHome;
     @BindView(R.id.clCardSlider)
     ConstraintLayout clCardSlider;
+    @BindView(R.id.ivBlueBar)
+    ImageView ivBlueBar;
     FragmentManager fm;
     SharedPrefsHelper sharedPrefsHelper;
     Toolbar toolbarNew;
@@ -117,6 +122,10 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
     Model todayNepaliDate;
     String schoolId;
     Timer timer;
+
+    String fetchDate;
+
+    private DatabaseHelper databaseHelper;
 
     public HomeFragment() {
 
@@ -131,7 +140,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
         initToolbar();
         srlHome.setOnRefreshListener(this);
         schoolId = sharedPrefsHelper.getValue(Constant.SCHOOL_ID, "");
-        homePresenter = new HomeFragmentPresenter(this, getContext());
+        homePresenter = new HomeFragmentPresenter(this, getContext(), new MetaDatabaseRepo(getHelper()));
         homePresenter.fetchSliderList(schoolId);
         tvSchoolName.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_NAME, ""));
         tvSchoolAddress.setText(sharedPrefsHelper.getValue(Constant.SCHOOL_ADDRESS, ""));
@@ -143,6 +152,8 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
         tvTodayDate.setText(todayNepaliDate.getDay() + "");
         int a = (todayNepaliDate.getMonth());
         tvTodayMonth.setText(getMonth(a));
+        //fetchDate = todayNepaliDate.getYear() + "-" + todayNepaliDate.getMonth() + "-" + todayNepaliDate.getDay();
+        Log.d(TAG, "nepali date: " + todayNepaliDate.getYear() + "-" + todayNepaliDate.getMonth() + "-" + todayNepaliDate.getDay());
         fm = getFragmentManager();
         String imageURl = sharedPrefsHelper.getValue(Constant.SCHOOL_LOGO, "");
         showSchoolLogo(imageURl);
@@ -153,6 +164,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
     private void checkFirst() {
 
         if (!sharedPrefsHelper.getValue(Constant.FIRST_LOAD_HOME, false)) {
+
             homePresenter.getHoliday(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
         } else {
             homePresenter.getLocallySavedUpComingNotice();
@@ -247,6 +259,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
     @Override
     public void dataSynced() {
         ivLoadingNotices.setVisibility(View.GONE);
+        ivBlueBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -263,12 +276,65 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
 
     @Override
     public void hideLoading() {
-        Objects.requireNonNull(getView()).findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+        getView().findViewById(R.id.ivBlueBar).setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public String dateConverterMachine(String aDate) {
+        Model specificDate;
+        String[] dateParts = aDate.split(",");
+        int year = Integer.parseInt(dateParts[1].trim());
+        String monthDay = dateParts[0];
+        String[] dateParts2 = monthDay.split(" ");
+        int day = Integer.parseInt(dateParts2[1].trim());
+        LightDateConverter dateConverter = new LightDateConverter();
+        specificDate = dateConverter.getNepaliDate(year, getMonthNum(dateParts2[0].trim()), day);
+        return specificDate.getYear() + "-" + specificDate.getMonth() + "-" + specificDate.getDay();
     }
 
     @Override
     public void onComplete() {
         progressDFragment.dismiss();
+    }
+
+    private int getMonthNum(String month) {
+
+        if (month.equals("January"))
+            return 1;
+        else if (month.equals("February"))
+            return 2;
+
+        else if (month.equals("March"))
+            return 3;
+
+        else if (month.equals("April"))
+            return 4;
+
+        else if (month.equals("May"))
+            return 5;
+
+        else if (month.equals("June"))
+            return 6;
+
+        else if (month.equals("July"))
+            return 7;
+
+        else if (month.equals("August"))
+            return 8;
+
+        else if (month.equals("September"))
+            return 9;
+
+        else if (month.equals("October"))
+            return 10;
+
+        else if (month.equals("November"))
+            return 11;
+
+        else if (month.equals("December"))
+            return 12;
+
+        return 0;
     }
 
     public String getMonth(int month) {
@@ -361,7 +427,6 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
             cvSlider.setVisibility(View.VISIBLE);
 
             double cvHight = cvSlider.getWidth() / 2.6;
-
             clCardSlider.setMaxHeight((int) cvHight);
             clCardSlider.setMinHeight((int) cvHight);
 
@@ -374,8 +439,25 @@ public class HomeFragment extends Fragment implements HomeFragmentView, SwipeRef
             SliderAdapter sliderAdapter = new SliderAdapter(eventSliders, this, getContext());
             pv2Slider.setAdapter(sliderAdapter);
         }
+    }
 
+    private DatabaseHelper getHelper() {
+        if (databaseHelper == null) {
+            databaseHelper = OpenHelperManager.getHelper(getContext(), DatabaseHelper.class);
+        }
 
+        return databaseHelper;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (databaseHelper != null) {
+            OpenHelperManager.releaseHelper();
+        }
+
+        databaseHelper = null;
     }
 
     @Override

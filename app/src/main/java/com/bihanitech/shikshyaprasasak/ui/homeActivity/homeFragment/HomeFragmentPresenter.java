@@ -25,18 +25,23 @@ public class HomeFragmentPresenter {
     public static final String TAG = HomeFragmentPresenter.class.getSimpleName();
     HomeFragmentView homeFragmentView;
     Context context;
-    private MetaDatabaseRepo metaDatabaseRepo;
+    private final MetaDatabaseRepo metaDatabaseRepo;
     private CDSService cdsService;
 
 
-    public HomeFragmentPresenter(HomeFragmentView homeFragmentView, Context context) {
+    public HomeFragmentPresenter(HomeFragmentView homeFragmentView, Context context, MetaDatabaseRepo metaDatabaseRepo) {
         this.homeFragmentView = homeFragmentView;
         this.context = context;
+        this.metaDatabaseRepo = metaDatabaseRepo;
     }
 
     void getLocallySavedUpComingNotice() {
-
         homeFragmentView.populateHolidayList(metaDatabaseRepo.fetchLocallySavedNotice(), true);
+    }
+
+    void saveNepaliDate() {
+
+
     }
 
 
@@ -82,21 +87,23 @@ public class HomeFragmentPresenter {
             @Override
             public void onComplete(HolidayResponse response) {
                 List<Holiday> holidayList = new ArrayList<>(response.getData());
+                for (int i = 0; i < holidayList.size(); i++) {
+                    holidayList.get(i).setStartNepaliDate(homeFragmentView.dateConverterMachine(holidayList.get(i).getStart()));
+                    holidayList.get(i).setEndNepaliDate(homeFragmentView.dateConverterMachine(holidayList.get(i).getEnd()));
+                }
                 homeFragmentView.hideLoading();
-                homeFragmentView.populateHolidayList(holidayList, true);
                 saveHoliday(holidayList);
-
-
+                homeFragmentView.populateHolidayList(metaDatabaseRepo.fetchLocallySavedNotice(), true);
             }
 
             @Override
             public void onError(Exception e, int code) {
-
+                Log.d(TAG, "onError: " + e + code);
             }
 
             @Override
             public void onConnectionException(Exception e) {
-
+                Log.d(TAG, "onError: " + e);
             }
         });
     }
@@ -126,10 +133,18 @@ public class HomeFragmentPresenter {
 
     }
 
+   /* public String dateConverterMachine(String aDate) {
+        Model specificDate;
+        String[] dateParts = aDate.split("-");
+        int day = Integer.parseInt(dateParts[0]);
+        int month = Integer.parseInt(dateParts[1]);
+        int year = Integer.parseInt(dateParts[2]);
+        LightDateConverter dateConverter = new LightDateConverter();
+        specificDate = dateConverter.getNepaliDate(year, month, day);
+        return specificDate.getYear() + "-" + specificDate.getMonth() + "-" + specificDate.getDay();
+    }*/
+
     public void saveHoliday(List<Holiday> holidays) {
         metaDatabaseRepo.saveHolidayResponse(holidays);
-
     }
-
-
 }

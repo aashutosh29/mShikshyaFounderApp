@@ -28,6 +28,7 @@ public class AcademicsPresenter {
 
     public void getGraphData(String authToken, String examId) {
 
+        academicsView.showLoading();
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
         }
@@ -37,7 +38,10 @@ public class AcademicsPresenter {
             public void onComplete(AcademicResponse response) {
 
                 if (response.getStatus().equals("success")) {
-                    academicsView.loadDataOnGraph(response.getData());
+                    if (response.getData().size() == 0) {
+                        academicsView.noDataAvailable();
+                    } else
+                        academicsView.loadDataOnGraph(response.getData());
                     Log.d(TAG, "onComplete: " + response);
                 } else
                     academicsView.noDataAvailable();
@@ -47,6 +51,7 @@ public class AcademicsPresenter {
 
             @Override
             public void onError(Exception e, int code) {
+                academicsView.error(false);
 
                 Log.d(TAG, "onError: " + e);
 
@@ -54,6 +59,7 @@ public class AcademicsPresenter {
 
             @Override
             public void onConnectionException(Exception e) {
+                academicsView.error(true);
                 Log.d(TAG, "onConnectionException: " + e);
 
             }

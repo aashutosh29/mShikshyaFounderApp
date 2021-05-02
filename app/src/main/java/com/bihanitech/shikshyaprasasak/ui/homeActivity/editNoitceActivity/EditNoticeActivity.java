@@ -21,7 +21,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
-import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
 import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.student.Student;
@@ -34,6 +33,7 @@ import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoti
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeView;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
+import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.text.SimpleDateFormat;
@@ -46,14 +46,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity.token;
-
 public class EditNoticeActivity extends AppCompatActivity implements AddNoticeView {
     private static final String TAG = AddNoticeActivity.class.getSimpleName();
     final Calendar myCalendar = Calendar.getInstance();
     AddNoticePresenter addNoticePresenter;
     DatabaseHelper databaseHelper;
-    EditText edittext;
     String date;
     @BindView(R.id.ivBack)
     ImageView ivBack;
@@ -79,6 +76,11 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     @BindView(R.id.etContentBody)
     EditText etContentBody;
 
+    String title;
+    String content;
+    int id;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +100,11 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     }
 
     private void setContent() {
-        etTitle.setText(intent.getStringExtra(Constant.UNPUBLISHED_TITLE));
-        etContentBody.setText(intent.getStringExtra(Constant.UNPUBLISHED_CONTENT));
+        title = intent.getStringExtra(Constant.UNPUBLISHED_TITLE);
+        content = intent.getStringExtra(Constant.UNPUBLISHED_CONTENT);
+        id = Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID));
+        etTitle.setText(title);
+        etContentBody.setText(content);
     }
 
 
@@ -118,7 +123,6 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
                 startActivity(intent);
             }
         });
-
 
     }
 
@@ -164,12 +168,13 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
         Toast.makeText(this, "Uploaded Successfully", Toast.LENGTH_SHORT);
         etTitle.setText("");
         etContentBody.setText("");
+        addNoticePresenter.deleteLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)));
         uploaded();
     }
 
     void uploaded() {
         FragmentManager fm = getSupportFragmentManager();
-        successDFragment = SuccessDFragment.newInstance();
+        successDFragment = SuccessDFragment.newInstance(false);
         successDFragment.show(fm, "Success");
 
 
@@ -211,7 +216,7 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     @OnClick(R.id.btDelete)
     void btDeleteClicked() {
-        addNoticePresenter.deleteLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)));
+        addNoticePresenter.deleteLocally(id);
         Intent i = new Intent(EditNoticeActivity.this, NoticeUploadActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
@@ -235,8 +240,8 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     @Override
     public void deletedLocally() {
-        addNoticePresenter.deleteLocally(Integer.parseInt(intent.getStringExtra(Constant.UNPUBLISHED_ID)));
-        Toast.makeText(this, "Delete Successfully", Toast.LENGTH_SHORT).show();
+        addNoticePresenter.deleteLocally(id);
+        //Toast.makeText(this, "Delete Successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -275,7 +280,6 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     @Override
     public void ifUnChecked(List<Student> students) {
-
     }
 
     @Override
@@ -285,7 +289,10 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
 
     @Override
     public void back() {
-        onBackPressed();
+        Intent i = new Intent(EditNoticeActivity.this, NoticeUploadActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+
     }
 
     private void loadSpinner() {
@@ -297,13 +304,14 @@ public class EditNoticeActivity extends AppCompatActivity implements AddNoticeVi
     }
 
     private void addNotice() {
+
         if (click) {
             Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
         } else {
             if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
                 Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
             } else {
-                addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), "", "", "2", "[]");
+                addNoticePresenter.uploadNotice(false, sharedPrefsHelper.getValue(Constant.TOKEN, ""), "", etTitle.getText().toString(), etContentBody.getText().toString(), "", "", "2", null);
             }
         }
     }

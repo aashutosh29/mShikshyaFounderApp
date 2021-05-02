@@ -56,6 +56,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -136,7 +137,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     private PieChart pieChartStudent;
     private CurveGraphView curveGraphView;
     private DatabaseHelper databaseHelper;
-
+    String pattern = "yyyy-MM-dd";
 
     public AnalyticsFragment() {
 
@@ -173,8 +174,12 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         setAllStuffsPieChartStudentGender();
         circularChartStaffGender = view.findViewById(R.id.chCircular2Mf);
         setAllStuffsPieChartStaffGender();
-        dateNow = java.time.LocalDate.now().toString();
+        //dateNow = java.time.LocalDate.now().toString();
+        //dateNow= Instant.now().toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String dateNow = simpleDateFormat.format(new Date());
         Log.d(TAG, "onCreateView: " + dateNow);
+
         analyticsPresenter.getAttendanceReport(sharedPrefsHelper.getValue(Constant.TOKEN, ""), dateNow);
         tvDate.setText(dateNow);
 
@@ -577,19 +582,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         ArrayList<PieEntry> entries = new ArrayList<>();
         //entries.add(new PieEntry(5f,3), new PieEntry(5,9));
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-//        No internet
-//        No internet
-//
-//        Try:
-//        Running Windows Network Diagnostics
-//        Changing DNS over HTTPS settings
-//                DNS_PROBE_FINISHED_NO_INTERNET
-//        Check your DNS over HTTPS settings
-//        Go to Opera > Preferences… > System > Use DNS-over-HTTPS instead of the system’s DNS settings and check your DNS-over-HTTPS provider.
-//
-//                kanboard.bihanitech.components
+
 
        /* for (int i = 0; i < 2; i++) {
 

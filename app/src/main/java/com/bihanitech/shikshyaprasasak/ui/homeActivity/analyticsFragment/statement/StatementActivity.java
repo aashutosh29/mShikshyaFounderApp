@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.adapter.StatementAdapter;
 import com.bihanitech.shikshyaprasasak.model.TitleWise;
+import com.bihanitech.shikshyaprasasak.utility.Constant;
+import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +31,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity.token;
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.AnalyticsPresenter.TAG;
 
 public class StatementActivity extends AppCompatActivity implements StatementView {
@@ -63,6 +64,8 @@ public class StatementActivity extends AppCompatActivity implements StatementVie
     Context context;
     StatementPresenter statementPresenter;
 
+    SharedPrefsHelper sharedPrefsHelper;
+
     String from;
     String to;
     ProgressDialog dialog;
@@ -72,6 +75,7 @@ public class StatementActivity extends AppCompatActivity implements StatementVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statement);
         ButterKnife.bind(this);
+        sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         context = StatementActivity.this;
         dialog = new ProgressDialog(this);
         statementPresenter = new StatementPresenter(this);
@@ -108,7 +112,7 @@ public class StatementActivity extends AppCompatActivity implements StatementVie
                 Log.d(TAG, "updateLabel: " + sdf.format(myCalendar.getTime()));
                 to = sdf.format(myCalendar.getTime());
                 tvDateTo.setText(to);
-                statementPresenter.populateStatementRecord(token, from, to);
+                statementPresenter.populateStatementRecord(sharedPrefsHelper.getValue(Constant.TOKEN, ""), from, to);
             }
 
         };

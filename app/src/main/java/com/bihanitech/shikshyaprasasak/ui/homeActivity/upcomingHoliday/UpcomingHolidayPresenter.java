@@ -1,54 +1,45 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.upcomingHoliday;
 
 import com.bihanitech.shikshyaprasasak.model.holiday.Holiday;
-import com.bihanitech.shikshyaprasasak.model.holiday.HolidayResponse;
-import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
-import com.bihanitech.shikshyaprasasak.remote.CDSService;
-import com.bihanitech.shikshyaprasasak.remote.RequestHandler;
+import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-
 public class UpcomingHolidayPresenter {
 
+    private final MetaDatabaseRepo metaDatabaseRepo;
     UpcomingHolidayView upcomingHolidayView;
-    CDSService cdsService;
 
-    public UpcomingHolidayPresenter(UpcomingHolidayView upcomingHolidayView) {
+    public UpcomingHolidayPresenter(UpcomingHolidayView upcomingHolidayView, MetaDatabaseRepo metaDatabaseRepo) {
         this.upcomingHolidayView = upcomingHolidayView;
+        this.metaDatabaseRepo = metaDatabaseRepo;
     }
 
-    public void getHoliday(String authToken) {
-        if (cdsService == null) {
-            cdsService = ApiUtils.getDummyCDSService();
+    public void getHoliday(String fetchDate) {
+
+        fetchDate = fetchDate.split("-")[0] + "-" +
+                fetchDate.split("-")[1];
+        List<Holiday> holidayList = new ArrayList<>(metaDatabaseRepo.fetchLocallySavedNotice());
+
+        List<Holiday> filterHolidayList = new ArrayList<>();
+        for (Holiday holiday : holidayList) {
+            if (fetchDate.equalsIgnoreCase(holiday.getStartNepaliDate().split("-")[0] + "-" +
+                    holiday.getStartNepaliDate().split("-")[1])) {
+
+                filterHolidayList.add(holiday);
+            }
         }
 
-        Observable<HolidayResponse> called = cdsService.getUpComingHoliday("Bearer" + authToken);
-        RequestHandler.asyncTask(called, new RequestHandler.RetroReactiveCallBack<HolidayResponse>() {
-            @Override
-            public void onComplete(HolidayResponse response) {
-                upcomingHolidayView.onComplete();
-                List<Holiday> holidayList = new ArrayList<>(response.getData());
-                if (holidayList.size() == 0) {
-                    upcomingHolidayView.showNoDataFound();
-                }
-                upcomingHolidayView.populateHolidayList(holidayList);
-            }
 
-            @Override
-            public void onError(Exception e, int code) {
-                upcomingHolidayView.showNetworkError();
+        if (filterHolidayList.size() == 0) {
+            upcomingHolidayView.showNoDataFound();
+        }
 
-            }
 
-            @Override
-            public void onConnectionException(Exception e) {
-                upcomingHolidayView.showServerError();
+        upcomingHolidayView.populateHolidayList(filterHolidayList);
 
-            }
-        });
     }
+
 
 }

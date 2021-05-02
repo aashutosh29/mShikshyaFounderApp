@@ -11,4 +11,8 @@ public interface AcademicsView {
     void getExams(List<ExamName> examList);
 
     void noDataAvailable();
+
+    void error(boolean isNetworkError);
+
+    void showLoading();
 }

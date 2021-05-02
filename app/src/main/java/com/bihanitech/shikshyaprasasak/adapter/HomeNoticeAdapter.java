@@ -49,9 +49,93 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<HomeNoticeAdapter.Ho
     public void onBindViewHolder(@NonNull HomeNoticeAdapter.HomeNoticeViewHolder holder, final int position) {
         //holder.tvMonthEvent.setText(String.valueOf());
         //holder.tvDateEvent.setText();
+
+        String[] dateParts = holidayList.get(position).getStartNepaliDate().split("-");
+        String[] datePartsEnd = holidayList.get(position).getEndNepaliDate().split("-");
+
+        String year = dateParts[0];
+        String yearEnd = datePartsEnd[0];
+        String sMonth;
+        String sMonthEnd;
+        int month = Integer.parseInt(dateParts[1].trim());
+        int monthEnd = Integer.parseInt(datePartsEnd[1].trim());
+
+        String day = dateParts[2];
+        String dayEnd = datePartsEnd[2];
+        if (month == 0) {
+            sMonth = "Baisakh";
+        } else if (month == 1) {
+            sMonth = "Jestha)";
+        } else if (month == 2) {
+            sMonth = "Ashar";
+
+        } else if (month == 3) {
+            sMonth = "Shrawan";
+
+        } else if (month == 4) {
+            sMonth = "Bhadra";
+
+        } else if (month == 5) {
+            sMonth = "Ashoj";
+
+        } else if (month == 6) {
+            sMonth = "Kartik";
+
+        } else if (month == 7) {
+            sMonth = "Mangsir";
+
+        } else if (month == 8) {
+            sMonth = "Poush";
+
+        } else if (month == 9) {
+            sMonth = "Magh";
+
+        } else if (month == 10) {
+            sMonth = "Falgun";
+
+        } else {
+            sMonth = "Chaitra";
+        }
+
+        if (monthEnd == 0) {
+            sMonthEnd = "Baisakh";
+        } else if (monthEnd == 1) {
+            sMonthEnd = "Jestha)";
+        } else if (monthEnd == 2) {
+            sMonthEnd = "Ashar";
+
+        } else if (monthEnd == 3) {
+            sMonthEnd = "Shrawan";
+
+        } else if (monthEnd == 4) {
+            sMonthEnd = "Bhadra";
+
+        } else if (monthEnd == 5) {
+            sMonthEnd = "Ashoj";
+
+        } else if (monthEnd == 6) {
+            sMonthEnd = "Kartik";
+
+        } else if (monthEnd == 7) {
+            sMonthEnd = "Mangsir";
+
+        } else if (monthEnd == 8) {
+            sMonthEnd = "Poush";
+
+        } else if (monthEnd == 9) {
+            sMonthEnd = "Magh";
+
+        } else if (monthEnd == 10) {
+            sMonthEnd = "Falgun";
+
+        } else {
+            sMonthEnd = "Chaitra";
+        }
+
+
         holder.tvTitle1s.setText(holidayList.get(position).getTitle());
-        holder.tvStart.setText(holidayList.get(position).getStart());
-        holder.tvEnd.setText(holidayList.get(position).getEnd());
+        holder.tvStart.setText(sMonth + " " + day + ", " + year);
+        holder.tvEnd.setText(sMonthEnd + " " + dayEnd + ", " + year);
         //holder.tvDetail1s.setText(Html.fromHtml(noticeList.get(position).getContent()));
 
     }
@@ -79,4 +163,6 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<HomeNoticeAdapter.Ho
             ButterKnife.bind(this, itemView);
         }
     }
+
+
 }

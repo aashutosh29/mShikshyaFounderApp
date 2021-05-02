@@ -30,7 +30,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.adapter.StudentDetailsAdapter;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
-import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
 import com.bihanitech.shikshyaprasasak.model.Classes;
 import com.bihanitech.shikshyaprasasak.model.Section;
 import com.bihanitech.shikshyaprasasak.model.student.Student;
@@ -39,6 +38,7 @@ import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.SuccessDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
+import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import java.text.SimpleDateFormat;
@@ -52,7 +52,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity.token;
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticePresenter.studentList1;
 
 public class AddNoticeActivity extends AppCompatActivity implements AddNoticeView {
@@ -150,7 +149,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             public void onClick(View view) {
                 int j = studentList1.size();
                 List<Student> studentArrayList = new ArrayList<>();
-                String studentId = "";
+                String[] studentId = new String[600];
                 for (int i = 0; i < j; i++) {
                     if (studentList1.get(i).getCheckStatus()) {
                         studentArrayList.add(studentList1.get(i));
@@ -159,24 +158,25 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                 int k = studentArrayList.size();
                 String finalJson = "";
                 for (int i = 0; i < k; i++) {
-                    studentId = studentId + "\"" + studentArrayList.get(i).getRegno() + "\",";
+                    //studentId = studentId + "\"" + studentArrayList.get(i).getRegno() + "\",";
+                    studentId[i] = studentArrayList.get(i).getRegno();
                 }
-                if (studentId.length() > 0) {
+                /*if (studentId.length() > 0) {
                     studentId = studentId.substring(0, (studentId.length() - 1));
                 }
-                finalJson = "[" + studentId + "]";
+                finalJson = "[" + studentId + "]";*/
 
                 if (click) {
                     Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
                 } else {
                     if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
-                        Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Please enter full notice", Toast.LENGTH_SHORT).show();
                     } else if (studentArrayList.size() == 0) {
-                        Toast.makeText(context, "Please Select Student", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Please select students", Toast.LENGTH_SHORT).show();
                     } else {
                         Log.d(TAG, "onClick: non-filtered" + studentList1.size());
                         Log.d(TAG, "onClick: filtered" + studentArrayList.size());
-                        addNoticePresenter.uploadNotice(false, token, grade, etTitle.getText().toString(), etContentBody.getText().toString(), "", section, String.valueOf(spCategory.getSelectedItemPosition() + 1), finalJson);
+                        addNoticePresenter.uploadNotice(false, sharedPrefsHelper.getValue(Constant.TOKEN, ""), grade, etTitle.getText().toString(), etContentBody.getText().toString(), "", section, String.valueOf(spCategory.getSelectedItemPosition() + 1), studentId);
                         click = true;
                     }
                 }
@@ -255,7 +255,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
 
     void Uploaded() {
         FragmentManager fm = getSupportFragmentManager();
-        successDFragment = SuccessDFragment.newInstance();
+        successDFragment = SuccessDFragment.newInstance(true);
         successDFragment.show(fm, "Success");
 
 
@@ -267,7 +267,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
             Toast.makeText(this, "Already saved", Toast.LENGTH_SHORT).show();
         } else {
             if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
-                Toast.makeText(this, "please Enter full notice", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please enter full notice", Toast.LENGTH_SHORT).show();
             } else {
                 addNoticePresenter.saveLocally(etTitle.getText().toString(), etContentBody.getText().toString(), spCategory.getSelectedItemPosition() + 1);
                 click = true;
@@ -325,14 +325,15 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     }
 
     private void addNotice() {
+
         if (click) {
             Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
         } else {
             if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
-                Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Please enter full information", Toast.LENGTH_SHORT).show();
             } else {
 
-                addNoticePresenter.uploadNotice(false, token, "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1), "[]");
+                addNoticePresenter.uploadNotice(false, sharedPrefsHelper.getValue(Constant.TOKEN, ""), "", etTitle.getText().toString(), etContentBody.getText().toString(), date, "", String.valueOf(spCategory.getSelectedItemPosition() + 1), null);
             }
         }
     }
@@ -376,7 +377,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
                     @Override
                     public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                         section = sectionList.get(position).getClassID();
-                        addNoticePresenter.getStudents(grade, section, token);
+                        addNoticePresenter.getStudents(grade, section, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
                     }
 
                     @Override
@@ -461,7 +462,7 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     public void showError() {
         tvAllChecked.setVisibility(View.GONE);
         tvError.setVisibility(View.VISIBLE);
-        tvError.setText("Something Went Wrong");
+        tvError.setText("Something went wrong");
         loadingPanel.setVisibility(View.INVISIBLE);
     }
 
@@ -495,39 +496,41 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
         btSubmitNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int j = students.size();
+                int j = studentList1.size();
                 List<Student> studentArrayList = new ArrayList<>();
-                String studentId = "";
+                String[] studentId = new String[600];
                 for (int i = 0; i < j; i++) {
-                    if (students.get(i).getCheckStatus()) {
-                        studentArrayList.add(students.get(i));
+                    if (studentList1.get(i).getCheckStatus()) {
+                        studentArrayList.add(studentList1.get(i));
                     }
                 }
                 int k = studentArrayList.size();
                 String finalJson = "";
-                for (int i = 0; i < k; i++) {
-                    studentId = studentId + "\"" + studentArrayList.get(i).getRegno() + "\",";
+                if (k > 0) {
+                    for (int i = 0; i < k; i++) {
+                        //studentId = studentId + "\"" + studentArrayList.get(i).getRegno() + "\",";
+                        studentId[i] = studentArrayList.get(i).getRegno();
+                    }
                 }
-                if (studentId.length() > 0) {
+                /*if (studentId.length() > 0) {
                     studentId = studentId.substring(0, (studentId.length() - 1));
                 }
-                finalJson = "[" + studentId + "]";
+                finalJson = "[" + studentId + "]";*/
 
                 if (click) {
                     Toast.makeText(context, "Already Uploaded", Toast.LENGTH_SHORT).show();
                 } else {
                     if (etTitle.getText().toString().length() <= 3 && etContentBody.getText().toString().length() <= 3) {
-                        Toast.makeText(context, "please Enter full notice", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Please enter full notice", Toast.LENGTH_SHORT).show();
                     } else if (studentArrayList.size() == 0) {
-                        Toast.makeText(context, "Please Select Student", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Please select students", Toast.LENGTH_SHORT).show();
                     } else {
-                        Log.d(TAG, "onClick: non-filtered" + students.size());
+                        Log.d(TAG, "onClick: non-filtered" + studentList1.size());
                         Log.d(TAG, "onClick: filtered" + studentArrayList.size());
-                        addNoticePresenter.uploadNotice(false, token, grade, etTitle.getText().toString(), etContentBody.getText().toString(), "", section, String.valueOf(spCategory.getSelectedItemPosition() + 1), finalJson);
+                        addNoticePresenter.uploadNotice(false, sharedPrefsHelper.getValue(Constant.TOKEN, ""), grade, etTitle.getText().toString(), etContentBody.getText().toString(), "", section, String.valueOf(spCategory.getSelectedItemPosition() + 1), studentId);
                         click = true;
                     }
                 }
-
             }
         });
     }
@@ -535,6 +538,5 @@ public class AddNoticeActivity extends AppCompatActivity implements AddNoticeVie
     @Override
     public void back() {
         onBackPressed();
-        deletedLocally();
     }
 }

@@ -103,7 +103,12 @@ public interface CDSService {
     Observable<List<ClassDueReport>> getClassDueReport(@Header("Authorization") String authToken);
 
     @POST("publicNotice")
-    Observable<UploadResponse> sendNoticeToServer(@Header("Authorization") String authToken, @Query("title") String title, @Query("content") String content, @Query("type") int type, @Query("section") String section, @Query("class") String class_, @Query("regnos") String regno);
+    Observable<UploadResponse> sendNoticeToServer(@Header("Authorization") String authToken, @Query("title") String title, @Query("content") String content, @Query("type") int type, @Query("section") String section, @Query("class") String class_, @Query("regnos[]") String[] regno);
+
+
+    @POST("publicNotice")
+    Observable<UploadResponse> sendNoticeToServerWithOutRegNo(@Header("Authorization") String authToken, @Query("title") String title, @Query("content") String content, @Query("type") int type, @Query("section") String section, @Query("class") String class_);
+
 
     @GET("v2/getSchoolResult")
     Observable<AcademicResponse> getAcademicBarData(@Header("Authorization") String authToken, @Query("exam_id") String examId);

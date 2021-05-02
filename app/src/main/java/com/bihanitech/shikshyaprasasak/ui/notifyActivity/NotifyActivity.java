@@ -18,13 +18,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.adapter.NotifyAdapter;
-import com.bihanitech.shikshyaprasasak.database.SharedPrefsHelper;
 import com.bihanitech.shikshyaprasasak.model.Notify;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.ProgressDFragment;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.HomeActivity;
 import com.bihanitech.shikshyaprasasak.utility.Constant;
 import com.bihanitech.shikshyaprasasak.utility.SpinKit.SpinKitView;
+import com.bihanitech.shikshyaprasasak.utility.sharedPreference.SharedPrefsHelper;
 
 import java.util.ArrayList;
 import java.util.List;

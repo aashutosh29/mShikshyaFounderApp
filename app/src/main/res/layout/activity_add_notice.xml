@@ -137,8 +137,9 @@
                 <EditText
                     android:id="@+id/etContentBody"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/bg_edit_text"
+                    android:gravity="left"
                     android:hint="Enter notice details"
                     android:padding="@dimen/_8sdp"
                     app:layout_constraintTop_toTopOf="parent" />

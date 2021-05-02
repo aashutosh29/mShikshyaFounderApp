@@ -22,4 +22,6 @@ public interface HomeFragmentView {
     void populateSliderList(List<EventSlider> body);
 
     void sliderItemClicked(EventSlider eventSlider);
+
+    String dateConverterMachine(String date);
 }

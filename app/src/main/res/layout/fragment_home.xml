@@ -101,11 +101,7 @@
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@id/tvTodayMonth"
                             app:layout_constraintEnd_toEndOf="@id/tvTodayMonth" />
-
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
                 </androidx.cardview.widget.CardView>
 
 
@@ -115,7 +111,6 @@
                     android:layout_height="@dimen/_160sdp"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-
                     android:layout_marginEnd="@dimen/_12sdp"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="0dp"
@@ -200,20 +195,19 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-
+                                <!--here-->
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_marginHorizontal="@dimen/_6sdp"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:layout_marginBottom="@dimen/_12sdp"
+                                    android:visibility="visible"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintTop_toTopOf="parent">
 
                                     <ImageView
                                         android:id="@+id/ivLoadingNotices"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:scaleType="fitXY"
                                         android:src="@drawable/ic_loading_notices"
                                         android:visibility="visible"
                                         app:layout_constraintBottom_toBottomOf="parent"
@@ -292,10 +286,20 @@
 
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                                <ImageView
+                                    android:id="@+id/ivBlueBar"
+                                    android:layout_width="@dimen/_4sdp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/ic_noticebg"
+                                    android:visibility="gone"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
                                 <com.bihanitech.shikshyaprasasak.adapter.ClickableViewPager
                                     android:id="@+id/vpNotice"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -624,169 +628,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent" />
-
-
-                        <!--
-                                            <androidx.cardview.widget.CardView
-                                                android:id="@+id/cvNoticeOnes"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_margin="8dp"
-                                                android:background="@drawable/custom_ripple"
-                                                android:clickable="true"
-                                                android:visibility="visible"
-                                                app:cardCornerRadius="8dp"
-                                                app:cardElevation="0dp"
-                                                app:layout_constraintTop_toBottomOf="@id/tvUpComingEvent">
-
-                                                <androidx.constraintlayout.widget.ConstraintLayout
-                                                    android:id="@+id/cvNotice1s"
-                                                    android:layout_width="match_parent"
-                                                    android:layout_height="match_parent"
-
-                                                    >
-
-                                                    <TextView
-                                                        android:id="@+id/tvDateEvent"
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:text="12"
-                                                        android:textColor="@color/FounderBlue"
-                                                        android:textSize="26sp"
-                                                        android:textStyle="bold"
-                                                        app:layout_constraintBottom_toTopOf="@id/tvMonthEvent"
-                                                        app:layout_constraintEnd_toEndOf="@id/tvMonthEvent"
-                                                        app:layout_constraintStart_toStartOf="@id/tvMonthEvent" />
-
-                                                    <TextView
-                                                        android:id="@+id/tvMonthEvent"
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:layout_marginBottom="8dp"
-                                                        android:text="@string/Baisakh"
-                                                        android:textSize="12sp"
-                                                        app:layout_constraintBottom_toBottomOf="parent"
-                                                        app:layout_constraintEnd_toStartOf="@id/tvTitle1s"
-                                                        app:layout_constraintStart_toStartOf="parent" />
-
-                                                    <TextView
-                                                        android:id="@+id/tvTitle1s"
-                                                        android:layout_width="0dp"
-                                                        android:layout_height="wrap_content"
-                                                        android:layout_marginStart="8dp"
-                                                        android:layout_marginTop="8dp"
-                                                        android:layout_marginEnd="8dp"
-                                                        android:maxLines="2"
-                                                        android:text="Title no 1 for notice no 1"
-                                                        android:textColor="#3c3c3c"
-                                                        android:textStyle="bold"
-                                                        app:layout_constraintEnd_toEndOf="parent"
-                                                        app:layout_constraintTop_toTopOf="parent"
-                                                        app:layout_constraintWidth_percent="0.80" />
-                                                    &lt;!&ndash;<ImageView
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="match_parent"
-                                                        app:layout_constraintEnd_toStartOf="@id/tvTitle1s"
-                                                        />&ndash;&gt;
-
-
-                                                    <TextView
-                                                        android:id="@+id/tvDetail1s"
-                                                        android:layout_width="0dp"
-                                                        android:layout_height="wrap_content"
-                                                        android:layout_marginTop="4dp"
-                                                        android:layout_marginBottom="4dp"
-                                                        android:text="This is a general notice for all the students and parent to meet at school ..."
-                                                        android:textColor="#6c6c6c"
-                                                        android:textSize="13sp"
-                                                        app:layout_constraintBottom_toBottomOf="parent"
-                                                        app:layout_constraintEnd_toEndOf="@id/tvTitle1s"
-                                                        app:layout_constraintStart_toStartOf="@id/tvTitle1s"
-                                                        app:layout_constraintTop_toBottomOf="@id/tvTitle1s" />
-
-                                                </androidx.constraintlayout.widget.ConstraintLayout>
-                                            </androidx.cardview.widget.CardView>
-
-
-                                            <androidx.cardview.widget.CardView
-                                                android:id="@+id/cvNoticeTwos"
-
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_margin="8dp"
-                                                android:background="@drawable/custom_ripple"
-                                                android:clickable="true"
-                                                android:visibility="visible"
-                                                app:cardCornerRadius="8dp"
-                                                app:cardElevation="0dp"
-                                                app:layout_constraintTop_toBottomOf="@id/cvNoticeOnes">
-
-                                                <androidx.constraintlayout.widget.ConstraintLayout
-                                                    android:id="@+id/cvNotice2s"
-                                                    android:layout_width="match_parent"
-                                                    android:layout_height="match_parent">
-
-                                                    <TextView
-                                                        android:id="@+id/tvDateEvent2"
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:text="16"
-                                                        android:textColor="@color/FounderBlue"
-                                                        android:textSize="26sp"
-                                                        android:textStyle="bold"
-                                                        app:layout_constraintBottom_toTopOf="@id/tvMonthEvent2"
-                                                        app:layout_constraintEnd_toEndOf="@id/tvMonthEvent2"
-                                                        app:layout_constraintStart_toStartOf="@id/tvMonthEvent2" />
-
-                                                    <TextView
-                                                        android:id="@+id/tvMonthEvent2"
-                                                        android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:layout_marginBottom="8dp"
-                                                        android:text="@string/Baisakh"
-                                                        android:textSize="12sp"
-                                                        app:layout_constraintBottom_toBottomOf="parent"
-                                                        app:layout_constraintEnd_toStartOf="@id/tvTitle2s"
-                                                        app:layout_constraintStart_toStartOf="parent" />
-
-                                                    <TextView
-                                                        android:id="@+id/tvTitle2s"
-                                                        android:layout_width="0dp"
-                                                        android:layout_height="wrap_content"
-                                                        android:layout_marginStart="8dp"
-                                                        android:layout_marginTop="8dp"
-                                                        android:layout_marginEnd="8dp"
-                                                        android:maxLines="2"
-                                                        android:text="School will remain closed until.... "
-                                                        android:textColor="#3c3c3c"
-                                                        android:textStyle="bold"
-                                                        app:layout_constraintEnd_toEndOf="parent"
-                                                        app:layout_constraintTop_toTopOf="parent"
-                                                        app:layout_constraintWidth_percent="0.80" />
-
-
-                                                    <TextView
-                                                        android:id="@+id/tvDetail2s"
-                                                        android:layout_width="0dp"
-                                                        android:layout_height="wrap_content"
-                                                        android:layout_marginTop="4dp"
-                                                        android:layout_marginBottom="4dp"
-                                                        android:text="After the final exam completed and the spread of world wide virus in Nepal also, for the security...."
-                                                        android:textColor="#6c6c6c"
-                                                        android:textSize="13sp"
-                                                        app:layout_constraintEnd_toEndOf="@id/tvTitle2s"
-                                                        app:layout_constraintStart_toStartOf="@id/tvTitle2s"
-                                                        app:layout_constraintTop_toBottomOf="@id/tvTitle2s" />
-
-                                                    <View
-                                                        android:layout_width="1dp"
-                                                        android:layout_height="1dp"
-                                                        android:layout_marginTop="8dp"
-                                                        app:layout_constraintStart_toStartOf="parent"
-                                                        app:layout_constraintTop_toBottomOf="@id/tvDetail2s" />
-                                                </androidx.constraintlayout.widget.ConstraintLayout>
-                                            </androidx.cardview.widget.CardView>-->
-
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/clNoNotices"

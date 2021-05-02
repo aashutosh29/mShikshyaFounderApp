@@ -29,14 +29,21 @@ public class AddNoticePresenter {
         this.metaDatabaseRepo = metaDatabaseRepo;
     }
 
-    public void uploadNotice(Boolean isEdit, String authToken, String grade, String title, String content, String publishOn, String section, String category, String regNo) {
+    public void uploadNotice(Boolean isEdit, String authToken, String grade, String title, String content, String publishOn, String section, String category, String[] regNo) {
 
         if (cdsService == null) {
             cdsService = ApiUtils.getDummyCDSService();
 
         }
+
+
         addNoticeView.showLoading();
-        Observable<UploadResponse> call = cdsService.sendNoticeToServer("Bearer " + authToken, title, content, /*Integer.parseInt(category)*/2, section, grade, regNo);
+        Observable<UploadResponse> call;
+        if (regNo == null) {
+            call = cdsService.sendNoticeToServerWithOutRegNo("Bearer " + authToken, title, content, /*Integer.parseInt(category)*/2, section, grade);
+        } else {
+            call = cdsService.sendNoticeToServer("Bearer " + authToken, title, content, /*Integer.parseInt(category)*/2, section, grade, regNo);
+        }
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<UploadResponse>() {
             @Override
             public void onComplete(UploadResponse response) {
@@ -48,16 +55,16 @@ public class AddNoticePresenter {
             @Override
             public void onError(Exception e, int code) {
                 addNoticeView.showCantUpload();
-                if (!(grade.equals("")))
-                    addNoticeView.saveNoticeLocally();
+                //if ((grade.equals("")))
+                //addNoticeView.saveNoticeLocally();
 
             }
 
             @Override
             public void onConnectionException(Exception e) {
                 addNoticeView.showNetworkError();
-                if (!(grade.equals("")))
-                    addNoticeView.saveNoticeLocally();
+                //if (!(grade.equals("")))
+                //addNoticeView.saveNoticeLocally();
             }
         });
 
@@ -75,7 +82,7 @@ public class AddNoticePresenter {
 
     public void deleteLocally(int id) {
         metaDatabaseRepo.deleteUnpublishedNotice(id);
-        addNoticeView.deletedLocally();
+        //addNoticeView.deletedLocally();
     }
 
     void getSpinnerData() {
@@ -105,7 +112,6 @@ public class AddNoticePresenter {
                 if (studentList.size() > 0) {
                     studentList1.addAll(studentList);
                 }
-
                 addNoticeView.hideLoadingForStudent();
                 addNoticeView.populateStudentList(studentList, false);
             }

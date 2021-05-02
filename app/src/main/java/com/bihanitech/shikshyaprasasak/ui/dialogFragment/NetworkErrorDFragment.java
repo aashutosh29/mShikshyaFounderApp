@@ -74,11 +74,11 @@ public class NetworkErrorDFragment extends DialogFragment {
         errorType = getArguments().getInt(Constant.ERROR_TYPE);
         errorSource = getArguments().getString(Constant.ERROR_SOURCE);
         if (errorType == 1) {
-            tvTitle.setText("Some things happens");
+            tvTitle.setText("Something went wrong");
             tvLabele2.setText("Please retry or report to school if it continues");
             ivNetwork.setImageDrawable(serverError);
         } else if (errorType == 2) {
-            tvTitle.setText("Some things happens");
+            tvTitle.setText("Something went wrong");
             tvLabele2.setText("No internet connection please connect to internet");
             ivNetwork.setImageDrawable(serverError);
         }

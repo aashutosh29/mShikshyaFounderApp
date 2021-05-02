@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/FounderBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -61,90 +62,183 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/slUpcomingHoliday"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_rounded"
+        android:backgroundTint="@color/FounderBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarNew">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#f3f3f3">
+        <ImageView
+            android:id="@+id/btLeft"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:padding="@dimen/_3sdp"
+            android:src="@drawable/ic_chevron_left_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="n/a"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/ivError"
-                    android:layout_width="@dimen/_64sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:src="@drawable/ic_sunset"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvErrorTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:alpha="0.8"
-                    android:text="OPPS!"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@id/ivError"
-                    app:layout_constraintStart_toStartOf="@id/ivError"
-                    app:layout_constraintTop_toBottomOf="@id/ivError" />
-
-                <TextView
-                    android:id="@+id/tvErrorSubTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:alpha="0.60"
-                    android:text="No holiday data available"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="@id/tvErrorTitle"
-                    app:layout_constraintStart_toStartOf="@id/tvErrorTitle"
-                    app:layout_constraintTop_toBottomOf="@id/tvErrorTitle" />
-
-                <Button
-                    android:id="@+id/btRetry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:background="@drawable/bg_button"
-                    android:minHeight="0dp"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:text="Retry"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="@id/tvErrorSubTitle"
-                    app:layout_constraintStart_toStartOf="@id/tvErrorSubTitle"
-                    app:layout_constraintTop_toBottomOf="@id/tvErrorSubTitle" />
+        <ImageView
+            android:id="@+id/btRight"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_3sdp"
+            android:padding="@dimen/_3sdp"
+            android:src="@drawable/ic_chevron_right_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvUpComingNotice"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:background="#f3f3f3" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/slUpcomingHoliday"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@color/FounderBg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cvTitle"
+        app:layout_constraintStart_toStartOf="@id/cvTitle"
+        app:layout_constraintTop_toBottomOf="@id/cvTitle">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUpComingNotice"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/FounderBg"
+            android:padding="@dimen/_3sdp" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clEmpty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_3sdp"
+        android:background="@color/FounderBg"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cvTitle"
+        app:layout_constraintStart_toStartOf="@id/cvTitle"
+        app:layout_constraintTop_toBottomOf="@id/cvTitle">
+
+        <ImageView
+            android:id="@+id/ivEmpty"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/ic_error_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".4" />
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="No holiday Available"
+            android:textAlignment="center"
+            android:textColor="#4c4c4c"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivEmpty"
+            app:layout_constraintWidth_percent=".5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvTitle">
+
+        <ImageView
+            android:id="@+id/ivError"
+            android:layout_width="@dimen/_64sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:src="@drawable/ic_sunset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvErrorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:alpha="0.8"
+            android:text="OPPS!"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/ivError"
+            app:layout_constraintStart_toStartOf="@id/ivError"
+            app:layout_constraintTop_toBottomOf="@id/ivError" />
+
+        <TextView
+            android:id="@+id/tvErrorSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:alpha="0.60"
+            android:text="No holiday data available"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@id/tvErrorTitle"
+            app:layout_constraintStart_toStartOf="@id/tvErrorTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvErrorTitle" />
+
+        <Button
+            android:id="@+id/btRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:background="@drawable/bg_button"
+            android:minHeight="0dp"
+            android:paddingVertical="@dimen/_8sdp"
+            android:text="Retry"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/tvErrorSubTitle"
+            app:layout_constraintStart_toStartOf="@id/tvErrorSubTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvErrorSubTitle" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--rvUpComingNotice-->
+
+    <!--slUpcomingHoliday-->

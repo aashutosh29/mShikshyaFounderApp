@@ -36,7 +36,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
 
     private static final String TAG = HomeActivity.class.getSimpleName();
-    public static String token;
     @BindView(R.id.bnNavigation)
     BottomNavigationView bnNavigation;
     /* @BindView(R.id.ivNewCircle)
@@ -61,17 +60,18 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
-        token = sharedPrefsHelper.getValue(Constant.TOKEN, "");
 
         homePresenter = new HomePresenter(new MetaDatabaseRepo(getDatabaseHelper()), this);
         homePresenter.getStudentsList();
 
 
-        Log.d(TAG, "onCreate: " + token);
-
         fm = getSupportFragmentManager();
         loadFragment(new HomeFragment());
         setUpBottomNavigation();
+
+
+
+
         /*ivNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
