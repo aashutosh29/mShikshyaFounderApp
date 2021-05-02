@@ -1,4 +1,4 @@
-package com.bihanitech.shikshyaprasasak.curveGraph;
+package com.bihanitech.shikshyaprasasak.curveGraph.models;
 
 import android.content.Context;
 import android.util.Log;
@@ -19,6 +19,11 @@ public class CustomMarkerView extends MarkerView {
 
     @BindView(R.id.tvContent)
     TextView tvContent;
+
+    @BindView(R.id.tvTotal)
+    TextView tvTotal;
+
+
     private MPPointF mOffset;
 
 
@@ -33,24 +38,19 @@ public class CustomMarkerView extends MarkerView {
     // content (user-interface)
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-
+        Log.d(TAG, "Aashutosh: " + highlight.getStackIndex() + " " + highlight.getDataSetIndex() + " " + highlight.getDataIndex() + " " + highlight.getY() + " " + e.getData());
         String data = e.getData().toString();
+        Log.d(TAG, "refreshContent: " + e);
         String dataNew = data.substring(1, data.length() - 1);
         String[] list = dataNew.split(", ");
-       /* char[] ch = new char[40];
-        char[] newCh = new char[40];
-        for (int i = 0; i < ch.length; i++) {
-            ch[i] = data.charAt(i);
-        }
-        for (int i = 1; i < ch.length - 1; i++) {
-            ch[i] = newCh[i];
-        }*/
-
+        String[] scoreAndTotal = list[highlight.getStackIndex()].split("@");
         Log.d(TAG, "refreshContent: " + dataNew);
         //tvContent.setText("" + highlight.getStackIndex() + e.getData());
-        super.refreshContent(e, highlight);
-        tvContent.setText(list[highlight.getStackIndex()]);
 
+        //tvContent.setText(list[highlight.getStackIndex()]);
+        tvContent.setText(scoreAndTotal[0]);
+        tvTotal.setText(scoreAndTotal[1]);
+        super.refreshContent(e, highlight);
         // set the entry-value as the display text
     }
 
@@ -65,4 +65,3 @@ public class CustomMarkerView extends MarkerView {
         return mOffset;
     }
 }
-

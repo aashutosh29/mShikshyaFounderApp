@@ -20,7 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.bihanitech.shikshyaprasasak.R;
-import com.bihanitech.shikshyaprasasak.curveGraph.CustomMarkerView;
+import com.bihanitech.shikshyaprasasak.curveGraph.models.CustomMarkerView;
 import com.bihanitech.shikshyaprasasak.database.DatabaseHelper;
 import com.bihanitech.shikshyaprasasak.model.ExamName;
 import com.bihanitech.shikshyaprasasak.model.acedamics.ClassData;
@@ -242,19 +242,21 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         tvError.setVisibility(View.GONE);
         loadingPanel.setVisibility(View.GONE);
         classificationXAxisValue = new ArrayList<>();
-        gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
-        gradeAndDivisionGroupStudentGradeName = new ArrayList<>();
+
         //values = null;
         for (int i = 0; i < data.size(); i++) {
             classificationXAxisValue.add(data.get(i).getClass_());
+            gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
+            gradeAndDivisionGroupStudentGradeName = new ArrayList<>();
             for (int j = 0; j < data.get(i).getData().size(); j++) {
                 gradeAndDivisionGroupStudentYAxisValue.add(data.get(i).getData().get(j).getCount().floatValue());
-                gradeAndDivisionGroupStudentGradeName.add(data.get(i).getData().get(j).getGrade());
+                gradeAndDivisionGroupStudentGradeName.add(data.get(i).getData().get(j).getGrade() + "@" + data.get(i).getData().get(j).getCount().floatValue());
             }
             float[] list = new float[gradeAndDivisionGroupStudentYAxisValue.size()];
             for (int k = 0; k < gradeAndDivisionGroupStudentYAxisValue.size(); k++) {
                 list[k] = gradeAndDivisionGroupStudentYAxisValue.get(k);
             }
+
             values.add(new BarEntry(i, list, gradeAndDivisionGroupStudentGradeName));
             Log.d(TAG, "loadDataOnGraph: " + gradeAndDivisionGroupStudentYAxisValue);
         }
