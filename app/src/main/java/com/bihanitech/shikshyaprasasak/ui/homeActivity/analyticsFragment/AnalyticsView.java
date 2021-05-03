@@ -18,9 +18,21 @@ public interface AnalyticsView {
 
     void populateIncomeVsDueBalance(List<ClassDueReport> response);
 
-    void onSuccess(String newDate);
+    void onSuccessAR(String newDate);
+
+    void onSuccessIVDB();
+
+    void onSuccessTSASR();
 
     void LoadingScreenOnAttendance();
 
+    void loadingScreenOnIVDB();
+
+    void loadingScreenOnTSASR();
+
     void showNetworkErrorOnAttendance(String type);
+
+    void showNetworkErrorOnIVDB(String type);
+
+    void showNetworkErrorOnTSASR(String type);
 }

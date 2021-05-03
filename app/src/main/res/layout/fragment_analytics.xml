@@ -159,18 +159,55 @@
 
 
                     </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/tvNetworkError"
-                        android:layout_width="0dp"
+                    <!--tvNetworkErrorAR-->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clErrorAR"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="NO RECORD FOUND. PLEASE SELECT ANOTHER DATE."
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedA" />
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedA">
+
+                        <ImageView
+                            android:id="@+id/ivErrorAR"
+                            android:layout_width="@dimen/_64sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:src="@drawable/ic_sunset"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvErrorTitleAR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:alpha="0.8"
+                            android:text="OPPS!"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/ivErrorAR"
+                            app:layout_constraintStart_toStartOf="@id/ivErrorAR"
+                            app:layout_constraintTop_toBottomOf="@id/ivErrorAR" />
+
+                        <TextView
+                            android:id="@+id/tvNetworkErrorAR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:alpha="0.60"
+                            android:text="No data Available. Please another date."
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintEnd_toEndOf="@id/tvErrorTitleAR"
+                            app:layout_constraintHorizontal_bias="0.511"
+                            app:layout_constraintStart_toStartOf="@id/tvErrorTitleAR"
+                            app:layout_constraintTop_toBottomOf="@id/tvErrorTitleAR" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chCircular1"
@@ -218,6 +255,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/FounderBg">
 
+
                     <ImageView
                         android:id="@+id/ivSmallCircleB"
                         android:layout_width="@dimen/_12sdp"
@@ -238,43 +276,129 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@id/ivSmallCircleB"
-                        app:layout_constraintTop_toTopOf="@id/cvMoreAndUpdatedB" />
+                        app:layout_constraintTop_toTopOf="@id/cvMoreAndUpdatedIVDB" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cvMoreAndUpdatedB"
+                        android:id="@+id/cvMoreAndUpdatedIVDB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:visibility="invisible"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/ivRightArrowB"
+                            android:id="@+id/ivSyncIVDB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:src="@drawable/ic_right_arrow_24dp"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:paddingStart="@dimen/_3sdp"
+                            android:src="@drawable/ic_refresh_blue"
+                            app:layout_constraintBottom_toBottomOf="@id/tvSyncIVDB"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="@id/tvSyncIVDB" />
 
                         <TextView
-                            android:id="@+id/tvMoreB"
+                            android:id="@+id/tvSyncIVDB"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="More"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:text="Sync"
                             android:textColor="@color/FounderBlue"
-                            app:layout_constraintEnd_toStartOf="@id/ivRightArrowB"
+                            app:layout_constraintEnd_toStartOf="@id/ivSyncIVDB"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            android:id="@+id/tvUpdatedDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:text="Updated on chaitra 24"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:text="Synced on chaitra 24"
                             android:textSize="12sp"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tvMoreB" />
+                            app:layout_constraintTop_toBottomOf="@id/ivSyncIVDB" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/loadingPanelIVDB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingVertical="@dimen/_16sdp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedIVDB">
+
+                        <ProgressBar
+                            android:id="@+id/pbLoadingIVDB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true" />
+
+
+                    </RelativeLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clErrorIVDB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedIVDB">
+
+                        <ImageView
+                            android:id="@+id/ivErrorIVDB"
+                            android:layout_width="@dimen/_64sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:src="@drawable/ic_sunset"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvErrorTitleIVDB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:alpha="0.8"
+                            android:text="OPPS!"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/ivErrorIVDB"
+                            app:layout_constraintStart_toStartOf="@id/ivErrorIVDB"
+                            app:layout_constraintTop_toBottomOf="@id/ivErrorIVDB" />
+
+                        <TextView
+                            android:id="@+id/tvErrorSubTitleIVDB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:alpha="0.60"
+                            android:text="No data Available"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintEnd_toEndOf="@id/tvErrorTitleIVDB"
+                            app:layout_constraintHorizontal_bias="0.511"
+                            app:layout_constraintStart_toStartOf="@id/tvErrorTitleIVDB"
+                            app:layout_constraintTop_toBottomOf="@id/tvErrorTitleIVDB" />
+
+                        <Button
+                            android:id="@+id/btRetryIVDB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:background="@drawable/bg_button"
+                            android:minHeight="0dp"
+                            android:paddingVertical="@dimen/_8sdp"
+                            android:text="Retry"
+                            android:textColor="@color/white"
+                            app:layout_constraintEnd_toEndOf="@id/tvErrorSubTitleIVDB"
+                            app:layout_constraintStart_toStartOf="@id/tvErrorSubTitleIVDB"
+                            app:layout_constraintTop_toBottomOf="@id/tvErrorSubTitleIVDB" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -285,23 +409,10 @@
                         android:layout_height="@dimen/_150sdp"
                         android:layout_marginHorizontal="@dimen/_12sdp"
                         android:paddingHorizontal="@dimen/_8sdp"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedB" />
-
-                    <TextView
-                        android:id="@+id/tvClassWiseIncomeVsDue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_8sdp"
-                        android:text="@string/class_wise_income_vs_due_balance"
-                        android:textColor="@color/FounderBlue"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/clAmount" />
-
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedIVDB" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clAmount"
@@ -309,6 +420,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginBottom="@dimen/_8sdp"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toTopOf="@id/tvClassWiseIncomeVsDue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -377,6 +489,21 @@
                             app:layout_constraintStart_toEndOf="@id/tvTotalPaid" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tvClassWiseIncomeVsDue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:text="@string/class_wise_income_vs_due_balance"
+                        android:textColor="@color/FounderBlue"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clAmount" />
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
@@ -422,46 +549,44 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cvMoreAndUpdatedmf"
+                        android:id="@+id/cvMoreAndUpdatedTSASR"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/ivRightArrowmf"
+                            android:id="@+id/ivSyncTSASR"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginRight="8dp"
-                            android:src="@drawable/ic_right_arrow_24dp"
-                            android:visibility="gone"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:paddingStart="@dimen/_3sdp"
+                            android:src="@drawable/ic_refresh_blue"
+                            app:layout_constraintBottom_toBottomOf="@id/tvSyncTSASR"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="@id/tvSyncTSASR" />
 
                         <TextView
-                            android:id="@+id/tvMoremf"
+                            android:id="@+id/tvSyncTSASR"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="More"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:text="Sync"
                             android:textColor="@color/FounderBlue"
-                            android:visibility="gone"
-                            app:layout_constraintEnd_toStartOf="@id/ivRightArrowmf"
+                            app:layout_constraintEnd_toStartOf="@id/ivSyncTSASR"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            android:id="@+id/tvUpdatedDateTSASR"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginRight="16dp"
-                            android:text="Updated on chaitra 24"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:text="Synced on chaitra 24"
                             android:textSize="12sp"
-                            android:visibility="invisible"
                             app:layout_constraintEnd_toEndOf="parent"
-
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@id/ivSyncTSASR" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -473,18 +598,102 @@
                         android:layout_height="@dimen/_180sdp"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_marginBottom="@dimen/_8sdp"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/chCircular2Mf"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedmf" />
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedTSASR" />
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chCircular2Mf"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_180sdp"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/chCircular1Mf"
                         app:layout_constraintTop_toTopOf="@id/chCircular1Mf" />
+
+                    <RelativeLayout
+                        android:id="@+id/loadingPanelTSASR"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingVertical="@dimen/_16sdp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedTSASR">
+
+                        <ProgressBar
+                            android:id="@+id/pbLoadingTSASR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true" />
+
+
+                    </RelativeLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clErrorTSASR"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdatedTSASR">
+
+                        <ImageView
+                            android:id="@+id/ivErrorTSASR"
+                            android:layout_width="@dimen/_64sdp"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:src="@drawable/ic_sunset"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvErrorTitleTSASR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:alpha="0.8"
+                            android:text="OPPS!"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/ivErrorTSASR"
+                            app:layout_constraintStart_toStartOf="@id/ivErrorTSASR"
+                            app:layout_constraintTop_toBottomOf="@id/ivErrorTSASR" />
+
+                        <TextView
+                            android:id="@+id/tvErrorSubTitleTSASR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:alpha="0.60"
+                            android:text="No data Available"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintEnd_toEndOf="@id/tvErrorTitleTSASR"
+                            app:layout_constraintHorizontal_bias="0.511"
+                            app:layout_constraintStart_toStartOf="@id/tvErrorTitleTSASR"
+                            app:layout_constraintTop_toBottomOf="@id/tvErrorTitleTSASR" />
+
+                        <Button
+                            android:id="@+id/btRetryTSASR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_6sdp"
+                            android:background="@drawable/bg_button"
+                            android:minHeight="0dp"
+                            android:paddingVertical="@dimen/_8sdp"
+                            android:text="Retry"
+                            android:textColor="@color/white"
+                            app:layout_constraintEnd_toEndOf="@id/tvErrorSubTitleTSASR"
+                            app:layout_constraintStart_toStartOf="@id/tvErrorSubTitleTSASR"
+                            app:layout_constraintTop_toBottomOf="@id/tvErrorSubTitleTSASR" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

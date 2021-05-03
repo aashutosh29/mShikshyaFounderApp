@@ -100,6 +100,15 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     String present = "Present";
     Toolbar toolbarNew;
 
+    @BindView(R.id.chCircular2Mf)
+    PieChart chCircular2Mf;
+
+    @BindView(R.id.chCircular1Mf)
+    PieChart chCircular1Mf;
+
+    @BindView(R.id.cgv)
+    CurveGraphView cgv;
+
     AnalyticsPresenter analyticsPresenter;
 
     PointMap pointMapTotalCharge;
@@ -122,22 +131,65 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     @BindView(R.id.viewStatement)
     Button viewStatement;
 
+    //loading pannels
+
     @BindView(R.id.loadingPanel)
     RelativeLayout loadingPanel;
 
-    @BindView(R.id.tvNetworkError)
+    @BindView(R.id.loadingPanelTSASR)
+    RelativeLayout loadingPanelTSASR;
+
+    @BindView(R.id.loadingPanelIVDB)
+    RelativeLayout loadingPanelIVDB;
+
+
+    //Attendance Report
+    @BindView(R.id.clErrorAR)
+    ConstraintLayout clErrorAR;
+    @BindView(R.id.tvErrorTitleAR)
+    TextView tvErrorTitleAR;
+    @BindView(R.id.tvNetworkErrorAR)
     TextView tvNetworkError;
+
+
+    //Income Vs Due Balance
+
+    @BindView(R.id.clErrorIVDB)
+    ConstraintLayout clErrorIVDB;
+    @BindView(R.id.tvErrorTitleIVDB)
+    TextView tvErrorTitleIVDB;
+    @BindView(R.id.tvErrorSubTitleIVDB)
+    TextView tvErrorSubTitleIVDB;
+    @BindView(R.id.btRetryIVDB)
+    Button btRetryIVDB;
+    @BindView(R.id.tvUpdatedDate)
+    TextView tvUpdatedDateIVDB;
+    @BindView(R.id.clAmount)
+    ConstraintLayout clAmount;
+
+
+    //Total student and staff report error layout
+    @BindView(R.id.clErrorTSASR)
+    ConstraintLayout clErrorTSASR;
+    @BindView(R.id.tvErrorTitleTSASR)
+    TextView tvErrorTitleTSASR;
+    @BindView(R.id.tvErrorSubTitleTSASR)
+    TextView tvErrorSubTitleTSASR;
+    @BindView(R.id.btRetryTSASR)
+    Button btRetryTSASR;
+    @BindView(R.id.tvUpdatedDateTSASR)
+    TextView tvUpdatedDateTSASR;
+
 
     @BindView(R.id.chCircular1)
     PieChart chCircular1;
-
+    String pattern = "yyyy-MM-dd";
     private PieChart circularChartStudentGender;
     private PieChart circularChartStaffGender;
     private PieChart pieChartStaff;
     private PieChart pieChartStudent;
     private CurveGraphView curveGraphView;
     private DatabaseHelper databaseHelper;
-    String pattern = "yyyy-MM-dd";
 
     public AnalyticsFragment() {
 
@@ -153,7 +205,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         sharedPrefsHelper = SharedPrefsHelper.getInstance(getContext());
         sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, "0");
         sharedPrefsHelper.saveValue(Constant.STUDENT_ABSENT, "0");
-        analyticsPresenter.getGenderWiseStaffAndStudent(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+        analyticsPresenter.getGenderWiseStaffAndStudent(sharedPrefsHelper.getValue(Constant.TOKEN, ""), false);
         ScrollView sView = view.findViewById(R.id.svMain);
         // Hide the Scrollbar
         sView.setVerticalScrollBarEnabled(false);
@@ -177,7 +229,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         //dateNow = java.time.LocalDate.now().toString();
         //dateNow= Instant.now().toString();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String dateNow = simpleDateFormat.format(new Date());
+        dateNow = simpleDateFormat.format(new Date());
         Log.d(TAG, "onCreateView: " + dateNow);
 
         analyticsPresenter.getAttendanceReport(sharedPrefsHelper.getValue(Constant.TOKEN, ""), dateNow);
@@ -908,7 +960,9 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     @Override
     public void populateStudentAttendance(StudentAttendance response) {
         if (response.getStatus().equals("unavailable")) {
+            clErrorAR.setVisibility(View.VISIBLE);
             tvNetworkError.setVisibility(View.VISIBLE);
+            tvNetworkError.setText("NO DATA FOUND. PLEASE SELECT ANOTHER DATE");
             chCircular1.setVisibility(View.INVISIBLE);
         } else {
             sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, response.getPresentCount().toString());
@@ -977,7 +1031,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     }
 
     @Override
-    public void onSuccess(String newDate) {
+    public void onSuccessAR(String newDate) {
         loadingPanel.setVisibility(View.GONE);
         tvNetworkError.setVisibility(View.GONE);
         chCircular1.setVisibility(View.VISIBLE);
@@ -985,16 +1039,50 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     }
 
     @Override
+    public void onSuccessIVDB() {
+        tvUpdatedDateIVDB.setText("Synced on " + dateNow);
+        clErrorIVDB.setVisibility(View.GONE);
+        cgv.setVisibility(View.VISIBLE);
+        clAmount.setVisibility(View.VISIBLE);
+        loadingPanelIVDB.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSuccessTSASR() {
+        tvUpdatedDateTSASR.setText("Synced on " + dateNow);
+        clErrorTSASR.setVisibility(View.GONE);
+        chCircular1Mf.setVisibility(View.VISIBLE);
+        chCircular2Mf.setVisibility(View.VISIBLE);
+        loadingPanelTSASR.setVisibility(View.GONE);
+    }
+
+    @Override
     public void LoadingScreenOnAttendance() {
-        tvNetworkError.setVisibility(View.GONE);
+        clErrorAR.setVisibility(View.GONE);
         chCircular1.setVisibility(View.INVISIBLE);
         loadingPanel.setVisibility(View.VISIBLE);
     }
 
     @Override
+    public void loadingScreenOnIVDB() {
+        clErrorIVDB.setVisibility(View.GONE);
+        cgv.setVisibility(View.INVISIBLE);
+        clAmount.setVisibility(View.INVISIBLE);
+        loadingPanelIVDB.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void loadingScreenOnTSASR() {
+        clErrorTSASR.setVisibility(View.GONE);
+        chCircular1Mf.setVisibility(View.INVISIBLE);
+        chCircular2Mf.setVisibility(View.INVISIBLE);
+        loadingPanelTSASR.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showNetworkErrorOnAttendance(String type) {
 
-        tvNetworkError.setVisibility(View.VISIBLE);
+        clErrorAR.setVisibility(View.VISIBLE);
         loadingPanel.setVisibility(View.GONE);
         chCircular1.setVisibility(View.INVISIBLE);
         if (type.equals("server"))
@@ -1002,6 +1090,42 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
         else if (type.equals("network"))
             tvNetworkError.setText("NO INTERNET AVAILABLE!");
+    }
+
+    @Override
+    public void showNetworkErrorOnIVDB(String type) {
+        clErrorIVDB.setVisibility(View.VISIBLE);
+        loadingPanelIVDB.setVisibility(View.GONE);
+        cgv.setVisibility(View.INVISIBLE);
+        clAmount.setVisibility(View.VISIBLE);
+        if (type.equals("server"))
+            tvErrorTitleIVDB.setText("THERE iS PROBLEM IN SERVER");
+
+        else if (type.equals("network"))
+            tvErrorSubTitleIVDB.setText("NO INTERNET AVAILABLE!");
+
+    }
+
+    @OnClick({R.id.btRetryIVDB, R.id.cvMoreAndUpdatedIVDB})
+    void btRetryIVDBClicked() {
+        analyticsPresenter.getIncomeVsDueBalance(sharedPrefsHelper.getValue(Constant.TOKEN, ""));
+    }
+
+    @OnClick({R.id.btRetryTSASR, R.id.cvMoreAndUpdatedTSASR})
+    void btRetryTSASR() {
+        analyticsPresenter.getGenderWiseStaffAndStudent(sharedPrefsHelper.getValue(Constant.TOKEN, ""), true);
+    }
+
+    @Override
+    public void showNetworkErrorOnTSASR(String type) {
+        clErrorTSASR.setVisibility(View.VISIBLE);
+        loadingPanelTSASR.setVisibility(View.GONE);
+        chCircular1Mf.setVisibility(View.INVISIBLE);
+        chCircular2Mf.setVisibility(View.INVISIBLE);
+        if (type.equals("server"))
+            tvErrorTitleTSASR.setText("THERE iS PROBLEM IN SERVER");
+        else if (type.equals("network"))
+            tvErrorTitleTSASR.setText("NO INTERNET AVAILABLE!");
     }
 
 
