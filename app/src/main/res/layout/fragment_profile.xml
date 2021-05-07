@@ -27,10 +27,10 @@
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
                     android:layout_marginStart="@dimen/_19sdp"
+                    android:src="@drawable/img_profile_3"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/img_profile_3" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvUserName"
@@ -90,9 +90,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_12sdp"
+                        android:src="@drawable/ic_order_history"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_order_history"
 
                         />
 
@@ -115,8 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_13sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/clIncomeSummary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/clStatement">
@@ -126,9 +125,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_12sdp"
+                        android:src="@drawable/ic_search"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_search"
 
                         />
 
@@ -142,6 +141,41 @@
                         app:layout_constraintBottom_toBottomOf="@+id/ivSearchStudentProfile"
                         app:layout_constraintStart_toEndOf="@id/ivSearchStudentProfile"
                         app:layout_constraintTop_toTopOf="@id/ivSearchStudentProfile" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clIncomeSummary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_22sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_13sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clSearchStudentProfile">
+
+                    <ImageView
+                        android:id="@+id/ivIncomeSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_12sdp"
+                        android:src="@drawable/ic_order_history"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.87"
+                        android:text="Income Summary List"
+                        android:textColor="@color/dark_black"
+                        android:textSize="@dimen/_12sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ivIncomeSummary"
+                        app:layout_constraintStart_toEndOf="@id/ivIncomeSummary"
+                        app:layout_constraintTop_toTopOf="@id/ivIncomeSummary" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -170,9 +204,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_12sdp"
+                        android:src="@drawable/ic_upload_noitce"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_upload_noitce"
 
                         />
 
@@ -206,9 +240,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_12sdp"
+                        android:src="@drawable/ic_saved_black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_saved_black"
 
                         />
 
@@ -263,9 +297,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_12sdp"
+                        android:src="@drawable/ic_privacy_policy"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_privacy_policy"
 
                         />
 
@@ -298,9 +332,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_12sdp"
+                        android:src="@drawable/ic_fa_question"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_fa_question"
 
                         />
 
@@ -335,9 +369,9 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_12sdp"
 
+                        android:src="@drawable/ic_logout"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_logout"
 
                         />
 

@@ -22,6 +22,7 @@ import com.bihanitech.shikshyaprasasak.model.UploadNotice;
 import com.bihanitech.shikshyaprasasak.repositories.MetaDatabaseRepo;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.addNoticeActivity.AddNoticeActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment.statement.StatementActivity;
+import com.bihanitech.shikshyaprasasak.ui.homeActivity.incomeSummaryListActivity.IncomeSummaryListActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.noticeUploadActivity.NoticeUploadActivity;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.searchActivity.SearchActivity;
 import com.bihanitech.shikshyaprasasak.ui.schoolSelection.SchoolSelection;
@@ -48,6 +49,7 @@ public class MoreFragment extends Fragment implements MoreView {
     TextView tvSchoolAddress;
     @BindView(R.id.ivProfile)
     ImageView ivProfileImage;
+
     SharedPrefsHelper sharedPrefsHelper;
     TextView tvToolbarTitle;
     Toolbar toolbarNew;
@@ -147,6 +149,12 @@ public class MoreFragment extends Fragment implements MoreView {
     @OnClick(R.id.clSavedNotice)
     void btSavedNoticeClicked() {
         Intent intent = new Intent(getContext(), NoticeUploadActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.clIncomeSummary)
+    void clIncomeSummaryClicked() {
+        Intent intent = new Intent(getContext(), IncomeSummaryListActivity.class);
         startActivity(intent);
     }
 

@@ -80,7 +80,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     protected SharedPrefsHelper sharedPrefsHelper;
     List<String> incomeVsDueClass = new ArrayList<>();
     int date = 0;
-
     int spanForIncomeVsDue;
     int maxValueForIncomeVsDue;
     String[] parties = new String[]{
@@ -696,10 +695,10 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                         .setAxisColor(R.color.FounderBlue)                                            // Set number of values to be displayed in X ax
                         .setGuidelineCount(0)                                                   // Set number of background guidelines to be shown.
                         .setGuidelineColor(R.color.Red)                                       // Set color of the visible guidelines.
-                        .setNoDataMsg(" No Data ")                                              // Message when no data is provided to the view.
+                        .setNoDataMsg(" NO Record Found ")                                              // Message when no data is provided to the view.
                         .setxAxisScaleTextColor(R.color.Black)                                  // Set X axis scale text color.
                         .setyAxisScaleTextColor(R.color.Black)                                  // Set Y axis scale text color
-                        .setAnimationDuration(2000)                                             // Set Animation Duration
+                        .setAnimationDuration(2000)                                       // Set Animation Duration
                         .build()
         );
 
@@ -719,12 +718,12 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 */
 
 
-        final GraphData gd = GraphData.builder(getContext())
+        final GraphData totalPaid = GraphData.builder(getContext())
                 .setPointMap(pointMapTotalPaid)
-                .setGraphStroke(R.color.FounderRed)
+                .setGraphStroke(R.color.green)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
                 .animateLine(true)
-                .setPointColor(R.color.FounderBlue)
+                .setPointColor(R.color.cc_purple)
                 .setPointRadius(5)
                 .setStraightLine(true)
                 .build();
@@ -744,12 +743,13 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         pm1.addPoint(11, 350);*/
 
 
-        final GraphData gd1 = GraphData.builder(getContext())
+        final GraphData totalDue = GraphData.builder(getContext())
                 .setPointMap(pointMapTotalDue)
-                .setGraphStroke(R.color.FounderGreen)
+                .setGraphStroke(R.color.red)
+                .setStraightLine(false)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
                 .animateLine(true)
-                .setPointColor(R.color.Red)
+                .setPointColor(R.color.cc_purple)
                 .setPointRadius(5)
                 .setStraightLine(true)
                 .build();
@@ -769,12 +769,12 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         pm2.addPoint(11, 550);*/
 
 
-        final GraphData gd2 = GraphData.builder(getContext())
+        final GraphData totalCharged = GraphData.builder(getContext())
                 .setPointMap(pointMapTotalCharge)
                 .setGraphStroke(R.color.FounderBlue)
                 /*.setGraphGradient(R.color.gradientStartColor2, R.color.gradientEndColor2)*/
                 .animateLine(true)
-                .setPointColor(R.color.Red)
+                .setPointColor(R.color.cc_purple)
                 .setPointRadius(5)
                 .setStraightLine(true)
                 .build();
@@ -783,7 +783,7 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                curveGraphView.setData(spanForIncomeVsDue, maxValueForIncomeVsDue, gd, gd1, gd2);
+                curveGraphView.setData(spanForIncomeVsDue, maxValueForIncomeVsDue, totalPaid, totalDue, totalCharged);
             }
         }, 10);
     }

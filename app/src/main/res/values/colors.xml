@@ -206,4 +206,6 @@
     <color name="Black">#000000</color>
     <color name="item_notify_color">#ECEBFF</color>
     <color name="InputBg">#ffffff</color>
+    <color name="dark_67">#AB000000</color>
+    <color name="dark_80">#CC000000</color>
 </resources>

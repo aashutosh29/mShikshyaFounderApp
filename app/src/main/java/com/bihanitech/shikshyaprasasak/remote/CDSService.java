@@ -4,6 +4,7 @@ package com.bihanitech.shikshyaprasasak.remote;
 import com.bihanitech.shikshyaprasasak.model.ClassDueReport;
 import com.bihanitech.shikshyaprasasak.model.ClassSectionResponse;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
+import com.bihanitech.shikshyaprasasak.model.IncomeSummaryList;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.NoticeResponse;
 import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
@@ -118,6 +119,9 @@ public interface CDSService {
 
     @GET("v2/getAllStudent")
     Observable<StudentResponse> getStudentTotal(@Header("Authorization") String authToken);
+
+    @GET("getList")
+    Observable<List<IncomeSummaryList>> fetchFilteredIncomeSummaryList(String s, String fromDate, String toDate, int page);
 
 
 

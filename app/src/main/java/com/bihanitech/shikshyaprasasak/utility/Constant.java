@@ -180,4 +180,11 @@ public class Constant {
     public static final String IS_ADD_NOTICE = "is_add_notice";
     public static final String NETWORK = "network";
     public static final String SERVER = "server";
+
+    //here
+    public static final String DIALOG_FROM = "dialog_from";
+    public static final String FROM_DATE = "from_date";
+    public static final String TO_DATE = "to_date";
+
+    public static final String INCOME_SUMMARY = "income_summary";
 }

@@ -14,6 +14,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Test" />
+
+        <activity
+            android:name=".ui.homeActivity.incomeSummaryListActivity.IncomeSummaryListActivity"
+            android:theme="@style/NoActionBarAppTheme" />
         <activity
             android:name=".ui.homeActivity.noticeUploadActivity.NoticeUploadActivity"
             android:parentActivityName=".ui.homeActivity.HomeActivity"
