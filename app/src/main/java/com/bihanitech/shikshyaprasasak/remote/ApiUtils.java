@@ -14,7 +14,7 @@ public class ApiUtils {
     public static final String NEW_IP_URL = "https://shikshyasoftware.com.np/CoreApplicationandAPIService-4617993073/api/";
     public static final String V2_AUTH_BASE_URL = "http://shikshyasoftware.com.np/CoreApplicationandAPIService-4617993073/api/v2/";
     public static final String DUMMY_URL = "https://staging.shikshyasoftware.com/api/";
-
+    public static final String FAKE_API = "https://6098bf2399011f001713f51d.mockapi.io/";
 
     public static CDSService getCDSService() {
         // return RetrofitClient.getClient(BASE_URL).create(CDSService.class);
@@ -31,6 +31,11 @@ public class ApiUtils {
 
     public static CDSService getDummyCDSService() {
         return RetrofitClient.getClient(DUMMY_URL).create(CDSService.class);
+
+    }
+
+    public static CDSService getFakeCDSService() {
+        return RetrofitClient.getClient(FAKE_API).create(CDSService.class);
 
     }
 

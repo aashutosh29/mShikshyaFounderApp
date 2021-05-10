@@ -277,7 +277,7 @@
                 android:id="@+id/tvEmpty"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="It seems you do not have any submitted colleciton from this device."
+                android:text="It seems you do not have any submitted collection from this device."
                 android:textAlignment="center"
                 android:textColor="@color/label_sub"
                 android:textSize="18sp"

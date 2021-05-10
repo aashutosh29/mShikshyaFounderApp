@@ -4,7 +4,6 @@ package com.bihanitech.shikshyaprasasak.remote;
 import com.bihanitech.shikshyaprasasak.model.ClassDueReport;
 import com.bihanitech.shikshyaprasasak.model.ClassSectionResponse;
 import com.bihanitech.shikshyaprasasak.model.EmployeeGenderWise;
-import com.bihanitech.shikshyaprasasak.model.IncomeSummaryList;
 import com.bihanitech.shikshyaprasasak.model.MetaSchool;
 import com.bihanitech.shikshyaprasasak.model.NoticeResponse;
 import com.bihanitech.shikshyaprasasak.model.StudentAttendance;
@@ -16,6 +15,7 @@ import com.bihanitech.shikshyaprasasak.model.account.AccountResponse;
 import com.bihanitech.shikshyaprasasak.model.acedamics.AcademicResponse;
 import com.bihanitech.shikshyaprasasak.model.examResult.ExamResponse;
 import com.bihanitech.shikshyaprasasak.model.holiday.HolidayResponse;
+import com.bihanitech.shikshyaprasasak.model.incomeSummary.IncomeSummaryList;
 import com.bihanitech.shikshyaprasasak.model.responseModel.HolidayEventResponse;
 import com.bihanitech.shikshyaprasasak.model.slider.EventSlider;
 import com.bihanitech.shikshyaprasasak.model.student.StudentResponse;
@@ -119,11 +119,12 @@ public interface CDSService {
 
     @GET("v2/getAllStudent")
     Observable<StudentResponse> getStudentTotal(@Header("Authorization") String authToken);
-
+/*
     @GET("getList")
-    Observable<List<IncomeSummaryList>> fetchFilteredIncomeSummaryList(String s, String fromDate, String toDate, int page);
+    Observable<IncomeSummaryList> fetchFilteredIncomeSummaryList(String s, String fromDate, String toDate, int page);*/
 
-
+    @GET("api/{page}")
+    Observable<IncomeSummaryList> fetchFilteredIncomeSummaryList(@Path("page") String page);
 
 
    /* @GET("publicNotice")

@@ -187,4 +187,16 @@ public class Constant {
     public static final String TO_DATE = "to_date";
 
     public static final String INCOME_SUMMARY = "income_summary";
+    public static final String S_N = "sn";
+    public static final String NAME_OF_STUDENT = "name_of_student";
+    public static final String ClASS_INFORMATION = "class_information";
+    public static final String PRE_BALANCE = "pre_balance";
+    public static final String PENALTY = "penalty";
+    public static final String DISCOUNT = "disount";
+    public static final String REC_NO = "record_no";
+    public static final String SUB_TOTAL = "sub_total";
+    public static final String PAID = "paid";
+    public static final String DUES = "dues";
+    public static final String USER = "user";
+    public static final String TIME = "time";
 }

@@ -15,6 +15,10 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".Test" />
 
+
+        <activity
+            android:name=".ui.homeActivity.incomeSummaryActivity.IncomeSummaryActivity"
+            android:theme="@style/NoActionBarAppTheme" />
         <activity
             android:name=".ui.homeActivity.incomeSummaryListActivity.IncomeSummaryListActivity"
             android:theme="@style/NoActionBarAppTheme" />

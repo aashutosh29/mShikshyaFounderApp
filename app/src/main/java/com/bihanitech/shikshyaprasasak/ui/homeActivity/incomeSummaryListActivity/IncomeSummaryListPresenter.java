@@ -1,11 +1,9 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.incomeSummaryListActivity;
 
-import com.bihanitech.shikshyaprasasak.model.IncomeSummaryList;
+import com.bihanitech.shikshyaprasasak.model.incomeSummary.IncomeSummaryList;
 import com.bihanitech.shikshyaprasasak.remote.ApiUtils;
 import com.bihanitech.shikshyaprasasak.remote.CDSService;
 import com.bihanitech.shikshyaprasasak.remote.RequestHandler;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -19,13 +17,16 @@ public class IncomeSummaryListPresenter {
     }
 
     public void fetchIncomeSummaryList(String authToken, String fromDate, String toDate, int page) {
-        if (cdsService == null) {
-            cdsService = ApiUtils.getCDSService();
+        if (page == 1) {
+            view.showLoading();
         }
-        Observable<List<IncomeSummaryList>> call = cdsService.fetchFilteredIncomeSummaryList("Bearer " + authToken, fromDate, toDate, page);
-        RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<List<IncomeSummaryList>>() {
+        if (cdsService == null) {
+            cdsService = ApiUtils.getFakeCDSService();
+        }
+        Observable<IncomeSummaryList> call = cdsService.fetchFilteredIncomeSummaryList(String.valueOf(page));
+        RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<IncomeSummaryList>() {
             @Override
-            public void onComplete(List<IncomeSummaryList> response) {
+            public void onComplete(IncomeSummaryList response) {
                 view.populateIncomeSummaryList(response);
             }
 

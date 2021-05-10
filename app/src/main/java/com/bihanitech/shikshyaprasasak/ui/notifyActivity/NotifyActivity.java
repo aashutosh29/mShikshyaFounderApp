@@ -258,4 +258,6 @@ public class NotifyActivity extends AppCompatActivity implements NotifyView {
         });
 
     }
+
+
 }
