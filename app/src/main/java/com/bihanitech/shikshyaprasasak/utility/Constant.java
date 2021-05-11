@@ -199,4 +199,5 @@ public class Constant {
     public static final String DUES = "dues";
     public static final String USER = "user";
     public static final String TIME = "time";
+    public static final String EXPENSES_SUMMARY = "expenses_summary";
 }

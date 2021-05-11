@@ -294,6 +294,7 @@
                             android:layout_marginEnd="@dimen/_8sdp"
                             android:paddingStart="@dimen/_3sdp"
                             android:src="@drawable/ic_refresh_blue"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@id/tvSyncIVDB"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/tvSyncIVDB" />
@@ -305,6 +306,7 @@
                             android:layout_marginTop="@dimen/_2sdp"
                             android:text="Sync"
                             android:textColor="@color/FounderBlue"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toStartOf="@id/ivSyncIVDB"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -430,7 +432,7 @@
                             android:id="@+id/tvTotalChargedNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" Rs.3,00,000"
+                            android:text="n-a"
                             android:textColor="@color/FounderBlue"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toTopOf="@id/tvTotalCharged"
@@ -451,7 +453,7 @@
                             android:id="@+id/tvTotalPaidNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" Rs.1,90,000"
+                            android:text=" n-a"
                             android:textColor="#2E7D32"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toTopOf="@id/tvTotalPaid"
@@ -472,7 +474,7 @@
                             android:id="@+id/tvTotalDUeNum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" Rs.1,10,000"
+                            android:text="n-a"
                             android:textColor="@color/FounderRed"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toTopOf="@id/tvTotalDue"
@@ -529,7 +531,7 @@
                         android:layout_height="@dimen/_12sdp"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="18dp"
+                        android:layout_marginTop="10dp"
                         android:src="@drawable/ic_circle"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -540,7 +542,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/total_student_staff_report"
                         android:textColor="#535151"
                         android:textSize="16sp"
@@ -564,6 +566,7 @@
                             android:layout_marginEnd="@dimen/_8sdp"
                             android:paddingStart="@dimen/_3sdp"
                             android:src="@drawable/ic_refresh_blue"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="@id/tvSyncTSASR"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/tvSyncTSASR" />
@@ -575,6 +578,7 @@
                             android:layout_marginTop="@dimen/_2sdp"
                             android:text="Sync"
                             android:textColor="@color/FounderBlue"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toStartOf="@id/ivSyncTSASR"
                             app:layout_constraintTop_toTopOf="parent" />
 

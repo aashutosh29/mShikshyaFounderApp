@@ -100,6 +100,7 @@ public class MoreFragment extends Fragment implements MoreView {
     void clSearchStudentProfile() {
 
         Intent i = new Intent(getContext(), SearchActivity.class);
+
         startActivity(i);
 
     }
@@ -155,6 +156,14 @@ public class MoreFragment extends Fragment implements MoreView {
     @OnClick(R.id.clIncomeSummary)
     void clIncomeSummaryClicked() {
         Intent intent = new Intent(getContext(), IncomeSummaryListActivity.class);
+        intent.putExtra(Constant.TITLE, Constant.INCOME_SUMMARY);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.clExpensesSummary)
+    void clExpensesSummaryClicked() {
+        Intent intent = new Intent(getContext(), IncomeSummaryListActivity.class);
+        intent.putExtra(Constant.TITLE, Constant.EXPENSES_SUMMARY);
         startActivity(intent);
     }
 

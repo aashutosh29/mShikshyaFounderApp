@@ -61,6 +61,9 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
     @BindView(R.id.tvEmpty)
     TextView tvEmpty;
 
+    @BindView(R.id.tvToolbarTitle)
+    TextView tvToolbarTitle;
+
     //variables
     boolean isScrolling = false;
     boolean init_load = true;
@@ -70,6 +73,7 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
     String fromDate = "";
     String toDate = "";
     String listDate = "date";
+    String title;
 
 
     //list
@@ -83,6 +87,7 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
     FragmentManager fm;
     ProgressDFragment progressDFragment;
     IncomeSummaryAdapter incomeSummaryAdapter;
+    Intent intent;
 
 
     @Override
@@ -90,6 +95,8 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income_summary_list);
         ButterKnife.bind(this);
+        intent = getIntent();
+        title = intent.getStringExtra(Constant.TITLE);
         llm = new LinearLayoutManager(this);
         fm = getSupportFragmentManager();
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
@@ -106,6 +113,7 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
     }
 
     private void FirstLoad() {
+        tvToolbarTitle.setText(title);
         incomeSummaryListPresenter.fetchIncomeSummaryList(sharedPrefsHelper.getValue(Constant.TOKEN, ""), fromDate, toDate, 1);
 
     }
@@ -259,6 +267,7 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
     @Override
     public void getIncomeSummaryActivity(IncomeSummaryReport incomeSummaryReport) {
         Intent intent = new Intent(IncomeSummaryListActivity.this, IncomeSummaryActivity.class);
+        intent.putExtra(Constant.TITLE, title);
         intent.putExtra(Constant.S_N, incomeSummaryReport.getSn());
         intent.putExtra(Constant.DATE, incomeSummaryReport.getDate());
         intent.putExtra(Constant.NAME_OF_STUDENT, incomeSummaryReport.getNameOfStudent());

@@ -58,6 +58,9 @@ public class IncomeSummaryActivity extends AppCompatActivity implements IncomeSu
     @BindView(R.id.tvTime)
     TextView tvTime;
 
+    @BindView(R.id.tvToolbarTitle)
+    TextView tvToolbarTitle;
+
 
     Intent intent;
 
@@ -86,6 +89,7 @@ public class IncomeSummaryActivity extends AppCompatActivity implements IncomeSu
         tvDues.setText(intent.getStringExtra(Constant.DUES));
         tvTime.setText(intent.getStringExtra(Constant.TIME));
         tvUser.setText(intent.getStringExtra(Constant.USER));
+        tvToolbarTitle.setText(intent.getStringExtra(Constant.TITLE));
 
 
     }
