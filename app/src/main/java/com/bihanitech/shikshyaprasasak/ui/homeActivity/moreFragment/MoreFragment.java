@@ -156,14 +156,14 @@ public class MoreFragment extends Fragment implements MoreView {
     @OnClick(R.id.clIncomeSummary)
     void clIncomeSummaryClicked() {
         Intent intent = new Intent(getContext(), IncomeSummaryListActivity.class);
-        intent.putExtra(Constant.TITLE, Constant.INCOME_SUMMARY);
+        intent.putExtra(Constant.TITLE, Constant.INCOME_SUMMARY_TITLE);
         startActivity(intent);
     }
 
     @OnClick(R.id.clExpensesSummary)
     void clExpensesSummaryClicked() {
         Intent intent = new Intent(getContext(), IncomeSummaryListActivity.class);
-        intent.putExtra(Constant.TITLE, Constant.EXPENSES_SUMMARY);
+        intent.putExtra(Constant.TITLE, Constant.EXPENSES_SUMMARY_TITLE);
         startActivity(intent);
     }
 
