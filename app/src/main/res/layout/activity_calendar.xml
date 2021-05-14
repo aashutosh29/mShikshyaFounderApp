@@ -5,7 +5,7 @@
     android:id="@+id/clCalendar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/FounderBg"
+    android:background="@color/shik_bg"
     tools:context=".ui.homeActivity.calendarActivity.CalendarActivity">
 
 

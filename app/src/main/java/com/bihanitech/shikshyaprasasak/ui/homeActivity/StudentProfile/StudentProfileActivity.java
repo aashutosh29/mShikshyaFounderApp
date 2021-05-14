@@ -75,7 +75,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     ImageView ivProfileImage;
 
 
-
     SharedPrefsHelper sharedPrefsHelper;
     Boolean firstSubjectShowingFirst = true;
     String regNo;
@@ -90,7 +89,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
     List<Statements> statementsList = new ArrayList<>();
     List<Subject> subjectList = new ArrayList<>();
-
 
 
     @Override
@@ -148,7 +146,6 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
     }
 
 
-
     @Override
     public void showLoading() {
 
@@ -165,11 +162,13 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
     @Override
     public void showError(int a) {
-        if (a == 2) {
-            dialog.dismiss();
+        dialog.dismiss();
+        if (a == 1) {
+
+            tvNoDataFound.setText("Something went wrong");
+            tvNoDataFound.setVisibility(View.VISIBLE);
         }
-        tvNoDataFound.setText("Something went wrong");
-        tvNoDataFound.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -218,7 +217,9 @@ public class StudentProfileActivity extends AppCompatActivity implements Student
 
     @Override
     public void populateAccountDetails(List<Account> accountList) {
+        tvNoDataFound.setVisibility(View.GONE);
         if (accountList.size() == 0) {
+            tvNoDataFound.setText("No data found");
             tvNoDataFound.setVisibility(View.VISIBLE);
         }
         LinearLayoutManager llm = new LinearLayoutManager(this);

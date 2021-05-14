@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
-                    android:background="@color/FounderBg">
+                    android:background="@color/shik_bg">
 
                     <ImageView
                         android:id="@+id/ivLeftArrow"
@@ -242,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginBottom="64dp"
-                android:background="@color/FounderBg"
+                android:background="@color/shik_bg"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -253,7 +253,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/FounderBg">
+                    android:background="@color/shik_bg">
 
 
                     <ImageView
@@ -523,7 +523,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/FounderBg">
+                    android:background="@color/shik_bg">
 
                     <ImageView
                         android:id="@+id/ivSmallCirclemf"

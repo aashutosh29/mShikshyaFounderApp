@@ -44,7 +44,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/FounderBg">
+                        android:background="@color/shik_bg">
 
                         <ImageView
                             android:id="@+id/ivSchoolIcon"
@@ -125,7 +125,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/FounderBg"
+                        android:background="@color/shik_bg"
 
                         >
 
@@ -312,7 +312,7 @@
                                     app:fillColor="@color/FounderBlue"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:pageColor="@color/FounderBg"
+                                    app:pageColor="@color/shik_bg"
 
                                     />
 
@@ -449,7 +449,7 @@
                         app:fillColor="@color/FounderBlue"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:pageColor="@color/FounderBg"
+                        app:pageColor="@color/shik_bg"
 
                         />
 
@@ -464,7 +464,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:visibility="visible"
-                    app:cardBackgroundColor="@color/FounderBg"
+                    app:cardBackgroundColor="@color/shik_bg"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="0dp"
                     app:layout_constraintTop_toBottomOf="@id/clAdvertise"

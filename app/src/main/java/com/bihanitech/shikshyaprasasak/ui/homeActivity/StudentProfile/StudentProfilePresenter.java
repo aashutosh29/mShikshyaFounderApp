@@ -96,13 +96,13 @@ public class StudentProfilePresenter {
             @Override
             public void onError(Exception e, int code) {
                 Log.d(TAG, "onError: " + e + code);
-                studentProfileView.showError(1);
+                studentProfileView.showError(2);
             }
 
             @Override
             public void onConnectionException(Exception e) {
                 Log.d(TAG, "onConnectionException: " + e);
-                studentProfileView.showError(1);
+                studentProfileView.showError(2);
             }
         });
 
