@@ -21,9 +21,9 @@ public class IncomeSummaryListPresenter {
             view.showLoading();
         }
         if (cdsService == null) {
-            cdsService = ApiUtils.getFakeCDSService();
+            cdsService = ApiUtils.getDummyCDSService();
         }
-        Observable<IncomeSummaryList> call = cdsService.fetchFilteredIncomeSummaryList(String.valueOf(page));
+        Observable<IncomeSummaryList> call = cdsService.fetchFilteredIncomeSummaryList("bearer " + authToken, "2018-05-20", "2021-05-20", String.valueOf(page));
         RequestHandler.asyncTask(call, new RequestHandler.RetroReactiveCallBack<IncomeSummaryList>() {
             @Override
             public void onComplete(IncomeSummaryList response) {

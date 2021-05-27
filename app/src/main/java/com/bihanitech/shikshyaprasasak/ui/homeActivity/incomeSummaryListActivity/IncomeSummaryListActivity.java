@@ -19,8 +19,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bihanitech.shikshyaprasasak.R;
 import com.bihanitech.shikshyaprasasak.adapter.IncomeSummaryAdapter;
+import com.bihanitech.shikshyaprasasak.model.incomeSummary.Datum;
 import com.bihanitech.shikshyaprasasak.model.incomeSummary.IncomeSummaryList;
-import com.bihanitech.shikshyaprasasak.model.incomeSummary.IncomeSummaryReport;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.FilterDFragment;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.NetworkErrorDFragment;
 import com.bihanitech.shikshyaprasasak.ui.dialogFragment.ProgressDFragment;
@@ -77,7 +77,7 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
 
 
     //list
-    List<IncomeSummaryReport> incomeSummaryList = new ArrayList<>();
+    List<Datum> datum = new ArrayList<>();
 
 
     //classes
@@ -88,6 +88,7 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
     ProgressDFragment progressDFragment;
     IncomeSummaryAdapter incomeSummaryAdapter;
     Intent intent;
+    String token;
 
 
     @Override
@@ -100,6 +101,7 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
         llm = new LinearLayoutManager(this);
         fm = getSupportFragmentManager();
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
+        token = sharedPrefsHelper.getValue(Constant.TOKEN, "");
         incomeSummaryListPresenter = new IncomeSummaryListPresenter(this);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -158,23 +160,23 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
                 rvList.setVisibility(View.GONE);
 
             } else {
-                incomeSummaryList = response.getData();
+                datum = response.getData();
                 tvEmpty.setVisibility(View.GONE);
                 this.currentPage = response.getPageno();
 
                 //here
                 totalPages = response.getTotalpages();
                 spinKit.setVisibility(View.GONE);
-                incomeSummaryList = response.getData();
+                datum = response.getData();
                 llm.setOrientation(LinearLayoutManager.VERTICAL);
                 rvList.setLayoutManager(llm);
                 rvList.setItemAnimator(new DefaultItemAnimator());
-                incomeSummaryAdapter = new IncomeSummaryAdapter(incomeSummaryList, this);
+                incomeSummaryAdapter = new IncomeSummaryAdapter(datum, this);
                 rvList.setAdapter(incomeSummaryAdapter);
                 init_load = false;
             }
         } else {
-            incomeSummaryList.addAll(response.getData());
+            datum.addAll(response.getData());
             incomeSummaryAdapter.notifyDataSetChanged();
             spinKit.setVisibility(View.GONE);
 
@@ -194,7 +196,7 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
     private void doYourUpdate() {
         listDate = "date";
         init_load = true;
-        incomeSummaryList = new ArrayList<com.bihanitech.shikshyaprasasak.model.incomeSummary.IncomeSummaryReport>();
+        datum = new ArrayList<Datum>();
         currentPage = 1;
         incomeSummaryListPresenter.fetchIncomeSummaryList(sharedPrefsHelper.getValue(Constant.TOKEN, ""), fromDate, toDate, currentPage);
         swipeRefreshLayout.setRefreshing(false);
@@ -265,23 +267,23 @@ public class IncomeSummaryListActivity extends AppCompatActivity implements Inco
     }
 
     @Override
-    public void getIncomeSummaryActivity(IncomeSummaryReport incomeSummaryReport) {
+    public void getIncomeSummaryActivity(Datum datum) {
         Intent intent = new Intent(IncomeSummaryListActivity.this, IncomeSummaryActivity.class);
         intent.putExtra(Constant.TITLE, title);
-        intent.putExtra(Constant.S_N, incomeSummaryReport.getSn());
-        intent.putExtra(Constant.DATE, incomeSummaryReport.getDate());
-        intent.putExtra(Constant.NAME_OF_STUDENT, incomeSummaryReport.getNameOfStudent());
-        intent.putExtra(Constant.ClASS_INFORMATION, incomeSummaryReport.getClassInformation());
-        intent.putExtra(Constant.AMOUNT, incomeSummaryReport.getAmount());
-        intent.putExtra(Constant.PENALTY, incomeSummaryReport.getPenalty());
-        intent.putExtra(Constant.DISCOUNT, incomeSummaryReport.getDiscount());
-        intent.putExtra(Constant.PRE_BALANCE, incomeSummaryReport.getPreBalance());
-        intent.putExtra(Constant.SUB_TOTAL, incomeSummaryReport.getSubBalance());
-        intent.putExtra(Constant.PAID, incomeSummaryReport.getPaid());
-        intent.putExtra(Constant.DUES, incomeSummaryReport.getDues());
-        intent.putExtra(Constant.USER, incomeSummaryReport.getUser());
-        intent.putExtra(Constant.TIME, incomeSummaryReport.getTime());
-        intent.putExtra(Constant.REC_NO, incomeSummaryReport.getRecordNo());
+        intent.putExtra(Constant.S_N, datum.getHeadingid());
+        intent.putExtra(Constant.DATE, datum.getTrantime());
+        intent.putExtra(Constant.NAME_OF_STUDENT, datum.getParticular());
+        intent.putExtra(Constant.ClASS_INFORMATION, "n-a");
+        intent.putExtra(Constant.AMOUNT, datum.getCramt());
+        intent.putExtra(Constant.PENALTY, "n-a");
+        intent.putExtra(Constant.DISCOUNT, "n-a");
+        intent.putExtra(Constant.PRE_BALANCE, "n-a");
+        intent.putExtra(Constant.SUB_TOTAL, "n-a");
+        intent.putExtra(Constant.PAID, "n-a");
+        intent.putExtra(Constant.DUES, "n-a");
+        intent.putExtra(Constant.USER, datum.getTranuser());
+        intent.putExtra(Constant.TIME, datum.getTrantime());
+        intent.putExtra(Constant.REC_NO, datum.getRegno());
         startActivity(intent);
 
 

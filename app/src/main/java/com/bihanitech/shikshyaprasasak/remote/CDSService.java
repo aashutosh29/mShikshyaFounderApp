@@ -123,8 +123,8 @@ public interface CDSService {
     @GET("getList")
     Observable<IncomeSummaryList> fetchFilteredIncomeSummaryList(String s, String fromDate, String toDate, int page);*/
 
-    @GET("api/{page}")
-    Observable<IncomeSummaryList> fetchFilteredIncomeSummaryList(@Path("page") String page);
+    @GET("v3/dailyDayBook")
+    Observable<IncomeSummaryList> fetchFilteredIncomeSummaryList(@Header("Authorization") String authToken, @Query("startDate") String startDate, @Query("endDate") String endDate, @Query("page") String page);
 
 
    /* @GET("publicNotice")

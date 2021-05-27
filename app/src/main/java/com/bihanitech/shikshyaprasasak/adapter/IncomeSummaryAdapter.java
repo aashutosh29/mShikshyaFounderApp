@@ -10,7 +10,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bihanitech.shikshyaprasasak.R;
-import com.bihanitech.shikshyaprasasak.model.incomeSummary.IncomeSummaryReport;
+import com.bihanitech.shikshyaprasasak.model.incomeSummary.Datum;
 import com.bihanitech.shikshyaprasasak.ui.homeActivity.incomeSummaryListActivity.IncomeSummaryListView;
 
 import java.util.List;
@@ -19,11 +19,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IncomeSummaryAdapter extends RecyclerView.Adapter<IncomeSummaryAdapter.IncomeSummaryViewHolder> {
-    List<IncomeSummaryReport> incomeSummaryReportList;
+    List<Datum> datumList;
     IncomeSummaryListView incomeSummaryListView;
 
-    public IncomeSummaryAdapter(List<IncomeSummaryReport> incomeSummaryReportList, IncomeSummaryListView incomeSummaryListView) {
-        this.incomeSummaryReportList = incomeSummaryReportList;
+    public IncomeSummaryAdapter(List<Datum> datumList, IncomeSummaryListView incomeSummaryListView) {
+        this.datumList = datumList;
         this.incomeSummaryListView = incomeSummaryListView;
 
     }
@@ -38,15 +38,15 @@ public class IncomeSummaryAdapter extends RecyclerView.Adapter<IncomeSummaryAdap
 
     @Override
     public void onBindViewHolder(@NonNull IncomeSummaryAdapter.IncomeSummaryViewHolder holder, final int position) {
-        holder.tvSn.setText(String.valueOf(incomeSummaryReportList.get(position).getSn()));
-        holder.tvDate.setText(incomeSummaryReportList.get(position).getDate());
-        holder.tvAmount.setText("Rs." + incomeSummaryReportList.get(position).getAmount());
-        holder.tvBalance.setText("Rs." + incomeSummaryReportList.get(position).getPreBalance());
-        holder.tvParticulars.setText(incomeSummaryReportList.get(position).getNameOfStudent());
+        holder.tvSn.setText(String.valueOf(datumList.get(position).getHeadingid()));
+        holder.tvDate.setText(datumList.get(position).getTrantime());
+        holder.tvAmount.setText("Rs." + datumList.get(position).getCramt());
+        // holder.tvBalance.setText("Rs." + datumList.get(position).getPreBalance());
+        holder.tvParticulars.setText(datumList.get(position).getParticular());
         holder.cvIncomeSummary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                incomeSummaryListView.getIncomeSummaryActivity(incomeSummaryReportList.get(position));
+                incomeSummaryListView.getIncomeSummaryActivity(datumList.get(position));
             }
         });
 
@@ -54,7 +54,7 @@ public class IncomeSummaryAdapter extends RecyclerView.Adapter<IncomeSummaryAdap
 
     @Override
     public int getItemCount() {
-        return incomeSummaryReportList.size();
+        return datumList.size();
     }
 
     public static class IncomeSummaryViewHolder extends RecyclerView.ViewHolder {

@@ -9,19 +9,19 @@ public class IncomeSummaryList {
 
     @SerializedName("data")
     @Expose
-    private List<IncomeSummaryReport> data = null;
-    @SerializedName("pageno")
+    private List<Datum> data = null;
+    @SerializedName("current_page")
     @Expose
     private Integer pageno;
-    @SerializedName("totalpages")
+    @SerializedName("total")
     @Expose
     private Integer totalpages;
 
-    public List<IncomeSummaryReport> getData() {
+    public List<Datum> getData() {
         return data;
     }
 
-    public void setData(List<IncomeSummaryReport> data) {
+    public void setData(List<Datum> data) {
         this.data = data;
     }
 

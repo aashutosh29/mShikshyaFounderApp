@@ -1,7 +1,7 @@
 package com.bihanitech.shikshyaprasasak.ui.homeActivity.incomeSummaryListActivity;
 
+import com.bihanitech.shikshyaprasasak.model.incomeSummary.Datum;
 import com.bihanitech.shikshyaprasasak.model.incomeSummary.IncomeSummaryList;
-import com.bihanitech.shikshyaprasasak.model.incomeSummary.IncomeSummaryReport;
 
 public interface IncomeSummaryListView {
     void applyFilter(String fromDate, String toDate);
@@ -14,5 +14,5 @@ public interface IncomeSummaryListView {
 
     void showNetworkError();
 
-    void getIncomeSummaryActivity(IncomeSummaryReport incomeSummaryReport);
+    void getIncomeSummaryActivity(Datum datum);
 }
