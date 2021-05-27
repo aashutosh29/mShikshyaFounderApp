@@ -177,4 +177,9 @@ public class StatementActivity extends AppCompatActivity implements StatementVie
     public void showError() {
         tvError.setText("SOMETHING WENT WRONG PLEASE TRY AGIAN");
     }
+
+    @Override
+    public void sendToDetailActivity(TitleWise titleWise) {
+
+    }
 }

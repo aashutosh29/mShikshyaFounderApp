@@ -146,7 +146,7 @@
         android:layout_marginHorizontal="@dimen/_22sdp"
         android:layout_marginTop="@dimen/_23sdp"
         android:background="@drawable/custom_rect_button"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:backgroundTint="@color/FounderBlue"
         android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@color/white"

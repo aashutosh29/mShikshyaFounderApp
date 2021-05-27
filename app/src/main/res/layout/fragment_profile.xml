@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_22sdp"
                     android:layout_marginTop="@dimen/_12sdp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@id/clSearchStudentProfile"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -427,8 +428,9 @@
             <TextView
                 android:id="@+id/tvVersion"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="top"
                 android:text="@string/version"
                 android:textSize="@dimen/_10sdp"
                 app:layout_constraintEnd_toEndOf="parent"

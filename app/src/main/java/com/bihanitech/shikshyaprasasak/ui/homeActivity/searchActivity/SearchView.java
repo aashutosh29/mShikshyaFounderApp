@@ -20,5 +20,5 @@ public interface SearchView {
 
     void hideLoading();
 
-    void showError();
+    void showError(Boolean isNetworkError);
 }

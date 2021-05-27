@@ -11,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.bihanitech.shikshyaprasasak.R;
@@ -46,6 +48,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.bihanitech.shikshyaprasasak.ui.homeActivity.homeFragment.HomeFragmentPresenter.TAG;
 
@@ -69,19 +72,31 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
     @BindView(R.id.spExam)
     Spinner spExam;
 
+    @BindView(R.id.clEmpty)
+    ConstraintLayout clEmpty;
+
     @BindView(R.id.chart1)
     BarChart chart1;
 
     @BindView(R.id.tvError)
     TextView tvError;
 
+    @BindView(R.id.ivError)
+    ImageView ivError;
+
     @BindView(R.id.loadingPanel)
     RelativeLayout loadingPanel;
 
+    @BindView(R.id.tvErrorTitle)
+    TextView tvErrorTitle;
+
+    @BindView(R.id.btRefresh)
+    TextView btRefresh;
+
     SharedPrefsHelper sharedPrefsHelper;
+    String examId;
     private DatabaseHelper databaseHelper;
     private BarChart chart;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -138,30 +153,6 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
 
         Legend l = chart.getLegend();
         l.setEnabled(false);
-        //l.setEnabled(false);
-
- /* //initialize array
-        LegendEntry legendEntry = new LegendEntry();
-        legendEntry.label = "Passed";
-        legendEntry.formColor = Color.rgb(8, 154, 214);
-
-        LegendEntry legendEntry1 = new LegendEntry();
-        legendEntry1.label = "Failed";
-        legendEntry1.formColor = Color.rgb(160, 17, 28);*/
-
-/*
-        //index for the chart
-        l.setEnabled(true);
-        l.setFormSize(10f);
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setForm(Legend.LegendForm.SQUARE);
-        l.setTextSize(12f);
-        l.setTextColor(Color.BLACK);
-        l.setXEntrySpace(5f);
-        l.setYEntrySpace(5f);
-        l.setCustom(Arrays.asList(legendEntry, legendEntry1));*/
 
 
         //chart description
@@ -183,11 +174,6 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
 
         chart.setNoDataText("No Record found");
         //data for graph
-       /* ArrayList<BarEntry> values = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-            float val = 8f;
-
-        }*/
         BarDataSet set1;
         set1 = new BarDataSet(values, "Students");
         set1.setColors(FOUNDER_COLOR
@@ -218,28 +204,13 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         CustomMarkerView mv = new CustomMarkerView(getContext(), R.layout.graph_pointer);
         chart.setMarker(mv);
 
-       /* chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-
-                Toast.makeText(getContext(), "you clicked" + e.toString(), Toast.LENGTH_SHORT).show();
-                PopupMenu popupMenu = new PopupMenu(getContext(),chart);
-                popupMenu.getMenuInflater().inflate(R.menu.);
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });*/
-
 
     }
 
     @Override
     public void loadDataOnGraph(List<ClassData> data) {
         chart1.setVisibility(View.VISIBLE);
-        tvError.setVisibility(View.GONE);
+        clEmpty.setVisibility(View.GONE);
         loadingPanel.setVisibility(View.GONE);
         classificationXAxisValue = new ArrayList<>();
 
@@ -263,19 +234,22 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
         setAllStuffsBarGraph();
     }
 
+
     @Override
     public void getExams(List<ExamName> examList) {
         List<String> examName = new ArrayList<>();
         for (int i = 0; i < examList.size(); i++) {
             examName.add(examList.get(i).getExamName());
         }
+
         ArrayAdapter<String> arrayAdapterSection = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, examName);
         arrayAdapterSection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spExam.setAdapter(arrayAdapterSection);
         spExam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                academicsPresenter.getGraphData(sharedPrefsHelper.getValue(Constant.TOKEN, ""), examList.get(i).getExamID());
+                examId = examList.get(i).getExamID();
+                academicsPresenter.getGraphData(sharedPrefsHelper.getValue(Constant.TOKEN, ""), examId);
             }
 
             @Override
@@ -286,16 +260,22 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
 
     }
 
+    @OnClick(R.id.btRefresh)
+    void btRefreshClicked() {
+        academicsPresenter.getGraphData(sharedPrefsHelper.getValue(Constant.TOKEN, ""), examId);
+
+
+    }
+
     @Override
     public void noDataAvailable() {
         loadingPanel.setVisibility(View.GONE);
         chart1.setVisibility(View.INVISIBLE);
-        tvError.setVisibility(View.VISIBLE);
-        tvError.setText("NO DATA FOUND PLEASE SELECT ANOTHER TERMINAL");
-
-       /* classificationXAxisValue = new ArrayList<>();
-        gradeAndDivisionGroupStudentYAxisValue = new ArrayList<>();
-        setAllStuffsBarGraph();*/
+        clEmpty.setVisibility(View.VISIBLE);
+        tvError.setText("No data found. Please select another terminal.");
+        tvErrorTitle.setVisibility(View.GONE);
+        btRefresh.setVisibility(View.GONE);
+        ivError.setImageResource(R.drawable.ic_no_data);
 
     }
 
@@ -303,18 +283,26 @@ public class AcademicsFragment extends Fragment implements AcademicsView {
     public void error(boolean isNetworkError) {
         loadingPanel.setVisibility(View.GONE);
         chart1.setVisibility(View.INVISIBLE);
-        tvError.setVisibility(View.VISIBLE);
-        if (isNetworkError)
-            tvError.setText("THERE IS PROBLEM IN INTERNET");
-        else
-            tvError.setText("THERE IS PROBLEM IN SERVER");
+        clEmpty.setVisibility(View.VISIBLE);
+        btRefresh.setVisibility(View.VISIBLE);
+
+        ivError.setImageResource(R.drawable.ic_no_connection);
+        tvErrorTitle.setVisibility(View.VISIBLE);
+        if (isNetworkError) {
+            tvErrorTitle.setText("No Internet Connection");
+            tvError.setText("There is problem in Server. Please refresh later");
+
+        } else {
+            tvError.setText("Check your connection, then refresh the page.");
+            tvErrorTitle.setText("Problem in  Server");
+        }
     }
 
     @Override
     public void showLoading() {
         loadingPanel.setVisibility(View.VISIBLE);
         chart1.setVisibility(View.INVISIBLE);
-        tvError.setVisibility(View.INVISIBLE);
+        clEmpty.setVisibility(View.INVISIBLE);
     }
 
 

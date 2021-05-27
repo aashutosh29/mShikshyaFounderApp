@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,8 +60,20 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     @BindView(R.id.spSection)
     Spinner spSection;
 
-    @BindView(R.id.tvNoDataFound)
-    TextView tvNoDataFound;
+    @BindView(R.id.tvError)
+    TextView tvError;
+
+    @BindView(R.id.ivError)
+    ImageView ivError;
+
+    @BindView(R.id.btRefresh)
+    Button btRefresh;
+
+    @BindView(R.id.tvErrorTitle)
+    TextView tvErrorTitle;
+
+    @BindView(R.id.clEmpty)
+    ConstraintLayout clEmpty;
 
     @BindView(R.id.etSearch)
     EditText etSearch;
@@ -85,7 +100,6 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
         sharedPrefsHelper = SharedPrefsHelper.getInstance(this);
         searchPresenter = new SearchPresenter(new MetaDatabaseRepo(getHelper()), this);
         searchPresenter.getSpinnerData();
-        populateStudentDetails();
         dialog = new ProgressDialog(this);
         searchPresenter.getStudents(grade, section, sharedPrefsHelper.getValue(Constant.TOKEN, ""));
     }
@@ -108,6 +122,14 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
                 filteredStudentList.add(students);
             }
         }
+        //here
+        if (filteredStudentList.size() == 0) {
+            clEmpty.setVisibility(View.VISIBLE);
+            tvError.setText("No data found. Please try another name.");
+            tvErrorTitle.setVisibility(View.GONE);
+            btRefresh.setVisibility(View.INVISIBLE);
+            ivError.setImageResource(R.drawable.ic_no_data);
+        } else clEmpty.setVisibility(View.GONE);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -120,89 +142,6 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     @OnClick(R.id.ivBack)
     void ivBackOnClicked() {
         onBackPressed();
-    }
-
-
-    private void populateStudentDetails() {
-        SearchProfile searchProfile = new SearchProfile("Rajesh Adhikari", "Fulbari", "6 (C)", R.drawable.img_profile_1, "Ram Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Nida Liu", "Cecilia Chapman", "6 (A)", R.drawable.img_profile_1, "Aadesh Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Lester Foskey", "Iris Watson", "7 (B)", R.drawable.img_profile_2, "Aadi Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Kenda Graig", "Celeste Slater", "8 (C)", R.drawable.img_profile_3, "Aadarsh Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Shirlee Resendiz", "Theodore Lowe", "9 (A)", R.drawable.img_profile_4, "Aadinath Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Shari Vivier", "Calista Wise", "10 (B)", R.drawable.img_profile_5, "Aadishankar Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Jolynn Kumar", "Kyla Olsen", "9 (C)", R.drawable.img_profile_6, "Aahlaad Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Cyndi Branning", "Forrest Ray", "8 (A)", R.drawable.img_profile_1, "Aakaash Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Suanne Cash", "Hiroko Potter", "1 (B)", R.drawable.img_profile_2, "Aakanksha Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Liliana Votaw", "Nyssa Vazquez", "2 (C)", R.drawable.img_profile_3, "Aakar Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Savanna Crabb", "Lawrence Moreno", "3 (A)", R.drawable.img_profile_4, "Aakarshan Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Larry Lepine", "Ina Moran", "4 (B)", R.drawable.img_profile_5, "Alaap Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Marcelo Mock", "Aaron Hawkins", "5 (C)", R.drawable.img_profile_6, "Aamod Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Delia Grabill", "Hedy Greene", "6 (A)", R.drawable.img_profile_1, "Aashish Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Lavenia Schafer", "Melvin Porter", "7 (B)", R.drawable.img_profile_2, "Aastik Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Katelyn Iliff", "Keefe Sellers", "8 (C)", R.drawable.img_profile_3, "Aatish Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Rita Mulvey", "Joan Romero", "9 (A)", R.drawable.img_profile_4, "Abhay Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Cammie Parvin", "Fulbari", "10 (B)", R.drawable.img_profile_5, "Abhayananda Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Malcom Goggins", "Fulbari", "1 (C)", R.drawable.img_profile_6, "Abhichandra Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Nida Liu", "Fulbari", "2 (A)", R.drawable.img_profile_1, "Abhidi Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Lester Foskey", "Fulbari", "3 (B)", R.drawable.img_profile_2, "Abhijat Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Kenda Graig", "Fulbari", "4 (C)", R.drawable.img_profile_3, "Abhik Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Shirlee Resendiz", "Fulbari", "5 (A)", R.drawable.img_profile_4, "Abhimand Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Shari Vivier", "Fulbari", "6 (B)", R.drawable.img_profile_5, "Abhimani Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Jolynn Kumar", "Fulbari", "7 (C)", R.drawable.img_profile_6, "Aarav Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Cyndi Branning", "Fulbari", "8 (A)", R.drawable.img_profile_1, "Arbindra Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Suanne Cash", "Fulbari", "9 (B)", R.drawable.img_profile_2, "Arbindra Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Liliana Votaw", "Fulbari", "10 (C)", R.drawable.img_profile_3, "Arbindra Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Savanna Crabb", "Fulbari", "1 (A)", R.drawable.img_profile_4, "Aajad Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Larry Lepine", "Fulbari", " 2(B)", R.drawable.img_profile_5, "Arit Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Marcelo Mock", "Fulbari", "3 (C)", R.drawable.img_profile_6, "Ashok Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Delia Grabill", "Fulbari", "4 (A)", R.drawable.img_profile_1, "Aryan Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Lavenia Schafer", "Fulbari", "5 (B)", R.drawable.img_profile_2, "Abisesh Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Katelyn Iliff", "Fulbari", "6 (A)", R.drawable.img_profile_3, "Anjan Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Rita Mulvey", "Fulbari", "7 (C)", R.drawable.img_profile_4, "Anjan Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Cammie Parvin", "Fulbari", "8 (B)", R.drawable.img_profile_5, "Anurag Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Malcom Goggins", "Fulbari", "9 (C)", R.drawable.img_profile_6, "Aahrav Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-        searchProfile = new SearchProfile("Rajesh Adhikari", "Fulbari", "2 (A)", R.drawable.img_profile_1, "Aviyan Adhikari", "Sita Adhikari", "Shyam Adhikari", "9860848450");
-        searchProfiles.add(searchProfile);
-
-
     }
 
 
@@ -276,9 +215,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     @Override
     public void populateStudentList(List<Student> studentList) {
         if (studentList.size() == 0) {
-            tvNoDataFound.setVisibility(View.VISIBLE);
-            //studentListNew.addAll(studentList);
-            /* this.studentList = studentList;*/
+            clEmpty.setVisibility(View.VISIBLE);
+            tvError.setText("No records are available");
+            tvErrorTitle.setVisibility(View.GONE);
+            btRefresh.setVisibility(View.INVISIBLE);
+            ivError.setImageResource(R.drawable.ic_no_data);
+
         } else {
             LinearLayoutManager llm = new LinearLayoutManager(this);
             llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -322,10 +264,18 @@ public class SearchActivity extends AppCompatActivity implements SearchView {
     }
 
     @Override
-    public void showError() {
+    public void showError(Boolean isNetworkError) {
         dialog.dismiss();
-        tvNoDataFound.setText("Something went wrong");
-        tvNoDataFound.setVisibility(View.VISIBLE);
+        clEmpty.setVisibility(View.VISIBLE);
+        btRefresh.setVisibility(View.INVISIBLE);
+        ivError.setImageResource(R.drawable.ic_no_connection);
+        tvErrorTitle.setVisibility(View.VISIBLE);
+        if (isNetworkError) {
+            tvError.setText("There is problem in Server. Please try again later");
+
+        } else
+            tvError.setText("Check your connection, then refresh the page.");
+
     }
 
 

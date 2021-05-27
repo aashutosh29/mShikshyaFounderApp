@@ -12,4 +12,6 @@ public interface StatementView {
     void hideLoading();
 
     void showError();
+
+    void sendToDetailActivity(TitleWise titleWise);
 }

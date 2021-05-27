@@ -52,12 +52,12 @@ public class SearchPresenter {
 
             @Override
             public void onError(Exception e, int code) {
-                searchView.showError();
+                searchView.showError(false);
             }
 
             @Override
             public void onConnectionException(Exception e) {
-                searchView.showError();
+                searchView.showError(true);
             }
         });
 

@@ -3,7 +3,6 @@ package com.bihanitech.shikshyaprasasak.ui.homeActivity.analyticsFragment;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
@@ -16,12 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -107,6 +106,9 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     @BindView(R.id.cgv)
     CurveGraphView cgv;
+
+    @BindView(R.id.ivErrorAR)
+    ImageView ivErrorAR;
 
     AnalyticsPresenter analyticsPresenter;
 
@@ -194,7 +196,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_analytics, container, false);
@@ -271,13 +272,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         toolbarNew.setVisibility(View.VISIBLE);
         tvToolbarTitle = Objects.requireNonNull(getActivity()).findViewById(R.id.tvToolbarTitle);
         tvToolbarTitle.setText("Analytics");
-       /* viewStatement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getContext(), StatementActivity.class);
-                startActivity(i);
-            }
-        });*/
     }
 
     private void updateLabel() {
@@ -342,12 +336,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
         int range = 5;
-
-       /* for (int i = 0; i < 2; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
-                    parties[i % parties.length]));
-        }*/
-
 
         entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_ABSENT, "0")), (float) 2));
         entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STUDENT_PRESENT, "0")), (float) 2));
@@ -535,12 +523,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         staffGenderData.add(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, ""));
         staffGenderData.add(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, ""));
 
-       /* for (int i = 0; i < staffGender.length; i++) {
-
-            entries.add(new PieEntry((float) (range),
-                    staffGender[i % staffGender.length]));
-        }*/
-
 
         entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_MALE_DATA, "")), (float) staffGender.length));
         entries.add(new PieEntry(Integer.parseInt(sharedPrefsHelper.getValue(Constant.STAFF_TOTAL_FEMALE_DATA, "")), (float) staffGender.length));
@@ -635,11 +617,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         //entries.add(new PieEntry(5f,3), new PieEntry(5,9));
 
 
-       /* for (int i = 0; i < 2; i++) {
-
-            entries.add(new PieEntry((float) (range),
-                    parties[i % parties.length]));
-        }*/
         String[] studentGender = new String[]{
                 male, female
         };
@@ -702,21 +679,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                         .build()
         );
 
-/*
-
-        PointMap pointMap = new PointMap();
-        pointMap.addPoint(1, 10);
-        pointMap.addPoint(3, 40);
-        pointMap.addPoint(4, 25);
-        pointMap.addPoint(5, 60);
-        pointMap.addPoint(6, 50);
-        pointMap.addPoint(7, 45);
-        pointMap.addPoint(8, 5);
-        pointMap.addPoint(9, 70);
-        pointMap.addPoint(10, 75);
-        pointMap.addPoint(11, 100);
-*/
-
 
         final GraphData totalPaid = GraphData.builder(getContext())
                 .setPointMap(pointMapTotalPaid)
@@ -727,20 +689,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                 .setPointRadius(5)
                 .setStraightLine(true)
                 .build();
-
-/*
-        PointMap pm1 = new PointMap();
-        pm1.addPoint(1, 20);
-        pm1.addPoint(2, 25);
-        pm1.addPoint(3, 60);
-        pm1.addPoint(4, 160);
-        pm1.addPoint(5, 125);
-        pm1.addPoint(6, 200);
-        pm1.addPoint(7, 150);
-        pm1.addPoint(8, 220);
-        pm1.addPoint(9, 250);
-        pm1.addPoint(10, 230);
-        pm1.addPoint(11, 350);*/
 
 
         final GraphData totalDue = GraphData.builder(getContext())
@@ -753,20 +701,6 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
                 .setPointRadius(5)
                 .setStraightLine(true)
                 .build();
-
-/*
-        PointMap pm2 = new PointMap();
-        pm2.addPoint(1, 30);
-        pm2.addPoint(2, 40);
-        pm2.addPoint(3, 90);
-        pm2.addPoint(4, 200);
-        pm2.addPoint(5, 250);
-        pm2.addPoint(6, 350);
-        pm2.addPoint(7, 300);
-        pm2.addPoint(8, 340);
-        pm2.addPoint(9, 400);
-        pm2.addPoint(10, 380);
-        pm2.addPoint(11, 550);*/
 
 
         final GraphData totalCharged = GraphData.builder(getContext())
@@ -960,9 +894,11 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
     @Override
     public void populateStudentAttendance(StudentAttendance response) {
         if (response.getStatus().equals("unavailable")) {
+            tvNetworkError.setVisibility(View.VISIBLE);
             clErrorAR.setVisibility(View.VISIBLE);
             tvNetworkError.setVisibility(View.VISIBLE);
-            tvNetworkError.setText("NO DATA FOUND. PLEASE SELECT ANOTHER DATE");
+            ivErrorAR.setImageResource(R.drawable.ic_no_data_small);
+            tvNetworkError.setText("No record available for the day,please select another");
             chCircular1.setVisibility(View.INVISIBLE);
         } else {
             sharedPrefsHelper.saveValue(Constant.STUDENT_PRESENT, response.getPresentCount().toString());
@@ -1085,11 +1021,16 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         clErrorAR.setVisibility(View.VISIBLE);
         loadingPanel.setVisibility(View.GONE);
         chCircular1.setVisibility(View.INVISIBLE);
-        if (type.equals("server"))
-            tvNetworkError.setText("THERE iS PROBLEM IN SERVER");
+        tvNetworkError.setVisibility(View.INVISIBLE);
 
-        else if (type.equals("network"))
-            tvNetworkError.setText("NO INTERNET AVAILABLE!");
+        //here
+        if (type.equals("server")) {
+
+            tvErrorTitleAR.setText("No Internet Connection");
+        } else if (type.equals("network")) {
+            tvErrorTitleAR.setText("Problem in  Server");
+
+        }
     }
 
     @Override
@@ -1098,12 +1039,13 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         loadingPanelIVDB.setVisibility(View.GONE);
         cgv.setVisibility(View.INVISIBLE);
         clAmount.setVisibility(View.VISIBLE);
-        if (type.equals("server"))
-            tvErrorTitleIVDB.setText("THERE iS PROBLEM IN SERVER");
-
-        else if (type.equals("network"))
-            tvErrorSubTitleIVDB.setText("NO INTERNET AVAILABLE!");
-
+        if (type.equals("server")) {
+            tvErrorTitleIVDB.setText("No Internet Connection");
+            tvErrorSubTitleIVDB.setText("Check your connection, then refresh the page.");
+        } else if (type.equals("network")) {
+            tvErrorTitleIVDB.setText("Problem in  Server");
+            tvErrorSubTitleIVDB.setText("There is problem in server. please refresh later.");
+        }
     }
 
     @OnClick({R.id.btRetryIVDB, R.id.cvMoreAndUpdatedIVDB})
@@ -1122,10 +1064,14 @@ public class AnalyticsFragment extends Fragment implements OnChartValueSelectedL
         loadingPanelTSASR.setVisibility(View.GONE);
         chCircular1Mf.setVisibility(View.INVISIBLE);
         chCircular2Mf.setVisibility(View.INVISIBLE);
-        if (type.equals("server"))
-            tvErrorTitleTSASR.setText("THERE iS PROBLEM IN SERVER");
-        else if (type.equals("network"))
-            tvErrorTitleTSASR.setText("NO INTERNET AVAILABLE!");
+        ivErrorAR.setImageResource(R.drawable.ic_no_connection_small);
+        if (type.equals("server")) {
+            tvErrorSubTitleTSASR.setText("Check your connection, then refresh the page.");
+            tvErrorTitleTSASR.setText("No Internet Connection");
+        } else if (type.equals("network")) {
+            tvErrorSubTitleTSASR.setText("There is problem in server. please refresh later.");
+            tvErrorTitleTSASR.setText("Problem in  Server");
+        }
     }
 
 

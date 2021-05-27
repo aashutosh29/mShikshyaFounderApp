@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bihanitech.shikshyaprasasak.R;
@@ -39,7 +40,14 @@ public class StatementAdapter extends RecyclerView.Adapter<StatementAdapter.Stat
         holder.tvParticulars.setText(titleWises.get(position).getParticular());
         holder.tvBalance.setText(titleWises.get(position).getTotalpaid() + "");
 
+        holder.cvStatmentItem.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+                statementView.sendToDetailActivity(titleWises.get(position));
+
+            }
+        });
     }
 
     @Override
@@ -53,7 +61,8 @@ public class StatementAdapter extends RecyclerView.Adapter<StatementAdapter.Stat
         TextView tvParticulars;
         @BindView(R.id.tvBalance)
         TextView tvBalance;
-
+        @BindView(R.id.cvStatementItem)
+        ConstraintLayout cvStatmentItem;
 
         public StatementViewHolder(View itemView) {
             super(itemView);

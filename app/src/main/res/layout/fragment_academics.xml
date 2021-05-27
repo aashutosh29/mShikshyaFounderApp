@@ -5,17 +5,6 @@
     android:layout_height="match_parent"
     android:background="#f4f4f4">
 
-    <!-- <TextView
-         android:id="@+id/tvContent"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_centerHorizontal="true"
-         android:text=""
-         android:textSize="12dp"
-         android:textColor="@android:color/white"
-         android:ellipsize="end"
-         android:singleLine="true"
-         android:textAppearance="?android:attr/textAppearanceSmall" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clSearchView"
@@ -121,34 +110,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <!--    <ImageView
-                        android:id="@+id/ivRightArrow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/ic_right_arrow_24dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />-->
-
-                <!--  <TextView
-                      android:id="@+id/tvMore"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="More"
-                      android:textColor="@color/FounderBlue"
-                      app:layout_constraintEnd_toStartOf="@id/ivRightArrow"
-                      app:layout_constraintTop_toTopOf="parent" />-->
-                <!--
-                                <Spinner
-                                    android:id="@+id/spExam"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="16dp"
-                                    android:background="@drawable/spinner_bg"
-                                    android:textSize="12sp"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />-->
                 <RelativeLayout
                     android:layout_width="@dimen/_180sdp"
                     android:layout_height="@dimen/_24sdp"
@@ -182,16 +143,75 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvError"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NO DATA FOUND PLEASE SELECT ANOTHER TERMINAL"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clEmpty"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/tvclassWiseCount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdated" />
+                app:layout_constraintTop_toBottomOf="@id/cvMoreAndUpdated">
+
+                <ImageView
+                    android:id="@+id/ivError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_no_connection"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias=".4" />
+
+                <TextView
+                    android:id="@+id/tvErrorTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:text="No Internet Connection"
+                    android:textColor="@color/dark_80"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivError" />
+
+                <TextView
+                    android:id="@+id/tvError"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:text="Check your connection, then refresh the page."
+                    android:textAlignment="center"
+                    android:textColor="@color/dark_67"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvErrorTitle"
+                    app:layout_constraintWidth_percent=".7" />
+
+                <Button
+                    android:id="@+id/btRefresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/border_button"
+                    android:minHeight="0dp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:text="Refresh"
+                    android:textAllCaps="false"
+                    android:textColor="@color/FounderBlue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvError"
+
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout
                 android:id="@+id/loadingPanel"
