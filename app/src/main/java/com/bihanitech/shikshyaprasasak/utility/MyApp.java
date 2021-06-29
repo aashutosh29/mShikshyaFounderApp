@@ -3,6 +3,8 @@ package com.bihanitech.shikshyaprasasak.utility;
 import android.app.Application;
 import android.content.Context;
 
+import androidx.multidex.MultiDex;
+
 public class MyApp extends Application {
     private static MyApp instance;
 
@@ -19,5 +21,12 @@ public class MyApp extends Application {
     public void onCreate() {
         instance = this;
         super.onCreate();
+    }
+
+    // Here you will enable Multidex
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(getBaseContext());
     }
 }

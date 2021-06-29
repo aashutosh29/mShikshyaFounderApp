@@ -65,6 +65,9 @@ package com.bihanitech.shikshyaprasasak.remote;
 import android.util.Log;
 
 import com.bihanitech.shikshyaprasasak.utility.MyApp;
+import com.chuckerteam.chucker.api.ChuckerCollector;
+import com.chuckerteam.chucker.api.ChuckerInterceptor;
+import com.chuckerteam.chucker.api.RetentionManager;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -80,15 +83,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static Retrofit retrofit = null;
-
-
-//    private static File httpCacheDirectory = new File(getContext().getCacheDir(), "offlineCache");
-
     //10 MB
     private static final okhttp3.Cache cache = new okhttp3.Cache(MyApp.getContext().getCacheDir(), 20 * 1024 * 1024);
 
+
+    //    private static File httpCacheDirectory = new File(getContext().getCacheDir(), "offlineCache");
     private static final String TAG = RetrofitClient.class.getSimpleName();
+    // Create the Collector
+    static ChuckerCollector chuckerCollector = new ChuckerCollector(
+            MyApp.getContext(),
+            // Toggles visibility of the push notification
+            true,
+            // Allows to customize the retention period of collected data
+            RetentionManager.Period.ONE_HOUR
+    );
+    static ChuckerInterceptor chuckerInterceptor = new ChuckerInterceptor.Builder(MyApp.getContext())
+            // The previously created Collector
+            .collector(chuckerCollector)
+            // The max body content length in bytes, after this responses will be truncated.
+            .maxContentLength(250_000L)
+            // List of headers to replace with ** in the Chucker UI
+            .redactHeaders("Auth-Token", "Bearer ")
+            // Read the whole response body even when the client does not consume the response completely.
+            // This is useful in case of parsing errors or when the response body
+            // is closed before being read like in Retrofit with Void and Unit types.
+            .alwaysReadResponseBody(true)
+            // Use decoder when processing request and response bodies. When multiple decoders are installed they
+            // are applied in an order they were added
+            .build();
     public static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .cache(cache)
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -96,7 +118,9 @@ public class RetrofitClient {
             .writeTimeout(60, TimeUnit.SECONDS)
             .addNetworkInterceptor(provideCacheInterceptor())
             .addInterceptor(provideOfflineCacheInterceptor())
+            .addInterceptor(chuckerInterceptor)
             .build();
+    private static Retrofit retrofit = null;
 
     public static Retrofit getClient(String baseUrl) {
 
@@ -148,7 +172,6 @@ public class RetrofitClient {
 
     }
 
-
     private static Interceptor provideOfflineCacheInterceptor() {
         return new Interceptor() {
             @Override
@@ -166,5 +189,6 @@ public class RetrofitClient {
             }
         };
     }
+
 
 }
